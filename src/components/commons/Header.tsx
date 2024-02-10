@@ -7,13 +7,21 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
+import UserDropdown from "../custom/UserDropdown";
+import { Button } from "../ui/button";
+import { CircleUser } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleUserDropdown = () => {
+    setIsUserDropdownOpen(!isUserDropdownOpen);
   };
 
   const toggleDropdown = () => {
@@ -73,12 +81,27 @@ export default function Header() {
         </div>
         <div className="flex items-center">
           <div className="hidden sm:block">
-            <button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Connexion
-            </button>
-            <button className="ml-4 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Inscription
-            </button>
+            <div>
+              <UserDropdown open={isUserDropdownOpen}>
+                <>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Mon compte
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Me deconnecter
+                  </a>
+                </>
+              </UserDropdown>
+              <Button className="rounded-full" onClick={toggleUserDropdown}>
+                <CircleUser size={20} className="m-1" /> OUEDRAOGO Elisée
+              </Button>
+            </div>
           </div>
           <div className="-mr-2 flex md:hidden">
             <button
@@ -105,7 +128,7 @@ export default function Header() {
               isMenuOpen ? "block" : "hidden"
             }`}
           >
-            <div className="flex flex-col bg-gray-400 opacity-95 px-4 py-4">
+            <div className="flex flex-col border border-red-900 bg-slate-200 backdrop-blur-lg filter px-4 py-4">
               <div className="mb-2">
                 <TooltipProvider>
                   <Tooltip>
