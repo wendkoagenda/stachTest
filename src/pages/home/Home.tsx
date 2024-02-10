@@ -42,14 +42,88 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="w-full mx-auto p-9 border border-gray-300 bg-slate-950">
+      <div className="w-full mx-auto p-16 border border-gray-300">
         <div className="grid lg:grid-cols-4  md:grid-cols-2 gap-4">
-          <div className="border border-red-600 ">
+          <div className="border border-red-600 mt-2">
             <Button>Click me</Button>
           </div>
           <div className="border border-red-600 ">2</div>
           <div className="border border-red-600 ">3</div>
           <div className="border border-red-600 ">4</div>
+        </div>
+        <div className="flex flex-row justify-center">
+          <Card>
+            <CardHeader>
+              <CardTitle>Login</CardTitle>
+              <CardDescription>
+                Ceci est la description du login
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="username" {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">Submit</Button>
+                </form>
+              </Form>
+            </CardContent>
+            <CardFooter>Je suis le footer</CardFooter>
+          </Card>
+        </div>
+        <div className="flex flex-row justify-center">
+          <Card>
+            <CardHeader>
+              <CardTitle>Login</CardTitle>
+              <CardDescription>
+                Ceci est la description du login
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="username" {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">Submit</Button>
+                </form>
+              </Form>
+            </CardContent>
+            <CardFooter>Je suis le footer</CardFooter>
+          </Card>
         </div>
         <div className="flex flex-row justify-center">
           <Card>
