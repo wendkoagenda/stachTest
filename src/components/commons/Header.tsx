@@ -4,29 +4,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
-import { Button } from "../ui/button";
-import { CircleUser } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleUserDropdown = () => {
-    setIsUserDropdownOpen(!isUserDropdownOpen);
+  const handleClickOutside = (event: MouseEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (menuRef.current && !(menuRef.current as any).contains(event.target)) {
+      setIsMenuOpen(false);
+    }
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter ">
@@ -62,7 +66,7 @@ export default function Header() {
               </Tooltip>
             </TooltipProvider>
             <div>
-              <Dropdown open={isOpen}>
+              <Dropdown title="Kioque">
                 <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -70,19 +74,13 @@ export default function Header() {
                   Option 1
                 </a>
               </Dropdown>
-              <button
-                className="text-gray-700 hover:font-bold"
-                onClick={toggleDropdown}
-              >
-                Dropdown menu
-              </button>
             </div>
           </div>
         </div>
         <div className="flex items-center">
           <div className="hidden sm:block">
             <div>
-              <UserDropdown open={isUserDropdownOpen}>
+              <UserDropdown title="OUEDRAOGO">
                 <>
                   <a
                     href="#"
@@ -98,9 +96,6 @@ export default function Header() {
                   </a>
                 </>
               </UserDropdown>
-              <Button className="rounded-full" onClick={toggleUserDropdown}>
-                <CircleUser size={20} className="m-1" /> OUEDRAOGO Elisée
-              </Button>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -128,7 +123,10 @@ export default function Header() {
               isMenuOpen ? "block" : "hidden"
             }`}
           >
-            <div className="flex flex-col border border-red-900 bg-slate-200 backdrop-blur-lg filter px-4 py-4">
+            <div
+              className="flex flex-col border border-red-900 bg-slate-200 backdrop-blur-lg filter px-4 py-4"
+              ref={menuRef}
+            >
               <div className="mb-2">
                 <TooltipProvider>
                   <Tooltip>
@@ -160,7 +158,7 @@ export default function Header() {
                 </TooltipProvider>
               </div>
               <div className="mb-2">
-                <Dropdown open={isOpen}>
+                <Dropdown title="Kioque">
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -168,15 +166,9 @@ export default function Header() {
                     Option 1
                   </a>
                 </Dropdown>
-                <button
-                  className="text-gray-700 hover:font-bold"
-                  onClick={toggleDropdown}
-                >
-                  Dropdown menu
-                </button>
               </div>
               <div>
-                <Dropdown open={isUserDropdownOpen}>
+                <Dropdown title="OUEDRAOGO">
                   <>
                     <a
                       href="#"
@@ -188,11 +180,10 @@ export default function Header() {
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      Me deconnecter
+                      Me déconnecter
                     </a>
                   </>
                 </Dropdown>
-                <button onClick={toggleUserDropdown}>OUEDRAOGO Elisée</button>
               </div>
             </div>
           </div>
