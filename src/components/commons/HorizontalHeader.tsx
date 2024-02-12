@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
 
-export default function Header() {
+export default function HorizontalHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

@@ -1,5 +1,5 @@
 import Footer from "../commons/Footer";
-import Header from "../commons/Header";
+import Header from "../commons/HorizontalHeader";
 
 // export default function AuthenticatedLayout({ content }: { content: string }) {
 //   return (
