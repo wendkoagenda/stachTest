@@ -175,6 +175,25 @@ export default function Header() {
                   Dropdown menu
                 </button>
               </div>
+              <div>
+                <Dropdown open={isUserDropdownOpen}>
+                  <>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Mon compte
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Me deconnecter
+                    </a>
+                  </>
+                </Dropdown>
+                <button onClick={toggleUserDropdown}>OUEDRAOGO Elisée</button>
+              </div>
             </div>
           </div>
         </div>
