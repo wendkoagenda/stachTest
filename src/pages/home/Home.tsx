@@ -1,4 +1,4 @@
-import VerticalHeader from "@/components/commons/VerticalHeader";
+import HorizontalHeader from "@/components/commons/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -43,8 +43,8 @@ export default function Home() {
 
   return (
     <>
-      {/* <HorizontalHeader /> */}
-      <VerticalHeader />
+      <HorizontalHeader />
+      {/* <VerticalHeader /> */}
       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300">
         <div className="border border-red-600">
           <Card>
@@ -81,7 +81,7 @@ export default function Home() {
               </Form>
             </CardContent>
             <CardFooter>Je suis le footer</CardFooter>
-          </Card>{" "}
+          </Card>
         </div>
       </div>
       <Footer />

@@ -1,7 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Button } from "../ui/button";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
 
 export default function VerticalHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,8 +91,6 @@ export default function VerticalHeader() {
       ) : (
         <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter items-center">
           <div className="flex items-center">
-            {" "}
-            {/* Conteneur gauche */}
             <button
               className="inline-flex items-start justify-start p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               onClick={toggleMenu}
