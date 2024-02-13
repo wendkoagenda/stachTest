@@ -22,6 +22,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Footer from "../../components/commons/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "@/redux/slices/authSlice";
+import { RootState } from "@/redux/RootState";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -30,6 +34,7 @@ const formSchema = z.object({
 });
 
 export default function Home() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,13 +45,34 @@ export default function Home() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    dispatch(login());
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <>
       <HorizontalHeader />
-      {/* <VerticalHeader /> */}
       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300">
         <div className="border border-red-600">
+          <div>
+            {isAuthenticated === "yes" ? (
+              <Button onClick={handleLogout}>Logout</Button>
+            ) : (
+              <Button onClick={handleLogin}>Login</Button>
+            )}
+          </div>
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>
