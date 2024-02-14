@@ -38,7 +38,7 @@ const UserDropdown: React.FC<DropdownProps> = ({ children, title }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <Button className="rounded-full" onClick={toggleDropdown}>
+      <Button onClick={toggleDropdown}>
         <CircleUser className="mr-2 h-4 w-4" /> {title}
       </Button>
       {isOpen && (

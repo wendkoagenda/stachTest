@@ -42,7 +42,7 @@ export default function Login() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Login model:", values);
+    console.log("Logn model:", values);
     dispatch(login());
     navigate("/");
   }

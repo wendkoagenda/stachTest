@@ -75,7 +75,6 @@ export default function Home() {
               <Button onClick={handleLogin}>Login</Button>
             )}
           </div>
-          <ModeToggle />
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>

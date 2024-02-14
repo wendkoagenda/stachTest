@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export default function HorizontalHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -78,24 +79,29 @@ export default function HorizontalHeader() {
           </div>
         </div>
         <div className="flex items-center">
-          <div className="hidden sm:block">
-            <div>
-              <UserDropdown title="OUEDRAOGO">
-                <>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Mon compte
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Me deconnecter
-                  </a>
-                </>
-              </UserDropdown>
+          <div className="hidden  sm:block">
+            <div className="flex flex-row">
+              <div>
+                <UserDropdown title="OUEDRAOGO">
+                  <>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Mon compte
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Me deconnecter
+                    </a>
+                  </>
+                </UserDropdown>
+              </div>
+              <div>
+                <ModeToggle />
+              </div>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
