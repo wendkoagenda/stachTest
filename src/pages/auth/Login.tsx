@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { login } from "@/redux/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -41,7 +42,7 @@ export default function Login() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Logon model:", values);
+    console.log("Login model:", values);
     dispatch(login());
     navigate("/");
   }
@@ -52,7 +53,14 @@ export default function Login() {
       <div className="flex justify-center items-center h-screen">
         <Card className="w-96">
           <CardHeader>
-            <CardTitle>Login</CardTitle>
+            <CardTitle>
+              <div className="flex justify-between">
+                <div>Login</div>
+                <div>
+                  <ModeToggle />
+                </div>
+              </div>
+            </CardTitle>
             <CardDescription>Ceci est la description du login</CardDescription>
           </CardHeader>
           <CardContent>

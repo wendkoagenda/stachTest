@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "@/redux/slices/authSlice";
 import { RootState } from "@/redux/RootState";
 import { useNavigate } from "react-router-dom";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -74,6 +75,7 @@ export default function Home() {
               <Button onClick={handleLogin}>Login</Button>
             )}
           </div>
+          <ModeToggle />
           <Card>
             <CardHeader>
               <CardTitle>Login</CardTitle>
