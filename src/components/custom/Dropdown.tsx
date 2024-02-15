@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ReactElement } from "react";
+import { Button } from "../ui/button";
 
 interface DropdownProps {
   children: React.ReactElement;
   title: string;
+  icon?: ReactElement;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ children, title }) => {
+const Dropdown: React.FC<DropdownProps> = ({ children, title, icon }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -36,11 +38,16 @@ const Dropdown: React.FC<DropdownProps> = ({ children, title }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button className=" hover:font-bold" onClick={toggleDropdown}>
+      <Button
+        className="hover:font-bold"
+        variant="outline"
+        onClick={toggleDropdown}
+      >
+        {icon && icon}
         {title}
-      </button>
+      </Button>
       {isOpen && (
-        <div className="absolute top-0 left-0 z-10 right-0 w-56 py-2 mt-6 shadow-md bg-white rounded-md">
+        <div className="absolute top-0 left-0 z-10 right-0 w-56 py-2 mt-12 shadow-md bg-white rounded-md">
           {children}
         </div>
       )}

@@ -52,7 +52,7 @@ export default function Login() {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12">
         <Card className="w-96">
           <CardHeader>
             <CardTitle>

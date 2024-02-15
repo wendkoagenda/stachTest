@@ -42,7 +42,7 @@ const UserDropdown: React.FC<DropdownProps> = ({ children, title }) => {
         <CircleUser className="mr-2 h-4 w-4" /> {title}
       </Button>
       {isOpen && (
-        <div className="absolute top-0 left-0 z-10 right-0 w-56 py-2 mt-6 shadow-md bg-white rounded-md">
+        <div className="absolute top-0 left-0 z-10 right-0 w-56 py-2 mt-12 shadow-md bg-white rounded-md">
           {children}
         </div>
       )}

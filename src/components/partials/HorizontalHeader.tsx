@@ -4,15 +4,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { logout } from "@/redux/slices/authSlice";
+import { Home, Key, LogOut, Menu, Option, User, User2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
-import { ModeToggle } from "../ui/mode-toggle";
-import { useDispatch } from "react-redux";
-import { logout } from "@/redux/slices/authSlice";
 import { Button } from "../ui/button";
-import { LogOut, User } from "lucide-react";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export default function HorizontalHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,10 +55,9 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  {" "}
-                  <Link to="/" className=" font-bold">
-                    Home
-                  </Link>
+                  <Button variant="outline">
+                    <Home className="mr-2 h-4 w-4" /> Home
+                  </Button>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Page d'accueil</p>
@@ -68,24 +67,23 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  {" "}
-                  <Link to="/" className=" hover:font-bold">
-                    A propos
-                  </Link>
+                  <Button variant="outline">
+                    <User2 className="mr-2 h-4 w-4" /> Utilisateurs
+                  </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Page A propos</p>
+                  <p>Liste des utilisateurs</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
             <div>
-              <Dropdown title="Kioque">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm  hover:bg-gray-100"
+              <Dropdown title="Kioque" icon={<Key className="mr-2 h-4 w-4" />}>
+                <Button
+                  className="w-full rounded-md mb-2 border border-none justify-start"
+                  variant="outline"
                 >
-                  Option 1
-                </a>
+                  <Option className="mr-2 h-4 w-4" /> Option 1
+                </Button>
               </Dropdown>
             </div>
           </div>
@@ -117,24 +115,13 @@ export default function HorizontalHeader() {
               </div>
             </div>
           </div>
+          {/* For mobile  */}
           <div className="-mr-2 flex md:hidden">
             <button
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               onClick={toggleMenu}
             >
-              <svg
-                className="h-6 w-6"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <Menu />
             </button>
           </div>
           <div
@@ -150,10 +137,9 @@ export default function HorizontalHeader() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      {" "}
-                      <Link to="/" className="text-gray-700 font-bold">
-                        Home
-                      </Link>
+                      <Button variant="outline">
+                        <Home className="mr-2 h-4 w-4" /> Home
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Page d'accueil</p>
@@ -165,45 +151,48 @@ export default function HorizontalHeader() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      {" "}
-                      <Link to="/" className="text-gray-700 hover:font-bold">
-                        A propos
-                      </Link>
+                      <Button variant="outline">
+                        <User2 className="mr-2 h-4 w-4" /> Utilisateurs
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Page A propos</p>
+                      <p>Liste des utilisateurs</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
               <div className="mb-2">
-                <Dropdown title="Kioque">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                <Dropdown
+                  title="Kioque"
+                  icon={<Key className="mr-2 h-4 w-4" />}
+                >
+                  <Button
+                    className="w-full rounded-md mb-2 border border-none justify-start"
+                    variant="outline"
                   >
-                    Option 1
-                  </a>
+                    <Option className="mr-2 h-4 w-4" /> Option 1
+                  </Button>
                 </Dropdown>
               </div>
               <div>
                 <div className="flex flex-row">
-                  <Dropdown title="OUEDRAOGO">
+                  <UserDropdown title="OUEDRAOGO">
                     <>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <Button
+                        className="w-full rounded-md mb-2 border border-none justify-start"
+                        variant="outline"
                       >
-                        Mon compte
-                      </a>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        <User className="mr-2 h-4 w-4" /> Mon compte
+                      </Button>
+                      <Button
+                        className="w-full rounded-md mb-2 border border-none justify-start"
+                        variant="outline"
+                        onClick={handleLogout}
                       >
-                        Me déconnecter
-                      </a>
+                        <LogOut className="mr-2 h-4 w-4" /> Me deconnecter
+                      </Button>
                     </>
-                  </Dropdown>
+                  </UserDropdown>
                 </div>
                 <div>
                   <ModeToggle />
