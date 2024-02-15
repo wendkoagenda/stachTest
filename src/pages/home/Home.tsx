@@ -1,4 +1,4 @@
-import HorizontalHeader from "@/components/commons/HorizontalHeader";
+import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,12 +21,11 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Footer from "../../components/commons/Footer";
+import Footer from "../../components/partials/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "@/redux/slices/authSlice";
 import { RootState } from "@/redux/RootState";
 import { useNavigate } from "react-router-dom";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const formSchema = z.object({
   username: z.string().min(2, {

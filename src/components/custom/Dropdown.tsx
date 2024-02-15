@@ -36,10 +36,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children, title }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
-        className="text-gray-700 hover:font-bold"
-        onClick={toggleDropdown}
-      >
+      <button className=" hover:font-bold" onClick={toggleDropdown}>
         {title}
       </button>
       {isOpen && (

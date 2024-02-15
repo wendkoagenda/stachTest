@@ -44,7 +44,7 @@ export default function HorizontalHeader() {
               <Tooltip>
                 <TooltipTrigger>
                   {" "}
-                  <Link to="/" className="text-gray-700 font-bold">
+                  <Link to="/" className=" font-bold">
                     Home
                   </Link>
                 </TooltipTrigger>
@@ -57,7 +57,7 @@ export default function HorizontalHeader() {
               <Tooltip>
                 <TooltipTrigger>
                   {" "}
-                  <Link to="/" className="text-gray-700 hover:font-bold">
+                  <Link to="/" className=" hover:font-bold">
                     A propos
                   </Link>
                 </TooltipTrigger>
@@ -70,7 +70,7 @@ export default function HorizontalHeader() {
               <Dropdown title="Kioque">
                 <a
                   href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm  hover:bg-gray-100"
                 >
                   Option 1
                 </a>
@@ -174,22 +174,27 @@ export default function HorizontalHeader() {
                 </Dropdown>
               </div>
               <div>
-                <Dropdown title="OUEDRAOGO">
-                  <>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Mon compte
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Me déconnecter
-                    </a>
-                  </>
-                </Dropdown>
+                <div className="flex flex-row">
+                  <Dropdown title="OUEDRAOGO">
+                    <>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Mon compte
+                      </a>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Me déconnecter
+                      </a>
+                    </>
+                  </Dropdown>
+                </div>
+                <div>
+                  <ModeToggle />
+                </div>
               </div>
             </div>
           </div>
