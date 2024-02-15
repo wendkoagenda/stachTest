@@ -5,14 +5,20 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
 import { ModeToggle } from "../ui/mode-toggle";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/slices/authSlice";
+import { Button } from "../ui/button";
+import { LogOut, User } from "lucide-react";
 
 export default function HorizontalHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,6 +37,12 @@ export default function HorizontalHeader() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Logout
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <>
@@ -80,26 +92,27 @@ export default function HorizontalHeader() {
         </div>
         <div className="flex items-center">
           <div className="hidden  sm:block">
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
               <div>
                 <UserDropdown title="OUEDRAOGO">
                   <>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    <Button
+                      className="w-full rounded-md mb-2 border border-none justify-start"
+                      variant="outline"
                     >
-                      Mon compte
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <User className="mr-2 h-4 w-4" /> Mon compte
+                    </Button>
+                    <Button
+                      className="w-full rounded-md mb-2 border border-none justify-start"
+                      variant="outline"
+                      onClick={handleLogout}
                     >
-                      Me deconnecter
-                    </a>
+                      <LogOut className="mr-2 h-4 w-4" /> Me deconnecter
+                    </Button>
                   </>
                 </UserDropdown>
               </div>
-              <div>
+              <div className="ml-1">
                 <ModeToggle />
               </div>
             </div>

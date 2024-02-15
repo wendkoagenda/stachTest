@@ -26,8 +26,9 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  email: z.string().email({ message: "Mail invalide !" }),
+  password: z.string().min(1, {
+    message: "Le mot de passe est obligatoire ",
   }),
 });
 
@@ -37,7 +38,8 @@ export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -55,7 +57,7 @@ export default function Login() {
           <CardHeader>
             <CardTitle>
               <div className="flex justify-between">
-                <div>Login</div>
+                <div>Login Page</div>
                 <div>
                   <ModeToggle />
                 </div>
@@ -71,15 +73,33 @@ export default function Login() {
               >
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="username" {...field} />
+                        <Input placeholder="email" {...field} />
+                      </FormControl>
+                      <FormDescription>Entrez votre email</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Mot de passe</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="password"
+                          {...field}
+                          type="password"
+                        />
                       </FormControl>
                       <FormDescription>
-                        This is your public display name.
+                        Entrez votre mot de passe ici
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
