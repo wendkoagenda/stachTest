@@ -8,7 +8,7 @@ import { logout } from "@/redux/slices/authSlice";
 import { Home, Key, LogOut, Menu, Option, User, User2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
 import { Button } from "../ui/button";
@@ -44,6 +44,42 @@ export default function HorizontalHeader() {
     navigate("/login");
   };
 
+  // Url de la page courante
+  const location = useLocation();
+  const currentURL = location.pathname;
+  // console.log("current URL", currentURL);
+
+  enum ButtonVariant {
+    Outline = "outline",
+    Default = "default",
+    Link = "link",
+    Destructive = "destructive",
+    Secondary = "secondary",
+    Ghost = "ghost",
+  }
+  const [homeVariant, setHomeVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
+  const [userVariant, setUserVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
+
+  useEffect(() => {
+    if (currentURL === "/") {
+      setHomeVariant(ButtonVariant.Default);
+    } else if (currentURL === "/users") {
+      setUserVariant(ButtonVariant.Default);
+    }
+  }, [currentURL, ButtonVariant.Default]);
+
+  const handleGoToHomePage = () => {
+    setUserVariant(ButtonVariant.Outline);
+    navigate("/");
+  };
+  const handleGoToUsersPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/users");
+  };
   return (
     <>
       <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter ">
@@ -55,7 +91,7 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="outline">
+                  <Button variant={homeVariant} onClick={handleGoToHomePage}>
                     <Home className="mr-2 h-4 w-4" /> Home
                   </Button>
                 </TooltipTrigger>
@@ -67,7 +103,7 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="outline">
+                  <Button variant={userVariant} onClick={handleGoToUsersPage}>
                     <User2 className="mr-2 h-4 w-4" /> Utilisateurs
                   </Button>
                 </TooltipTrigger>
