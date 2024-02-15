@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Login from "./pages/auth/Login";
 import PrivateRoute from "./components/custom/PrivateRoute";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import UsersList from "./pages/user";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" />
-            <Route element={<Home />} path="/users" />
+            <Route element={<UsersList />} path="/users" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>
