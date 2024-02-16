@@ -60,25 +60,25 @@ export default function HorizontalHeader() {
   const [homeVariant, setHomeVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
-  const [userVariant, setUserVariant] = useState<ButtonVariant>(
+  const [agentVariant, setAgentVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
 
   useEffect(() => {
     if (currentURL === "/") {
       setHomeVariant(ButtonVariant.Default);
-    } else if (currentURL === "/users") {
-      setUserVariant(ButtonVariant.Default);
+    } else if (currentURL === "/agents") {
+      setAgentVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
   const handleGoToHomePage = () => {
-    setUserVariant(ButtonVariant.Outline);
+    setAgentVariant(ButtonVariant.Outline);
     navigate("/");
   };
   const handleGoToUsersPage = () => {
     setHomeVariant(ButtonVariant.Outline);
-    navigate("/users");
+    navigate("/agents");
   };
   return (
     <>
@@ -103,12 +103,12 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant={userVariant} onClick={handleGoToUsersPage}>
-                    <User2 className="mr-2 h-4 w-4" /> Utilisateurs
+                  <Button variant={agentVariant} onClick={handleGoToUsersPage}>
+                    <User2 className="mr-2 h-4 w-4" /> Agents
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Liste des utilisateurs</p>
+                  <p>Liste des Agents</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

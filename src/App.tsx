@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/home";
-import Login from "./pages/auth/Login";
 import PrivateRoute from "./components/custom/PrivateRoute";
 import { ThemeProvider } from "./components/ui/theme-provider";
-import UsersList from "./pages/user";
+import AgentsList from "./pages/agent";
+import Login from "./pages/auth/Login";
+import Home from "./pages/home";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" />
-            <Route element={<UsersList />} path="/users" />
+            <Route element={<AgentsList />} path="/agents" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>
