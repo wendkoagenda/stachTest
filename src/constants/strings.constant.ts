@@ -10,11 +10,33 @@ const strings = {
     ADMIN: "Admin",
     TECHNICIAN: "Technician",
   },
+  INSTRUCTIONS: {
+    UPDATED_AGENT:
+      "Effectuez des modifications d'agent ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_AGENT:
+      "Ajouter un nouveaux menbre de l'administration ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+  },
+  TOOLTIPS: {
+    ADD_AGENT: "Ajouter un nouveau membre de l'administration",
+  },
   ERRORS: {
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
     NETWORK: "Erreur réseau, vérifiez votre connexion Internet et réessayez",
     UNFORESEEN:
       "Oops! Une erreur inattendue est apparue. Si cela persiste, contactez le support informatique",
+  },
+  TEXTS: {
+    MODIFY_AGENT: "Modification des infos de cet agent",
+    ADD_AGENT: "Ajout s'un nouveau membre de l'administration",
+    LIST_AGENT: "Liste des menbres de l'administration",
+  },
+  TH: {
+    PHONE1: "Téléphone 1 (What)",
+    PHONE2: "Téléphone 2",
+    EMAIL: "Adresse email",
+    FIRST_NAME: "Prénom(s)",
+    LAST_NAME: "Nom",
+    REGISTRATION_NO: "N° matricule",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",
@@ -42,10 +64,12 @@ const strings = {
     RESET_FORM: "Réinitialiser le formulaire",
     CANCEL: "Annuler",
     CLOSE: "Fermer",
-    DELETE: "Oui",
+    DELETE: "Supprimer",
     DELETEING: "Suppression ...",
     CONFIRM: "Oui",
     CONFIRMIMG: "En cours ...",
+    ADD: "Ajouter",
+    EDIT: "Modifier",
   },
 
   PERMISSIONS: {

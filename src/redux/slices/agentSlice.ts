@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface AgentState {
   isLoading: boolean;
-  data: AgentDaum;
+  data: AgentDaum[];
   success: boolean;
   errorMessages: string | null;
   creationDialogOpen: boolean;
