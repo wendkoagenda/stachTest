@@ -20,7 +20,7 @@ export default function AgentDataTable() {
   );
   // Store Data Fetching
   useEffect(() => {
-    dispatch(fetchAgents({ access_token }));
+    dispatch(fetchAgents({ access_token: access_token }));
   }, [dispatch, access_token]);
 
   const data = useSelector((state: RootState) => state.agents.data);

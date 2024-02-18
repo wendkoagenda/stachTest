@@ -2,6 +2,7 @@ import { ActorCreationModel } from "@/@types/ActorCreationModel";
 import { AgentDaum } from "@/@types/Agent";
 import AgentService from "@/services/AgentService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 
 export interface AgentState {
   isLoading: boolean;
@@ -48,17 +49,29 @@ export const showAgent = createAsyncThunk(
     }
   }
 );
-// CreateAgent
 export const createAgent = createAsyncThunk(
   "agents/createAgent",
-  async ({
-    access_token,
-    model,
-  }: {
-    access_token: string;
-    model: ActorCreationModel;
-  }) => {
-    await AgentService.createAgent(access_token, model);
+  async (
+    {
+      access_token,
+      model,
+    }: {
+      access_token: string;
+      model: ActorCreationModel;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      await AgentService.createAgent(access_token, model);
+    } catch (err) {
+      const error: AxiosError = err; // Ici, nous définissons le type de 'err'
+      // Nous vérifions si l'erreur a une réponse et renvoyons ces données si c'est le cas
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      }
+      // Sinon, nous renvoyons un message d'erreur générique
+      return rejectWithValue({ message: "Une erreur inconnue s'est produite" });
+    }
   }
 );
 
@@ -98,6 +111,14 @@ const agentSlice = createSlice({
     closeAgentCreateDialog: (state) => {
       state.creationDialogOpen = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(createAgent.rejected, (state, action) => {
+      state.isLoading = false;
+      state.success = false;
+      state.data = [];
+      state.errorMessages = action.payload;
+    });
   },
 });
 

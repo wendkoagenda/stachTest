@@ -30,13 +30,18 @@ import axios, { AxiosError } from "axios";
 import { AlertCircle, Loader2, SaveIcon, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { DialogFooter } from "@/components/ui/dialog";
-import { closeAgentCreateDialog, createAgent } from "@/redux/slices/agentSlice";
+import {
+  closeAgentCreateDialog,
+  createAgent,
+  fetchAgents,
+} from "@/redux/slices/agentSlice";
+import { RootState } from "@/redux/RootState";
 interface ErrorResponse {
   error: string;
 }
@@ -85,32 +90,22 @@ export default function CreateAgentForm() {
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(" ");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setSubmitting(true);
-      console.log("Submit Values CreatAgentForm:", values);
-      dispatch(createAgent({ access_token, values }))
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-        .then((response: any) => {
-          if (response.error.code === "ERR_BAD_REQUEST") {
-            console.log("Error on agent create:", response);
-            openSubmissionFailNotification();
-            setSubmitting(false);
-          } else {
-            openNotification();
-            console.log("Réponse de createAgent: ", response);
-            setSubmitting(false);
-          }
-        })
-        .catch((error: any) => {
-          // Traitez l'erreur ici
-          setSubmitting(false);
-          console.log("Erreur dans createAgent: ", error);
-        });
-    } catch (error) {
-      console.log("Submit Error CreatAgentForm:", error);
+      const response = await dispatch(
+        createAgent({ access_token: access_token, model: values })
+      );
+      if (response?.error?.message === "Rejected") {
+        openSubmissionFailNotification();
+      } else {
+        dispatch(closeAgentCreateDialog());
+        dispatch(fetchAgents({ access_token: access_token }));
+        openNotification();
+      }
+    } catch (err) {
+      console.error(err);
     } finally {
       setSubmitting(false);
     }
