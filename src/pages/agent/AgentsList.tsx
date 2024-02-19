@@ -7,11 +7,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import strings from "@/constants/strings.constant";
-import { fetchAgents, openAgentCreateDialog } from "@/redux/slices/agentSlice";
+import { openAgentCreateDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
-import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { Loader2, Plus } from "lucide-react";
-import { useEffect } from "react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
@@ -24,11 +23,8 @@ export default function AgentsList() {
     "access_token";
 
   // Store Data Fetching
-  useEffect(() => {
-    dispatch(fetchAgents({ access_token: access_token }));
-  }, [dispatch, access_token]);
 
-  const agents = useAppSelector((state) => state.agents.data);
+  // const agents = useAppSelector((state) => state.agents.data);
   // const isLoading = useAppSelector((state) => state.agents.isLoading);
 
   // Creation
@@ -36,7 +32,12 @@ export default function AgentsList() {
     dispatch(openAgentCreateDialog());
   };
   const isLoading = useFetchAgentsQuery(access_token)?.isLoading || false;
+  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
 
+  const fetchAgentsQueryData = fetchAgentsQuery.data?.data;
+  const agents = Array.isArray(fetchAgentsQueryData)
+    ? fetchAgentsQueryData
+    : [];
   return (
     <>
       <HorizontalHeader />

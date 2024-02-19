@@ -4,6 +4,7 @@ import { ThemeProvider } from "./components/ui/theme-provider";
 import AgentsList from "./pages/agent";
 import Login from "./pages/auth/Login";
 import Home from "./pages/home";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route element={<Login />} path="/login" />
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </ThemeProvider>
   );
 }

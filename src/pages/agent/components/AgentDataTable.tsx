@@ -5,7 +5,6 @@ import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, Trash2 } from "lucide-react";
@@ -27,17 +26,15 @@ export default function AgentDataTable() {
 
   useEffect(() => {
     fetchAgentsQuery.refetch();
-  }, [access_token]);
+    console.log("je me recharge");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const data = useAppSelector((state) => state.agents.data);
+  const fetchAgentsQueryData = fetchAgentsQuery.data?.data;
+  const data = Array.isArray(fetchAgentsQueryData) ? fetchAgentsQueryData : [];
+
   const isLoading = fetchAgentsQuery.isLoading;
-  const isError = fetchAgentsQuery.isError;
   const error = fetchAgentsQuery.error;
-
-  console.log("isLoading : ", isLoading);
-  console.log("isError : ", isError);
-  console.log("error : ", error);
-  console.log("data : ", data);
 
   const columns = useMemo<MRT_ColumnDef<AgentDaum>[]>(
     () => [

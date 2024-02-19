@@ -1,59 +1,32 @@
+import { ActorCreationModel } from "@/@types/ActorCreationModel";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import getConfig from "@/config";
-import { REDIRECT_URL_KEY } from "@/constants/app.constant";
-import strings from "@/constants/strings.constant";
-import { login } from "@/redux/slices/authSlice";
-import LoginService from "@/services/LoginService";
-import useQuery from "@/utils/hooks/useQuery";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosError } from "axios";
-import { AlertCircle, Loader2, SaveIcon, X } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { z } from "zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
-import { DialogFooter } from "@/components/ui/dialog";
-import {
-  closeAgentCreateDialog,
-  createAgent,
-  fetchAgents,
-} from "@/redux/slices/agentSlice";
-import { RootState } from "@/redux/RootState";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useToast } from "@/components/ui/use-toast";
+import strings from "@/constants/strings.constant";
+import { closeAgentCreateDialog } from "@/redux/slices/agentSlice";
 import { useCreateAgentMutation, useFetchAgentsQuery } from "@/services/agent";
-import { ActorCreationModel } from "@/@types/ActorCreationModel";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
-interface ErrorResponse {
-  error: string;
-}
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const formSchema = z.object({
   title: z.string().default("Non définie"),
@@ -98,37 +71,36 @@ export default function CreateAgentForm() {
     },
   });
 
-  const [submissionError, setSubmissionError] = useState(false);
-  const [createAgent, { isLoading, isError, error }] = useCreateAgentMutation();
+  const [createAgent, { isLoading, error }] = useCreateAgentMutation();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const actorCreationModel: ActorCreationModel = {
       newActor: values,
       access_token: access_token,
     };
-    const { data: createdAgent } = await createAgent(
-      actorCreationModel
-    ).unwrap();
+    await createAgent(actorCreationModel).unwrap();
     dispatch(closeAgentCreateDialog());
-    console.log("Agent créé avec succès:", createdAgent);
+    fetchAgentsQuery.refetch();
+    openNotification();
   };
-
-  console.log("isError : ", isError);
-  console.log("isloading : ", isLoading);
-  console.log("error : ", error);
 
   const onCloseClick = () => {
     dispatch(closeAgentCreateDialog());
   };
+  const { toast } = useToast();
 
   // Pour le toast success
   const openNotification = () => {
-    alert("Success");
+    toast({
+      titleAndIcon: (
+        <div className="flex flex-row text-green-600">
+          <CheckCircle2 className="mr-2 h-4 w-4" />{" "}
+          {strings.MESSAGES.SUCCESS_ACTION}
+        </div>
+      ),
+    });
   };
-  // Pour le toast erreur
-  const openSubmissionFailNotification = () => {
-    alert("Erreur");
-  };
+
   return (
     <>
       <Form {...form}>
