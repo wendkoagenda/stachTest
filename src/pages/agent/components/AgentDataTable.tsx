@@ -1,10 +1,12 @@
 import { AgentDaum } from "@/@types/Agent";
 import strings from "@/constants/strings.constant";
+import { openAgentDeleteDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, Trash2 } from "lucide-react";
@@ -14,7 +16,8 @@ import {
   type MRT_ColumnDef,
 } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import DeletionAgentDialog from "./deletion";
 
 export default function AgentDataTable() {
   // Var
@@ -35,7 +38,7 @@ export default function AgentDataTable() {
 
   const isLoading = fetchAgentsQuery.isLoading;
   const error = fetchAgentsQuery.error;
-
+  const dispatch = useAppDispatch();
   const columns = useMemo<MRT_ColumnDef<AgentDaum>[]>(
     () => [
       {
@@ -126,6 +129,12 @@ export default function AgentDataTable() {
     ],
     []
   );
+  const [agentId, setAgentId] = useState(0);
+  const onDeleteClick = (agentId: number) => {
+    console.log("agentId", agentId);
+    setAgentId(agentId);
+    dispatch(openAgentDeleteDialog());
+  };
 
   if (error) {
     if ("status" in error) {
@@ -156,23 +165,27 @@ export default function AgentDataTable() {
         }}
         enableRowActions // Enable row actions
         positionActionsColumn="last"
-        renderRowActionMenuItems={({ row, table }) => [
+        renderRowActionMenuItems={({ closeMenu, row, table }) => [
           <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
             icon={<Edit2 className="mr-2 h-4 w-4" />}
             key="edit"
             label={strings.BUTTONS.EDIT}
-            onClick={() => console.info(`Edit${row.id}`)}
+            onClick={() => closeMenu()}
             table={table}
           />,
           <MRT_ActionMenuItem
             icon={<Trash2 className="mr-2 h-4 w-4" />}
             key="delete"
             label={strings.BUTTONS.DELETE}
-            onClick={() => console.info(`Delete${row.id}`)}
+            onClick={() => {
+              onDeleteClick(row.original.agent.id);
+              closeMenu();
+            }}
             table={table}
           />,
         ]}
       />
+      <DeletionAgentDialog agentId={agentId} />
     </>
   );
 }

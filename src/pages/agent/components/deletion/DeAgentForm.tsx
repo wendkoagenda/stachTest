@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/components/ui/use-toast";
 import strings from "@/constants/strings.constant";
 import { closeAgentCreateDialog } from "@/redux/slices/agentSlice";
 import { useCreateAgentMutation, useFetchAgentsQuery } from "@/services/agent";
@@ -19,7 +20,6 @@ import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
@@ -72,7 +72,7 @@ export default function CreateAgentForm() {
   });
 
   const [createAgent, { isLoading, error }] = useCreateAgentMutation();
-  const { openNotification } = NotificationToast();
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const actorCreationModel: ActorCreationModel = {
       newActor: values,
@@ -81,17 +81,24 @@ export default function CreateAgentForm() {
     await createAgent(actorCreationModel).unwrap();
     dispatch(closeAgentCreateDialog());
     fetchAgentsQuery.refetch();
-    openNotification(
-      undefined,
-      <div className="flex flex-row text-green-600">
-        <CheckCircle2 className="mr-2 h-4 w-4" />{" "}
-        {strings.MESSAGES.SUCCESS_ACTION}
-      </div>
-    );
+    openNotification();
   };
 
   const onCloseClick = () => {
     dispatch(closeAgentCreateDialog());
+  };
+  const { toast } = useToast();
+
+  // Pour le toast success
+  const openNotification = () => {
+    toast({
+      titleAndIcon: (
+        <div className="flex flex-row text-green-600">
+          <CheckCircle2 className="mr-2 h-4 w-4" />{" "}
+          {strings.MESSAGES.SUCCESS_ACTION}
+        </div>
+      ),
+    });
   };
 
   return (

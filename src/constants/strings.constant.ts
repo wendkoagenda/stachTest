@@ -15,6 +15,8 @@ const strings = {
       "Effectuez des modifications d'agent ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_AGENT:
       "Ajouter un nouveaux menbre de l'administration ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_AGENT:
+      "Veillez confirmer la suppression d'un membre de l'administration",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
@@ -29,6 +31,7 @@ const strings = {
     MODIFY_AGENT: "Modification des infos de cet agent",
     ADD_AGENT: "Ajout s'un nouveau membre de l'administration",
     LIST_AGENT: "Liste des menbres de l'administration",
+    DELETE_AGENT: "Suppression d'un membre de l'administration",
   },
   TH: {
     PHONE1: "Téléphone 1 (What)",

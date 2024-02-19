@@ -14,6 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
+import DeletionAgentDialog from "./components/deletion";
 export default function AgentsList() {
   // Var dispatch hook
   const dispatch = useAppDispatch();
