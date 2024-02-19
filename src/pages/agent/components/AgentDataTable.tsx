@@ -1,7 +1,13 @@
 import { AgentDaum } from "@/@types/Agent";
 import strings from "@/constants/strings.constant";
 import { useFetchAgentsQuery } from "@/services/agent";
+import {
+  renderFetchBaseQueryError,
+  renderSerializedError,
+} from "@/utils/functions/errorRenders";
 import { useAppSelector } from "@/utils/hooks/reduxHooks";
+import { SerializedError } from "@reduxjs/toolkit";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
@@ -10,13 +16,6 @@ import {
 } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import { SerializedError } from "@reduxjs/toolkit";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import {
-  renderFetchBaseQueryError,
-  renderSerializedError,
-} from "@/utils/functions/errorRenders";
 
 export default function AgentDataTable() {
   // Var
@@ -165,14 +164,14 @@ export default function AgentDataTable() {
             icon={<Edit2 className="mr-2 h-4 w-4" />}
             key="edit"
             label={strings.BUTTONS.EDIT}
-            onClick={() => console.info("Edit")}
+            onClick={() => console.info(`Edit${row.id}`)}
             table={table}
           />,
           <MRT_ActionMenuItem
             icon={<Trash2 className="mr-2 h-4 w-4" />}
             key="delete"
             label={strings.BUTTONS.DELETE}
-            onClick={() => console.info("Delete")}
+            onClick={() => console.info(`Delete${row.id}`)}
             table={table}
           />,
         ]}

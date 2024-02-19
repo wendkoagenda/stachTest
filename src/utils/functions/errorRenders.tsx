@@ -3,21 +3,44 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import {
   AlertCircle,
+  ArrowBigRight,
   Frown,
   Hourglass,
   ShieldAlert,
   StopCircle,
   WifiOff,
 } from "lucide-react";
+interface ValidationError {
+  [key: string]: string[];
+}
 
+interface ValidationErrors {
+  errors: ValidationError;
+}
 export const renderFetchBaseQueryError = (error: FetchBaseQueryError) => {
   let errorMessage = "An error occurred during the request.";
   let icon = <AlertCircle className="h-4 w-4" />;
+  let validationErrors: string[] = [];
 
   if (error.status === 401) {
     errorMessage =
       "You are not authorized to access this resource. Please log in again.";
     icon = <StopCircle className="h-4 w-4" />;
+  } else if (error.status === 400) {
+    errorMessage = "Erreur de validation";
+    const errorsData = error.data as ValidationErrors;
+    const errorMapping: Record<string, string> = {
+      email: "Erreur dans l'email.",
+      phone1: "Erreur dans le phone1.",
+      phone2: "Erreur dans le phone2.",
+      // Ajoutez d'autres clés d'erreur ici avec leurs modèles de messages correspondants
+    };
+    validationErrors = Object.entries(errorsData.errors).flatMap(([key]) => {
+      const errorTemplate = errorMapping[key];
+      return errorTemplate ? [errorTemplate] : [];
+    });
+
+    icon = <Frown className="h-4 w-4" />;
   } else if (error.status === 404) {
     errorMessage = "The requested resource was not found.";
     icon = <Frown className="h-4 w-4" />;
@@ -43,7 +66,18 @@ export const renderFetchBaseQueryError = (error: FetchBaseQueryError) => {
     <Alert variant="destructive">
       {icon}
       <AlertTitle>Request Error:</AlertTitle>
-      <AlertDescription>{errorMessage}</AlertDescription>
+      <AlertDescription>
+        {errorMessage}
+        {validationErrors.length > 0 && (
+          <div>
+            {validationErrors.map((validationError, index) => (
+              <div key={index} className="flex flex-row">
+                <ArrowBigRight className="mr-2 h-4 w-4" /> {validationError}
+              </div>
+            ))}
+          </div>
+        )}
+      </AlertDescription>
     </Alert>
   );
 };

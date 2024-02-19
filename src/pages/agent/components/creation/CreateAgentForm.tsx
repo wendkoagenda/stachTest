@@ -43,7 +43,14 @@ import {
 } from "@/redux/slices/agentSlice";
 import { RootState } from "@/redux/RootState";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import { useFetchAgentsQuery } from "@/services/agent";
+import { useCreateAgentMutation, useFetchAgentsQuery } from "@/services/agent";
+import { ActorCreationModel } from "@/@types/ActorCreationModel";
+import {
+  renderFetchBaseQueryError,
+  renderSerializedError,
+} from "@/utils/functions/errorRenders";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { SerializedError } from "@reduxjs/toolkit";
 interface ErrorResponse {
   error: string;
 }
@@ -91,29 +98,24 @@ export default function CreateAgentForm() {
     },
   });
 
-  const [isSubmitting, setSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState(false);
+  const [createAgent, { isLoading, isError, error }] = useCreateAgentMutation();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      setSubmitting(true);
-      const response = await dispatch(
-        createAgent({ access_token: access_token, model: values })
-      );
-      if (response?.error?.message === "Rejected") {
-        openSubmissionFailNotification();
-      } else {
-        dispatch(closeAgentCreateDialog());
-        await fetchAgentsQuery.refetch();
-        dispatch(fetchAgents({ access_token: access_token }));
-        openNotification();
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setSubmitting(false);
-    }
+    const actorCreationModel: ActorCreationModel = {
+      newActor: values,
+      access_token: access_token,
+    };
+    const { data: createdAgent } = await createAgent(
+      actorCreationModel
+    ).unwrap();
+    dispatch(closeAgentCreateDialog());
+    console.log("Agent créé avec succès:", createdAgent);
   };
+
+  console.log("isError : ", isError);
+  console.log("isloading : ", isLoading);
+  console.log("error : ", error);
 
   const onCloseClick = () => {
     dispatch(closeAgentCreateDialog());
@@ -127,11 +129,15 @@ export default function CreateAgentForm() {
   const openSubmissionFailNotification = () => {
     alert("Erreur");
   };
-
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {error
+            ? "status" in error
+              ? renderFetchBaseQueryError(error as FetchBaseQueryError)
+              : renderSerializedError(error as SerializedError)
+            : " "}
           <div className="grid grid-cols-2 gap-4 ">
             <FormField
               control={form.control}
@@ -278,7 +284,7 @@ export default function CreateAgentForm() {
             />
           </div>
           <DialogFooter>
-            {isSubmitting ? (
+            {isLoading ? (
               <Button disabled>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {strings.BUTTONS.SAVING}

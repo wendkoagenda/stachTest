@@ -1,9 +1,11 @@
+import { ActorCreationModel } from "@/@types/ActorCreationModel";
+import { ActorCreationResponse } from "@/@types/ActorCreationResponse";
 import { AgentRoot } from "@/@types/Agent";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const AGENT_ROUTE = "tenant/agentUser/";
-
+const AGENT_CREATE_ROUTE = "tenant/agents/";
 // Crée une nouvelle API Get all agents
 export const agentsApi = createApi({
   reducerPath: "agentsApi",
@@ -17,7 +19,20 @@ export const agentsApi = createApi({
         },
       }),
     }),
+    createAgent: builder.mutation<
+      ActorCreationResponse,
+      Partial<ActorCreationModel>
+    >({
+      query: (actorCreationModel) => ({
+        url: AGENT_CREATE_ROUTE,
+        method: "POST",
+        body: actorCreationModel.newActor,
+        headers: {
+          Authorization: `Bearer ${actorCreationModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
   }),
 });
 // Exporte les hooks générés automatiquement
-export const { useFetchAgentsQuery } = agentsApi;
+export const { useFetchAgentsQuery, useCreateAgentMutation } = agentsApi;
