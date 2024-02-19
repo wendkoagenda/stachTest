@@ -1,4 +1,4 @@
-export interface Root {
+export interface AgentRoot {
   success: boolean;
   message: string;
   data: AgentDaum[];

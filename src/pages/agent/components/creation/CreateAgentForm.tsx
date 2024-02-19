@@ -42,6 +42,8 @@ import {
   fetchAgents,
 } from "@/redux/slices/agentSlice";
 import { RootState } from "@/redux/RootState";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useFetchAgentsQuery } from "@/services/agent";
 interface ErrorResponse {
   error: string;
 }
@@ -71,7 +73,8 @@ export default function CreateAgentForm() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -101,6 +104,7 @@ export default function CreateAgentForm() {
         openSubmissionFailNotification();
       } else {
         dispatch(closeAgentCreateDialog());
+        await fetchAgentsQuery.refetch();
         dispatch(fetchAgents({ access_token: access_token }));
         openNotification();
       }

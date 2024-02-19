@@ -1,40 +1,41 @@
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
-import Footer from "../../components/partials/Footer";
-import AgentDataTable from "./components/AgentDataTable";
 import { Button } from "@/components/ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAgents, openAgentCreateDialog } from "@/redux/slices/agentSlice";
-import { RootState } from "@/redux/RootState";
-import { useEffect } from "react";
-import { Loader2, Plus } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import CreationAgentDialog from "./components/creation";
 import strings from "@/constants/strings.constant";
+import { fetchAgents, openAgentCreateDialog } from "@/redux/slices/agentSlice";
+import { useFetchAgentsQuery } from "@/services/agent";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import { Loader2, Plus } from "lucide-react";
+import { useEffect } from "react";
+import Footer from "../../components/partials/Footer";
+import AgentDataTable from "./components/AgentDataTable";
+import CreationAgentDialog from "./components/creation";
 export default function AgentsList() {
   // Var dispatch hook
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // var access_token
-  const access_token = localStorage.getItem(
-    "__kgfwe29__97efiyfcljbf68EF79WEFAD"
-  );
+  const access_token: string =
+    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ||
+    "access_token";
 
   // Store Data Fetching
   useEffect(() => {
-    dispatch(fetchAgents({ access_token }));
+    dispatch(fetchAgents({ access_token: access_token }));
   }, [dispatch, access_token]);
 
-  const agents = useSelector((state: RootState) => state.agents.data);
-  const isLoading = useSelector((state: RootState) => state.agents.isLoading);
+  const agents = useAppSelector((state) => state.agents.data);
+  // const isLoading = useAppSelector((state) => state.agents.isLoading);
 
   // Creation
   const onCreateClick = () => {
     dispatch(openAgentCreateDialog());
   };
+  const isLoading = useFetchAgentsQuery(access_token)?.isLoading || false;
 
   return (
     <>
