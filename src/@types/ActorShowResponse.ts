@@ -29,10 +29,7 @@ export interface Agent {
   camp_year_id: number;
 }
 
-enum Gender {
-  male = "male",
-  female = "female",
-}
+type Gender = "male" | "female";
 
 export interface User {
   id: number;
@@ -43,7 +40,7 @@ export interface User {
   email: string;
   phone1: string;
   phone2: string;
-  is_active: boolean;
+  is_active: number;
   created_by: number;
   created_at: string;
   updated_at: string;

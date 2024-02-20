@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ActorCreationModel } from "@/@types/ActorCreationModel";
 import { ActorShowModel } from "@/@types/ActorShowModel";
 import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
 import TableSkeleton from "@/components/custom/TableSkeleton";
@@ -17,12 +16,8 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import strings from "@/constants/strings.constant";
+import { closeAgentUpdateDialog } from "@/redux/slices/agentSlice";
 import {
-  closeAgentCreateDialog,
-  closeAgentUpdateDialog,
-} from "@/redux/slices/agentSlice";
-import {
-  useCreateAgentMutation,
   useFetchAgentByIdQuery,
   useFetchAgentsQuery,
   useUpdateAgentMutation,
@@ -75,33 +70,29 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
-    // const fetchData = async () => {
     fetchAgentByIdQuery.refetch();
-    //   const defaultTitle = data?.data?.agent?.title ?? "";
-    //   const defaultBanner = data?.data?.agent?.banner ?? "";
-    //   const defaultFirstName = data?.data?.user?.first_name ?? "";
-
-    //   // Utilisez ces valeurs pour initialiser defaultValues
-    //   form.reset({
-    //     title: defaultTitle,
-    //     banner: defaultBanner,
-    //     first_name: defaultFirstName,
-    //     // Autres champs...
-    //   });
-    // };
-    // fetchData();
   }, []);
 
   const data = fetchAgentByIdQuery.data;
   const isFetching = fetchAgentByIdQuery.isFetching;
+  const [gender, setGender] = useState("male");
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
     if (data && !dataLoaded) {
       setDataLoaded(true);
+      setGender(data?.data.user.gender);
+      if (data?.data.user.is_active === 1) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
     }
   }, [data]);
   console.log("isLoading show:", isFetching);
 
-  console.log(data);
+  console.log(data?.data.user.is_active);
+  console.log(data?.data.user.gender);
 
   const dispatch = useAppDispatch();
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
@@ -121,7 +112,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
         phone1: data?.data.user.phone1,
         phone2: data?.data.user.phone1,
         camp_year_id: parseInt(camp_year_id),
-        is_active: data?.data.user.is_active,
+        is_active: isActive,
       });
     }
   }, [data]);
@@ -137,7 +128,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
     };
     console.log("values", actorUpdateModel);
     await updateAgent(actorUpdateModel).unwrap();
-    dispatch(closeAgentCreateDialog());
+    dispatch(closeAgentUpdateDialog());
     fetchAgentsQuery.refetch();
     openNotification(
       undefined,
@@ -274,7 +265,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={gender}
                         className="flex flex-col space-y-1"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">

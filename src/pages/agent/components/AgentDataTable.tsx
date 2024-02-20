@@ -13,7 +13,7 @@ import {
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, Eye, EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -22,8 +22,8 @@ import {
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
 import DeletionAgentDialog from "./deletion";
-import UpdateAgentDialog from "./update";
 import ShowAgentDialog from "./show";
+import UpdateAgentDialog from "./update";
 
 export default function AgentDataTable() {
   // Var

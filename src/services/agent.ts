@@ -1,14 +1,12 @@
 import { ActorCreationModel } from "@/@types/ActorCreationModel";
-import { ActorCreationResponse } from "@/@types/ActorCreationResponse";
-import { AgentDaum, AgentRoot } from "@/@types/Agent";
 import { ActorDeletionModel } from "@/@types/ActorDeletionModel";
-import getConfig from "@/config";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ActorDeletionResponse } from "@/@types/ActorDeletionResponse";
 import { ActorGeneriqueResponse } from "@/@types/ActorGeneriqueResponse";
-import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
 import { ActorShowModel } from "@/@types/ActorShowModel";
 import { ActorShowResponse } from "@/@types/ActorShowResponse";
+import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
+import { AgentRoot } from "@/@types/Agent";
+import getConfig from "@/config";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const AGENT_ROUTE = "tenant/agentUser/";
 const AGENT_CREATE_ROUTE = "tenant/agents/";
@@ -66,7 +64,7 @@ export const agentsApi = createApi({
       Partial<ActorUpdateModel>
     >({
       query: (actorUpdateModel) => ({
-        url: `${AGENT_UPDATE_ROUTE}/${actorUpdateModel.actorUuid}`,
+        url: `${AGENT_UPDATE_ROUTE}${actorUpdateModel.actorUuid}`,
         method: "PUT", // Utilisez PUT pour mettre à jour les données
         body: actorUpdateModel.updateActor, // Les données mises à jour à envoyer dans le corps de la requête
         headers: {

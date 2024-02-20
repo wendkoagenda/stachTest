@@ -45,9 +45,6 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
 
   const data = fetchAgentByIdQuery.data;
   const isLoading = fetchAgentByIdQuery.isFetching;
-  console.log("isLoading show:", isLoading);
-
-  // console.log("Agent show :", data?.data.);
 
   const copyToClipboard = (content: string | undefined) => {
     if (typeof content === "string") {
