@@ -1,4 +1,4 @@
-import { ActorDeletionModel } from "@/@types/actorDeletionModel";
+import { ActorDeletionModel } from "@/@types/ActorDeletionModel";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

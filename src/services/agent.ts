@@ -1,13 +1,20 @@
 import { ActorCreationModel } from "@/@types/ActorCreationModel";
 import { ActorCreationResponse } from "@/@types/ActorCreationResponse";
-import { AgentRoot } from "@/@types/Agent";
-import { ActorDeletionModel } from "@/@types/actorDeletionModel";
+import { AgentDaum, AgentRoot } from "@/@types/Agent";
+import { ActorDeletionModel } from "@/@types/ActorDeletionModel";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ActorDeletionResponse } from "@/@types/ActorDeletionResponse";
+import { ActorGeneriqueResponse } from "@/@types/ActorGeneriqueResponse";
+import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
+import { ActorShowModel } from "@/@types/ActorShowModel";
+import { ActorShowResponse } from "@/@types/ActorShowResponse";
 
 const AGENT_ROUTE = "tenant/agentUser/";
 const AGENT_CREATE_ROUTE = "tenant/agents/";
 const AGENT_DELETE_ROUTE = "tenant/agents/";
+const AGENT_UPDATE_ROUTE = "tenant/agents/";
+const AGENT_ROUTE_SHOW = "tenant/agentUser/";
 // Crée une nouvelle API Get all agents
 export const agentsApi = createApi({
   reducerPath: "agentsApi",
@@ -21,8 +28,16 @@ export const agentsApi = createApi({
         },
       }),
     }),
+    fetchAgentById: builder.query<ActorShowResponse, ActorShowModel>({
+      query: (actoreShowModel) => ({
+        url: `${AGENT_ROUTE_SHOW}${actoreShowModel.actorUuid}`,
+        headers: {
+          Authorization: `Bearer ${actoreShowModel.access_token}`,
+        },
+      }),
+    }),
     createAgent: builder.mutation<
-      ActorCreationResponse,
+      ActorGeneriqueResponse,
       Partial<ActorCreationModel>
     >({
       query: (actorCreationModel) => ({
@@ -34,12 +49,28 @@ export const agentsApi = createApi({
         },
       }),
     }),
-    deleteAgent: builder.mutation<void, Partial<ActorDeletionModel>>({
+    deleteAgent: builder.mutation<
+      ActorGeneriqueResponse,
+      Partial<ActorDeletionModel>
+    >({
       query: (actorDeletionModel) => ({
         url: `${AGENT_DELETE_ROUTE}${actorDeletionModel.actorId}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${actorDeletionModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
+    updateAgent: builder.mutation<
+      ActorGeneriqueResponse,
+      Partial<ActorUpdateModel>
+    >({
+      query: (actorUpdateModel) => ({
+        url: `${AGENT_UPDATE_ROUTE}/${actorUpdateModel.actorUuid}`,
+        method: "PUT", // Utilisez PUT pour mettre à jour les données
+        body: actorUpdateModel.updateActor, // Les données mises à jour à envoyer dans le corps de la requête
+        headers: {
+          Authorization: `Bearer ${actorUpdateModel.access_token}`,
         },
       }),
     }),
@@ -50,4 +81,6 @@ export const {
   useFetchAgentsQuery,
   useCreateAgentMutation,
   useDeleteAgentMutation,
+  useFetchAgentByIdQuery,
+  useUpdateAgentMutation,
 } = agentsApi;

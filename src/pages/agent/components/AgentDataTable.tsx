@@ -1,6 +1,10 @@
 import { AgentDaum } from "@/@types/Agent";
 import strings from "@/constants/strings.constant";
-import { openAgentDeleteDialog } from "@/redux/slices/agentSlice";
+import {
+  openAgentDeleteDialog,
+  openAgentShowDialog,
+  openAgentUpdateDialog,
+} from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
 import {
   renderFetchBaseQueryError,
@@ -9,7 +13,7 @@ import {
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, Trash2 } from "lucide-react";
+import { Edit2, Eye, EyeIcon, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -18,6 +22,8 @@ import {
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
 import DeletionAgentDialog from "./deletion";
+import UpdateAgentDialog from "./update";
+import ShowAgentDialog from "./show";
 
 export default function AgentDataTable() {
   // Var
@@ -29,7 +35,6 @@ export default function AgentDataTable() {
 
   useEffect(() => {
     fetchAgentsQuery.refetch();
-    console.log("je me recharge");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,8 +42,10 @@ export default function AgentDataTable() {
   const data = Array.isArray(fetchAgentsQueryData) ? fetchAgentsQueryData : [];
 
   const isLoading = fetchAgentsQuery.isLoading;
+  // const isFetching = fetchAgentsQuery.isFetching;
   const error = fetchAgentsQuery.error;
   const dispatch = useAppDispatch();
+
   const columns = useMemo<MRT_ColumnDef<AgentDaum>[]>(
     () => [
       {
@@ -130,10 +137,21 @@ export default function AgentDataTable() {
     []
   );
   const [agentId, setAgentId] = useState(0);
+  const [agentUuid, setAgentUuid] = useState("");
+
   const onDeleteClick = (agentId: number) => {
     console.log("agentId", agentId);
     setAgentId(agentId);
     dispatch(openAgentDeleteDialog());
+  };
+
+  const onEditClick = (agentUuid: string) => {
+    setAgentUuid(agentUuid);
+    dispatch(openAgentUpdateDialog());
+  };
+  const onShowClick = (agentUuid: string) => {
+    setAgentUuid(agentUuid);
+    dispatch(openAgentShowDialog());
   };
 
   if (error) {
@@ -167,10 +185,23 @@ export default function AgentDataTable() {
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+            icon={<EyeIcon className="mr-2 h-4 w-4" />}
+            key="edit"
+            label={strings.BUTTONS.SHOW}
+            onClick={() => {
+              onShowClick(row.original.uuid);
+              closeMenu();
+            }}
+            table={table}
+          />,
+          <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
             icon={<Edit2 className="mr-2 h-4 w-4" />}
             key="edit"
             label={strings.BUTTONS.EDIT}
-            onClick={() => closeMenu()}
+            onClick={() => {
+              onEditClick(row.original.uuid);
+              closeMenu();
+            }}
             table={table}
           />,
           <MRT_ActionMenuItem
@@ -186,6 +217,8 @@ export default function AgentDataTable() {
         ]}
       />
       <DeletionAgentDialog agentId={agentId} />
+      <UpdateAgentDialog agentUuid={agentUuid} />
+      <ShowAgentDialog agentUuid={agentUuid} />
     </>
   );
 }

@@ -17,6 +17,8 @@ const strings = {
       "Ajouter un nouveaux menbre de l'administration ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
     DELETE_AGENT:
       "Veillez confirmer la suppression d'un membre de l'administration",
+    SHOW_AGENT:
+      "Vous retrouverez ici toutes les formation lie a cet utilisateru. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
@@ -32,6 +34,7 @@ const strings = {
     ADD_AGENT: "Ajout s'un nouveau membre de l'administration",
     LIST_AGENT: "Liste des menbres de l'administration",
     DELETE_AGENT: "Suppression d'un membre de l'administration",
+    SHOW_AGENT: "Détails sur un membre de l'administration",
   },
   TH: {
     PHONE1: "Téléphone 1 (What)",
@@ -40,6 +43,10 @@ const strings = {
     FIRST_NAME: "Prénom(s)",
     LAST_NAME: "Nom",
     REGISTRATION_NO: "N° matricule",
+    TITLE: "Titre",
+    BANNER: "Banniere",
+    GENDER: "Genre",
+    STATUS: "Status",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",
@@ -73,6 +80,10 @@ const strings = {
     CONFIRMIMG: "En cours ...",
     ADD: "Ajouter",
     EDIT: "Modifier",
+    SHOW: "Inspecter",
+    OK_CLOSE: "Ok, femer",
+    UPDATING: "Mise a jour en cours ...",
+    UPDATE: "Mettre a jour",
   },
 
   PERMISSIONS: {
