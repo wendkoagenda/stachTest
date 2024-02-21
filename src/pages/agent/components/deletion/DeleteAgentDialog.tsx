@@ -17,35 +17,46 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
 
 const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
-  // Var dispatch hook
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération du token d'accès
+  const access_token =
+    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
+    "access_token";
+  //*******************Fin
+
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  // Dialog open/close state
+
+  // Hook de récupération  de l'état  de la boite de dialogue du formulaire de suppression (Redux Store)
   const deletionAgentDialogOpen = useAppSelector(
     (state) => state.agents.deletionDialogOpen
   );
 
-  const onCloseClick = () => {
-    dispatch(closeAgentDeleteDialog());
-  };
-  const { openNotification } = NotificationToast();
-  const access_token: string =
-    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ||
-    "access_token";
+  // Hook pour suppression d'un Agent (RTK)
   const [deleteAgent, { isLoading, error }] = useDeleteAgentMutation();
-  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
 
+  // Hook pour récupérer la liste des Agents (RTK)
+  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
+  //*******************Fin
+
+  //*******************Déclaration d'autres variables
+  // Variable de type fonction pour l'affichage de notification de type Toast
+  const { openNotification } = NotificationToast();
+  //*******************Fin
+
+  //*******************Déclaration de fonctions
+  // Fonction de soumission de la demande de suppression
   const onDelete = async () => {
     const actorDeletionModel: ActorDeletionModel = {
       actorId: agentId,
       access_token: access_token,
     };
-    console.log("agentIdsss", actorDeletionModel.actorId);
     await deleteAgent(actorDeletionModel).unwrap();
     dispatch(closeAgentDeleteDialog());
     fetchAgentsQuery.refetch();
@@ -58,6 +69,14 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
       </div>
     );
   };
+  //*******************Fin
+
+  //*******************Déclaration de fonctions
+  // Fonction de fermeture de la boite de dialogue du formulaire de suppression  (Redux store)
+  const onCloseClick = () => {
+    dispatch(closeAgentDeleteDialog());
+  };
+  //*******************Fin
 
   return (
     <Dialog open={deletionAgentDialogOpen} onOpenChange={onCloseClick}>
