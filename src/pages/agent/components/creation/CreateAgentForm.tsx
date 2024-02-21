@@ -161,7 +161,7 @@ export default function CreateAgentForm() {
               name="last_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{strings.TH.LAST_NAME}</FormLabel>
+                  <FormLabel>{strings.TH.LAST_NAME}*</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={strings.PLACEHOLDERS.LAST_NAME}
@@ -177,7 +177,7 @@ export default function CreateAgentForm() {
               name="first_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{strings.TH.FIRST_NAME}</FormLabel>
+                  <FormLabel>{strings.TH.FIRST_NAME}*</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={strings.PLACEHOLDERS.FIRST_NAME}
@@ -193,7 +193,7 @@ export default function CreateAgentForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{strings.TH.EMAIL}</FormLabel>
+                  <FormLabel>{strings.TH.EMAIL}*</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={strings.PLACEHOLDERS.EMAIL}
@@ -211,7 +211,7 @@ export default function CreateAgentForm() {
               name="phone1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{strings.TH.PHONE1}</FormLabel>
+                  <FormLabel>{strings.TH.PHONE1}*</FormLabel>
                   <FormControl>
                     <Input
                       placeholder={strings.PLACEHOLDERS.PHONE1}

@@ -143,7 +143,6 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
       access_token: access_token,
       actorUuid: agentUuid,
     };
-    console.log("values", actorUpdateModel);
     await updateAgent(actorUpdateModel).unwrap();
     dispatch(closeAgentUpdateDialog());
     fetchAgentsQuery.refetch();
@@ -213,7 +212,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="last_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.LAST_NAME}</FormLabel>
+                    <FormLabel>{strings.TH.LAST_NAME}*</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={strings.PLACEHOLDERS.LAST_NAME}
@@ -229,7 +228,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="first_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.FIRST_NAME}</FormLabel>
+                    <FormLabel>{strings.TH.FIRST_NAME}*</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={strings.PLACEHOLDERS.FIRST_NAME}
@@ -245,7 +244,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.EMAIL}</FormLabel>
+                    <FormLabel>{strings.TH.EMAIL}*</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={strings.PLACEHOLDERS.EMAIL}
@@ -263,7 +262,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="phone1"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.PHONE1}</FormLabel>
+                    <FormLabel>{strings.TH.PHONE1}*</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={strings.PLACEHOLDERS.PHONE1}
@@ -286,7 +285,6 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                         {...field}
                       />
                     </FormControl>
-
                     <FormMessage />
                   </FormItem>
                 )}
