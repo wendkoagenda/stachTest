@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/table";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/RootState";
-import { AgentDaum } from "@/@types/Agent";
+import { AgentDaum } from "@/@types/Agent/Agent";
 
 // const data: Payment[] = [
 //   {

@@ -1,4 +1,4 @@
-import { AgentDaum } from "@/@types/Agent";
+import { AgentDaum } from "@/@types/Agent/Agent";
 import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {

@@ -1,5 +1,5 @@
 import { ActiveDesactiveModdel } from "@/@types/ActiveDesactiveModel";
-import { ActorCreationModel } from "@/@types/ActorCreationModel";
+import { ActorCreationModel } from "@/@types/Agent/ActorCreationModel";
 import getConfig from "@/config";
 import axios from "axios";
 

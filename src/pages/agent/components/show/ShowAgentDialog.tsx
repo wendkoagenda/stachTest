@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ActorShowModel } from "@/@types/ActorShowModel";
+import { ActorShowModel } from "@/@types/Agent/ActorShowModel";
 import TableSkeleton from "@/components/custom/TableSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import {
 import strings from "@/constants/strings.constant";
 import { closeAgentShowDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentByIdQuery } from "@/services/agent";
+
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
@@ -45,13 +46,14 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
 
   // Récupération des détails de l'agent au montage du composant
   useEffect(() => {
-    fetchAgentByIdQuery.refetch;
-  }, []);
+    fetchAgentByIdQuery.refetch();
+  }, [showAgentDialogOpen]);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   const data = fetchAgentByIdQuery.data;
   const isLoading = fetchAgentByIdQuery.isFetching;
+
   //*******************Fin
 
   //*******************Déclaration de fonctions

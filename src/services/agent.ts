@@ -1,10 +1,10 @@
-import { ActorCreationModel } from "@/@types/ActorCreationModel";
-import { ActorDeletionModel } from "@/@types/ActorDeletionModel";
-import { ActorGeneriqueResponse } from "@/@types/ActorGeneriqueResponse";
-import { ActorShowModel } from "@/@types/ActorShowModel";
-import { ActorShowResponse } from "@/@types/ActorShowResponse";
-import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
-import { AgentRoot } from "@/@types/Agent";
+import { ActorCreationModel } from "@/@types/Agent/ActorCreationModel";
+import { ActorDeletionModel } from "@/@types/Agent/ActorDeletionModel";
+import { ActorGeneriqueResponse } from "@/@types/Agent/ActorGeneriqueResponse";
+import { ActorShowModel } from "@/@types/Agent/ActorShowModel";
+import { ActorShowResponse } from "@/@types/Agent/ActorShowResponse";
+import { ActorUpdateModel } from "@/@types/Agent/ActorUpdateModel";
+import { AgentRoot } from "@/@types/Agent/Agent";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 

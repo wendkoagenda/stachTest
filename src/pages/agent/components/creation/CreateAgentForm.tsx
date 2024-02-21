@@ -1,4 +1,4 @@
-import { ActorCreationModel } from "@/@types/ActorCreationModel";
+import { ActorCreationModel } from "@/@types/Agent/ActorCreationModel";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {

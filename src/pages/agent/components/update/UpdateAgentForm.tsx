@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ActorShowModel } from "@/@types/ActorShowModel";
-import { ActorUpdateModel } from "@/@types/ActorUpdateModel";
+import { ActorShowModel } from "@/@types/Agent/ActorShowModel";
+import { ActorUpdateModel } from "@/@types/Agent/ActorUpdateModel";
 import TableSkeleton from "@/components/custom/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
