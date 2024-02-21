@@ -92,7 +92,7 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
             {strings.INSTRUCTIONS.DELETE_AGENT}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end">
           {isLoading ? (
             <Button disabled variant="destructive">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -72,7 +72,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
 
   return (
     <Dialog open={showAgentDialogOpen} onOpenChange={onCloseClick}>
-      <DialogContent className="sm:max-w-[800px]">
+      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.SHOW_AGENT}</DialogTitle>
           <DialogDescription>
@@ -235,7 +235,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
             </table>
           </>
         )}
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end">
           {isLoading ? (
             <Button disabled>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

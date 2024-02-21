@@ -172,7 +172,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 ? renderFetchBaseQueryError(error as FetchBaseQueryError)
                 : renderSerializedError(error as SerializedError)
               : " "}
-            <div className="grid grid-cols-2 gap-4 ">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
               <FormField
                 control={form.control}
                 name="title"
@@ -206,7 +206,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 )}
               />
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
               <FormField
                 control={form.control}
                 name="last_name"
@@ -256,7 +256,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
               <FormField
                 control={form.control}
                 name="phone1"
@@ -290,7 +290,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 )}
               />
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
               <FormField
                 control={form.control}
                 name="gender"
@@ -345,7 +345,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 )}
               />
             </div>
-            <DialogFooter>
+            <DialogFooter className="flex flex-row justify-end">
               {isLoading ? (
                 <Button disabled>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
