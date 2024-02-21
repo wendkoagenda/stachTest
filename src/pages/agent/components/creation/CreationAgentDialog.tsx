@@ -11,16 +11,21 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import CreateAgentForm from "./CreateAgentForm";
 
 export default function CreationAgentDialog() {
-  // Var dispatch hook
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  // Dialog open/close state
+  // Hook de récupération  de l'état  de la boite de dialogue du formulaire de création(Redux Store)
   const creationAgentDialogOpen = useAppSelector(
     (state) => state.agents.creationDialogOpen
   );
+  //*******************Fin
 
+  //*******************Déclaration de fonctions
+  // Fonction de fermeture de la boite de dialogue du formulaire de création  (Redux store)
   const onCloseClick = () => {
     dispatch(closeAgentCreateDialog());
   };
+  //*******************Fin
 
   return (
     <Dialog open={creationAgentDialogOpen} onOpenChange={onCloseClick}>

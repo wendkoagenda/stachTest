@@ -29,6 +29,7 @@ import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+// Définition du schéma de validation du formulaire
 const formSchema = z.object({
   title: z.string().default("Non définie"),
   email: z.string().email({ message: "Mail invalide !" }),
@@ -47,15 +48,27 @@ const formSchema = z.object({
 });
 
 export default function CreateAgentForm() {
-  // Camp year
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération de l' Id du CampYear
   const camp_year_id =
     localStorage.getItem("__ppohwr4bvkyjfiv298fjyfufavc__nv2") ?? "0";
+  // Récupération du token d'accès
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
 
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
+  // Hook pour récupérer la liste des Agents (RTK)
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
+  // Hook pour creation d'un Agent (RTK)
+  const [createAgent, { isLoading, error }] = useCreateAgentMutation();
+  //*******************Fin
+
+  //*******************Déclaration d'autres variables
+  // Variable "form" pour la récupération des champs dans de le formulaire avec zod
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,9 +84,12 @@ export default function CreateAgentForm() {
       is_active: true,
     },
   });
-
-  const [createAgent, { isLoading, error }] = useCreateAgentMutation();
+  // Variable de type fonction pour l'affichage de notification de type Toast
   const { openNotification } = NotificationToast();
+  //*******************Fin
+
+  //*******************Déclaration de fonctions
+  // Fonction de soumission du formulaire de création
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const actorCreationModel: ActorCreationModel = {
       newActor: values,
@@ -90,10 +106,11 @@ export default function CreateAgentForm() {
       </div>
     );
   };
-
+  // Fonction de fermeture de la boite de dialogue  du formulaire de création  (Redux store)
   const onCloseClick = () => {
     dispatch(closeAgentCreateDialog());
   };
+  //*******************Fin
 
   return (
     <>
