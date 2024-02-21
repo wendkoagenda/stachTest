@@ -19,39 +19,54 @@ import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 
 const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
-  // Var dispatch hook
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération du token d'accès
+  const access_token =
+    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
+    "access_token";
+  //*******************Fin
+
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  // Dialog open/close state
+
+  // Hook de récupération  de l'état  de la boite de dialogue du tableau des détails (Redux Store)
   const showAgentDialogOpen = useAppSelector(
     (state) => state.agents.showAgentDialogOpen
   );
-
-  const access_token: string =
-    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ||
-    "access_token";
-
-  const onCloseClick = () => {
-    dispatch(closeAgentShowDialog());
-  };
+  // Préparation du paramettre du hook de recuperation des détails d'un agents
   const actorShowModel: ActorShowModel = {
     actorUuid: agentUuid,
     access_token: access_token,
   };
 
+  // Hook de récupération des détails d'un agent (RTK)
   const fetchAgentByIdQuery = useFetchAgentByIdQuery(actorShowModel);
 
+  // Récupération des détails de l'agent au montage du composant
   useEffect(() => {
     fetchAgentByIdQuery.refetch;
   }, []);
+  //*******************Fin
 
+  //*******************Déclaration d'autres variables
   const data = fetchAgentByIdQuery.data;
   const isLoading = fetchAgentByIdQuery.isFetching;
+  //*******************Fin
 
+  //*******************Déclaration de fonctions
+  // Fonction de fermeture de la boite de dialogue du formulaire de détails  (Redux store)
+  const onCloseClick = () => {
+    dispatch(closeAgentShowDialog());
+  };
+
+  // Fonction de copie des données dans les cellules du tableau des détails dans le presse papier
   const copyToClipboard = (content: string | undefined) => {
     if (typeof content === "string") {
       navigator.clipboard.writeText(content);
     }
   };
+  //*******************Fin
 
   return (
     <Dialog open={showAgentDialogOpen} onOpenChange={onCloseClick}>
