@@ -37,6 +37,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+// Définition du schéma de validation du formulaire
 const formSchema = z.object({
   title: z.string().default("Non définie"),
   email: z.string().email({ message: "Mail invalide !" }),
@@ -55,30 +56,53 @@ const formSchema = z.object({
 });
 
 export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
-  // Camp year
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération de l' Id du CampYear
   const camp_year_id =
     localStorage.getItem("__ppohwr4bvkyjfiv298fjyfufavc__nv2") ?? "0";
+  // Récupération du token d'accès
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
 
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
+  const dispatch = useAppDispatch();
+  // Hook pour récupérer la liste des Agents (RTK)
+  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
+
+  // Préparation du paramettre du hook de recuperation des détails d'un agents
   const actorShowModel: ActorShowModel = {
     actorUuid: agentUuid,
     access_token: access_token,
   };
-
+  // Hook de récupération des détails d'un agent (RTK)
   const fetchAgentByIdQuery = useFetchAgentByIdQuery(actorShowModel);
-  const [dataLoaded, setDataLoaded] = useState(false);
 
+  // Récupération des détails de l'agent au montage du composant
   useEffect(() => {
     fetchAgentByIdQuery.refetch();
   }, []);
 
-  const data = fetchAgentByIdQuery.data;
-  const isFetching = fetchAgentByIdQuery.isFetching;
+  // Hook pour la mise à jour  d'un Agent (RTK)
+  const [updateAgent, { error, isLoading }] = useUpdateAgentMutation();
+
+  // Variables useStates
   const [gender, setGender] = useState("male");
   const [isActive, setIsActive] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  //*******************Fin
 
+  //*******************Déclaration d'autres variables
+  // Varibles issue du fectch
+  const data = fetchAgentByIdQuery.data;
+  const isFetching = fetchAgentByIdQuery.isFetching;
+
+  // Variable "form" pour la récupération des champs dans de le formulaire avec zod et préparation des anciennes  valeurs
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
   useEffect(() => {
     if (data && !dataLoaded) {
       setDataLoaded(true);
@@ -91,12 +115,6 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
     }
   }, [data]);
 
-  const dispatch = useAppDispatch();
-  const fetchAgentsQuery = useFetchAgentsQuery(access_token);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
   useEffect(() => {
     if (data) {
       form.reset({
@@ -113,10 +131,12 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
       });
     }
   }, [data]);
-
-  const [updateAgent, { error, isLoading }] = useUpdateAgentMutation();
+  // Variable de type fonction pour l'affichage de notification de type Toast
   const { openNotification } = NotificationToast();
+  //*******************Fin
 
+  //*******************Déclaration de fonctions
+  // Fonction de soumission du formulaire de mise à jour
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const actorUpdateModel: ActorUpdateModel = {
       updateActor: values,
@@ -135,10 +155,11 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
       </div>
     );
   };
-
+  // Fonction de fermeture de la boite de dialogue du formulaire de mise à jour  (Redux store)
   const onCloseClick = () => {
     dispatch(closeAgentUpdateDialog());
   };
+  //*******************Fin
 
   return (
     <>

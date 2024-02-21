@@ -16,29 +16,37 @@ import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
 
 export default function AgentsList() {
-  // Var dispatch hook
-  const dispatch = useAppDispatch();
-  // var access_token
-  const access_token: string =
-    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ||
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération du token d'accès
+  const access_token =
+    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
 
-  // Store Data Fetching
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
+  const dispatch = useAppDispatch();
 
-  // const agents = useAppSelector((state) => state.agents.data);
-  // const isLoading = useAppSelector((state) => state.agents.isLoading);
-
-  // Creation
-  const onCreateClick = () => {
-    dispatch(openAgentCreateDialog());
-  };
-  const isLoading = useFetchAgentsQuery(access_token)?.isLoading || false;
+  //Hook de récupération de la liste des agents (Redux store)
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
+  //*******************Fin
 
+  //*******************Déclaration d'autres variables
+  // Varibles issue du fectch
   const fetchAgentsQueryData = fetchAgentsQuery.data?.data;
+  const isLoading = fetchAgentsQuery.isLoading;
   const agents = Array.isArray(fetchAgentsQueryData)
     ? fetchAgentsQueryData
     : [];
+  //*******************Fin
+
+  //*******************Déclaration de fonctions
+  // Fonction pour l'ouverture de la boite de dialogue de creation d'un agent
+  const onCreateClick = () => {
+    dispatch(openAgentCreateDialog());
+  };
+  //*******************Fin
+
   return (
     <>
       <HorizontalHeader />

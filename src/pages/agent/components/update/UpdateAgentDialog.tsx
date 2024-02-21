@@ -11,16 +11,22 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import UpdateAgentForm from "./UpdateAgentForm";
 
 const UpdateAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
-  // Var dispatch hook
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  // Dialog open/close state
+
+  // Hook de récupération  de l'état  de la boite de dialogue du formulaire de mise à jour (Redux Store)
   const updatingAgentDialogOpen = useAppSelector(
     (state) => state.agents.updatingDialogOpen
   );
+  //*******************Fin
 
+  //*******************Déclaration de fonctions
+  // Fonction de fermeture de la boite de dialogue du formulaire de mise à jour  (Redux store)
   const onCloseClick = () => {
     dispatch(closeAgentUpdateDialog());
   };
+  //*******************Fin
 
   return (
     <Dialog open={updatingAgentDialogOpen} onOpenChange={onCloseClick}>

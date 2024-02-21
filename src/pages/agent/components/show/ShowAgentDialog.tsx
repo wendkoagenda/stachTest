@@ -55,7 +55,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
   //*******************Fin
 
   //*******************Déclaration de fonctions
-  // Fonction de fermeture de la boite de dialogue du formulaire de détails  (Redux store)
+  // Fonction de fermeture de la boite de dialogue du tableau de détails  (Redux store)
   const onCloseClick = () => {
     dispatch(closeAgentShowDialog());
   };

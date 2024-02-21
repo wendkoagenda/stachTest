@@ -27,26 +27,38 @@ import ShowAgentDialog from "./show";
 import UpdateAgentDialog from "./update";
 
 export default function AgentDataTable() {
-  // Var
-  const access_token: string =
-    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ||
+  //*******************Déclaration de variables de fonctionnement primitives
+  // Récupération du token d'accès
+  const access_token =
+    localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
 
+  //*******************Déclaration des Hooks
+  //Hook de dispatching (Redux store)
+  const dispatch = useAppDispatch();
+
+  //Hook de récupération de la liste des agents (Redux store)
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
 
+  // Récupération de la liste des agents au montage du composant
   useEffect(() => {
     fetchAgentsQuery.refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // Variables useState
+  const [agentId, setAgentId] = useState(0);
+  const [agentUuid, setAgentUuid] = useState("");
+  //*******************Fin
 
+  //*******************Déclaration d'autres variables
+  // Varibles issue du fectch
   const fetchAgentsQueryData = fetchAgentsQuery.data?.data;
   const data = Array.isArray(fetchAgentsQueryData) ? fetchAgentsQueryData : [];
-
   const isLoading = fetchAgentsQuery.isLoading;
-  // const isFetching = fetchAgentsQuery.isFetching;
   const error = fetchAgentsQuery.error;
-  const dispatch = useAppDispatch();
 
+  // Variables pour les colonnes de la DataTable
   const columns = useMemo<MRT_ColumnDef<AgentDaum>[]>(
     () => [
       {
@@ -191,24 +203,29 @@ export default function AgentDataTable() {
     ],
     []
   );
-  const [agentId, setAgentId] = useState(0);
-  const [agentUuid, setAgentUuid] = useState("");
+  //*******************Fin
 
+  //*******************Déclaration de fonctions
+  // Fonction pour l'ouverture de la boite de dialogue de suppression
   const onDeleteClick = (agentId: number) => {
-    console.log("agentId", agentId);
     setAgentId(agentId);
     dispatch(openAgentDeleteDialog());
   };
 
+  // Fonction pour l'ouverture de la boite de dialogue de mise à jour
   const onEditClick = (agentUuid: string) => {
     setAgentUuid(agentUuid);
     dispatch(openAgentUpdateDialog());
   };
+
+  // Fonction pour l'ouverture de la boite de dialogue des détails
   const onShowClick = (agentUuid: string) => {
     setAgentUuid(agentUuid);
     dispatch(openAgentShowDialog());
   };
+  //*******************Fin
 
+  //*******************Gestion des erreurs de récupération
   if (error) {
     if ("status" in error) {
       return renderFetchBaseQueryError(error as FetchBaseQueryError);
@@ -216,6 +233,8 @@ export default function AgentDataTable() {
       return renderSerializedError(error as SerializedError);
     }
   }
+  //*******************Fin
+
   return (
     <>
       <MaterialReactTable
