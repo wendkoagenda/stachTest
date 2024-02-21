@@ -26,7 +26,7 @@ const UpdateAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
     <Dialog open={updatingAgentDialogOpen} onOpenChange={onCloseClick}>
       <DialogContent className="sm:max-w-[1000px]">
         <DialogHeader>
-          <DialogTitle>{strings.TEXTS.ADD_AGENT}dfadsdasdasdas</DialogTitle>
+          <DialogTitle>{strings.TEXTS.UPDATE_AGENT}</DialogTitle>
           <DialogDescription>
             {strings.INSTRUCTIONS.ADD_AGENT}
           </DialogDescription>

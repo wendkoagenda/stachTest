@@ -69,7 +69,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
             <div className="flex flex-row">
               <Button size="title" style={{ pointerEvents: "none" }}>
                 <SquareUser className="mr-2 h-4 w-4" />
-                Information sur l'agent
+                {strings.TEXTS.AGENT_INFO}
               </Button>
             </div>
             <table className="border-collapse border border-slate-400 ">
@@ -115,7 +115,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
             <div className="flex flex-row">
               <Button size="title" style={{ pointerEvents: "none" }}>
                 <CircleUser className="mr-2 h-4 w-4" />
-                Information sur la personne
+                {strings.TEXTS.PERSONNE_INFO}
               </Button>
             </div>
             <table className="border-collapse border border-slate-400 ">
@@ -186,7 +186,6 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
                   <b>{strings.TH.GENDER}</b>
                 </td>
                 <td className="border border-slate-300 ">
-                  {/* {data?.data?.user?.gender} */}
                   <Badge
                     variant={
                       data?.data?.user?.gender === "male"

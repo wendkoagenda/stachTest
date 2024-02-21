@@ -10,7 +10,17 @@ const strings = {
     ADMIN: "Admin",
     TECHNICIAN: "Technician",
   },
+  PLACEHOLDERS: {
+    PHONE1: "Numéro de téléphone Whatsapp ici",
+    PHONE2: "Numéro téléphone de secours ici ",
+    EMAIL: "Adresse email ici",
+    FIRST_NAME: "Prénom(s) ici",
+    LAST_NAME: "Nom de famille ici",
+    TITLE: "Saisir une phrse en gise de Titre",
+    BANNER: "Saisir une phrse en gise de banniere",
+  },
   INSTRUCTIONS: {
+    STATUS: "L'utilisateur sera-t-il actif ou inactif ?",
     UPDATED_AGENT:
       "Effectuez des modifications d'agent ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_AGENT:
@@ -35,6 +45,9 @@ const strings = {
     LIST_AGENT: "Liste des menbres de l'administration",
     DELETE_AGENT: "Suppression d'un membre de l'administration",
     SHOW_AGENT: "Détails sur un membre de l'administration",
+    UPDATE_AGENT: "Mise a jour d'un membre de l'administration",
+    AGENT_INFO: "Information sur l'agent",
+    PERSONNE_INFO: "Information sur la personne",
   },
   TH: {
     PHONE1: "Téléphone 1 (What)",
@@ -47,6 +60,8 @@ const strings = {
     BANNER: "Banniere",
     GENDER: "Genre",
     STATUS: "Status",
+    MASCULIN: "M",
+    FEMININ: "F",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",

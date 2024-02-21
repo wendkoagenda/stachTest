@@ -4,6 +4,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -58,8 +59,8 @@ export default function CreateAgentForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      banner: "",
+      title: "Non définie (par defaut)",
+      banner: "Non définie (par defaut)",
       first_name: "",
       last_name: "",
       gender: "male",
@@ -109,9 +110,12 @@ export default function CreateAgentForm() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Titre</FormLabel>
+                  <FormLabel>{strings.TH.TITLE}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Non définie" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.TITLE}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,9 +126,12 @@ export default function CreateAgentForm() {
               name="banner"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Banniere</FormLabel>
+                  <FormLabel>{strings.TH.BANNER}</FormLabel>
                   <FormControl>
-                    <Input placeholder="banner" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.BANNER}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,7 +146,10 @@ export default function CreateAgentForm() {
                 <FormItem>
                   <FormLabel>{strings.TH.LAST_NAME}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nom de famille" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.LAST_NAME}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,7 +162,10 @@ export default function CreateAgentForm() {
                 <FormItem>
                   <FormLabel>{strings.TH.FIRST_NAME}</FormLabel>
                   <FormControl>
-                    <Input placeholder="first_name" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.FIRST_NAME}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -165,7 +178,10 @@ export default function CreateAgentForm() {
                 <FormItem>
                   <FormLabel>{strings.TH.EMAIL}</FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.EMAIL}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -180,7 +196,10 @@ export default function CreateAgentForm() {
                 <FormItem>
                   <FormLabel>{strings.TH.PHONE1}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Numéro téléphone Whatsapp" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.PHONE1}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -193,7 +212,10 @@ export default function CreateAgentForm() {
                 <FormItem>
                   <FormLabel>{strings.TH.PHONE2}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Numéro de téléphone 2" {...field} />
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.PHONE2}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -206,7 +228,7 @@ export default function CreateAgentForm() {
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Genre</FormLabel>
+                  <FormLabel>{strings.TH.GENDER}</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -217,13 +239,17 @@ export default function CreateAgentForm() {
                         <FormControl>
                           <RadioGroupItem value="male" />
                         </FormControl>
-                        <FormLabel className="font-normal">Masculin</FormLabel>
+                        <FormLabel className="font-normal">
+                          {strings.TH.MASCULIN}
+                        </FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
                           <RadioGroupItem value="female" />
                         </FormControl>
-                        <FormLabel className="font-normal">Feminin</FormLabel>
+                        <FormLabel className="font-normal">
+                          {strings.TH.FEMININ}
+                        </FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -236,13 +262,16 @@ export default function CreateAgentForm() {
               name="is_active"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Statut (Actif ou Inactif) </FormLabel>
+                  <FormLabel> {strings.TH.STATUS}</FormLabel>
                   <FormControl>
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {strings.INSTRUCTIONS.STATUS}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

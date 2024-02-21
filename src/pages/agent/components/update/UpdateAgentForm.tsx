@@ -7,6 +7,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -89,10 +90,6 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
       }
     }
   }, [data]);
-  console.log("isLoading show:", isFetching);
-
-  console.log(data?.data.user.is_active);
-  console.log(data?.data.user.gender);
 
   const dispatch = useAppDispatch();
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
@@ -161,9 +158,12 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Titre</FormLabel>
+                    <FormLabel>{strings.TH.TITLE}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Non définie" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.TITLE}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -174,9 +174,12 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="banner"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Banniere</FormLabel>
+                    <FormLabel>{strings.TH.BANNER}</FormLabel>
                     <FormControl>
-                      <Input placeholder="banner" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.BANNER}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -191,7 +194,10 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   <FormItem>
                     <FormLabel>{strings.TH.LAST_NAME}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nom de famille" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.LAST_NAME}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -204,7 +210,10 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   <FormItem>
                     <FormLabel>{strings.TH.FIRST_NAME}</FormLabel>
                     <FormControl>
-                      <Input placeholder="first_name" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.FIRST_NAME}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -217,7 +226,10 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   <FormItem>
                     <FormLabel>{strings.TH.EMAIL}</FormLabel>
                     <FormControl>
-                      <Input placeholder="email" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.EMAIL}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -233,7 +245,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                     <FormLabel>{strings.TH.PHONE1}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Numéro téléphone Whatsapp"
+                        placeholder={strings.PLACEHOLDERS.PHONE1}
                         {...field}
                       />
                     </FormControl>
@@ -248,8 +260,12 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   <FormItem>
                     <FormLabel>{strings.TH.PHONE2}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Numéro de téléphone 2" {...field} />
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.PHONE2}
+                        {...field}
+                      />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
@@ -261,7 +277,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Genre</FormLabel>
+                    <FormLabel>{strings.TH.GENDER}</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -273,14 +289,16 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                             <RadioGroupItem value="male" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            Masculin
+                            {strings.TH.MASCULIN}
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value="female" />
                           </FormControl>
-                          <FormLabel className="font-normal">Feminin</FormLabel>
+                          <FormLabel className="font-normal">
+                            {strings.TH.FEMININ}
+                          </FormLabel>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>
@@ -293,13 +311,16 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 name="is_active"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Statut (Actif ou Inactif) </FormLabel>
+                    <FormLabel> {strings.TH.STATUS}</FormLabel>
                     <FormControl>
                       <Switch
-                        checked={field.value}
+                        checked={isActive}
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {strings.INSTRUCTIONS.STATUS}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
