@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ActorShowModel } from "@/@types/ActorShowModel";
 import TableSkeleton from "@/components/custom/TableSkeleton";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -185,7 +186,17 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
                   <b>{strings.TH.GENDER}</b>
                 </td>
                 <td className="border border-slate-300 ">
-                  {data?.data?.user?.gender}
+                  {/* {data?.data?.user?.gender} */}
+                  <Badge
+                    variant={
+                      data?.data?.user?.gender === "male"
+                        ? "secondary"
+                        : "secondary"
+                    }
+                    className="text-xs"
+                  >
+                    {data?.data?.user?.gender === "female" ? "F" : "M"}
+                  </Badge>
                 </td>
               </tr>
               <tr>
@@ -193,7 +204,16 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
                   <b>{strings.TH.STATUS}</b>
                 </td>
                 <td className="border border-slate-300 ">
-                  {data?.data?.user?.is_active}
+                  <Badge
+                    variant={
+                      data?.data?.user?.is_active === 1
+                        ? "default"
+                        : "destructive"
+                    }
+                    className="text-xs"
+                  >
+                    {data?.data?.user?.is_active === 1 ? "Actif" : "Inactif"}
+                  </Badge>
                 </td>
               </tr>
             </table>

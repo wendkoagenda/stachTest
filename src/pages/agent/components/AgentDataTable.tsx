@@ -1,4 +1,5 @@
 import { AgentDaum } from "@/@types/Agent";
+import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
   openAgentDeleteDialog,
@@ -132,6 +133,60 @@ export default function AgentDataTable() {
         enableResizing: true,
         enableSorting: true,
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
+      },
+      {
+        accessorKey: "user.is_active",
+        header: strings.TH.STATUS,
+        enableClickToCopy: false,
+        enableColumnActions: true,
+        enableColumnDragging: true,
+        enableColumnFilter: true,
+        enableColumnOrdering: true,
+        enableEditing: true,
+        enableGlobalFilter: true,
+        enableGrouping: true,
+        enableHiding: true,
+        enableResizing: true,
+        enableSorting: true,
+        size: 100,
+        Cell: ({ cell }) => {
+          const isActive = cell.getValue<number>(); // Supposons que cell.value contienne la valeur booléenne du statut
+          return (
+            <Badge
+              variant={isActive === 1 ? "default" : "destructive"}
+              className="text-xs"
+            >
+              {isActive === 1 ? "Actif" : "Inactif"}
+            </Badge>
+          );
+        },
+      },
+      {
+        accessorKey: "user.gender",
+        header: strings.TH.GENDER,
+        enableClickToCopy: false,
+        enableColumnActions: true,
+        enableColumnDragging: true,
+        enableColumnFilter: true,
+        enableColumnOrdering: true,
+        enableEditing: true,
+        enableGlobalFilter: true,
+        enableGrouping: true,
+        enableHiding: true,
+        enableResizing: true,
+        enableSorting: true,
+        size: 100,
+        Cell: ({ cell }) => {
+          const gender = cell.getValue<string>(); // Supposons que cell.value contienne la valeur booléenne du statut
+          return (
+            <Badge
+              variant={gender === "male" ? "secondary" : "secondary"}
+              className="text-xs"
+            >
+              {gender === "female" ? "F" : "M"}
+            </Badge>
+          );
+        },
       },
     ],
     []
