@@ -102,71 +102,11 @@ const strings = {
   },
 
   PERMISSIONS: {
-    CAN_CREATE_CLIENT: "Client.create", //client
-    CAN_READ_CLIENT: "Clients.Read",
-    CAN_UPDATE_CLIENT: "Clients.Update",
-    CAN_SHOW_CLIENT: "Clients.GetByID",
-    CAN_DELETE_CLIENT: "Clients.Delete",
-    CAN_CREATE_USER: "User.create", // user
-    CAN_READ_USER: "User.Read",
-    CAN_UPDATE_USER: "User.Update",
-    CAN_SHOW_USER: "User.GetByID",
-    CAN_DELETE_USER: "User.Delete",
-    CAN_CREATE_COMPANY: "Company.create", // company
-    CAN_READ_COMPANY: "Company.Read",
-    CAN_UPDATE_COMPANY: "Company.Update",
-    CAN_SHOW_COMPANY: "Company.GetByID",
-    CAN_DELETE_COMPANY: "Company.Delete",
-    CAN_CREATE_ROLE: "RolesManager.CreateRoles", // role
-    CAN_READ_ROLE: "RolesManager.Read",
-    CAN_UPDATE_ROLE: "RolesManager.UpdateRoles",
-    CAN_SHOW_ROLE: "RolesManager.GetByID",
-    CAN_DELETE_ROLE: "RolesManager.DeleteRoles",
-    CAN_CREATE_CUSTONER: "Client.create", // customer
-    CAN_READ_CUSTOMER: "Clients.Read",
-    CAN_UPDATE_CUSTOMER: "Clients.Update",
-    CAN_SHOW_CUSTOMER: "Clients.GetByID",
-    CAN_DELETE_CUSTOMER: "Clients.Delete",
-    CAN_CREATE_CATEGORY: "Category.create", // category
-    CAN_READ_CATEGORY: "Category.Read",
-    CAN_UPDATE_CATEGORY: "Category.Update",
-    CAN_SHOW_CATEGORY: "Category.GetByID",
-    CAN_DELETE_CATEGORY: "Category.Delete",
-    CAN_CREATE_ARTICLE: "Article.create", // article
-    CAN_READ_ARTICLE: "Article.Read",
-    CAN_UPDATE_ARTICLE: "Article.Update",
-    CAN_SHOW_ARTICLE: "Article.GetByID",
-    CAN_DELETE_ARTICLE: "Article.Delete",
-    CAN_CREATE_COMPETENCE: "Competence.create", // Competence
-    CAN_READ_COMPETENCE: "Competence.Read",
-    CAN_UPDATE_COMPETENCE: "Competence.Update",
-    CAN_SHOW_COMPETENCE: "Competence.GetByID",
-    CAN_DELETE_COMPETENCE: "Competence.Delete",
-    CAN_CREATE_PROJECT: "Project.create", // Project
-    CAN_READ_PROJECT: "Project.Read",
-    CAN_UPDATE_PROJECT: "Project.Update",
-    CAN_SHOW_PROJECT: "Project.GetByID",
-    CAN_DELETE_PROJECT: "Project.Delete",
-    CAN_CREATE_DISPATCH: "Dispatch.create", // Dispatch
-    CAN_READ_DISPATCH: "Dispatch.Read",
-    CAN_UPDATE_DISPATCH: "Dispatch.Update",
-    CAN_SHOW_DISPATCH: "Dispatch.GetByID",
-    CAN_DELETE_DISPATCH: "Dispatch.Delete",
-    CAN_CREATE_QUOTE: "Quote.create", // quote
-    CAN_READ_QUOTE: "Quote.Read",
-    CAN_UPDATE_QUOTE: "Quote.Update",
-    CAN_SHOW_QUOTE: "Quote.GetByID",
-    CAN_DELETE_QUOTE: "Quote.Delete",
-    CAN_CREATE_INVOICE: "Invoice.create", // invoice
-    CAN_READ_INVOICE: "Invoice.Read",
-    CAN_UPDATE_INVOICE: "Invoice.Update",
-    CAN_SHOW_INVOICE: "Invoice.GetByID",
-    CAN_DELETE_INVOICE: "Invoice.Delete",
-    CAN_CREATE_PROJECT_ARTICLE: "ProjectArticle.create", // projectArticle
-    CAN_READ_PROJECT_ARTICLE: "ProjectArticle.Read",
-    CAN_UPDATE_PROJECT_ARTICLE: "ProjectArticle.Update",
-    CAN_SHOW_PROJECT_ARTICLE: "ProjectArticle.GetByID",
-    CAN_DELETE_PROJECT_ARTICLE: "ProjectArticle.Delete",
+    AGNET_LIST: "agents.list", // Agent
+    AGNET_SHOW: "agents.show",
+    AGNET_UPDATE: "agents.update",
+    AGNET_STORE: "agents.store",
+    AGNET_DESTROY: "agents.destroy",
   },
   PAGES: {
     HOME: "Home",

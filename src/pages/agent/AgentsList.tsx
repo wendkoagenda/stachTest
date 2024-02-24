@@ -14,6 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
+import usePermissions from "@/utils/hooks/usePermissions";
 
 export default function AgentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -21,6 +22,18 @@ export default function AgentsList() {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
+
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentStore = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_STORE
+  );
+  const agentList = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_LIST
+  );
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -67,29 +80,29 @@ export default function AgentsList() {
             </h4>
           </div>
           <div className="col-6 text-end">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_AGENT}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {agentStore && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button onClick={onCreateClick}>
+                      {isLoading ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                        </>
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.ADD_AGENT}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
           </div>
         </div>
-        <div className="mt-2">
-          <AgentDataTable />
-        </div>
+        <div className="mt-2">{agentList && <AgentDataTable />}</div>
       </div>
       <CreationAgentDialog />
       <Footer />

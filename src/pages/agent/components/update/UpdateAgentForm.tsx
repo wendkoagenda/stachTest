@@ -29,6 +29,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -64,6 +65,15 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
+
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentUpdate = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_UPDATE
+  );
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -345,23 +355,29 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                 )}
               />
             </div>
-            <DialogFooter className="flex flex-row justify-end">
-              {isLoading ? (
-                <Button disabled>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {strings.BUTTONS.SAVING}
+            {agentUpdate && (
+              <DialogFooter className="flex flex-row justify-end">
+                {isLoading ? (
+                  <Button disabled>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {strings.BUTTONS.SAVING}
+                  </Button>
+                ) : (
+                  <Button type="submit">
+                    <SaveIcon className="mr-2 h-4 w-4" />
+                    {strings.BUTTONS.SAVE}
+                  </Button>
+                )}
+                <Button
+                  onClick={onCloseClick}
+                  type="button"
+                  variant="secondary"
+                >
+                  <X className="mr-2 h-4 w-4" />
+                  {strings.BUTTONS.CANCEL}
                 </Button>
-              ) : (
-                <Button type="submit">
-                  <SaveIcon className="mr-2 h-4 w-4" />
-                  {strings.BUTTONS.SAVE}
-                </Button>
-              )}
-              <Button onClick={onCloseClick} type="button" variant="secondary">
-                <X className="mr-2 h-4 w-4" />
-                {strings.BUTTONS.CANCEL}
-              </Button>
-            </DialogFooter>
+              </DialogFooter>
+            )}
           </form>
         </Form>
       )}

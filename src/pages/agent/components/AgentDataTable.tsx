@@ -25,6 +25,7 @@ import { useEffect, useMemo, useState } from "react";
 import DeletionAgentDialog from "./deletion";
 import ShowAgentDialog from "./show";
 import UpdateAgentDialog from "./update";
+import usePermissions from "@/utils/hooks/usePermissions";
 
 export default function AgentDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -32,6 +33,21 @@ export default function AgentDataTable() {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
+
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentShow = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_SHOW
+  );
+  const agentUpdate = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_UPDATE
+  );
+  const agentDestroy = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_DESTROY
+  );
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -258,36 +274,42 @@ export default function AgentDataTable() {
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-            icon={<EyeIcon className="mr-2 h-4 w-4" />}
-            key="edit"
-            label={strings.BUTTONS.SHOW}
-            onClick={() => {
-              onShowClick(row.original.uuid);
-              closeMenu();
-            }}
-            table={table}
-          />,
-          <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-            icon={<Edit2 className="mr-2 h-4 w-4" />}
-            key="edit"
-            label={strings.BUTTONS.EDIT}
-            onClick={() => {
-              onEditClick(row.original.uuid);
-              closeMenu();
-            }}
-            table={table}
-          />,
-          <MRT_ActionMenuItem
-            icon={<Trash2 className="mr-2 h-4 w-4" />}
-            key="delete"
-            label={strings.BUTTONS.DELETE}
-            onClick={() => {
-              onDeleteClick(row.original.agent.id);
-              closeMenu();
-            }}
-            table={table}
-          />,
+          agentShow && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<EyeIcon className="mr-2 h-4 w-4" />}
+              key="edit"
+              label={strings.BUTTONS.SHOW}
+              onClick={() => {
+                onShowClick(row.original.uuid);
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
+          agentUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Edit2 className="mr-2 h-4 w-4" />}
+              key="edit"
+              label={strings.BUTTONS.EDIT}
+              onClick={() => {
+                onEditClick(row.original.uuid);
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
+          agentDestroy && (
+            <MRT_ActionMenuItem
+              icon={<Trash2 className="mr-2 h-4 w-4" />}
+              key="delete"
+              label={strings.BUTTONS.DELETE}
+              onClick={() => {
+                onDeleteClick(row.original.agent.id);
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
         ]}
       />
       <DeletionAgentDialog agentId={agentId} />

@@ -16,6 +16,7 @@ import { closeAgentShowDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentByIdQuery } from "@/services/agent";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
 import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -25,6 +26,15 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  //*******************Fin
+
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentShow = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_SHOW
+  );
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -83,156 +93,166 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
           <TableSkeleton />
         ) : (
           <>
-            <div className="flex flex-row">
-              <Button size="title" style={{ pointerEvents: "none" }}>
-                <SquareUser className="mr-2 h-4 w-4" />
-                {strings.TEXTS.AGENT_INFO}
-              </Button>
-            </div>
-            <table className="border-collapse border border-slate-400 ">
-              <tr>
-                <td className="border border-slate-300 ">
-                  <b>{strings.TH.TITLE}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.agent?.title)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.agent?.title}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.BANNER}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.agent?.banner)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.agent?.banner}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.REGISTRATION_NO}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() =>
-                    copyToClipboard(data?.data?.agent?.registration_number)
-                  }
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.agent?.registration_number}
-                </td>
-              </tr>
-            </table>
-            <div className="flex flex-row">
-              <Button size="title" style={{ pointerEvents: "none" }}>
-                <CircleUser className="mr-2 h-4 w-4" />
-                {strings.TEXTS.PERSONNE_INFO}
-              </Button>
-            </div>
-            <table className="border-collapse border border-slate-400 ">
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.LAST_NAME}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.user?.last_name)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {" "}
-                  {data?.data?.user?.last_name}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.FIRST_NAME}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.user?.first_name)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {" "}
-                  {data?.data?.user?.first_name}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.EMAIL}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.user?.email)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.user?.email}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.PHONE1}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.user?.phone1)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.user?.phone1}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.PHONE2}</b>
-                </td>
-                <td
-                  className="border border-slate-300 "
-                  onClick={() => copyToClipboard(data?.data?.user?.phone2)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {data?.data?.user?.phone2}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.GENDER}</b>
-                </td>
-                <td className="border border-slate-300 ">
-                  <Badge
-                    variant={
-                      data?.data?.user?.gender === "male"
-                        ? "secondary"
-                        : "secondary"
-                    }
-                    className="text-xs"
-                  >
-                    {data?.data?.user?.gender === "female" ? "F" : "M"}
-                  </Badge>
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-slate-300">
-                  <b>{strings.TH.STATUS}</b>
-                </td>
-                <td className="border border-slate-300 ">
-                  <Badge
-                    variant={
-                      data?.data?.user?.is_active === 1
-                        ? "default"
-                        : "destructive"
-                    }
-                    className="text-xs"
-                  >
-                    {data?.data?.user?.is_active === 1 ? "Actif" : "Inactif"}
-                  </Badge>
-                </td>
-              </tr>
-            </table>
+            {agentShow && (
+              <>
+                <div className="flex flex-row">
+                  <Button size="title" style={{ pointerEvents: "none" }}>
+                    <SquareUser className="mr-2 h-4 w-4" />
+                    {strings.TEXTS.AGENT_INFO}
+                  </Button>
+                </div>
+                <table className="border-collapse border border-slate-400 ">
+                  <tr>
+                    <td className="border border-slate-300 ">
+                      <b>{strings.TH.TITLE}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.agent?.title)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.agent?.title}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.BANNER}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.agent?.banner)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.agent?.banner}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.REGISTRATION_NO}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() =>
+                        copyToClipboard(data?.data?.agent?.registration_number)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.agent?.registration_number}
+                    </td>
+                  </tr>
+                </table>
+                <div className="flex flex-row">
+                  <Button size="title" style={{ pointerEvents: "none" }}>
+                    <CircleUser className="mr-2 h-4 w-4" />
+                    {strings.TEXTS.PERSONNE_INFO}
+                  </Button>
+                </div>
+                <table className="border-collapse border border-slate-400 ">
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.LAST_NAME}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() =>
+                        copyToClipboard(data?.data?.user?.last_name)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {" "}
+                      {data?.data?.user?.last_name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.FIRST_NAME}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() =>
+                        copyToClipboard(data?.data?.user?.first_name)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {" "}
+                      {data?.data?.user?.first_name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.EMAIL}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.user?.email)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.user?.email}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.PHONE1}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.user?.phone1)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.user?.phone1}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.PHONE2}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.user?.phone2)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.user?.phone2}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.GENDER}</b>
+                    </td>
+                    <td className="border border-slate-300 ">
+                      <Badge
+                        variant={
+                          data?.data?.user?.gender === "male"
+                            ? "secondary"
+                            : "secondary"
+                        }
+                        className="text-xs"
+                      >
+                        {data?.data?.user?.gender === "female" ? "F" : "M"}
+                      </Badge>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.STATUS}</b>
+                    </td>
+                    <td className="border border-slate-300 ">
+                      <Badge
+                        variant={
+                          data?.data?.user?.is_active === 1
+                            ? "default"
+                            : "destructive"
+                        }
+                        className="text-xs"
+                      >
+                        {data?.data?.user?.is_active === 1
+                          ? "Actif"
+                          : "Inactif"}
+                      </Badge>
+                    </td>
+                  </tr>
+                </table>{" "}
+              </>
+            )}
           </>
         )}
         <DialogFooter className="flex flex-row justify-end">

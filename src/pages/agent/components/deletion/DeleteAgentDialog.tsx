@@ -17,6 +17,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
@@ -43,6 +44,15 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
 
   // Hook pour récupérer la liste des Agents (RTK)
   const fetchAgentsQuery = useFetchAgentsQuery(access_token);
+  //*******************Fin
+
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentDestroy = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.AGNET_DESTROY
+  );
   //*******************Fin
 
   //*******************Déclaration d'autres variables
@@ -92,23 +102,25 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
             {strings.INSTRUCTIONS.DELETE_AGENT}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex flex-row justify-end">
-          {isLoading ? (
-            <Button disabled variant="destructive">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {strings.BUTTONS.DELETEING}
+        {agentDestroy && (
+          <DialogFooter className="flex flex-row justify-end">
+            {isLoading ? (
+              <Button disabled variant="destructive">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {strings.BUTTONS.DELETEING}
+              </Button>
+            ) : (
+              <Button type="submit" onClick={onDelete} variant="destructive">
+                <Trash2 className="mr-2 h-4 w-4" />
+                {strings.BUTTONS.DELETE}
+              </Button>
+            )}
+            <Button onClick={onCloseClick} type="button" variant="secondary">
+              <X className="mr-2 h-4 w-4" />
+              {strings.BUTTONS.CANCEL}
             </Button>
-          ) : (
-            <Button type="submit" onClick={onDelete} variant="destructive">
-              <Trash2 className="mr-2 h-4 w-4" />
-              {strings.BUTTONS.DELETE}
-            </Button>
-          )}
-          <Button onClick={onCloseClick} type="button" variant="secondary">
-            <X className="mr-2 h-4 w-4" />
-            {strings.BUTTONS.CANCEL}
-          </Button>
-        </DialogFooter>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

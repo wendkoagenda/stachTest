@@ -20,3 +20,14 @@ npm run dev -- -- host
 
   //*******************Fin
 ------------------------
+  //*******************Politique de gestion des permissons
+  // Recuperation des permissions
+  const decodedToken = usePermissions();
+  //Liste des permissions requises
+  const agentList = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentShow = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentStore = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentUpdate = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentDestroy = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  //*******************Fin
+  ----
