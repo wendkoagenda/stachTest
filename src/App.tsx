@@ -5,6 +5,7 @@ import AgentsList from "./pages/agent";
 import Login from "./pages/auth/Login";
 import Home from "./pages/home";
 import { Toaster } from "./components/ui/toaster";
+import StudentsList from "./pages/student";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" />
             <Route element={<AgentsList />} path="/agents" />
+            <Route element={<StudentsList />} path="/students" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

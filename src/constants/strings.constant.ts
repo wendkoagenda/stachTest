@@ -1,15 +1,8 @@
 const strings = {
   APPLICATION_NAME: "Campus flow",
 
-  ACTORS: {
-    CLIENTS: "Clients",
-    TECHNICIAN: "Technicians",
-  },
-  ROLES: {
-    SUPERADMIN: "SuperAdmin",
-    ADMIN: "Admin",
-    TECHNICIAN: "Technician",
-  },
+  ACTORS: {},
+  ROLES: {},
   PLACEHOLDERS: {
     PHONE1: "Numéro de téléphone Whatsapp ici",
     PHONE2: "Numéro téléphone de secours ici ",
@@ -29,9 +22,18 @@ const strings = {
       "Veillez confirmer la suppression d'un membre de l'administration",
     SHOW_AGENT:
       "Vous retrouverez ici toutes les formation lie a cet utilisateru. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+    // Students
+    UPDATED_STUDENT:
+      "Effectuez des modifications d'etudiant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_STUDENT:
+      "Ajouter un nouveau etudiant ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_STUDENT: "Veillez confirmer la suppression d'un etudiant",
+    SHOW_STUDENT:
+      "Vous retrouverez ici toutes les formation lie a cet utilisateru. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
+    ADD_STUDENT: "Ajouter un nouveau etudiant",
   },
   ERRORS: {
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
@@ -47,6 +49,15 @@ const strings = {
     SHOW_AGENT: "Détails sur un membre de l'administration",
     UPDATE_AGENT: "Mise a jour d'un membre de l'administration",
     AGENT_INFO: "Information sur l'agent",
+    // Student
+    MODIFY_STUDENT: "Modification des infos de cet etudiant",
+    ADD_STUDENT: "Ajout s'un nouveau etudiant",
+    LIST_STUDENT: "Liste desetudiant",
+    DELETE_STUDENT: "Suppression d'unetudiant",
+    SHOW_STUDENT: "Détails sur un metudiant",
+    UPDATE_STUDENT: "Mise a jour d'un etudiant",
+    STUDENT_INFO: "Information sur l'etudiant",
+
     PERSONNE_INFO: "Information sur la personne",
   },
   TH: {
@@ -107,57 +118,13 @@ const strings = {
     AGNET_UPDATE: "agents.update",
     AGNET_STORE: "agents.store",
     AGNET_DESTROY: "agents.destroy",
+    STUDENT_LIST: "students.list", // Students
+    STUDENT_SHOW: "students.show",
+    STUDENT_UPDATE: "students.update",
+    STUDENT_STORE: "students.store",
+    STUDENT_DESTROY: "students.destroy",
   },
-  PAGES: {
-    HOME: "Home",
-    USER: "Users",
-    CLIENT: "Client",
-    CATEGORY: "Categories",
-    ARTICLE: "Aritcles",
-    COMPANY: "Companies",
-    CUSTOMER: "Customers",
-    PROJECT: "Projects",
-    PROJECTARTICLE: "ProjectArticles",
-    QUOTE: "Quotes",
-    DISPATCH: "Dispatchs",
-    COMPETENCE: "Skills",
-    INVOICE: "Invoices",
-    CLAIM: "Permissions",
-    ROLE: "Roles",
-  },
-  ACTIONS: {
-    DISCARD: "Discard",
-    GOT_IT: "Got it",
-    UPDATE: "Update",
-    GO_BACK: "Go back",
-    DELETE: "Delete",
-    CREATE_USER: "Create new User",
-    CREATE_INVOICE: "Create new Invoice",
-    CREATE_USER_COMPETENCE: "Add skill",
-    CREATE_ARTICLE: "Create new Article ",
-    CREATE_CATEGORY: "Create new Category ",
-    CREATE_COMPANY: "Create new Company ",
-    CREATE_CUSTOMER: "Create new Customer ",
-    CREATE_PROJECT: "Create new Project ",
-    CREATE_PROJECTARTICLE: "Add an article ",
-    CREATE_DISPATCH: "Create new Dispatch ",
-    CREATE_QUOTE: "Initialize new Quote ",
-    CREATE_COMPETENCE: "Create new Skill ",
-    CREATE_ROLE: "Create new Role ",
-    EDIT_PROJECT: "Edit Project ",
-    EDIT_PROJECTARTICLE: "Edit ProjectArticle",
-    UPDATE_PROJECTARTICLE: "Update",
-    EDIT_DISPATCH: "Edit Dispatch ",
-    EDIT_QUOTE: "Edit Quote ",
-    UPDATE_COMPETENCE: "Upadate Skill",
-    UPDATE_INVOICE: "Upadate Invoice",
-    UPDATE_CUSTOMER: "Upadate Customer",
-    UPDATE_PROJECT: "Upadate Project",
-    UPDATE_QUOTE: "Upadate Quote",
-    UPDATE_DISPATCH: "Upadate Dispatch",
-    UPADATE_ARTICLE: "Upadate Artcile",
-    UPDATE_ROLE: "Upadate Role",
-    UPDATE_CATEGORY: "Upadate Category",
-  },
+  PAGES: {},
+  ACTIONS: {},
 };
 export default strings;

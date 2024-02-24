@@ -31,3 +31,31 @@ npm run dev -- -- host
   const agentDestroy = decodedToken.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
   //*******************Fin
   ----
+
+  // -----------------------------------------
+// Root Types
+export interface ExecutiveRoot {
+
+}
+export interface ExecutiveDaum {
+
+}
+// Creation Types
+export interface ExecutiveCreationModel {
+
+}
+// Delete Types
+export interface ExecutiveDeletionModel {
+
+}
+// Show Types
+export interface ExecutiveShowModel {
+
+}
+export interface ExecutiveShowResponseRoot {
+
+}
+// Update Types
+export interface ExecutiveUpdateModel {
+
+}

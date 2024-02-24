@@ -5,7 +5,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { logout } from "@/redux/slices/authSlice";
-import { Home, Key, LogOut, Menu, Option, User, User2 } from "lucide-react";
+import {
+  Home,
+  Key,
+  LogOut,
+  Menu,
+  Option,
+  SquareUser,
+  User,
+  User2,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -63,12 +72,17 @@ export default function HorizontalHeader() {
   const [agentVariant, setAgentVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
+  const [studentVariant, setStudentVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
 
   useEffect(() => {
     if (currentURL === "/") {
       setHomeVariant(ButtonVariant.Default);
     } else if (currentURL === "/agents") {
       setAgentVariant(ButtonVariant.Default);
+    } else if (currentURL === "/students") {
+      setStudentVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
@@ -79,6 +93,10 @@ export default function HorizontalHeader() {
   const handleGoToUsersPage = () => {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/agents");
+  };
+  const handleGoToStudentsPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/students");
   };
   return (
     <>
@@ -109,6 +127,21 @@ export default function HorizontalHeader() {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Liste des Agents</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant={studentVariant}
+                    onClick={handleGoToStudentsPage}
+                  >
+                    <SquareUser className="mr-2 h-4 w-4" /> Etudiants
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Liste des Etudiants</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
