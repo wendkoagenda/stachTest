@@ -3,8 +3,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import agentReducer from "./slices/agentSlice";
 import studentReducer from "./slices/studentSlice";
+import teacherReducer from "./slices/teacherSlice";
 import authReducer from "./slices/authSlice";
 import { studentsApi } from "@/services/student";
+import { teachersApi } from "@/services/teacher";
 
 const store = configureStore({
   reducer: {
@@ -13,9 +15,15 @@ const store = configureStore({
     [agentsApi.reducerPath]: agentsApi.reducer,
     students: studentReducer,
     [studentsApi.reducerPath]: studentsApi.reducer,
+    teachers: teacherReducer,
+    [teachersApi.reducerPath]: teachersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(agentsApi.middleware, studentsApi.middleware),
+    getDefaultMiddleware().concat(
+      agentsApi.middleware,
+      studentsApi.middleware,
+      teachersApi.middleware
+    ),
 });
 
 setupListeners(store.dispatch);

@@ -21,7 +21,7 @@ const strings = {
     DELETE_AGENT:
       "Veillez confirmer la suppression d'un membre de l'administration",
     SHOW_AGENT:
-      "Vous retrouverez ici toutes les formation lie a cet utilisateru. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+      "Vous retrouverez ici toutes les formation lie a ce membre administration. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
     // Students
     UPDATED_STUDENT:
       "Effectuez des modifications d'etudiant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
@@ -29,11 +29,20 @@ const strings = {
       "Ajouter un nouveau etudiant ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
     DELETE_STUDENT: "Veillez confirmer la suppression d'un etudiant",
     SHOW_STUDENT:
-      "Vous retrouverez ici toutes les formation lie a cet utilisateru. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+      "Vous retrouverez ici toutes les formation lie a cet etudiant. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+    // Teachers
+    UPDATED_TEACHER:
+      "Effectuez des modifications d'enseignant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_TEACHER:
+      "Ajouter un nouveau enseignant ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_TEACHER: "Veillez confirmer la suppression d'un enseignant",
+    SHOW_TEACHER:
+      "Vous retrouverez ici toutes les formation lie a cet enseignant. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
     ADD_STUDENT: "Ajouter un nouveau etudiant",
+    ADD_TEACHER: "Ajouter un nouveau enseignants",
   },
   ERRORS: {
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
@@ -57,6 +66,14 @@ const strings = {
     SHOW_STUDENT: "Détails sur un metudiant",
     UPDATE_STUDENT: "Mise a jour d'un etudiant",
     STUDENT_INFO: "Information sur l'etudiant",
+    // Teacher
+    MODIFY_TEACHER: "Modification des infos de cet enseignant",
+    ADD_TEACHER: "Ajout s'un nouveau enseignant",
+    LIST_TEACHER: "Liste desetudiant",
+    DELETE_TEACHER: "Suppression d'une enseignant",
+    SHOW_TEACHER: "Détails sur un enseignant",
+    UPDATE_TEACHER: "Mise a jour d'un enseignant",
+    TEACHER_INFO: "Information sur l'enseignant",
 
     PERSONNE_INFO: "Information sur la personne",
   },
@@ -123,6 +140,11 @@ const strings = {
     STUDENT_UPDATE: "students.update",
     STUDENT_STORE: "students.store",
     STUDENT_DESTROY: "students.destroy",
+    TEACHER_LIST: "teachers.list", // teachers
+    TEACHER_SHOW: "teachers.show",
+    TEACHER_UPDATE: "teachers.update",
+    TEACHER_STORE: "teachers.store",
+    TEACHER_DESTROY: "teachers.destroy",
   },
   PAGES: {},
   ACTIONS: {},

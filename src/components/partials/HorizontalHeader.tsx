@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import { logout } from "@/redux/slices/authSlice";
 import {
+  CircleUser,
   Home,
   Key,
   LogOut,
@@ -75,6 +76,9 @@ export default function HorizontalHeader() {
   const [studentVariant, setStudentVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
+  const [teacherVariant, setTeacherVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
 
   useEffect(() => {
     if (currentURL === "/") {
@@ -83,6 +87,8 @@ export default function HorizontalHeader() {
       setAgentVariant(ButtonVariant.Default);
     } else if (currentURL === "/students") {
       setStudentVariant(ButtonVariant.Default);
+    } else if (currentURL === "/teachers") {
+      setTeacherVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
@@ -98,6 +104,11 @@ export default function HorizontalHeader() {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/students");
   };
+  const handleGoToTeachersPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/teachers");
+  };
+
   return (
     <>
       <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter z-50">
@@ -145,6 +156,22 @@ export default function HorizontalHeader() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant={teacherVariant}
+                    onClick={handleGoToTeachersPage}
+                  >
+                    <CircleUser className="mr-2 h-4 w-4" /> Enseignants
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Liste des Enseignants</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
             <div>
               <Dropdown title="Kioque" icon={<Key className="mr-2 h-4 w-4" />}>
                 <Button

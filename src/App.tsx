@@ -6,6 +6,7 @@ import Login from "./pages/auth/Login";
 import Home from "./pages/home";
 import { Toaster } from "./components/ui/toaster";
 import StudentsList from "./pages/student";
+import TeachersList from "./pages/teacher";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route element={<Home />} path="/" />
             <Route element={<AgentsList />} path="/agents" />
             <Route element={<StudentsList />} path="/students" />
+            <Route element={<TeachersList />} path="/teachers" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>
