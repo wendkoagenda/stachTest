@@ -69,11 +69,13 @@ const strings = {
     // Teacher
     MODIFY_TEACHER: "Modification des infos de cet enseignant",
     ADD_TEACHER: "Ajout s'un nouveau enseignant",
-    LIST_TEACHER: "Liste desetudiant",
+    LIST_TEACHER: "Liste des enseignant",
     DELETE_TEACHER: "Suppression d'une enseignant",
     SHOW_TEACHER: "Détails sur un enseignant",
     UPDATE_TEACHER: "Mise a jour d'un enseignant",
     TEACHER_INFO: "Information sur l'enseignant",
+    // Departements
+    LIST_DEPARTEMENT: "Liste des departements",
 
     PERSONNE_INFO: "Information sur la personne",
   },

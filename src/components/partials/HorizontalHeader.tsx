@@ -108,6 +108,10 @@ export default function HorizontalHeader() {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/teachers");
   };
+  const handleGoToDepartementsPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/departements");
+  };
 
   return (
     <>
@@ -177,8 +181,9 @@ export default function HorizontalHeader() {
                 <Button
                   className="w-full rounded-md mb-2 border border-none justify-start"
                   variant="outline"
+                  onClick={handleGoToDepartementsPage}
                 >
-                  <Option className="mr-2 h-4 w-4" /> Option 1
+                  <Option className="mr-2 h-4 w-4" /> Departement
                 </Button>
               </Dropdown>
             </div>
