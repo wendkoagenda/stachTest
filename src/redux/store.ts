@@ -3,12 +3,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import agentReducer from "./slices/agentSlice";
 import studentReducer from "./slices/studentSlice";
+import classeReducer from "./slices/classeSlice";
 import teacherReducer from "./slices/teacherSlice";
 import departemntReducer from "./slices/departementSlice";
 import authReducer from "./slices/authSlice";
 import { studentsApi } from "@/services/student";
 import { teachersApi } from "@/services/teacher";
 import { departementsApi } from "@/services/departement";
+import { classesApi } from "@/services/classe";
 
 const store = configureStore({
   reducer: {
@@ -21,13 +23,16 @@ const store = configureStore({
     [teachersApi.reducerPath]: teachersApi.reducer,
     departements: departemntReducer,
     [departementsApi.reducerPath]: departementsApi.reducer,
+    classes: classeReducer,
+    [classesApi.reducerPath]: classesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       agentsApi.middleware,
       studentsApi.middleware,
       teachersApi.middleware,
-      departementsApi.middleware
+      departementsApi.middleware,
+      classesApi.middleware
     ),
 });
 

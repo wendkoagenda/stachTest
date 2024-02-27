@@ -1,5 +1,7 @@
-TEACHER_LIST: "teachers.list", // teachers
-TEACHER_SHOW: "teachers.show",
-TEACHER_UPDATE: "teachers.update",
-TEACHER_STORE: "teachers.store",
-TEACHER_DESTROY: "teachers.destroy",
+MODIFY_CLASSE: "Modification des infos de cet agent",
+    ADD_CLASSE: "Ajout s'un nouveau membre de l'administration",
+    LIST_CLASSE: "Liste des menbres de l'administration",
+    DELETE_CLASSE: "Suppression d'un membre de l'administration",
+    SHOW_CLASSE: "Détails sur un membre de l'administration",
+    UPDATE_CLASSE: "Mise a jour d'un membre de l'administration",
+    CLASSE_INFO: "Information sur l'agent",

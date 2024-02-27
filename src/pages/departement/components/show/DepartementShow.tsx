@@ -2,8 +2,13 @@ import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
+import ClassesList from "@/pages/classe/components/List/ClassesList";
+import ClassesListByDepartement from "@/pages/classe/components/List/ClassesListByDepartement";
+import ClasseDataTable from "@/pages/classe/components/dataTable/ClasseDataTableByDepartement";
+import { useParams } from "react-router-dom";
 
 export default function DepartementShow() {
+  const { dc_uuid } = useParams();
   return (
     <>
       <HorizontalHeader />
@@ -47,12 +52,14 @@ export default function DepartementShow() {
           </div>
         </div>
         <div className="mt-2">
-          <Tabs defaultValue="classes" className="w-[400px]">
+          <Tabs defaultValue="classes" className="w-full">
             <TabsList>
               <TabsTrigger value="classes">{strings.TH.CLASSES}</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
             </TabsList>
-            <TabsContent value="classes">Classes DataTable</TabsContent>
+            <TabsContent value="classes">
+              <ClassesListByDepartement dc_uuid={dc_uuid} />
+            </TabsContent>
             <TabsContent value="password">
               Change your password here.
             </TabsContent>

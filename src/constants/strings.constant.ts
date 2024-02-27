@@ -38,6 +38,14 @@ const strings = {
     DELETE_TEACHER: "Veillez confirmer la suppression d'un enseignant",
     SHOW_TEACHER:
       "Vous retrouverez ici toutes les formation lie a cet enseignant. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+    //Classe
+    UPDATED_CLASSE:
+      "Effectuez des modifications d'une classe ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_CLASSE:
+      "Ajouter une nouvelle classe ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_CLASSE: "Veillez confirmer la suppression d'une classe",
+    SHOW_CLASSE:
+      "Vous retrouverez ici toutes les formation lie a cette classe. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
@@ -77,10 +85,23 @@ const strings = {
     // Departements
     LIST_DEPARTEMENT: "Liste des departements",
     DEPARTEMENT_EMPTY: "Aucun departement trouvé",
-
+    // classes
+    LIST_CLASSE_OF_DEPARTEMENT: "Liste des classes du departements",
+    MODIFY_CLASSE: "Modification des infos de cette classe",
+    ADD_CLASSE: "Ajout d'une nouvel classe",
+    LIST_CLASSE: "Liste des classes",
+    DELETE_CLASSE: "Suppression d'une classe ",
+    SHOW_CLASSE: "Détails de cette classes",
+    UPDATE_CLASSE: "Mise a jour d'une classe",
+    CLASSE_INFO: "Information sur la classe",
+    // Specifique
     PERSONNE_INFO: "Information sur la personne",
   },
   TH: {
+    FILIERE: "Filière",
+    NIVEAU: "Niveau",
+    CLASSE: "Classe",
+    ACRONYM: "Sigle",
     PHONE1: "Téléphone 1 (What)",
     PHONE2: "Téléphone 2",
     EMAIL: "Adresse email",

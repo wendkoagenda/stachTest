@@ -84,8 +84,8 @@ export default function DepartementDataTable() {
   };
 
   // Navigation vers les details du departements
-  const handleGoToDepartementShow = (dc_id: number) => {
-    navigate(`/departement/${dc_id}`);
+  const handleGoToDepartementShow = (dc_uuid: string) => {
+    navigate(`/departement/${dc_uuid}`);
   };
   //*******************Fin
   return (
@@ -132,7 +132,7 @@ export default function DepartementDataTable() {
                   {departementShow && (
                     <Button
                       onClick={() => {
-                        handleGoToDepartementShow(departement.id);
+                        handleGoToDepartementShow(departement.uuid);
                       }}
                     >
                       <Eye className="mr-2 h-4 w-4" />
