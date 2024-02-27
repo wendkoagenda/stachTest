@@ -1,3 +1,10 @@
 reauete a gemini : comment fixer le Header ? 
 -Voir comment generaliser la div pricipale :       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300">
 -Voir la mise ajour des agent (suite du 20)
+-Ajouter les bouttons dacctions pour les departements
+
+ DEPARTEMENT_LIST: "d_c.list", // d_c
+    DEPARTEMENT_SHOW: "d_c.show",
+    DEPARTEMENT_UPDATE: "d_c.update",
+    DEPARTEMENT_STORE: "d_c.store",
+    DEPARTEMENT_DESTROY: "d_c.destroy",

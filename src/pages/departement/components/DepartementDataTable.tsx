@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -13,9 +12,10 @@ import strings from "@/constants/strings.constant";
 import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { Loader2, Search, X } from "lucide-react";
+import { Eye, X } from "lucide-react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 
 export default function DepartementDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -29,18 +29,16 @@ export default function DepartementDataTable() {
   // Recuperation des permissions
   const decodedToken = usePermissions();
   //Liste des permissions requises
-  const departementStore = decodedToken.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const departementList = decodedToken.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
+  const departementShow = decodedToken.userPermissions.includes(
+    strings.PERMISSIONS.DEPARTEMENT_SHOW
   );
   //*******************Fin
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-
+  // Hook de navigation
+  const navigate = useNavigate();
   //Hook de récupération de la liste des departements (Redux store)
   const fetchDepartementsQuery = useFetchDepartementsQuery(access_token);
   //*******************Fin
@@ -54,6 +52,7 @@ export default function DepartementDataTable() {
     : [];
   //*******************Fin
 
+  //*******************Déclaration des fonctions
   // Systheme de recherche et de pagination
   const pageSize = 8;
   const [currentPage, setCurrentPage] = useState(0);
@@ -83,6 +82,12 @@ export default function DepartementDataTable() {
   const handlePageClick = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
   };
+
+  // Navigation vers les details du departements
+  const handleGoToDepartementShow = (dc_id: number) => {
+    navigate(`/departement/${dc_id}`);
+  };
+  //*******************Fin
   return (
     <>
       <div className="flex flex-row gap-2 mb-6">
@@ -103,7 +108,7 @@ export default function DepartementDataTable() {
       ) : departementsToShow.length > 0 ? (
         <div className="grid grid-cols-4 gap-4">
           {departementsToShow.map((departement, index) => (
-            <div key={index} className="max-w-xs">
+            <div key={index} className="max-w-[150] max-h-[150] ">
               <Card>
                 <CardHeader>
                   <CardTitle>
@@ -123,8 +128,17 @@ export default function DepartementDataTable() {
                 <CardContent>
                   <p>Card Content</p>
                 </CardContent>
-                <CardFooter>
-                  <p>Card Footer</p>
+                <CardFooter className="flex flex-row justify-end">
+                  {departementShow && (
+                    <Button
+                      onClick={() => {
+                        handleGoToDepartementShow(departement.id);
+                      }}
+                    >
+                      <Eye className="mr-2 h-4 w-4" />
+                      {strings.BUTTONS.SHOW}
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             </div>
@@ -148,7 +162,7 @@ export default function DepartementDataTable() {
           />
         </div>
       ) : (
-        <p>Aucun Departement.</p>
+        <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
       )}
     </>
   );

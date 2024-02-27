@@ -8,6 +8,7 @@ import { Toaster } from "./components/ui/toaster";
 import StudentsList from "./pages/student";
 import TeachersList from "./pages/teacher";
 import DepartementsList from "./pages/departement/DepartementsList";
+import DepartementShow from "./pages/departement/components/show/DepartementShow";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route element={<StudentsList />} path="/students" />
             <Route element={<TeachersList />} path="/teachers" />
             <Route element={<DepartementsList />} path="/departements" />
+            <Route element={<DepartementShow />} path="/departement/:id" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

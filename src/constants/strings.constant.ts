@@ -76,6 +76,7 @@ const strings = {
     TEACHER_INFO: "Information sur l'enseignant",
     // Departements
     LIST_DEPARTEMENT: "Liste des departements",
+    DEPARTEMENT_EMPTY: "Aucun departement trouvé",
 
     PERSONNE_INFO: "Information sur la personne",
   },
@@ -92,6 +93,7 @@ const strings = {
     STATUS: "Status",
     MASCULIN: "M",
     FEMININ: "F",
+    CLASSES: "Classes",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",
@@ -147,6 +149,11 @@ const strings = {
     TEACHER_UPDATE: "teachers.update",
     TEACHER_STORE: "teachers.store",
     TEACHER_DESTROY: "teachers.destroy",
+    DEPARTEMENT_LIST: "d_c.list", // d_c (departement)
+    DEPARTEMENT_SHOW: "d_c.show",
+    DEPARTEMENT_UPDATE: "d_c.update",
+    DEPARTEMENT_STORE: "d_c.store",
+    DEPARTEMENT_DESTROY: "d_c.destroy",
   },
   PAGES: {},
   ACTIONS: {},
