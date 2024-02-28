@@ -9,6 +9,7 @@ import StudentsList from "./pages/student";
 import TeachersList from "./pages/teacher";
 import DepartementsList from "./pages/departement/DepartementsList";
 import DepartementShow from "./pages/departement/components/show/DepartementShow";
+import ClasseShowMore from "./pages/classe/components/show/ClasseShowMore";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route element={<TeachersList />} path="/teachers" />
             <Route element={<DepartementsList />} path="/departements" />
             <Route element={<DepartementShow />} path="/departement/:dc_uuid" />
+            <Route element={<ClasseShowMore />} path="/classe/:dcnf_uuid" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

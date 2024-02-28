@@ -88,14 +88,14 @@ export default function DepartementShow() {
           <Tabs defaultValue="classes" className="w-full">
             <TabsList>
               <TabsTrigger value="classes">{strings.TH.CLASSES}</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
+              <TabsTrigger value="password">
+                {strings.TH.STATISTIQUES}
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="classes">
               <ClassesListByDepartement dc_uuid={dc_uuid} />
             </TabsContent>
-            <TabsContent value="password">
-              Change your password here.
-            </TabsContent>
+            <TabsContent value="password">Stats</TabsContent>
           </Tabs>
         </div>
       </div>

@@ -1,10 +1,3 @@
-import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
-import {
-  UserCreationModel,
-  UserDeletionModel,
-  UserShowModel,
-  UserUpdateModel,
-} from "@/@types/Global/User";
 import {
   ClasseRoot,
   ClasseShowByDCModel,
@@ -12,10 +5,17 @@ import {
   ClasseShowModel,
   ClasseShowResponse,
 } from "@/@types/Classe/Classe";
+import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
+import {
+  UserCreationModel,
+  UserDeletionModel,
+  UserUpdateModel,
+} from "@/@types/Global/User";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const CLASSE_ROUTE = "tenant/n_f/";
+const CLASSE_DCNFROUTE = "tenant/dc_nf/";
 const CLASSE_BY_DC_ROUTE = "tenant/dc_nf/showByDC/";
 
 // Crée une nouvelle API Get all classes
@@ -33,7 +33,7 @@ export const classesApi = createApi({
     }),
     fetchClasseById: builder.query<ClasseShowResponse, ClasseShowModel>({
       query: (classeShowModel) => ({
-        url: `${CLASSE_ROUTE}${classeShowModel.nf_uuid}`,
+        url: `${CLASSE_DCNFROUTE}${classeShowModel.dcnf_uuid}`,
         headers: {
           Authorization: `Bearer ${classeShowModel.access_token}`,
         },

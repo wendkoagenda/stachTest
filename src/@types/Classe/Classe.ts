@@ -1,6 +1,6 @@
-import { Dc } from "../Singles/DC";
+import { Dc } from "../Singles/Dc";
 import { Filiere } from "../Singles/Filiere";
-import { Nf } from "../Singles/NF";
+import { Nf } from "../Singles/Nf";
 import { Niveau } from "../Singles/Niveau";
 
 export interface ClasseRoot {
@@ -28,13 +28,13 @@ export interface ClasseShowResponse {
 export interface Data {
   id: number;
   uuid: string;
-  niveau_id: number;
-  filiere_id: number;
+  dc_id: number;
+  nf_id: number;
   created_at: string;
   updated_at: string;
   camp_year_id: number;
-  niveau: Niveau;
-  filiere: Filiere;
+  dc: Dc;
+  nf: Nf;
 }
 // lIste by DC
 export interface ClasseShowByDCRoot {
@@ -55,7 +55,6 @@ export interface ClasseShowByDC {
 }
 
 //
-
 export interface ClasseShowByDCModel {
   access_token: string;
   dc_uuid: string | undefined;
@@ -63,5 +62,5 @@ export interface ClasseShowByDCModel {
 
 export interface ClasseShowModel {
   access_token: string;
-  nf_uuid: string | undefined;
+  dcnf_uuid: string | undefined;
 }

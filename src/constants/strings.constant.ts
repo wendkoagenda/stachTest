@@ -99,6 +99,8 @@ const strings = {
     PERSONNE_INFO: "Information sur la personne",
   },
   TH: {
+    STUDENT_COUNT: "Nombre d'étudiants",
+    STUDENT_COUNT: "Nombre d'étudiants",
     FILIERE: "Filière",
     NIVEAU: "Niveau",
     CLASSE: "Classe",
@@ -116,6 +118,7 @@ const strings = {
     MASCULIN: "M",
     FEMININ: "F",
     CLASSES: "Classes",
+    STATISTIQUES: "Statistiques",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",

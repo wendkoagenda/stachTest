@@ -16,8 +16,9 @@ import { useFetchClasseByIdQuery } from "@/services/classe";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { Loader2, X } from "lucide-react";
+import { ArrowUpRightFromSquare, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -39,6 +40,8 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
+  // Hook de navigation
+  const navigate = useNavigate();
 
   // Hook de récupération  de l'état  de la boite de dialogue du tableau des détails (Redux Store)
   const showClasseDialogOpen = useAppSelector(
@@ -46,7 +49,7 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
   );
   // Préparation du paramettre du hook de recuperation des détails d'un classes
   const classeShowModel: ClasseShowModel = {
-    nf_uuid: classeUuid,
+    dcnf_uuid: classeUuid,
     access_token: access_token,
   };
 
@@ -60,9 +63,8 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
   //*******************Fin
 
   //*******************Déclaration d'autres variables
-  const data = fetchClasseByIdQuery.data;
+  const data = fetchClasseByIdQuery.data?.data;
   const isLoading = fetchClasseByIdQuery.isFetching;
-
   //*******************Fin
 
   //*******************Déclaration de fonctions
@@ -70,7 +72,11 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
   const onCloseClick = () => {
     dispatch(closeClasseShowDialog());
   };
-
+  // Fonction de navigation vers nouvelle page de details
+  const onShowMoreClick = (dcnf_uuid: string | undefined) => {
+    navigate(`/classe/${dcnf_uuid}`);
+    dispatch(closeClasseShowDialog());
+  };
   // Fonction de copie des données dans les cellules du tableau des détails dans le presse papier
   const copyToClipboard = (content: string | undefined) => {
     if (typeof content === "string") {
@@ -107,13 +113,10 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.filiere?.title)
-                      }
+                      onClick={() => copyToClipboard(data?.nf?.filiere?.title)}
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.filiere?.title}(
-                      {data?.data?.filiere?.acronym})
+                      {data?.nf?.filiere?.title} ({data?.nf?.filiere?.acronym})
                     </td>
                   </tr>
                   <tr>
@@ -122,17 +125,24 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.niveau?.title)}
+                      onClick={() => copyToClipboard(data?.nf?.niveau?.title)}
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.niveau?.title}({data?.data?.niveau?.acronym})
+                      {data?.nf?.niveau?.title}({data?.nf?.niveau?.acronym})
                     </td>
                   </tr>
                 </table>
               </>
             )}
+            <div className="flex flex-row justify-end">
+              <Button type="submit" onClick={() => onShowMoreClick(data?.uuid)}>
+                <ArrowUpRightFromSquare className="mr-2 h-4 w-4" /> Voir tout le
+                reste
+              </Button>
+            </div>
           </>
         )}
+
         <DialogFooter className="flex flex-row justify-end">
           {isLoading ? (
             <Button disabled>

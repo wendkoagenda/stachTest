@@ -205,7 +205,7 @@ export default function ClasseDataTableByDepartement({
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.nf.uuid);
+                onShowClick(row.original.uuid);
                 closeMenu();
               }}
               table={table}
@@ -231,7 +231,7 @@ export default function ClasseDataTableByDepartement({
               disabled
               label={strings.BUTTONS.DELETE}
               onClick={() => {
-                onDeleteClick(row.original.classe.id);
+                onDeleteClick(row.original.id);
                 closeMenu();
               }}
               table={table}
