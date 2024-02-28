@@ -25,6 +25,7 @@ import { useEffect, useMemo, useState } from "react";
 // import ShowClasseDialog from "./show";
 // import UpdateClasseDialog from "./update";
 import usePermissions from "@/utils/hooks/usePermissions";
+import ShowClasseDialog from "../show";
 
 export default function ClasseDataTableByDepartement({
   dc_uuid,
@@ -201,10 +202,10 @@ export default function ClasseDataTableByDepartement({
           classeShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
-              key="edit"
+              key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.uuid);
+                onShowClick(row.original.nf.uuid);
                 closeMenu();
               }}
               table={table}
@@ -214,6 +215,7 @@ export default function ClasseDataTableByDepartement({
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
+              disabled
               label={strings.BUTTONS.EDIT}
               onClick={() => {
                 onEditClick(row.original.uuid);
@@ -226,9 +228,10 @@ export default function ClasseDataTableByDepartement({
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
               key="delete"
+              disabled
               label={strings.BUTTONS.DELETE}
               onClick={() => {
-                // onDeleteClick(row.original.classe.id);
+                onDeleteClick(row.original.classe.id);
                 closeMenu();
               }}
               table={table}
@@ -238,7 +241,7 @@ export default function ClasseDataTableByDepartement({
       />
       {/* <DeletionClasseDialog classeId={classeId} />
       <UpdateClasseDialog classeUuid={classeUuid} />*/}
-      {/* <ShowClasseDialog classeUuid={classeUuid} /> */}
+      <ShowClasseDialog classeUuid={classeUuid} />
     </>
   );
 }

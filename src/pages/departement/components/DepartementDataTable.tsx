@@ -1,4 +1,4 @@
-import CardSkeleton from "@/components/custom/CardSkeleton";
+import CardSkeleton from "@/components/custom/skeleton/CardSkeleton";
 import { Button } from "@/components/ui/button";
 import {
   Card,

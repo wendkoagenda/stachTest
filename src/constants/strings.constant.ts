@@ -51,6 +51,7 @@ const strings = {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
     ADD_STUDENT: "Ajouter un nouveau etudiant",
     ADD_TEACHER: "Ajouter un nouveau enseignants",
+    NOT_YET_DISPONIBLE: "Pas encor disponible",
   },
   ERRORS: {
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",

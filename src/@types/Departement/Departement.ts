@@ -1,3 +1,6 @@
+import { Cycle } from "../Singles/Cycle";
+import { Departement } from "../Singles/Departement";
+
 export interface DepartementRoot {
   success: boolean;
   message: string;
@@ -16,26 +19,26 @@ export interface DepartementDaum {
   cycle: Cycle;
 }
 
-export interface Departement {
-  id: number;
-  uuid: string;
-  title: string;
-  slug: string;
-  acronym: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-  camp_year_id: number;
+// Show
+export interface DepartementShowModel {
+  access_token: string;
+  dc_uuid: string | undefined;
 }
 
-export interface Cycle {
+export interface DepartementShowResponse {
+  success: boolean;
+  message: string;
+  data: Data;
+}
+
+export interface Data {
   id: number;
   uuid: string;
-  title: string;
-  slug: string;
-  acronym: string;
-  description: string;
+  departement_id: number;
+  cycle_id: number;
   created_at: string;
   updated_at: string;
   camp_year_id: number;
+  departement: Departement;
+  cycle: Cycle;
 }

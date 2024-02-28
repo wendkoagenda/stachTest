@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UserShowModel } from "@/@types/Global/User";
-import TableSkeleton from "@/components/custom/TableSkeleton";
+import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

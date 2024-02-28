@@ -60,3 +60,8 @@ export interface ClasseShowByDCModel {
   access_token: string;
   dc_uuid: string | undefined;
 }
+
+export interface ClasseShowModel {
+  access_token: string;
+  nf_uuid: string | undefined;
+}

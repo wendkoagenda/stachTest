@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { UserShowModel } from "@/@types/Global/User";
-import TableSkeleton from "@/components/custom/TableSkeleton";
-import { Badge } from "@/components/ui/badge";
+import { ClasseShowModel } from "@/@types/Classe/Classe";
+import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,7 +16,7 @@ import { useFetchClasseByIdQuery } from "@/services/classe";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 
 const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
@@ -46,13 +45,13 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
     (state) => state.classes.showClasseDialogOpen
   );
   // Préparation du paramettre du hook de recuperation des détails d'un classes
-  const actorShowModel: UserShowModel = {
-    userUuid: classeUuid,
+  const classeShowModel: ClasseShowModel = {
+    nf_uuid: classeUuid,
     access_token: access_token,
   };
 
   // Hook de récupération des détails d'un classe (RTK)
-  const fetchClasseByIdQuery = useFetchClasseByIdQuery(actorShowModel);
+  const fetchClasseByIdQuery = useFetchClasseByIdQuery(classeShowModel);
 
   // Récupération des détails de l'classe au montage du composant
   useEffect(() => {

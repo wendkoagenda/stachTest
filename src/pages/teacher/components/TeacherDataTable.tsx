@@ -279,7 +279,7 @@ export default function TeacherDataTable() {
           teacherShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
-              key="edit"
+              key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
                 onShowClick(row.original.uuid);

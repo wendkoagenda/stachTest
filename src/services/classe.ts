@@ -9,6 +9,7 @@ import {
   ClasseRoot,
   ClasseShowByDCModel,
   ClasseShowByDCRoot,
+  ClasseShowModel,
   ClasseShowResponse,
 } from "@/@types/Classe/Classe";
 import getConfig from "@/config";
@@ -30,11 +31,11 @@ export const classesApi = createApi({
         },
       }),
     }),
-    fetchClasseById: builder.query<ClasseShowResponse, UserShowModel>({
-      query: (userShowModel) => ({
-        url: `${CLASSE_ROUTE}${userShowModel.userUuid}`,
+    fetchClasseById: builder.query<ClasseShowResponse, ClasseShowModel>({
+      query: (classeShowModel) => ({
+        url: `${CLASSE_ROUTE}${classeShowModel.nf_uuid}`,
         headers: {
-          Authorization: `Bearer ${userShowModel.access_token}`,
+          Authorization: `Bearer ${classeShowModel.access_token}`,
         },
       }),
     }),

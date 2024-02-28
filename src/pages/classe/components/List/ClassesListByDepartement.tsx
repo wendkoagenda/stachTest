@@ -78,7 +78,7 @@ export default function ClassesListByDepartement({
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="col-6">
           <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-            {strings.TEXTS.LIST_STUDENT}
+            {strings.TEXTS.LIST_CLASSE_OF_DEPARTEMENT}
             <Button className="ml-2" style={{ pointerEvents: "none" }}>
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -95,7 +95,7 @@ export default function ClassesListByDepartement({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
+                  <Button onClick={onCreateClick} disabled>
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
@@ -106,7 +106,7 @@ export default function ClassesListByDepartement({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
+                  <p>{strings.TOOLTIPS.NOT_YET_DISPONIBLE}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

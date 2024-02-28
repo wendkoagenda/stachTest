@@ -1,4 +1,3 @@
-import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -10,11 +9,9 @@ import strings from "@/constants/strings.constant";
 import { openClasseCreateDialog } from "@/redux/slices/classeSlice";
 import { useFetchClassesQuery } from "@/services/classe";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import { Loader2, Plus } from "lucide-react";
-import Footer from "../../../../components/partials/Footer";
-import ClasseDataTable from "../dataTable/ClasseDataTableByDepartement";
 import usePermissions from "@/utils/hooks/usePermissions";
-import ClasseDataTableByDepartement from "../dataTable/ClasseDataTableByDepartement";
+import { Loader2, Plus } from "lucide-react";
+import ClasseDataTable from "../dataTable/ClasseDataTable";
 
 export default function ClassesList() {
   //*******************Déclaration de variables de fonctionnement primitives

@@ -1,4 +1,8 @@
-import { DepartementRoot } from "@/@types/Departement/Departement";
+import {
+  DepartementRoot,
+  DepartementShowModel,
+  DepartementShowResponse,
+} from "@/@types/Departement/Departement";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -17,14 +21,17 @@ export const departementsApi = createApi({
         },
       }),
     }),
-    // fetchDepartementById: builder.query<DepartementShowResponse, UserShowModel>({
-    //   query: (userShowModel) => ({
-    //     url: `${STUDENT_USER_ROUTE}${userShowModel.userUuid}`,
-    //     headers: {
-    //       Authorization: `Bearer ${userShowModel.access_token}`,
-    //     },
-    //   }),
-    // }),
+    fetchDepartementById: builder.query<
+      DepartementShowResponse,
+      DepartementShowModel
+    >({
+      query: (departementShowModel) => ({
+        url: `${DC__ROUTE}${departementShowModel.dc_uuid}`,
+        headers: {
+          Authorization: `Bearer ${departementShowModel.access_token}`,
+        },
+      }),
+    }),
     // createDepartement: builder.mutation<
     //   GeneriqueResponse,
     //   Partial<UserCreationModel>
@@ -70,6 +77,6 @@ export const {
   useFetchDepartementsQuery,
   // useCreateDepartementMutation,
   // useDeleteDepartementMutation,
-  // useFetchDepartementByIdQuery,
+  useFetchDepartementByIdQuery,
   // useUpdateDepartementMutation,
 } = departementsApi;
