@@ -1,6 +1,7 @@
 import {
   ClasseRoot,
   ClasseShowByDCModel,
+  ClasseShowByDCNFResponse,
   ClasseShowByDCRoot,
   ClasseShowModel,
   ClasseShowResponse,
@@ -17,6 +18,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const CLASSE_ROUTE = "tenant/n_f/";
 const CLASSE_DCNFROUTE = "tenant/dc_nf/";
 const CLASSE_BY_DC_ROUTE = "tenant/dc_nf/showByDC/";
+const CLASSE_DCNFS_ROUTE = "tenant/dcnf_s/dc_nf/";
 
 // Crée une nouvelle API Get all classes
 export const classesApi = createApi({
@@ -34,6 +36,17 @@ export const classesApi = createApi({
     fetchClasseById: builder.query<ClasseShowResponse, ClasseShowModel>({
       query: (classeShowModel) => ({
         url: `${CLASSE_DCNFROUTE}${classeShowModel.dcnf_uuid}`,
+        headers: {
+          Authorization: `Bearer ${classeShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchClassesByDCNF: builder.query<
+      ClasseShowByDCNFResponse,
+      ClasseShowModel
+    >({
+      query: (classeShowModel) => ({
+        url: `${CLASSE_DCNFS_ROUTE}${classeShowModel.dcnf_uuid}`,
         headers: {
           Authorization: `Bearer ${classeShowModel.access_token}`,
         },
@@ -95,6 +108,7 @@ export const {
   useCreateClasseMutation,
   useDeleteClasseMutation,
   useFetchClasseByIdQuery,
+  useFetchClassesByDCNFQuery,
   useUpdateClasseMutation,
   useFetchClassesByDCUuIdQuery,
 } = classesApi;

@@ -16,7 +16,10 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import strings from "@/constants/strings.constant";
-import { closeStudentUpdateDialog } from "@/redux/slices/studentSlice";
+import {
+  closeStudentUpdateDialog,
+  refreshStudentList,
+} from "@/redux/slices/studentSlice";
 import {
   useFetchStudentByIdQuery,
   useFetchStudentsQuery,
@@ -157,6 +160,7 @@ export default function UpdateStudentForm({
       userUuid: studentUuid,
     };
     await updateStudent(actorUpdateModel).unwrap();
+    dispatch(refreshStudentList());
     dispatch(closeStudentUpdateDialog());
     fetchStudentsQuery.refetch();
     openNotification(

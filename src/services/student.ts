@@ -73,7 +73,7 @@ export const studentsApi = createApi({
     }),
   }),
 });
-// Exporte les hooks générés automatiquement
+// Export les hooks générés automatiquement
 export const {
   useFetchStudentsQuery,
   useCreateStudentMutation,

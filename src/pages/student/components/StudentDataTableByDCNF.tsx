@@ -1,34 +1,38 @@
-import { StudentDaum } from "@/@types/Student/Student";
+import {
+  ClasseShowByDCNFResponseDaum,
+  ClasseShowModel,
+} from "@/@types/Classe/Classe";
 import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshStudentList,
   openStudentDeleteDialog,
   openStudentShowDialog,
   openStudentUpdateDialog,
 } from "@/redux/slices/studentSlice";
-import { useFetchStudentsQuery } from "@/services/student";
+import { useFetchClassesByDCNFQuery } from "@/services/classe";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, EyeIcon, Trash2 } from "lucide-react";
-
+import {
+  MRT_ActionMenuItem,
+  MaterialReactTable,
+  type MRT_ColumnDef,
+} from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import DeletionStudentDialog from "./deletion";
 import ShowStudentDialog from "./show";
 import UpdateStudentDialog from "./update";
-import usePermissions from "@/utils/hooks/usePermissions";
-import {
-  MRT_ActionMenuItem,
-  MRT_ColumnDef,
-  MaterialReactTable,
-} from "material-react-table";
 
-export default function StudentDataTable() {
+export default function StudentDataTableByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -51,37 +55,61 @@ export default function StudentDataTable() {
   );
   //*******************Fin
 
-  //*******************Déclaration des Hooks
+  // Declaration des hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
 
-  //Hook de récupération de la liste des students (Redux store)
-  const fetchStudentsQuery = useFetchStudentsQuery(access_token);
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshStudentList = useAppSelector(
+    (state) => state.students.refreshStudentList
+  );
 
-  // Récupération de la liste des students au montage du composant
+  const [refreshStudentListLocal, setRefreshStudentListLocal] = useState(false);
+
   useEffect(() => {
-    fetchStudentsQuery.refetch();
+    setRefreshStudentListLocal(refreshStudentList);
+  }, [refreshStudentList]);
+
+  // Recuperation du url params
+  const { dcnf_uuid } = useParams();
+  // Préparation du paramettre du hook de recuperation des détails d'un classes
+  const classeShowModel: ClasseShowModel = {
+    dcnf_uuid: dcnf_uuid,
+    access_token: access_token,
+  };
+
+  // Hook de récupération des détails d'un classe (RTK)
+  const fetchClassesByDCNFQuery = useFetchClassesByDCNFQuery(classeShowModel);
+
+  // Récupération des détails de l'classe au montage du composant
+  useEffect(() => {
+    fetchClassesByDCNFQuery.refetch();
+    dispatch(initialiseRefreshStudentList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // Variables useState
+  }, [refreshStudentListLocal]);
+  //*******************Fin
+  //*******************Déclaration d'autres variables
+
   const [studentId, setStudentId] = useState(0);
   const [studentUuid, setStudentUuid] = useState("");
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchStudentsQueryData = fetchStudentsQuery.data?.data;
+  const fetchStudentsQueryData = fetchClassesByDCNFQuery.data?.data;
+
   const data = Array.isArray(fetchStudentsQueryData)
     ? fetchStudentsQueryData
     : [];
-  const isLoading = fetchStudentsQuery.isLoading;
-  const error = fetchStudentsQuery.error;
+
+  const isLoading = fetchClassesByDCNFQuery.isLoading;
+  const error = fetchClassesByDCNFQuery.error;
 
   // Variables pour les colonnes de la DataTable
-  const columns = useMemo<MRT_ColumnDef<StudentDaum>[]>(
+  const columns = useMemo<MRT_ColumnDef<ClasseShowByDCNFResponseDaum>[]>(
     () => [
       {
-        accessorKey: "student.registration_number",
+        accessorKey: "s.student.registration_number",
         header: strings.TH.REGISTRATION_NO,
         columnDefType: "data",
         enableClickToCopy: true,
@@ -98,7 +126,7 @@ export default function StudentDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<number>()}</p>,
       },
       {
-        accessorKey: "user.last_name",
+        accessorKey: "s.user.last_name",
         header: strings.TH.LAST_NAME,
         columnDefType: "data",
         enableClickToCopy: true,
@@ -117,7 +145,7 @@ export default function StudentDataTable() {
       // Ajoute d'autres colonnes pour les propriétés de Student et User si nécessaire
       // Par exemple, pour accéder à la propriété "title" de l'objet "student":
       {
-        accessorKey: "user.first_name",
+        accessorKey: "s.user.first_name",
         header: strings.TH.FIRST_NAME,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -134,7 +162,7 @@ export default function StudentDataTable() {
       },
       // De même pour les autres propriétés de l'objet "user"
       {
-        accessorKey: "user.email",
+        accessorKey: "s.user.email",
         header: strings.TH.EMAIL,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -150,7 +178,7 @@ export default function StudentDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
       },
       {
-        accessorKey: "user.phone1",
+        accessorKey: "s.user.phone1",
         header: strings.TH.PHONE1,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -166,7 +194,7 @@ export default function StudentDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
       },
       {
-        accessorKey: "user.is_active",
+        accessorKey: "s.user.is_active",
         header: strings.TH.STATUS,
         enableClickToCopy: false,
         enableColumnActions: true,
@@ -193,7 +221,7 @@ export default function StudentDataTable() {
         },
       },
       {
-        accessorKey: "user.gender",
+        accessorKey: "s.user.gender",
         header: strings.TH.GENDER,
         enableClickToCopy: false,
         enableColumnActions: true,
@@ -283,7 +311,7 @@ export default function StudentDataTable() {
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.uuid);
+                onShowClick(row.original.s.uuid);
                 closeMenu();
               }}
               table={table}
@@ -295,7 +323,7 @@ export default function StudentDataTable() {
               key="edit"
               label={strings.BUTTONS.EDIT}
               onClick={() => {
-                onEditClick(row.original.uuid);
+                onEditClick(row.original.s.uuid);
                 closeMenu();
               }}
               table={table}
@@ -307,7 +335,7 @@ export default function StudentDataTable() {
               key="delete"
               label={strings.BUTTONS.DELETE}
               onClick={() => {
-                onDeleteClick(row.original.student.id);
+                onDeleteClick(row.original.s.id);
                 closeMenu();
               }}
               table={table}

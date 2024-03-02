@@ -70,7 +70,7 @@ const strings = {
     // Student
     MODIFY_STUDENT: "Modification des infos de cet etudiant",
     ADD_STUDENT: "Ajout s'un nouveau etudiant",
-    LIST_STUDENT: "Liste desetudiant",
+    LIST_STUDENT: "Liste des étudiants",
     DELETE_STUDENT: "Suppression d'unetudiant",
     SHOW_STUDENT: "Détails sur un metudiant",
     UPDATE_STUDENT: "Mise a jour d'un etudiant",
@@ -100,7 +100,6 @@ const strings = {
   },
   TH: {
     STUDENT_COUNT: "Nombre d'étudiants",
-    STUDENT_COUNT: "Nombre d'étudiants",
     FILIERE: "Filière",
     NIVEAU: "Niveau",
     CLASSE: "Classe",
@@ -119,6 +118,7 @@ const strings = {
     FEMININ: "F",
     CLASSES: "Classes",
     STATISTIQUES: "Statistiques",
+    STUDENTS: "Etudiants",
   },
   MESSAGES: {
     WELCOME_BACK: "Content de vous revoir",

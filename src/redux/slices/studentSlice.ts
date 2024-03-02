@@ -5,6 +5,8 @@ export interface StudentState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showStudentDialogOpen: boolean;
+  refreshStudentList: boolean;
+  initialiseRefreshStudentList: boolean;
 }
 
 // Créer un slice pour gérer l'état des students
@@ -15,6 +17,8 @@ const studentSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showStudentDialogOpen: false,
+    refreshStudentList: false,
+    initialiseRefreshStudentList: true,
   },
   reducers: {
     openStudentCreateDialog: (state) => {
@@ -41,6 +45,12 @@ const studentSlice = createSlice({
     closeStudentShowDialog: (state) => {
       state.showStudentDialogOpen = false;
     },
+    refreshStudentList: (state) => {
+      state.refreshStudentList = true;
+    },
+    initialiseRefreshStudentList: (state) => {
+      state.refreshStudentList = false;
+    },
   },
 });
 
@@ -53,6 +63,8 @@ export const {
   closeStudentUpdateDialog,
   openStudentShowDialog,
   closeStudentShowDialog,
+  refreshStudentList,
+  initialiseRefreshStudentList,
 } = studentSlice.actions;
 
 export default studentSlice.reducer;
