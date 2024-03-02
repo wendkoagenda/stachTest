@@ -89,7 +89,7 @@ export default function StudentsListByDCNF() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
+                  <Button disabled onClick={onCreateClick}>
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
@@ -100,7 +100,7 @@ export default function StudentsListByDCNF() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
+                  <p>{strings.TOOLTIPS.NOT_YET_DISPONIBLE}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

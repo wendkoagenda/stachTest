@@ -333,6 +333,7 @@ export default function StudentDataTableByDCNF() {
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
               key="delete"
+              disabled
               label={strings.BUTTONS.DELETE}
               onClick={() => {
                 onDeleteClick(row.original.s.id);
