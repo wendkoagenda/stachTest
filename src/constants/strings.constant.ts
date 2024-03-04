@@ -9,8 +9,16 @@ const strings = {
     EMAIL: "Adresse email ici",
     FIRST_NAME: "Prénom(s) ici",
     LAST_NAME: "Nom de famille ici",
-    TITLE: "Saisir une phrse en gise de Titre",
-    BANNER: "Saisir une phrse en gise de banniere",
+    TITLE: "Saisir une phrase en gise de Titre",
+    BANNER: "Saisir une phrase en gise de banniere",
+    VH_CM: "Saisir VH_CM",
+    VH_TP: "Saisir VH_TP",
+    VH_TD: "Saisir VH_TD",
+    CREDIT: "Saisir CREDIT",
+    COEF: "Saisir COEF",
+    DESCRIPTION: "Saisir DESCRIPTION",
+    ACRONYM: "Saisir ACRONYM",
+    CODE: "Saisir CODE",
   },
   INSTRUCTIONS: {
     STATUS: "L'utilisateur sera-t-il actif ou inactif ?",
@@ -46,11 +54,20 @@ const strings = {
     DELETE_CLASSE: "Veillez confirmer la suppression d'une classe",
     SHOW_CLASSE:
       "Vous retrouverez ici toutes les formation lie a cette classe. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+    //Module
+    UPDATED_MODULE:
+      "Effectuez des modifications d'une module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_MODULE:
+      "Ajouter une nouvelle module ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_MODULE: "Veillez confirmer la suppression d'une module",
+    SHOW_MODULE:
+      "Vous retrouverez ici toutes les formation lie a cette module. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
     ADD_STUDENT: "Ajouter un nouveau etudiant",
     ADD_TEACHER: "Ajouter un nouveau enseignants",
+    ADD_MODULE: "Ajouter un nouveau module",
     NOT_YET_DISPONIBLE: "Pas encor disponible",
   },
   ERRORS: {
@@ -95,12 +112,27 @@ const strings = {
     SHOW_CLASSE: "Détails de cette classes",
     UPDATE_CLASSE: "Mise a jour d'une classe",
     CLASSE_INFO: "Information sur la classe",
+    // Module
+    MODIFY_MODULE: "Modification des infos de ce module",
+    ADD_MODULE: "Ajout s'un nouveau module",
+    LIST_MODULE: "Liste des module",
+    DELETE_MODULE: "Suppression d'une module",
+    SHOW_MODULE: "Détails sur un module",
+    UPDATE_MODULE: "Mise a jour d'un module",
+    MODULE_INFO: "Information sur l'module",
     // Specifique
     PERSONNE_INFO: "Information sur la personne",
   },
   TH: {
+    DESCRIPTION: "Description",
+    COEF: "Coef",
+    CREDIT: "Crédit",
     STUDENT_COUNT: "Nombre d'étudiants",
     FILIERE: "Filière",
+    VH_CM: "CM",
+    VH_TD: "TD",
+    VH_TP: "TP",
+    CODE: "Code",
     NIVEAU: "Niveau",
     CLASSE: "Classe",
     ACRONYM: "Sigle",
@@ -179,6 +211,11 @@ const strings = {
     DEPARTEMENT_UPDATE: "d_c.update",
     DEPARTEMENT_STORE: "d_c.store",
     DEPARTEMENT_DESTROY: "d_c.destroy",
+    MODULE_LIST: "modules.list", // modules
+    MODULE_SHOW: "modules.show",
+    MODULE_UPDATE: "modules.update",
+    MODULE_STORE: "modules.store",
+    MODULE_DESTROY: "modules.destroy",
   },
   PAGES: {},
   ACTIONS: {},

@@ -112,6 +112,10 @@ export default function HorizontalHeader() {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/departements");
   };
+  const handleGoToModulesPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/modules");
+  };
 
   return (
     <>
@@ -184,6 +188,11 @@ export default function HorizontalHeader() {
                   onClick={handleGoToDepartementsPage}
                 >
                   <Option className="mr-2 h-4 w-4" /> Departement
+                  <Option
+                    className="mr-2 h-4 w-4"
+                    onClick={handleGoToModulesPage}
+                  />{" "}
+                  Module
                 </Button>
               </Dropdown>
             </div>

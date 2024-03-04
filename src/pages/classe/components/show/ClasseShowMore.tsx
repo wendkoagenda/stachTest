@@ -90,14 +90,16 @@ export default function ClasseShowMore() {
           <Tabs defaultValue="students" className="w-full">
             <TabsList>
               <TabsTrigger value="students">{strings.TH.STUDENTS}</TabsTrigger>
-              <TabsTrigger value="password">
+              <TabsTrigger value="modules">Modules</TabsTrigger>
+              <TabsTrigger value="statistiques">
                 {strings.TH.STATISTIQUES}
               </TabsTrigger>
             </TabsList>
             <TabsContent value="students">
               <StudentsListByDCNF />
             </TabsContent>
-            <TabsContent value="password">Stats</TabsContent>
+            <TabsContent value="modules">Modules</TabsContent>
+            <TabsContent value="statistiques">Stats</TabsContent>
           </Tabs>
         </div>
       </div>

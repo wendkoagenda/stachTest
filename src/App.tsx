@@ -10,6 +10,7 @@ import TeachersList from "./pages/teacher";
 import DepartementsList from "./pages/departement/DepartementsList";
 import DepartementShow from "./pages/departement/components/show/DepartementShow";
 import ClasseShowMore from "./pages/classe/components/show/ClasseShowMore";
+import ModulesList from "./pages/module";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route element={<DepartementsList />} path="/departements" />
             <Route element={<DepartementShow />} path="/departement/:dc_uuid" />
             <Route element={<ClasseShowMore />} path="/classe/:dcnf_uuid" />
+            <Route element={<ModulesList />} path="/modules" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

@@ -1,7 +1,8 @@
-MODIFY_CLASSE: "Modification des infos de cet agent",
-    ADD_CLASSE: "Ajout s'un nouveau membre de l'administration",
-    LIST_CLASSE: "Liste des menbres de l'administration",
-    DELETE_CLASSE: "Suppression d'un membre de l'administration",
-    SHOW_CLASSE: "Détails sur un membre de l'administration",
-    UPDATE_CLASSE: "Mise a jour d'un membre de l'administration",
-    CLASSE_INFO: "Information sur l'agent",
+ //Module
+ UPDATED_MODULE:
+ "Effectuez des modifications d'une module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+ADD_MODULE:
+ "Ajouter une nouvelle module ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+DELETE_MODULE: "Veillez confirmer la suppression d'une module",
+SHOW_MODULE:
+ "Vous retrouverez ici toutes les formation lie a cette module. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",

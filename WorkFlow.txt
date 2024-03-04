@@ -4,3 +4,5 @@ reauete a gemini : comment fixer le Header ?
 -Ajouter les bouttons dacctions pour les departements
 -Construire la page de details plus des classes
 - Gerer le stqte dqns liste des etudiqn de lq clqsse qpres updqte
+- Afficher la liste des modules 
+-Continuer les actions du CRUD de module
