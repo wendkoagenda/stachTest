@@ -1,20 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { UserShowModel, UserUpdateModel } from "@/@types/Global/User";
+import { ModuleShowModel, ModuleUpdateModel } from "@/@types/Module/Module";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 import strings from "@/constants/strings.constant";
 import { closeModuleUpdateDialog } from "@/redux/slices/moduleSlice";
 import {
@@ -32,27 +30,40 @@ import usePermissions from "@/utils/hooks/usePermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { CheckCircle2, Clock, Loader2, Plus, SaveIcon, X } from "lucide-react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
-  title: z.string().default("Non définie"),
-  email: z.string().email({ message: "Mail invalide !" }),
-  banner: z.string().default("Non définie"),
-  first_name: z.string().min(1, { message: "Le prénom est obligatoire" }),
-  last_name: z
-    .string()
-    .min(2, { message: "Le nom de famille est obligatoire" }),
-  gender: z.enum(["male", "female"], {
-    required_error: "Vous devez sélectionner un genre.",
+  title: z.string({
+    required_error: "Titre obligatoire",
   }),
-  phone1: z.string().min(1, { message: "Le phone 1 est obligatoire" }),
-  phone2: z.string().default("Non définie"),
+  acronym: z.string({
+    required_error: "Acronym obligatoire",
+  }),
+  code: z.string({
+    required_error: "Code required",
+  }),
+  vh_cm: z.number({
+    required_error: "Age is required",
+    invalid_type_error: "Age must be a number",
+  }),
+  vh_td: z.number({
+    required_error: "TD required",
+  }),
+  vh_tp: z.number({
+    required_error: "TP required",
+  }),
+  credits: z.number({
+    required_error: "Credits required",
+  }),
+  coef: z.number({
+    required_error: "Coef required",
+  }),
+  description: z.string().default("Non définie"),
   camp_year_id: z.number(),
-  is_active: z.boolean().default(true),
 });
 
 export default function UpdateModuleForm({
@@ -86,12 +97,12 @@ export default function UpdateModuleForm({
   const fetchModulesQuery = useFetchModulesQuery(access_token);
 
   // Préparation du paramettre du hook de recuperation des détails d'un modules
-  const actorShowModel: UserShowModel = {
-    userUuid: moduleUuid,
+  const moduleShowModel: ModuleShowModel = {
+    moduleUuid: moduleUuid,
     access_token: access_token,
   };
   // Hook de récupération des détails d'un module (RTK)
-  const fetchModuleByIdQuery = useFetchModuleByIdQuery(actorShowModel);
+  const fetchModuleByIdQuery = useFetchModuleByIdQuery(moduleShowModel);
 
   // Récupération des détails de l'module au montage du composant
   useEffect(() => {
@@ -100,12 +111,6 @@ export default function UpdateModuleForm({
 
   // Hook pour la mise à jour  d'un Module (RTK)
   const [updateModule, { error, isLoading }] = useUpdateModuleMutation();
-
-  // Variables useStates
-  const [gender, setGender] = useState("male");
-  const [isActive, setIsActive] = useState(false);
-  const [dataLoaded, setDataLoaded] = useState(false);
-  //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
@@ -117,30 +122,18 @@ export default function UpdateModuleForm({
     resolver: zodResolver(formSchema),
   });
   useEffect(() => {
-    if (data && !dataLoaded) {
-      setDataLoaded(true);
-      setGender(data?.data.user.gender);
-      if (data?.data.user.is_active === 1) {
-        setIsActive(true);
-      } else {
-        setIsActive(false);
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
     if (data) {
       form.reset({
-        title: data?.data.module.title,
-        banner: data?.data.module.banner,
-        first_name: data?.data.user.first_name,
-        last_name: data?.data.user.last_name,
-        gender: data?.data.user.gender,
-        email: data?.data.user.email,
-        phone1: data?.data.user.phone1,
-        phone2: data?.data.user.phone1,
+        title: data?.data.title,
+        acronym: data?.data.acronym,
+        code: data?.data?.code,
+        vh_cm: data?.data?.vh_cm,
+        vh_td: data?.data?.vh_td,
+        vh_tp: data?.data?.vh_tp,
+        credits: data?.data?.credits,
+        coef: data?.data?.coef,
+        description: data?.data?.description,
         camp_year_id: parseInt(camp_year_id),
-        is_active: isActive,
       });
     }
   }, [data]);
@@ -151,12 +144,12 @@ export default function UpdateModuleForm({
   //*******************Déclaration de fonctions
   // Fonction de soumission du formulaire de mise à jour
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const actorUpdateModel: UserUpdateModel = {
-      updateUser: values,
+    const moduleUpdateModel: ModuleUpdateModel = {
+      updateModule: values,
       access_token: access_token,
-      userUuid: moduleUuid,
+      moduleUuid: moduleUuid,
     };
-    await updateModule(actorUpdateModel).unwrap();
+    await updateModule(moduleUpdateModel).unwrap();
     dispatch(closeModuleUpdateDialog());
     fetchModulesQuery.refetch();
     openNotification(
@@ -185,7 +178,7 @@ export default function UpdateModuleForm({
                 ? renderFetchBaseQueryError(error as FetchBaseQueryError)
                 : renderSerializedError(error as SerializedError)
               : " "}
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
               <FormField
                 control={form.control}
                 name="title"
@@ -204,13 +197,13 @@ export default function UpdateModuleForm({
               />
               <FormField
                 control={form.control}
-                name="banner"
+                name="acronym"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.BANNER}</FormLabel>
+                    <FormLabel>{strings.TH.ACRONYM}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={strings.PLACEHOLDERS.BANNER}
+                        placeholder={strings.PLACEHOLDERS.ACRONYM}
                         {...field}
                       />
                     </FormControl>
@@ -218,18 +211,95 @@ export default function UpdateModuleForm({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.CODE}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.CODE}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+              <FormField
+                control={form.control}
+                name="credits"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.CREDIT}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="coef"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.COEF}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.COEF}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex flex-row">
+              <Button size="title" style={{ pointerEvents: "none" }}>
+                <Clock className="mr-2 h-4 w-4" />
+                {strings.TEXTS.VH}
+              </Button>
             </div>
             <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
               <FormField
                 control={form.control}
-                name="last_name"
+                name="vh_cm"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.LAST_NAME}*</FormLabel>
+                    <FormLabel>{strings.TH.VH_CM}*</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={strings.PLACEHOLDERS.LAST_NAME}
-                        {...field}
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.VH_CM}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
                       />
                     </FormControl>
                     <FormMessage />
@@ -238,14 +308,21 @@ export default function UpdateModuleForm({
               />
               <FormField
                 control={form.control}
-                name="first_name"
+                name="vh_td"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.FIRST_NAME}*</FormLabel>
+                    <FormLabel>{strings.TH.VH_TD}*</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={strings.PLACEHOLDERS.FIRST_NAME}
-                        {...field}
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.VH_TD}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
                       />
                     </FormControl>
                     <FormMessage />
@@ -254,14 +331,21 @@ export default function UpdateModuleForm({
               />
               <FormField
                 control={form.control}
-                name="email"
+                name="vh_tp"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.EMAIL}*</FormLabel>
+                    <FormLabel>{strings.TH.VH_TP}*</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={strings.PLACEHOLDERS.EMAIL}
-                        {...field}
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.VH_TP}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
                       />
                     </FormControl>
                     <FormMessage />
@@ -269,90 +353,25 @@ export default function UpdateModuleForm({
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-              <FormField
-                control={form.control}
-                name="phone1"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.PHONE1}*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.PHONE1}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone2"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.PHONE2}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.PHONE2}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <div className="flex flex-row">
+              <Button size="title" style={{ pointerEvents: "none" }}>
+                <Plus className="mr-2 h-4 w-4" />
+                {strings.TEXTS.PLUS}
+              </Button>
             </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-1 md:gap-4">
               <FormField
                 control={form.control}
-                name="gender"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.GENDER}</FormLabel>
+                    <FormLabel>{strings.TH.DESCRIPTION}</FormLabel>
                     <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={gender}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="male" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {strings.TH.MASCULIN}
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="female" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {strings.TH.FEMININ}
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="is_active"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel> {strings.TH.STATUS}</FormLabel>
-                    <FormControl>
-                      <Switch
-                        checked={isActive}
-                        onCheckedChange={field.onChange}
+                      <Textarea
+                        placeholder={strings.PLACEHOLDERS.DESCRIPTION}
+                        {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      {strings.INSTRUCTIONS.STATUS}
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

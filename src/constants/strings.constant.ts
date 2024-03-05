@@ -125,6 +125,7 @@ const strings = {
     // Specifique
     PERSONNE_INFO: "Information sur la personne",
     GENERAL_INFO: "Informations générales",
+    PLUS: "Plus",
   },
   TH: {
     VHT: "VHT",

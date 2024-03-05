@@ -1,4 +1,4 @@
-import { UserDeletionModel } from "@/@types/Global/User";
+import { ModuleDeletionModel } from "@/@types/Module/Module";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -66,11 +66,11 @@ const DeleteModuleDialog = ({ moduleId }: { moduleId: number }) => {
   //*******************Déclaration de fonctions
   // Fonction de soumission de la demande de suppression
   const onDelete = async () => {
-    const actorDeletionModel: UserDeletionModel = {
-      userId: moduleId,
+    const moduleDeletionModel: ModuleDeletionModel = {
+      moduleId: moduleId,
       access_token: access_token,
     };
-    await deleteModule(actorDeletionModel).unwrap();
+    await deleteModule(moduleDeletionModel).unwrap();
     dispatch(closeModuleDeleteDialog());
     fetchModulesQuery.refetch();
     console.log("error", error);
@@ -100,9 +100,9 @@ const DeleteModuleDialog = ({ moduleId }: { moduleId: number }) => {
               ? renderFetchBaseQueryError(error as FetchBaseQueryError)
               : renderSerializedError(error as SerializedError)
             : " "}
-          <DialogTitle>{strings.TEXTS.DELETE_TEACHER}</DialogTitle>
+          <DialogTitle>{strings.TEXTS.DELETE_MODULE}</DialogTitle>
           <DialogDescription>
-            {strings.INSTRUCTIONS.DELETE_TEACHER}
+            {strings.INSTRUCTIONS.DELETE_MODULE}
           </DialogDescription>
         </DialogHeader>
         {moduleDestroy && (

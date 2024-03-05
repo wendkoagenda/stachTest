@@ -16,7 +16,7 @@ import { useFetchModuleByIdQuery } from "@/services/module";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { Clock, Info, Loader2, X } from "lucide-react";
+import { Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect } from "react";
 
 const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
@@ -238,7 +238,27 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                       {strings.TEXTS.HEURES}
                     </td>
                   </tr>
-                </table>{" "}
+                </table>
+                <div className="flex flex-row">
+                  <Button size="title" style={{ pointerEvents: "none" }}>
+                    <Plus className="mr-2 h-4 w-4" />
+                    {strings.TEXTS.PLUS}
+                  </Button>
+                </div>
+                <table className="border-collapse border border-slate-400 ">
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.DESCRIPTION}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.description)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.description}
+                    </td>
+                  </tr>
+                </table>
               </>
             )}
           </>

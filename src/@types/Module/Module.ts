@@ -53,4 +53,19 @@ export interface ModuleShowResponse {
   data: ModuleDaum;
 }
 // Update Types
-export interface ModuleUpdateModel {}
+export interface ModuleUpdateModel {
+  moduleUuid: string;
+  updateModule: {
+    title: string;
+    acronym: string;
+    code: string;
+    vh_cm: number;
+    vh_td: number;
+    vh_tp: number;
+    credits: number;
+    coef: number;
+    description: string;
+    camp_year_id: number;
+  };
+  access_token: string;
+}

@@ -6,3 +6,4 @@ reauete a gemini : comment fixer le Header ?
 - Gerer le stqte dqns liste des etudiqn de lq clqsse qpres updqte
 - Afficher la liste des modules 
 -Continuer les actions du CRUD de module
+- Afficher les module dune classe les details dune classe

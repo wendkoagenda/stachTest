@@ -1,10 +1,11 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
-import { UserDeletionModel, UserUpdateModel } from "@/@types/Global/User";
 import {
   ModuleCreationModel,
+  ModuleDeletionModel,
   ModuleRoot,
   ModuleShowModel,
   ModuleShowResponse,
+  ModuleUpdateModel,
 } from "@/@types/Module/Module";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -47,28 +48,29 @@ export const modulesApi = createApi({
     }),
     deleteModule: builder.mutation<
       GeneriqueResponse,
-      Partial<UserDeletionModel>
+      Partial<ModuleDeletionModel>
     >({
-      query: (userDeletionModel) => ({
-        url: `${MODULE_ROUTE}${userDeletionModel.userId}`,
+      query: (moduleDeletionModel) => ({
+        url: `${MODULE_ROUTE}${moduleDeletionModel.moduleId}`,
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${userDeletionModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+          Authorization: `Bearer ${moduleDeletionModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
         },
       }),
     }),
-    updateModule: builder.mutation<GeneriqueResponse, Partial<UserUpdateModel>>(
-      {
-        query: (userUpdateModel) => ({
-          url: `${MODULE_ROUTE}${userUpdateModel.userUuid}`,
-          method: "PUT", // Utilisez PUT pour mettre à jour les données
-          body: userUpdateModel.updateUser, // Les données mises à jour à envoyer dans le corps de la requête
-          headers: {
-            Authorization: `Bearer ${userUpdateModel.access_token}`,
-          },
-        }),
-      }
-    ),
+    updateModule: builder.mutation<
+      GeneriqueResponse,
+      Partial<ModuleUpdateModel>
+    >({
+      query: (moduleUpdateModel) => ({
+        url: `${MODULE_ROUTE}${moduleUpdateModel.moduleUuid}`,
+        method: "PUT", // Utilisez PUT pour mettre à jour les données
+        body: moduleUpdateModel.updateModule, // Les données mises à jour à envoyer dans le corps de la requête
+        headers: {
+          Authorization: `Bearer ${moduleUpdateModel.access_token}`,
+        },
+      }),
+    }),
   }),
 });
 // Exporte les hooks générés automatiquement
