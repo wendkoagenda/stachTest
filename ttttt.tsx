@@ -1,8 +1,8 @@
- //Module
- UPDATED_MODULE:
- "Effectuez des modifications d'une module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-ADD_MODULE:
- "Ajouter une nouvelle module ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
-DELETE_MODULE: "Veillez confirmer la suppression d'une module",
-SHOW_MODULE:
- "Vous retrouverez ici toutes les formation lie a cette module. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+  // Student
+  MODIFY_MODULE: "Modification des infos de cet module",
+  ADD_MODULE: "Ajout s'un nouveau module",
+  LIST_MODULE: "Liste des étudiants",
+  DELETE_MODULE: "Suppression d'unmodule",
+  SHOW_MODULE: "Détails sur un mmodule",
+  UPDATE_MODULE: "Mise a jour d'un module",
+  MODULE_INFO: "Information sur l'module",

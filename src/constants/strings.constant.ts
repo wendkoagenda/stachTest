@@ -120,10 +120,14 @@ const strings = {
     SHOW_MODULE: "Détails sur un module",
     UPDATE_MODULE: "Mise a jour d'un module",
     MODULE_INFO: "Information sur l'module",
+    VH: "Voumes horaires",
+    HEURES: "heures",
     // Specifique
     PERSONNE_INFO: "Information sur la personne",
+    GENERAL_INFO: "Informations générales",
   },
   TH: {
+    VHT: "VHT",
     DESCRIPTION: "Description",
     COEF: "Coef",
     CREDIT: "Crédit",

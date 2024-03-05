@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { UserShowModel } from "@/@types/Global/User";
+import { ModuleShowModel } from "@/@types/Module/Module";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,7 +16,7 @@ import { useFetchModuleByIdQuery } from "@/services/module";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
+import { Clock, Info, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 
 const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
@@ -33,7 +32,7 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
   const decodedToken = usePermissions();
   //Liste des permissions requises
   const moduleShow = decodedToken.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_SHOW
+    strings.PERMISSIONS.MODULE_SHOW
   );
   //*******************Fin
 
@@ -46,13 +45,13 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
     (state) => state.modules.showModuleDialogOpen
   );
   // Préparation du paramettre du hook de recuperation des détails d'un modules
-  const actorShowModel: UserShowModel = {
-    userUuid: moduleUuid,
+  const moduleShowModel: ModuleShowModel = {
+    moduleUuid: moduleUuid,
     access_token: access_token,
   };
 
   // Hook de récupération des détails d'un module (RTK)
-  const fetchModuleByIdQuery = useFetchModuleByIdQuery(actorShowModel);
+  const fetchModuleByIdQuery = useFetchModuleByIdQuery(moduleShowModel);
 
   // Récupération des détails de l'module au montage du composant
   useEffect(() => {
@@ -84,9 +83,9 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
     <Dialog open={showModuleDialogOpen} onOpenChange={onCloseClick}>
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow-hidden">
         <DialogHeader>
-          <DialogTitle>{strings.TEXTS.SHOW_TEACHER}</DialogTitle>
+          <DialogTitle>{strings.TEXTS.SHOW_MODULE}</DialogTitle>
           <DialogDescription>
-            {strings.INSTRUCTIONS.SHOW_TEACHER}
+            {strings.INSTRUCTIONS.SHOW_MODULE}
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (
@@ -97,8 +96,8 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
               <>
                 <div className="flex flex-row">
                   <Button size="title" style={{ pointerEvents: "none" }}>
-                    <SquareUser className="mr-2 h-4 w-4" />
-                    {strings.TEXTS.TEACHER_INFO}
+                    <Info className="mr-2 h-4 w-4" />
+                    {strings.TEXTS.GENERAL_INFO}
                   </Button>
                 </div>
                 <table className="border-collapse border border-slate-400 ">
@@ -108,148 +107,135 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.module?.title)}
+                      onClick={() => copyToClipboard(data?.data?.title)}
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.module?.title}
+                      {data?.data?.title}
                     </td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.BANNER}</b>
+                      <b>{strings.TH.ACRONYM}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.module?.banner)
-                      }
+                      onClick={() => copyToClipboard(data?.data?.acronym)}
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.module?.banner}
+                      {data?.data?.acronym}
                     </td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.REGISTRATION_NO}</b>
+                      <b>{strings.TH.CODE}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() => copyToClipboard(data?.data?.code)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.code}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.CREDIT}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
                       onClick={() =>
-                        copyToClipboard(data?.data?.module?.registration_number)
+                        copyToClipboard(data?.data?.credits.toString())
                       }
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.module?.registration_number}
+                      {data?.data?.credits}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border border-slate-300">
+                      <b>{strings.TH.COEF}</b>
+                    </td>
+                    <td
+                      className="border border-slate-300 "
+                      onClick={() =>
+                        copyToClipboard(data?.data?.coef.toString())
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {data?.data?.coef}
                     </td>
                   </tr>
                 </table>
                 <div className="flex flex-row">
                   <Button size="title" style={{ pointerEvents: "none" }}>
-                    <CircleUser className="mr-2 h-4 w-4" />
-                    {strings.TEXTS.PERSONNE_INFO}
+                    <Clock className="mr-2 h-4 w-4" />
+                    {strings.TEXTS.VH}
                   </Button>
                 </div>
                 <table className="border-collapse border border-slate-400 ">
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.LAST_NAME}</b>
+                      <b>{strings.TH.VH_CM}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
                       onClick={() =>
-                        copyToClipboard(data?.data?.user?.last_name)
+                        copyToClipboard(data?.data?.vh_cm.toString())
                       }
                       style={{ cursor: "pointer" }}
                     >
-                      {" "}
-                      {data?.data?.user?.last_name}
+                      {data?.data?.vh_cm} {strings.TEXTS.HEURES}
                     </td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.FIRST_NAME}</b>
+                      <b>{strings.TH.VH_TD}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
                       onClick={() =>
-                        copyToClipboard(data?.data?.user?.first_name)
+                        copyToClipboard(data?.data?.vh_td.toString())
                       }
                       style={{ cursor: "pointer" }}
                     >
-                      {" "}
-                      {data?.data?.user?.first_name}
+                      {data?.data?.vh_td} {strings.TEXTS.HEURES}
                     </td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.EMAIL}</b>
+                      <b>{strings.TH.VH_TP}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.user?.email)}
+                      onClick={() =>
+                        copyToClipboard(data?.data?.vh_tp.toString())
+                      }
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.user?.email}
+                      {data?.data?.vh_tp} {strings.TEXTS.HEURES}
                     </td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300">
-                      <b>{strings.TH.PHONE1}</b>
+                      <b>{strings.TH.VHT}</b>
                     </td>
                     <td
                       className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.user?.phone1)}
+                      onClick={() =>
+                        copyToClipboard(
+                          (
+                            (data?.data?.vh_tp ?? 0) +
+                            (data?.data?.vh_td ?? 0) +
+                            (data?.data?.vh_cm ?? 0)
+                          ).toString()
+                        )
+                      }
                       style={{ cursor: "pointer" }}
                     >
-                      {data?.data?.user?.phone1}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.PHONE2}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.user?.phone2)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.user?.phone2}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.GENDER}</b>
-                    </td>
-                    <td className="border border-slate-300 ">
-                      <Badge
-                        variant={
-                          data?.data?.user?.gender === "male"
-                            ? "secondary"
-                            : "secondary"
-                        }
-                        className="text-xs"
-                      >
-                        {data?.data?.user?.gender === "female" ? "F" : "M"}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.STATUS}</b>
-                    </td>
-                    <td className="border border-slate-300 ">
-                      <Badge
-                        variant={
-                          data?.data?.user?.is_active === 1
-                            ? "default"
-                            : "destructive"
-                        }
-                        className="text-xs"
-                      >
-                        {data?.data?.user?.is_active === 1
-                          ? "Actif"
-                          : "Inactif"}
-                      </Badge>
+                      {(data?.data?.vh_tp ?? 0) +
+                        (data?.data?.vh_td ?? 0) +
+                        (data?.data?.vh_cm ?? 0)}{" "}
+                      {strings.TEXTS.HEURES}
                     </td>
                   </tr>
                 </table>{" "}

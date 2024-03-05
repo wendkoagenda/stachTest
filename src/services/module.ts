@@ -1,13 +1,9 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
-import {
-  UserCreationModel,
-  UserDeletionModel,
-  UserShowModel,
-  UserUpdateModel,
-} from "@/@types/Global/User";
+import { UserDeletionModel, UserUpdateModel } from "@/@types/Global/User";
 import {
   ModuleCreationModel,
   ModuleRoot,
+  ModuleShowModel,
   ModuleShowResponse,
 } from "@/@types/Module/Module";
 import getConfig from "@/config";
@@ -28,11 +24,11 @@ export const modulesApi = createApi({
         },
       }),
     }),
-    fetchModuleById: builder.query<ModuleShowResponse, UserShowModel>({
-      query: (userShowModel) => ({
-        url: `${MODULE_ROUTE}${userShowModel.userUuid}`,
+    fetchModuleById: builder.query<ModuleShowResponse, ModuleShowModel>({
+      query: (moduleShowModel) => ({
+        url: `${MODULE_ROUTE}${moduleShowModel.moduleUuid}`,
         headers: {
-          Authorization: `Bearer ${userShowModel.access_token}`,
+          Authorization: `Bearer ${moduleShowModel.access_token}`,
         },
       }),
     }),

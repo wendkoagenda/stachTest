@@ -43,7 +43,10 @@ export interface ModuleDeletionModel {
   moduleId: number;
 }
 // Show Types
-export interface ModuleShowModel {}
+export interface ModuleShowModel {
+  access_token: string;
+  moduleUuid: string;
+}
 export interface ModuleShowResponse {
   success: boolean;
   message: string;
