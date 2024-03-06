@@ -1,3 +1,6 @@
+import { Dcnf } from "../Singles/Dcnf";
+import { SuM } from "../Singles/Sum";
+
 // Root Types
 export interface ModuleRoot {
   success: boolean;
@@ -68,4 +71,31 @@ export interface ModuleUpdateModel {
     camp_year_id: number;
   };
   access_token: string;
+}
+
+export interface ModuleShowByDCNFModel {
+  access_token: string;
+  dcnf_uuid: string | undefined;
+}
+export interface ModuleShowByDCNFResponse {
+  success: boolean;
+  message: string;
+  data: ModuleShowByDCNFResponseDaum[];
+}
+export interface ModuleShowByDCNFResponseDaum {
+  id: number;
+  uuid: string;
+  dcnf_id: number;
+  su_m_id: number;
+  statut: string;
+  updated_by?: number;
+  created_at: string;
+  updated_at: string;
+  camp_year_id: number;
+  dcnf: Dcnf;
+  su_m: SuM;
+}
+export interface DCNF_SUMDeletionModel {
+  access_token: string;
+  dcnf_sum_id: number;
 }

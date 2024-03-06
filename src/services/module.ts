@@ -1,8 +1,11 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import {
+  DCNF_SUMDeletionModel,
   ModuleCreationModel,
   ModuleDeletionModel,
   ModuleRoot,
+  ModuleShowByDCNFModel,
+  ModuleShowByDCNFResponse,
   ModuleShowModel,
   ModuleShowResponse,
   ModuleUpdateModel,
@@ -11,6 +14,8 @@ import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const MODULE_ROUTE = "tenant/modules/";
+const MODULE_BY_DCNF_ROUTE = "tenant/dcnf_sum/dc_nf/";
+const DCNF_SUM_ROUTE = "tenant/dcnf_sum/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -30,6 +35,17 @@ export const modulesApi = createApi({
         url: `${MODULE_ROUTE}${moduleShowModel.moduleUuid}`,
         headers: {
           Authorization: `Bearer ${moduleShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchModuleByDCNF: builder.query<
+      ModuleShowByDCNFResponse,
+      ModuleShowByDCNFModel
+    >({
+      query: (moduleShowByDCNFModel) => ({
+        url: `${MODULE_BY_DCNF_ROUTE}${moduleShowByDCNFModel.dcnf_uuid}`,
+        headers: {
+          Authorization: `Bearer ${moduleShowByDCNFModel.access_token}`,
         },
       }),
     }),
@@ -58,6 +74,18 @@ export const modulesApi = createApi({
         },
       }),
     }),
+    deleteDCNF_SUM: builder.mutation<
+      GeneriqueResponse,
+      Partial<DCNF_SUMDeletionModel>
+    >({
+      query: (dcnf_sumDeletionModel) => ({
+        url: `${DCNF_SUM_ROUTE}${dcnf_sumDeletionModel.dcnf_sum_id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${dcnf_sumDeletionModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
     updateModule: builder.mutation<
       GeneriqueResponse,
       Partial<ModuleUpdateModel>
@@ -79,5 +107,7 @@ export const {
   useCreateModuleMutation,
   useDeleteModuleMutation,
   useFetchModuleByIdQuery,
+  useFetchModuleByDCNFQuery,
   useUpdateModuleMutation,
+  useDeleteDCNF_SUMMutation,
 } = modulesApi;

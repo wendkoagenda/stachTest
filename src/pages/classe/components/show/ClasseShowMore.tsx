@@ -4,6 +4,7 @@ import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
+import ModulesListByDCNF from "@/pages/module/ModulesListByDCNF";
 import StudentsListByDCNF from "@/pages/student/StudentsListByDCNF";
 import { useFetchClasseByIdQuery } from "@/services/classe";
 import { useEffect } from "react";
@@ -98,7 +99,9 @@ export default function ClasseShowMore() {
             <TabsContent value="students">
               <StudentsListByDCNF />
             </TabsContent>
-            <TabsContent value="modules">Modules</TabsContent>
+            <TabsContent value="modules">
+              <ModulesListByDCNF />
+            </TabsContent>
             <TabsContent value="statistiques">Stats</TabsContent>
           </Tabs>
         </div>

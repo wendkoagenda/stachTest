@@ -1,16 +1,20 @@
-import { ModuleDaum } from "@/@types/Module/Module";
+import {
+  ModuleShowByDCNFModel,
+  ModuleShowByDCNFResponseDaum,
+} from "@/@types/Module/Module";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshModuleList,
   openModuleDeleteDialog,
   openModuleShowDialog,
   openModuleUpdateDialog,
 } from "@/redux/slices/moduleSlice";
-import { useFetchModulesQuery } from "@/services/module";
+import { useFetchModuleByDCNFQuery } from "@/services/module";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -22,11 +26,12 @@ import {
 } from "material-react-table";
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
-import DeletionModuleDialog from "./deletion";
+import { useParams } from "react-router-dom";
+import DeletionDCNF_SUMDialog from "./deletion/DeleteDCNF_SUMDialog";
 import ShowModuleDialog from "./show";
 import UpdateModuleDialog from "./update";
 
-export default function ModuleDataTable() {
+export default function ModuleDataTableByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -53,33 +58,54 @@ export default function ModuleDataTable() {
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
 
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshModuleList = useAppSelector(
+    (state) => state.modules.refreshModuleList
+  );
+
+  const [refreshModuleListLocal, setRefreshModuleListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshModuleListLocal(refreshModuleList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshModuleList]);
+
+  const { dcnf_uuid } = useParams();
+  // Préparation du paramettre du hook de recuperation des détails d'un modules
+  const moduleShowByDCNFModel: ModuleShowByDCNFModel = {
+    dcnf_uuid: dcnf_uuid,
+    access_token: access_token,
+  };
+
   //Hook de récupération de la liste des modules (Redux store)
-  const fetchModulesQuery = useFetchModulesQuery(access_token);
+  const fetchModuleByDCNFQuery = useFetchModuleByDCNFQuery(
+    moduleShowByDCNFModel
+  );
 
   // Récupération de la liste des modules au montage du composant
   useEffect(() => {
-    fetchModulesQuery.refetch();
+    fetchModuleByDCNFQuery.refetch();
+    dispatch(initialiseRefreshModuleList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshModuleListLocal]);
   // Variables useState
-  const [moduleId, setModuleId] = useState(0);
+  const [dcnf_sum_id, setDCNF_SUMId] = useState(0);
   const [moduleUuid, setModuleUuid] = useState("");
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchModulesQueryData = fetchModulesQuery.data?.data;
-  const data = Array.isArray(fetchModulesQueryData)
-    ? fetchModulesQueryData
+  const fetchModuleByDCNFQueryData = fetchModuleByDCNFQuery.data?.data;
+  const data = Array.isArray(fetchModuleByDCNFQueryData)
+    ? fetchModuleByDCNFQueryData
     : [];
-  const isLoading = fetchModulesQuery.isLoading;
-  const error = fetchModulesQuery.error;
+  const isLoading = fetchModuleByDCNFQuery.isLoading;
+  const error = fetchModuleByDCNFQuery.error;
 
-  // Variables pour les colonnes de la DataTable
-  const columns = useMemo<MRT_ColumnDef<ModuleDaum>[]>(
+  const columns = useMemo<MRT_ColumnDef<ModuleShowByDCNFResponseDaum>[]>(
     () => [
       {
-        accessorKey: "title",
+        accessorKey: "su_m.module.title",
         header: strings.TH.TITLE,
         columnDefType: "data",
         enableClickToCopy: true,
@@ -96,7 +122,7 @@ export default function ModuleDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<number>()}</p>,
       },
       {
-        accessorKey: "acronym",
+        accessorKey: "su_m.module.acronym",
         header: strings.TH.ACRONYM,
         columnDefType: "data",
         enableClickToCopy: true,
@@ -115,7 +141,7 @@ export default function ModuleDataTable() {
       // Ajoute d'autres colonnes pour les propriétés de Module et User si nécessaire
       // Par exemple, pour accéder à la propriété "title" de l'objet "module":
       {
-        accessorKey: "code",
+        accessorKey: "su_m.module.code",
         header: strings.TH.CODE,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -131,7 +157,7 @@ export default function ModuleDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
       },
       {
-        accessorKey: "vht",
+        accessorKey: "su_m.module.vht",
         header: strings.TH.VHT,
         enableClickToCopy: false,
         enableColumnActions: true,
@@ -147,14 +173,14 @@ export default function ModuleDataTable() {
         size: 100,
         Cell: ({ cell }) => {
           return (
-            cell.row.original.vh_tp +
-            cell.row.original.vh_td +
-            cell.row.original.vh_cm
+            cell.row.original.su_m.module.vh_tp +
+            cell.row.original.su_m.module.vh_td +
+            cell.row.original.su_m.module.vh_cm
           );
         },
       },
       {
-        accessorKey: "credits",
+        accessorKey: "su_m.module.credits",
         header: strings.TH.CREDIT,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -170,7 +196,7 @@ export default function ModuleDataTable() {
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
       },
       {
-        accessorKey: "coef",
+        accessorKey: "su_m.module.coef",
         header: strings.TH.COEF,
         enableClickToCopy: true,
         enableColumnActions: true,
@@ -192,8 +218,8 @@ export default function ModuleDataTable() {
 
   //*******************Déclaration de fonctions
   // Fonction pour l'ouverture de la boite de dialogue de suppression
-  const onDeleteClick = (moduleId: number) => {
-    setModuleId(moduleId);
+  const onDeleteClick = (dcnf_sum_id: number) => {
+    setDCNF_SUMId(dcnf_sum_id);
     dispatch(openModuleDeleteDialog());
   };
 
@@ -249,7 +275,7 @@ export default function ModuleDataTable() {
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.uuid);
+                onShowClick(row.original.su_m.module.uuid);
                 closeMenu();
               }}
               table={table}
@@ -261,7 +287,7 @@ export default function ModuleDataTable() {
               key="edit"
               label={strings.BUTTONS.EDIT}
               onClick={() => {
-                onEditClick(row.original.uuid);
+                onEditClick(row.original.su_m.module.uuid);
                 closeMenu();
               }}
               table={table}
@@ -281,7 +307,7 @@ export default function ModuleDataTable() {
           ),
         ]}
       />
-      <DeletionModuleDialog moduleId={moduleId} />
+      <DeletionDCNF_SUMDialog dcnf_sum_id={dcnf_sum_id} />
       <UpdateModuleDialog moduleUuid={moduleUuid} />
       <ShowModuleDialog moduleUuid={moduleUuid} />
     </>

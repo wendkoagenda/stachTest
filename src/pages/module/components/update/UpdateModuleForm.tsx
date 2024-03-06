@@ -14,7 +14,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import strings from "@/constants/strings.constant";
-import { closeModuleUpdateDialog } from "@/redux/slices/moduleSlice";
+import {
+  closeModuleUpdateDialog,
+  refreshModuleList,
+} from "@/redux/slices/moduleSlice";
 import {
   useFetchModuleByIdQuery,
   useFetchModulesQuery,
@@ -150,6 +153,7 @@ export default function UpdateModuleForm({
       moduleUuid: moduleUuid,
     };
     await updateModule(moduleUpdateModel).unwrap();
+    dispatch(refreshModuleList());
     dispatch(closeModuleUpdateDialog());
     fetchModulesQuery.refetch();
     openNotification(

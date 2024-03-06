@@ -5,6 +5,8 @@ export interface ModuleState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showModuleDialogOpen: boolean;
+  refreshModuleList: boolean;
+  initialiseRefreshModuleList: boolean;
 }
 
 // Créer un slice pour gérer l'état des modules
@@ -15,6 +17,8 @@ const moduleSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showModuleDialogOpen: false,
+    refreshModuleList: false,
+    initialiseRefreshModuleList: true,
   },
   reducers: {
     openModuleCreateDialog: (state) => {
@@ -41,6 +45,12 @@ const moduleSlice = createSlice({
     closeModuleShowDialog: (state) => {
       state.showModuleDialogOpen = false;
     },
+    refreshModuleList: (state) => {
+      state.refreshModuleList = true;
+    },
+    initialiseRefreshModuleList: (state) => {
+      state.refreshModuleList = false;
+    },
   },
 });
 
@@ -53,6 +63,8 @@ export const {
   closeModuleUpdateDialog,
   openModuleShowDialog,
   closeModuleShowDialog,
+  refreshModuleList,
+  initialiseRefreshModuleList,
 } = moduleSlice.actions;
 
 export default moduleSlice.reducer;
