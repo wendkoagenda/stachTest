@@ -1,3 +1,4 @@
+import { ModuleShowByDCNFModel } from "@/@types/Module/Module";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -7,10 +8,11 @@ import {
 } from "@/components/ui/tooltip";
 import strings from "@/constants/strings.constant";
 import { openModuleCreateDialog } from "@/redux/slices/moduleSlice";
-import { useFetchModulesQuery } from "@/services/module";
+import { useFetchModuleByDCNFQuery } from "@/services/module";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { Loader2, Plus } from "lucide-react";
+import { useParams } from "react-router-dom";
 import Footer from "../../components/partials/Footer";
 import ModuleDataTableByDCNF from "./components/ModuleDataTableByDCNF";
 import CreationModuleDialog from "./components/creation";
@@ -38,16 +40,24 @@ export default function ModulesListByDCNF() {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
+  const { dcnf_uuid } = useParams();
+  // Préparation du paramettre du hook de recuperation des détails d'un modules
+  const moduleShowByDCNFModel: ModuleShowByDCNFModel = {
+    dcnf_uuid: dcnf_uuid,
+    access_token: access_token,
+  };
   //Hook de récupération de la liste des modules (Redux store)
-  const fetchModulesQuery = useFetchModulesQuery(access_token);
+  const fetchModuleByDCNFQuery = useFetchModuleByDCNFQuery(
+    moduleShowByDCNFModel
+  );
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchModulesQueryData = fetchModulesQuery.data?.data;
-  const isLoading = fetchModulesQuery.isLoading;
-  const modules = Array.isArray(fetchModulesQueryData)
-    ? fetchModulesQueryData
+  const fetchModuleByDCNFQueryData = fetchModuleByDCNFQuery.data?.data;
+  const isLoading = fetchModuleByDCNFQuery.isLoading;
+  const modules = Array.isArray(fetchModuleByDCNFQueryData)
+    ? fetchModuleByDCNFQueryData
     : [];
   //*******************Fin
 
