@@ -15,7 +15,7 @@ import { Loader2, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 import Footer from "../../components/partials/Footer";
 import ModuleDataTableByDCNF from "./components/ModuleDataTableByDCNF";
-import CreationModuleDialog from "./components/creation";
+import CreationDCNFSUMDialog from "./components/creation/DCNFSUM/CreationDCNFSUMDialog";
 
 export default function ModulesListByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -109,7 +109,7 @@ export default function ModulesListByDCNF() {
         </div>
       </div>
       <div className="mt-2">{moduleList && <ModuleDataTableByDCNF />}</div>
-      <CreationModuleDialog />
+      <CreationDCNFSUMDialog />
       <Footer />
     </>
   );

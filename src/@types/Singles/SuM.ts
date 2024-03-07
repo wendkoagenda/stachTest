@@ -12,3 +12,8 @@ export interface SuM {
   s_u: SU;
   module: ModuleDaum;
 }
+export interface SuMRoot {
+  success: boolean;
+  message: string;
+  data: SuM[];
+}

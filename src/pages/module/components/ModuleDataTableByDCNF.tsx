@@ -297,7 +297,7 @@ export default function ModuleDataTableByDCNF() {
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
               key="delete"
-              label={strings.BUTTONS.DELETE}
+              label={strings.BUTTONS.WITHDRAW}
               onClick={() => {
                 onDeleteClick(row.original.id);
                 closeMenu();

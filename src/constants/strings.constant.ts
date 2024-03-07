@@ -19,9 +19,12 @@ const strings = {
     DESCRIPTION: "Saisir DESCRIPTION",
     ACRONYM: "Saisir ACRONYM",
     CODE: "Saisir CODE",
+    SELECT_MODULE: "Selectionnner un module",
   },
+
   INSTRUCTIONS: {
-    STATUS: "L'utilisateur sera-t-il actif ou inactif ?",
+    SELECT_MODULE: "Le module appartiendra a cette classe egalement?",
+    STATUS: "L'tilisateur sera-t-il actif ou inactif ?",
     UPDATED_AGENT:
       "Effectuez des modifications d'agent ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_AGENT:
@@ -122,6 +125,8 @@ const strings = {
     MODULE_INFO: "Information sur l'module",
     VH: "Voumes horaires",
     HEURES: "heures",
+    /// DCNFSUM
+    ADD_DCNFSUM: "Ajouter un module a cette classe",
     // Specifique
     PERSONNE_INFO: "Information sur la personne",
     GENERAL_INFO: "Informations générales",
@@ -129,6 +134,7 @@ const strings = {
   },
   TH: {
     VHT: "VHT",
+    MODULE: "Module",
     DESCRIPTION: "Description",
     COEF: "Coef",
     CREDIT: "Crédit",
@@ -158,6 +164,7 @@ const strings = {
     STUDENTS: "Etudiants",
   },
   MESSAGES: {
+    NO_DATA: "Humm , nous n'avons rien trouver",
     WELCOME_BACK: "Content de vous revoir",
     PLEASE_SING_IN: "Veuillez saisir vos identifiants pour vous connecter !",
     SUCCESS_SAVE: "Enregistrement effectuer avec succès",
@@ -174,6 +181,7 @@ const strings = {
       "Votre session a expiré. Vous devez vous reconnecter. Mesure de sécurité.",
   },
   BUTTONS: {
+    WITHDRAW: "Retirer",
     SING_IN: "Me connecter",
     SINGING_IN: "Connexion ...",
     SING_OUT: "Me déconnecter",
