@@ -8,3 +8,4 @@ reauete a gemini : comment fixer le Header ?
 -Continuer les actions du CRUD de module
 - Afficher les module dune classe les details dune classe
 -revoir le nombes de modules dans la liste des modules dune classe ensuite voir trello
+-continuer l'ajout dans la focntion onSubmit de CreateDCNFSUMForm

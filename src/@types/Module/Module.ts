@@ -99,3 +99,11 @@ export interface DCNF_SUMDeletionModel {
   access_token: string;
   dcnf_sum_id: number;
 }
+
+export interface DCNF_SUMCreationModel {
+  access_token: string;
+  newDcnfSum: {
+    dcnf_id: number;
+    su_m_id: number;
+  };
+}

@@ -1,5 +1,6 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import {
+  DCNF_SUMCreationModel,
   DCNF_SUMDeletionModel,
   ModuleCreationModel,
   ModuleDeletionModel,
@@ -72,6 +73,19 @@ export const modulesApi = createApi({
         },
       }),
     }),
+    createDCNF_SUM: builder.mutation<
+      GeneriqueResponse,
+      Partial<DCNF_SUMCreationModel>
+    >({
+      query: (dcnf_sumCreationModel) => ({
+        url: DCNF_SUM_ROUTE,
+        method: "POST",
+        body: dcnf_sumCreationModel.newDcnfSum,
+        headers: {
+          Authorization: `Bearer ${dcnf_sumCreationModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
     deleteModule: builder.mutation<
       GeneriqueResponse,
       Partial<ModuleDeletionModel>
@@ -121,4 +135,5 @@ export const {
   useUpdateModuleMutation,
   useDeleteDCNF_SUMMutation,
   useFetchSUMsQuery,
+  useCreateDCNF_SUMMutation,
 } = modulesApi;

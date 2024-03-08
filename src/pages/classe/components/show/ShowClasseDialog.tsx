@@ -20,7 +20,13 @@ import { ArrowUpRightFromSquare, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
+const ShowClasseDialog = ({
+  classeUuid,
+  classeId,
+}: {
+  classeUuid: string;
+  classeId: number;
+}) => {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -73,8 +79,11 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
     dispatch(closeClasseShowDialog());
   };
   // Fonction de navigation vers nouvelle page de details
-  const onShowMoreClick = (dcnf_uuid: string | undefined) => {
-    navigate(`/classe/${dcnf_uuid}`);
+  const onShowMoreClick = (
+    dcnf_uuid: string | undefined,
+    dcnf_id: number | undefined
+  ) => {
+    navigate(`/classe/${dcnf_uuid}/${dcnf_id}`);
     dispatch(closeClasseShowDialog());
   };
   // Fonction de copie des données dans les cellules du tableau des détails dans le presse papier
@@ -135,7 +144,10 @@ const ShowClasseDialog = ({ classeUuid }: { classeUuid: string }) => {
               </>
             )}
             <div className="flex flex-row justify-end">
-              <Button type="submit" onClick={() => onShowMoreClick(data?.uuid)}>
+              <Button
+                type="submit"
+                onClick={() => onShowMoreClick(data?.uuid, data?.id)}
+              >
                 <ArrowUpRightFromSquare className="mr-2 h-4 w-4" /> Voir tout le
                 reste
               </Button>

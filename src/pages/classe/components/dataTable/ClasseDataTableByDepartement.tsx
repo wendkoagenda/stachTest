@@ -155,13 +155,16 @@ export default function ClasseDataTableByDepartement({
 
   // Fonction pour l'ouverture de la boite de dialogue de mise à jour
   const onEditClick = (classeUuid: string) => {
+    // ClasseUuid = dcnf_uuid
     setClasseUuid(classeUuid);
     dispatch(openClasseUpdateDialog());
   };
 
   // Fonction pour l'ouverture de la boite de dialogue des détails
-  const onShowClick = (classeUuid: string) => {
+  const onShowClick = (classeUuid: string, classeId: number) => {
+    // ClasseUuid = dcnf_uuid, classeId = dcnf_id
     setClasseUuid(classeUuid);
+    setClasseId(classeId);
     dispatch(openClasseShowDialog());
   };
   //*******************Fin
@@ -205,7 +208,7 @@ export default function ClasseDataTableByDepartement({
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.uuid);
+                onShowClick(row.original.uuid, row.original.id);
                 closeMenu();
               }}
               table={table}
@@ -241,7 +244,7 @@ export default function ClasseDataTableByDepartement({
       />
       {/* <DeletionClasseDialog classeId={classeId} />
       <UpdateClasseDialog classeUuid={classeUuid} />*/}
-      <ShowClasseDialog classeUuid={classeUuid} />
+      <ShowClasseDialog classeUuid={classeUuid} classeId={classeId} />
     </>
   );
 }

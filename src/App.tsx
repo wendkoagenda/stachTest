@@ -24,7 +24,10 @@ function App() {
             <Route element={<TeachersList />} path="/teachers" />
             <Route element={<DepartementsList />} path="/departements" />
             <Route element={<DepartementShow />} path="/departement/:dc_uuid" />
-            <Route element={<ClasseShowMore />} path="/classe/:dcnf_uuid" />
+            <Route
+              element={<ClasseShowMore />}
+              path="/classe/:dcnf_uuid/:dcnf_id"
+            />
             <Route element={<ModulesList />} path="/modules" />
           </Route>
           <Route element={<Login />} path="/login" />
