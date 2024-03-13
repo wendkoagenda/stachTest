@@ -11,6 +11,7 @@ import DepartementsList from "./pages/departement/DepartementsList";
 import DepartementShow from "./pages/departement/components/show/DepartementShow";
 import ClasseShowMore from "./pages/classe/components/show/ClasseShowMore";
 import ModulesList from "./pages/module";
+import SeancesList from "./pages/seances";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               path="/classe/:dcnf_uuid/:dcnf_id"
             />
             <Route element={<ModulesList />} path="/modules" />
+            <Route element={<SeancesList />} path="/seances" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

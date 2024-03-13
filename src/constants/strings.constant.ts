@@ -20,6 +20,7 @@ const strings = {
     ACRONYM: "Saisir ACRONYM",
     CODE: "Saisir CODE",
     SELECT_MODULE: "Selectionnner un module",
+    CONTENU: "Contenu",
   },
 
   INSTRUCTIONS: {
@@ -57,6 +58,14 @@ const strings = {
     DELETE_CLASSE: "Veillez confirmer la suppression d'une classe",
     SHOW_CLASSE:
       "Vous retrouverez ici toutes les formation lie a cette classe. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
+    // Seance
+    UPDATED_SEANCE:
+      "Effectuez des modifications seance ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+    ADD_SEANCE:
+      "Ajouter un nouveau seance ici.Cliquez sur Enregistrer lorsque vous avez terminé.",
+    DELETE_SEANCE: "Veillez confirmer la suppression d'un seance",
+    SHOW_SEANCE:
+      "Vous retrouverez ici toutes les formation lie a cet seance. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
     //Module
     UPDATED_MODULE:
       "Effectuez des modifications d'une module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
@@ -68,6 +77,7 @@ const strings = {
   },
   TOOLTIPS: {
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
+    ADD_SEANCE: "Ajouter un nouveau seance",
     ADD_STUDENT: "Ajouter un nouveau etudiant",
     ADD_TEACHER: "Ajouter un nouveau enseignants",
     ADD_MODULE: "Ajouter un nouveau module",
@@ -103,6 +113,14 @@ const strings = {
     SHOW_TEACHER: "Détails sur un enseignant",
     UPDATE_TEACHER: "Mise a jour d'un enseignant",
     TEACHER_INFO: "Information sur l'enseignant",
+    // Seance
+    MODIFY_SEANCE: "Modification des infos de cet seance",
+    ADD_SEANCE: "Ajout s'un nouveau seance",
+    LIST_SEANCE: "Liste des seance",
+    DELETE_SEANCE: "Suppression d'une seance",
+    SHOW_SEANCE: "Détails sur un seance",
+    UPDATE_SEANCE: "Mise a jour d'un seance",
+    SEANCE_INFO: "Information sur l'seance",
     // Departements
     LIST_DEPARTEMENT: "Liste des departements",
     DEPARTEMENT_EMPTY: "Aucun departement trouvé",
@@ -131,8 +149,11 @@ const strings = {
     PERSONNE_INFO: "Information sur la personne",
     GENERAL_INFO: "Informations générales",
     PLUS: "Plus",
+    VALIDATIONS: "Validations",
   },
   TH: {
+    CONTENU: "Contenu",
+    CREATED_AT: "Créer le",
     VHT: "VHT",
     MODULE: "Module",
     DESCRIPTION: "Description",
@@ -229,6 +250,11 @@ const strings = {
     MODULE_UPDATE: "modules.update",
     MODULE_STORE: "modules.store",
     MODULE_DESTROY: "modules.destroy",
+    SEANCE_LIST: "seances.list", // seances
+    SEANCE_SHOW: "seances.show",
+    SEANCE_UPDATE: "seances.update",
+    SEANCE_STORE: "seances.store",
+    SEANCE_DESTROY: "seances.destroy",
   },
   PAGES: {},
   ACTIONS: {},
