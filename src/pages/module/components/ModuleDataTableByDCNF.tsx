@@ -28,7 +28,7 @@ import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import DeletionDCNF_SUMDialog from "./deletion/DeleteDCNF_SUMDialog";
-import ShowModuleDialog from "./show";
+import ShowDCNF_SUMDialog from "./show/ShowDCNF_SUMDialog";
 import UpdateModuleDialog from "./update";
 
 export default function ModuleDataTableByDCNF() {
@@ -309,7 +309,8 @@ export default function ModuleDataTableByDCNF() {
       />
       <DeletionDCNF_SUMDialog dcnf_sum_id={dcnf_sum_id} />
       <UpdateModuleDialog moduleUuid={moduleUuid} />
-      <ShowModuleDialog moduleUuid={moduleUuid} />
+      <ShowDCNF_SUMDialog moduleUuid={moduleUuid} />
+      {/* moduleUuid = su_m uuid */}
     </>
   );
 }
