@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect } from "react";
+import SeanceDataTable from "@/pages/seances/components/SeanceDataTable";
 
 const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -276,8 +277,7 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                   <AccordionItem value="seances">
                     <AccordionTrigger> Séances</AccordionTrigger>
                     <AccordionContent>
-                      Yes. It comes with default styles that matches the other
-                      components&apos; aesthetic.
+                      <SeanceDataTable />
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">

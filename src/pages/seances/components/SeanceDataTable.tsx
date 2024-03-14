@@ -1,4 +1,13 @@
-import { SeanceDaum } from "@/@types/Seance/Seance";
+import CardSkeleton from "@/components/custom/skeleton/CardSkeleton";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import {
   openSeanceDeleteDialog,
@@ -6,25 +15,23 @@ import {
   openSeanceUpdateDialog,
 } from "@/redux/slices/seanceSlice";
 import { useFetchSeancesQuery } from "@/services/seance";
+import { dateFormater } from "@/utils/functions/dateFormater";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
+import { truncateTitle } from "@/utils/functions/truncateTitle";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
-import {
-  MRT_ActionMenuItem,
-  MaterialReactTable,
-  type MRT_ColumnDef,
-} from "material-react-table";
-import { MRT_Localization_FR } from "material-react-table/locales/fr";
-import { useEffect, useMemo, useState } from "react";
+import { Edit2, Eye, Trash2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 import DeletionSeanceDialog from "./deletion";
-import ShowSeanceDialog from "./show";
 import UpdateSeanceDialog from "./update";
+import ShowSeanceDialog from "./show";
 
 export default function SeanceDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -52,7 +59,7 @@ export default function SeanceDataTable() {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   //Hook de récupération de la liste des seances (Redux store)
   const fetchSeancesQuery = useFetchSeancesQuery(access_token);
 
@@ -69,53 +76,11 @@ export default function SeanceDataTable() {
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
   const fetchSeancesQueryData = fetchSeancesQuery.data?.data;
-  const data = Array.isArray(fetchSeancesQueryData)
+  const seances = Array.isArray(fetchSeancesQueryData)
     ? fetchSeancesQueryData
     : [];
   const isLoading = fetchSeancesQuery.isLoading;
   const error = fetchSeancesQuery.error;
-
-  // Variables pour les colonnes de la DataTable
-  const columns = useMemo<MRT_ColumnDef<SeanceDaum>[]>(
-    () => [
-      {
-        accessorKey: "title",
-        header: strings.TH.TITLE,
-        columnDefType: "data",
-        enableClickToCopy: true,
-        enableColumnActions: true,
-        enableColumnDragging: true,
-        enableColumnFilter: true,
-        enableColumnOrdering: true,
-        enableEditing: true,
-        enableGlobalFilter: true,
-        enableGrouping: true,
-        enableHiding: true,
-        enableResizing: true,
-        enableSorting: true,
-        Cell: ({ cell }) => <p>{cell.getValue<number>()}</p>,
-      },
-      {
-        accessorKey: "created_at",
-        header: strings.TH.CREATED_AT,
-        columnDefType: "data",
-        enableClickToCopy: true,
-        enableColumnActions: true,
-        enableColumnDragging: true,
-        enableColumnFilter: true,
-        enableColumnOrdering: true,
-        enableEditing: true,
-        enableGlobalFilter: true,
-        enableGrouping: true,
-        enableHiding: true,
-        enableResizing: true,
-        enableSorting: true,
-        Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
-      },
-    ],
-    []
-  );
-  //*******************Fin
 
   //*******************Déclaration de fonctions
   // Fonction pour l'ouverture de la boite de dialogue de suppression
@@ -135,6 +100,36 @@ export default function SeanceDataTable() {
     setSeanceUuid(seanceUuid);
     dispatch(openSeanceShowDialog());
   };
+  // Systheme de recherche et de pagination
+  const pageSize = 8;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const onResetSearchTermClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSearchTerm("");
+  };
+
+  const seancesToShow = seances
+    .filter(
+      (seance) =>
+        seance.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        seance.created_at.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .slice(currentPage * pageSize, (currentPage + 1) * pageSize);
+
+  const pageCount = Math.ceil(
+    seances.filter(
+      (seance) =>
+        seance.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        seance.created_at.toLowerCase().includes(searchTerm.toLowerCase())
+    ).length / pageSize
+  );
+
+  const handlePageClick = (selectedPage: { selected: number }) => {
+    setCurrentPage(selectedPage.selected);
+  };
+
   //*******************Fin
 
   //*******************Gestion des erreurs de récupération
@@ -149,65 +144,107 @@ export default function SeanceDataTable() {
 
   return (
     <>
-      <MaterialReactTable
-        columns={columns}
-        data={data}
-        enableRowSelection={false} //enable some features
-        enableColumnOrdering={true} //enable a feature for all columns
-        enableGlobalFilter={true} //turn off a feature
-        localization={MRT_Localization_FR}
-        muiTablePaperProps={{
-          elevation: 0, //change the mui box shadow
-          sx: {
-            borderRadius: "20px",
-            border: "1px solid #CCCCCC",
-            padding: "10px",
-          },
-        }}
-        state={{
-          isLoading: isLoading,
-        }}
-        enableRowActions // Enable row actions
-        positionActionsColumn="last"
-        renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          seanceShow && (
-            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
-              key="show"
-              label={strings.BUTTONS.SHOW}
-              onClick={() => {
-                onShowClick(row.original.uuid);
-                closeMenu();
-              }}
-              table={table}
-            />
-          ),
-          seanceUpdate && (
-            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
-              key="edit"
-              label={strings.BUTTONS.EDIT}
-              onClick={() => {
-                onEditClick(row.original.uuid);
-                closeMenu();
-              }}
-              table={table}
-            />
-          ),
-          seanceDestroy && (
-            <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
-              key="delete"
-              label={strings.BUTTONS.DELETE}
-              onClick={() => {
-                onDeleteClick(row.original.id);
-                closeMenu();
-              }}
-              table={table}
-            />
-          ),
-        ]}
-      />
+      <div className="flex flex-row gap-2 mb-6">
+        <Input
+          type="text"
+          placeholder="Entrez le titre ou la date de la séance pour rechercher. "
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <Button size="icon" variant="outline" onClick={onResetSearchTermClick}>
+          <X />
+        </Button>
+      </div>
+      {isLoading ? (
+        <CardSkeleton />
+      ) : seancesToShow.length > 0 ? (
+        <div className="grid grid-cols-4 gap-4">
+          {seancesToShow.map((seance, index) => (
+            <div key={index} className="max-w-[150] max-h-[150] ">
+              <Card>
+                <CardHeader>
+                  <CardTitle>
+                    <div className="mb-4">
+                      <p className="mb-2">{truncateTitle(seance.title, 20)}</p>
+                      <hr className="my-2" />
+                      <p className="mt-2">{dateFormater(seance.created_at)}</p>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <table className="table-fixed border-collapse w-full">
+                    <thead>
+                      <tr>
+                        <td className="w-1/2 ">
+                          <p>CM : {seance.vh_cm_eff} h</p>
+                          <p>TD: {seance.vh_td_eff} h </p>
+                          <p>TP : {seance.vh_tp_eff} h</p>
+                        </td>
+                        <td className="w-1/2">
+                          <p>CM ex : {seance.ex_vh_cm_eff} h</p>
+                          <p>TD ex : {seance.ex_vh_td_eff} h </p>
+                          <p>TP ex : {seance.ex_vh_tp_eff} h</p>
+                        </td>
+                      </tr>
+                    </thead>
+                  </table>
+                </CardContent>
+                <CardFooter className="flex flex-row justify-end">
+                  {seanceShow && (
+                    <>
+                      <Button
+                        size="icon"
+                        onClick={() => {
+                          onShowClick(seance.uuid);
+                        }}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        onClick={() => {
+                          onEditClick(seance.uuid);
+                        }}
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        onClick={() => {
+                          onDeleteClick(seance.id);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </>
+                  )}
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="Passer >"
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            previousLabel="< Revenir"
+            containerClassName="pagination flex mt-4"
+            activeClassName="bg-blue-500 text-white"
+            pageClassName="mr-2"
+            previousClassName="mr-2"
+            nextClassName="mr-2"
+            pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+            previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+            nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+            onPageChange={handlePageClick}
+          />
+        </div>
+      ) : (
+        <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
+      )}
       <DeletionSeanceDialog seanceId={seanceId} />
       <UpdateSeanceDialog seanceUuid={seanceUuid} />
       <ShowSeanceDialog seanceUuid={seanceUuid} />
