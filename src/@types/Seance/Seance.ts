@@ -53,7 +53,12 @@ export interface SeanceShowModel {
   seanceUuid: string;
   access_token: string;
 }
-export interface SeanceShowResponse {
+export interface SeancesShowByDCNFSUMModel {
+  dcnfsum_id: number | undefined;
+  access_token: string;
+}
+
+export interface SeancesShowByDCNFSUMResponse {
   success: boolean;
   message: string;
   data: SeanceDaum;

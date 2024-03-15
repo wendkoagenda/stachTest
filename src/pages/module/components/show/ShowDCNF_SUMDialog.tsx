@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ModuleShowModel } from "@/@types/Module/Module";
+import { DCNFSUMShowModel, ModuleShowModel } from "@/@types/Module/Module";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,15 +18,16 @@ import {
 } from "@/components/ui/accordion";
 import strings from "@/constants/strings.constant";
 import { closeModuleShowDialog } from "@/redux/slices/moduleSlice";
-import { useFetchModuleByIdQuery } from "@/services/module";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect } from "react";
 import SeanceDataTable from "@/pages/seances/components/SeanceDataTable";
+import { useFetchDCNFSUMByIdQuery } from "@/services/module";
+import SeanceDataTableByDCNFSUM from "@/pages/seances/components/SeanceDataTableByDCNFSUM";
 
-const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
+const ShowDCNF_SUMDialog = ({ dcnfsum_uuid }: { dcnfsum_uuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -52,23 +53,23 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
     (state) => state.modules.showModuleDialogOpen
   );
   // Préparation du paramettre du hook de recuperation des détails d'un modules
-  const moduleShowModel: ModuleShowModel = {
-    moduleUuid: moduleUuid,
+  const DCNFSUMShowModel: DCNFSUMShowModel = {
+    dcnfsum_uuid: dcnfsum_uuid,
     access_token: access_token,
   };
 
   // Hook de récupération des détails d'un module (RTK)
-  const fetchModuleByIdQuery = useFetchModuleByIdQuery(moduleShowModel);
+  const fetchDCNFSUMByIdQuery = useFetchDCNFSUMByIdQuery(DCNFSUMShowModel);
 
   // Récupération des détails de l'module au montage du composant
   useEffect(() => {
-    fetchModuleByIdQuery.refetch();
+    fetchDCNFSUMByIdQuery.refetch();
   }, [showModuleDialogOpen]);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
-  const data = fetchModuleByIdQuery.data;
-  const isLoading = fetchModuleByIdQuery.isFetching;
+  const data = fetchDCNFSUMByIdQuery.data;
+  const isLoading = fetchDCNFSUMByIdQuery.isFetching;
 
   //*******************Fin
 
@@ -118,10 +119,12 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           </td>
                           <td
                             className="border border-slate-300 "
-                            onClick={() => copyToClipboard(data?.data?.title)}
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.title)
+                            }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.title}
+                            {data?.data?.su_m?.module?.title}
                           </td>
                         </tr>
                         <tr>
@@ -130,10 +133,12 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           </td>
                           <td
                             className="border border-slate-300 "
-                            onClick={() => copyToClipboard(data?.data?.acronym)}
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.acronym)
+                            }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.acronym}
+                            {data?.data?.su_m?.module?.acronym}
                           </td>
                         </tr>
                         <tr>
@@ -142,10 +147,12 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           </td>
                           <td
                             className="border border-slate-300 "
-                            onClick={() => copyToClipboard(data?.data?.code)}
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.code)
+                            }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.code}
+                            {data?.data?.su_m?.module?.code}
                           </td>
                         </tr>
                         <tr>
@@ -155,11 +162,13 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.credits.toString())
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.credits.toString()
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.credits}
+                            {data?.data?.su_m?.module?.credits}
                           </td>
                         </tr>
                         <tr>
@@ -169,11 +178,13 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.coef.toString())
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.coef.toString()
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.coef}
+                            {data?.data?.su_m?.module?.coef}
                           </td>
                         </tr>
                       </table>
@@ -191,11 +202,14 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.vh_cm.toString())
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_cm.toString()
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.vh_cm} {strings.TEXTS.HEURES}
+                            {data?.data?.su_m?.module?.vh_cm}{" "}
+                            {strings.TEXTS.HEURES}
                           </td>
                         </tr>
                         <tr>
@@ -205,11 +219,14 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.vh_td.toString())
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_td.toString()
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.vh_td} {strings.TEXTS.HEURES}
+                            {data?.data?.su_m?.module?.vh_td}{" "}
+                            {strings.TEXTS.HEURES}
                           </td>
                         </tr>
                         <tr>
@@ -219,11 +236,14 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.vh_tp.toString())
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_tp.toString()
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.vh_tp} {strings.TEXTS.HEURES}
+                            {data?.data?.su_m?.module?.vh_tp}{" "}
+                            {strings.TEXTS.HEURES}
                           </td>
                         </tr>
                         <tr>
@@ -235,17 +255,17 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                             onClick={() =>
                               copyToClipboard(
                                 (
-                                  (data?.data?.vh_tp ?? 0) +
-                                  (data?.data?.vh_td ?? 0) +
-                                  (data?.data?.vh_cm ?? 0)
+                                  (data?.data?.su_m?.module?.vh_tp ?? 0) +
+                                  (data?.data?.su_m?.module?.vh_td ?? 0) +
+                                  (data?.data?.su_m?.module?.vh_cm ?? 0)
                                 ).toString()
                               )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {(data?.data?.vh_tp ?? 0) +
-                              (data?.data?.vh_td ?? 0) +
-                              (data?.data?.vh_cm ?? 0)}{" "}
+                            {(data?.data?.su_m?.module?.vh_tp ?? 0) +
+                              (data?.data?.su_m?.module?.vh_td ?? 0) +
+                              (data?.data?.su_m?.module?.vh_cm ?? 0)}{" "}
                             {strings.TEXTS.HEURES}
                           </td>
                         </tr>
@@ -264,11 +284,13 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                           <td
                             className="border border-slate-300 "
                             onClick={() =>
-                              copyToClipboard(data?.data?.description)
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.description
+                              )
                             }
                             style={{ cursor: "pointer" }}
                           >
-                            {data?.data?.description}
+                            {data?.data?.su_m?.module?.description}
                           </td>
                         </tr>
                       </table>
@@ -277,7 +299,7 @@ const ShowDCNF_SUMDialog = ({ moduleUuid }: { moduleUuid: string }) => {
                   <AccordionItem value="seances">
                     <AccordionTrigger> Séances</AccordionTrigger>
                     <AccordionContent>
-                      <SeanceDataTable />
+                      <SeanceDataTableByDCNFSUM dcnfsum_id={data?.data?.id} />
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">

@@ -1,5 +1,5 @@
 import { Dcnf } from "../Singles/Dcnf";
-import { SuM } from "../Singles/Sum";
+import { SuM } from "../Singles/SuM";
 
 // Root Types
 export interface ModuleRoot {
@@ -76,6 +76,28 @@ export interface ModuleUpdateModel {
 export interface ModuleShowByDCNFModel {
   access_token: string;
   dcnf_uuid: string | undefined;
+}
+export interface DCNFSUMShowResponse {
+  success: boolean;
+  message: string;
+  data: DCNFSUMShowResponseDaum;
+}
+export interface DCNFSUMShowResponseDaum {
+  id: number;
+  uuid: string;
+  dcnf_id: number;
+  su_m_id: number;
+  statut: string;
+  created_at: string;
+  updated_at: string;
+  camp_year_id: number;
+  dcnf: Dcnf;
+  su_m: SuM;
+}
+
+export interface DCNFSUMShowModel {
+  access_token: string;
+  dcnfsum_uuid: string | undefined;
 }
 export interface ModuleShowByDCNFResponse {
   success: boolean;

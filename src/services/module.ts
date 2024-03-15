@@ -1,5 +1,7 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import {
+  DCNFSUMShowModel,
+  DCNFSUMShowResponse,
   DCNF_SUMCreationModel,
   DCNF_SUMDeletionModel,
   ModuleCreationModel,
@@ -11,7 +13,7 @@ import {
   ModuleShowResponse,
   ModuleUpdateModel,
 } from "@/@types/Module/Module";
-import { SuMRoot } from "@/@types/Singles/Sum";
+import { SuMRoot } from "@/@types/Singles/SuM";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -19,6 +21,7 @@ const MODULE_ROUTE = "tenant/modules/";
 const MODULE_BY_DCNF_ROUTE = "tenant/dcnf_sum/dc_nf/";
 const DCNF_SUM_ROUTE = "tenant/dcnf_sum/";
 const SUM_ROUTE = "tenant/su_m/";
+const DCNFSUM_ROUTE = "tenant/dcnf_sum/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -46,6 +49,15 @@ export const modulesApi = createApi({
         url: `${MODULE_ROUTE}${moduleShowModel.moduleUuid}`,
         headers: {
           Authorization: `Bearer ${moduleShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchDCNFSUMById: builder.query<DCNFSUMShowResponse, DCNFSUMShowModel>({
+      // module finale
+      query: (DCNFSUMSShowModel) => ({
+        url: `${DCNFSUM_ROUTE}${DCNFSUMSShowModel.dcnfsum_uuid}`,
+        headers: {
+          Authorization: `Bearer ${DCNFSUMSShowModel.access_token}`,
         },
       }),
     }),
@@ -132,6 +144,7 @@ export const {
   useDeleteModuleMutation,
   useFetchModuleByIdQuery,
   useFetchModuleByDCNFQuery,
+  useFetchDCNFSUMByIdQuery,
   useUpdateModuleMutation,
   useDeleteDCNF_SUMMutation,
   useFetchSUMsQuery,

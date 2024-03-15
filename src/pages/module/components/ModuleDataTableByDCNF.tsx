@@ -90,6 +90,7 @@ export default function ModuleDataTableByDCNF() {
   }, [refreshModuleListLocal]);
   // Variables useState
   const [dcnf_sum_id, setDCNF_SUMId] = useState(0);
+  const [dcnfsum_uuid, setDcnfsumUuid] = useState("");
   const [moduleUuid, setModuleUuid] = useState("");
   //*******************Fin
 
@@ -224,14 +225,14 @@ export default function ModuleDataTableByDCNF() {
   };
 
   // Fonction pour l'ouverture de la boite de dialogue de mise à jour
-  const onEditClick = (moduleUuid: string) => {
-    setModuleUuid(moduleUuid);
-    dispatch(openModuleUpdateDialog());
-  };
+  // const onEditClick = (moduleUuid: string) => {
+  //   setModuleUuid(moduleUuid);
+  //   dispatch(openModuleUpdateDialog());
+  // };
 
   // Fonction pour l'ouverture de la boite de dialogue des détails
-  const onShowClick = (moduleUuid: string) => {
-    setModuleUuid(moduleUuid);
+  const onShowClick = (dcnfsum_uuid: string) => {
+    setDcnfsumUuid(dcnfsum_uuid);
     dispatch(openModuleShowDialog());
   };
   //*******************Fin
@@ -275,24 +276,25 @@ export default function ModuleDataTableByDCNF() {
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.su_m.module.uuid);
+                onShowClick(row.original.uuid);
                 closeMenu();
               }}
               table={table}
             />
           ),
-          moduleUpdate && (
-            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
-              key="edit"
-              label={strings.BUTTONS.EDIT}
-              onClick={() => {
-                onEditClick(row.original.su_m.module.uuid);
-                closeMenu();
-              }}
-              table={table}
-            />
-          ),
+          // moduleUpdate && (
+          //   <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+          //     icon={<Edit2 className="mr-2 h-4 w-4" />}
+          //     key="edit"
+          //     disabled
+          //     label={strings.BUTTONS.EDIT}
+          //     onClick={() => {
+          //       onEditClick(row.original.uuid);
+          //       closeMenu();
+          //     }}
+          //     table={table}
+          //   />
+          // ),
           moduleDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -309,8 +311,8 @@ export default function ModuleDataTableByDCNF() {
       />
       <DeletionDCNF_SUMDialog dcnf_sum_id={dcnf_sum_id} />
       <UpdateModuleDialog moduleUuid={moduleUuid} />
-      <ShowDCNF_SUMDialog moduleUuid={moduleUuid} />
-      {/* moduleUuid = su_m uuid */}
+      <ShowDCNF_SUMDialog dcnfsum_uuid={dcnfsum_uuid} />
+      {/* moduleUuid = mudule uuid */}
     </>
   );
 }

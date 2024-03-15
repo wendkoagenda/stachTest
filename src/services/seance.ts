@@ -1,16 +1,24 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import { UserDeletionModel } from "@/@types/Global/User";
 import {
+  SeanceByDCNFSUMShowModel,
+  SeanceByDCNFSUMShowResponse,
   SeanceCreationModel,
   SeanceRoot,
   SeanceShowModel,
   SeanceShowResponse,
   SeanceUpdateModel,
+  SeancesByDCNFSUMShowModel,
+  SeancesByDCNFSUMShowResponse,
+  SeancesShowByDCNFSUMModel,
+  SeancesShowByDCNFSUMResponse,
+  SeancesShowByDCNFSUMTResponse,
 } from "@/@types/Seance/Seance";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const SEANCE_ROUTE = "tenant/seances/";
+const SEANCE_BY_DCNFSUM_ROUTE = "tenant/seances/dcnfsum/";
 
 // Crée une nouvelle API Get all seances
 export const seancesApi = createApi({
@@ -30,6 +38,17 @@ export const seancesApi = createApi({
         url: `${SEANCE_ROUTE}${seanceShowModel.seanceUuid}`,
         headers: {
           Authorization: `Bearer ${seanceShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchSeancesByDCNFSUM: builder.query<
+      SeancesShowByDCNFSUMResponse,
+      SeancesShowByDCNFSUMModel
+    >({
+      query: (seancesByDCNFSUMShowModel) => ({
+        url: `${SEANCE_BY_DCNFSUM_ROUTE}${seancesByDCNFSUMShowModel.dcnfsum_id}`,
+        headers: {
+          Authorization: `Bearer ${seancesByDCNFSUMShowModel.access_token}`,
         },
       }),
     }),
@@ -80,4 +99,5 @@ export const {
   useDeleteSeanceMutation,
   useFetchSeanceByIdQuery,
   useUpdateSeanceMutation,
+  useFetchSeancesByDCNFSUMQuery,
 } = seancesApi;

@@ -11,3 +11,4 @@ reauete a gemini : comment fixer le Header ?
 -continuer l'ajout dans la focntion onSubmit de CreateDCNFSUMForm
 -Transformer le modal de details des modules dans la classe pour afficher les seances , et laffectation des enseignants
 -Revoir l'affichage des seances sous forma de bulles et linteger au show sdw module
+-Faire la data table SeanceDataTableByDCNF
