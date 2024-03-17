@@ -19,6 +19,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const SEANCE_ROUTE = "tenant/seances/";
 const SEANCE_BY_DCNFSUM_ROUTE = "tenant/seances/dcnfsum/";
+const SEANCE_BY_T_ID_ROUTE = "tenant/seances/storeWithTId";
 
 // Crée une nouvelle API Get all seances
 export const seancesApi = createApi({
@@ -57,7 +58,7 @@ export const seancesApi = createApi({
       Partial<SeanceCreationModel>
     >({
       query: (seanceCreationModel) => ({
-        url: SEANCE_ROUTE,
+        url: SEANCE_BY_T_ID_ROUTE,
         method: "POST",
         body: seanceCreationModel.newSeance,
         headers: {

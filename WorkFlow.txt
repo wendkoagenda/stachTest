@@ -13,3 +13,4 @@ reauete a gemini : comment fixer le Header ?
 -Revoir l'affichage des seances sous forma de bulles et linteger au show sdw module
 -Faire la data table SeanceDataTableByDCNF
 -Etudier l'obtion d'ajouter show senances by dcnfdsum coter back 
+-Mettre le boutton djout de seance dans les modules dune classe 

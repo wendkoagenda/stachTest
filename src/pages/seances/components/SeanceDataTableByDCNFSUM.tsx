@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import {
   initialiseRefreshSeanceList,
+  openSeanceCreateDialog,
   openSeanceDeleteDialog,
   openSeanceShowDialog,
   openSeanceUpdateDialog,
@@ -29,7 +30,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, Eye, Trash2, X } from "lucide-react";
+import { Edit2, Eye, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate, useParams } from "react-router-dom";
@@ -37,6 +38,7 @@ import DeletionSeanceDialog from "./deletion";
 import UpdateSeanceDialog from "./update";
 import ShowSeanceDialog from "./show";
 import { SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
+import CreationSeanceDialog from "./creation";
 
 export default function SeanceDataTableByDCNFSUM({
   dcnfsum_id,
@@ -48,6 +50,10 @@ export default function SeanceDataTableByDCNFSUM({
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  const t_id =
+    localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
+  const s_id =
+    localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
   //*******************Fin
   // Hook de récupération  de l'état  de rafraichissement
   const refreshSeanceList = useAppSelector(
@@ -119,6 +125,10 @@ export default function SeanceDataTableByDCNFSUM({
     dispatch(openSeanceDeleteDialog());
   };
 
+  const onCreateClick = () => {
+    dispatch(openSeanceCreateDialog());
+  };
+
   // Fonction pour l'ouverture de la boite de dialogue de mise à jour
   const onEditClick = (seanceUuid: string) => {
     setSeanceUuid(seanceUuid);
@@ -186,6 +196,13 @@ export default function SeanceDataTableByDCNFSUM({
         <Button size="icon" variant="outline" onClick={onResetSearchTermClick}>
           <X />
         </Button>
+        {parseInt(t_id) != 0 || parseInt(s_id) != 0 ? (
+          <Button size="icon" variant="default" onClick={onCreateClick}>
+            <Plus />
+          </Button>
+        ) : (
+          " "
+        )}
       </div>
       {isLoading ? (
         <CardSkeleton />
@@ -278,6 +295,7 @@ export default function SeanceDataTableByDCNFSUM({
       <DeletionSeanceDialog seanceId={seanceId} />
       <UpdateSeanceDialog seanceUuid={seanceUuid} />
       <ShowSeanceDialog seanceUuid={seanceUuid} />
+      <CreationSeanceDialog dcnfsum_id={dcnfsum_id} />
     </>
   );
 }

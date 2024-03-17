@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import strings from "@/constants/strings.constant";
+import { refreshModuleList } from "@/redux/slices/moduleSlice";
 import { closeSeanceDeleteDialog } from "@/redux/slices/seanceSlice";
 import {
   useDeleteSeanceMutation,
@@ -72,6 +73,7 @@ const DeleteSeanceDialog = ({ seanceId }: { seanceId: number }) => {
     };
     await deleteSeance(actorDeletionModel).unwrap();
     dispatch(closeSeanceDeleteDialog());
+    dispatch(refreshModuleList());
     fetchSeancesQuery.refetch();
     console.log("error", error);
     openNotification(

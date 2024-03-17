@@ -10,7 +10,11 @@ import { closeSeanceCreateDialog } from "@/redux/slices/seanceSlice";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import CreateSeanceForm from "./CreateSeanceForm";
 
-export default function CreationSeanceDialog() {
+export default function CreationSeanceDialog({
+  dcnfsum_id,
+}: {
+  dcnfsum_id: number | undefined;
+}) {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
@@ -36,7 +40,7 @@ export default function CreationSeanceDialog() {
             {strings.INSTRUCTIONS.ADD_SEANCE}
           </DialogDescription>
         </DialogHeader>
-        <CreateSeanceForm />
+        <CreateSeanceForm dcnfsum_id={dcnfsum_id} />
       </DialogContent>
     </Dialog>
   );

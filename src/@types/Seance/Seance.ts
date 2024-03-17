@@ -37,7 +37,8 @@ export interface SeanceDaum {
 export interface SeanceCreationModel {
   newSeance: {
     title: string;
-    dcnfsumt_id: number;
+    dcnf_sum_id: number;
+    t_id: number;
     vh_cm_eff: number;
     vh_td_eff: number;
     vh_tp_eff: number;

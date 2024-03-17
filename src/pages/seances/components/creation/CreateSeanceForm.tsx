@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
-import { closeSeanceCreateDialog } from "@/redux/slices/seanceSlice";
+import { refreshModuleList } from "@/redux/slices/moduleSlice";
+import {
+  closeSeanceCreateDialog,
+  refreshSeanceList,
+} from "@/redux/slices/seanceSlice";
 import {
   useCreateSeanceMutation,
   useFetchSeancesQuery,
@@ -33,12 +37,14 @@ import { z } from "zod";
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
   title: z.string().default("Non définie"),
-  dcnfsumt_id: z
-    .number({
-      required_error: "Age is required",
-      invalid_type_error: "Age must be a number",
-    })
-    .default(1),
+  dcnf_sum_id: z.number({
+    required_error: "Age is required",
+    invalid_type_error: "Age must be a number",
+  }),
+  t_id: z.number({
+    required_error: "Age is required",
+    invalid_type_error: "Age must be a number",
+  }),
   vh_cm_eff: z.number({
     required_error: "Age is required",
     invalid_type_error: "Age must be a number",
@@ -55,7 +61,11 @@ const formSchema = z.object({
   camp_year_id: z.number(),
 });
 
-export default function CreateSeanceForm() {
+export default function CreateSeanceForm({
+  dcnfsum_id,
+}: {
+  dcnfsum_id: number | undefined;
+}) {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération de l' Id du CampYear
   const camp_year_id =
@@ -64,6 +74,10 @@ export default function CreateSeanceForm() {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  const t_id =
+    localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
+  const s_id =
+    localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
   //*******************Fin
 
   //*******************Politique de gestion des permissons
@@ -90,7 +104,8 @@ export default function CreateSeanceForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      dcnfsumt_id: 1,
+      t_id: parseInt(t_id),
+      dcnf_sum_id: dcnfsum_id,
       vh_cm_eff: 0,
       vh_td_eff: 0,
       vh_tp_eff: 0,
@@ -112,6 +127,7 @@ export default function CreateSeanceForm() {
     console.log("values", values);
     await createSeance(seanceCreationModel).unwrap();
     dispatch(closeSeanceCreateDialog());
+    dispatch(refreshModuleList());
     fetchSeancesQuery.refetch();
     openNotification(
       undefined,

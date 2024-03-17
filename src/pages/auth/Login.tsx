@@ -93,6 +93,19 @@ export default function Login() {
         "__ppohwr4bvkyjfiv298fjyfufavc__nv2",
         response.data.camp_year_id
       );
+      localStorage.setItem(
+        "__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d",
+        response.data.t_id
+      );
+      localStorage.setItem(
+        "__spiecjwvjvQGIWUIEB598156bckeoygqoddq",
+        response.data.s_id
+      );
+      localStorage.setItem(
+        "__albvs26dfbvnuhwf87915515kbcckqacanMM",
+        response.data.a_id
+      );
+
       dispatch(login(response.data.access_token));
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : getConfig().authenticatedEntryPath);
