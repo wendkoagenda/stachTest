@@ -12,3 +12,4 @@ reauete a gemini : comment fixer le Header ?
 -Transformer le modal de details des modules dans la classe pour afficher les seances , et laffectation des enseignants
 -Revoir l'affichage des seances sous forma de bulles et linteger au show sdw module
 -Faire la data table SeanceDataTableByDCNF
+-Etudier l'obtion d'ajouter show senances by dcnfdsum coter back 

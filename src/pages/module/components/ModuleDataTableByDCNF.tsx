@@ -30,6 +30,8 @@ import { useParams } from "react-router-dom";
 import DeletionDCNF_SUMDialog from "./deletion/DeleteDCNF_SUMDialog";
 import ShowDCNF_SUMDialog from "./show/ShowDCNF_SUMDialog";
 import UpdateModuleDialog from "./update";
+import { Badge } from "@/components/ui/badge";
+import { genererBadgeStatut } from "@/utils/functions/generateDCNFSUMStateBadge";
 
 export default function ModuleDataTableByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -211,6 +213,26 @@ export default function ModuleDataTableByDCNF() {
         enableResizing: true,
         enableSorting: true,
         Cell: ({ cell }) => <p>{cell.getValue<string>()}</p>,
+      },
+      {
+        accessorKey: "statut",
+        header: strings.TH.STATUS,
+        enableClickToCopy: false,
+        enableColumnActions: true,
+        enableColumnDragging: true,
+        enableColumnFilter: true,
+        enableColumnOrdering: true,
+        enableEditing: true,
+        enableGlobalFilter: true,
+        enableGrouping: true,
+        enableHiding: true,
+        enableResizing: true,
+        enableSorting: true,
+        size: 100,
+        Cell: ({ cell }) => {
+          const statut = cell.getValue<string>(); // Supposons que cell.value contienne la valeur booléenne du statut
+          return genererBadgeStatut(statut);
+        },
       },
     ],
     []

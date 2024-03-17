@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshSeanceList,
   openSeanceDeleteDialog,
   openSeanceShowDialog,
   openSeanceUpdateDialog,
@@ -24,7 +25,7 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { truncateTitle } from "@/utils/functions/truncateTitle";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -48,7 +49,17 @@ export default function SeanceDataTableByDCNFSUM({
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshSeanceList = useAppSelector(
+    (state) => state.modules.refreshModuleList
+  );
 
+  const [refreshSeanceListLocal, setRefreshSeanceListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshSeanceListLocal(refreshSeanceList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshSeanceList]);
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
   const decodedToken = usePermissions();
@@ -84,7 +95,9 @@ export default function SeanceDataTableByDCNFSUM({
   useEffect(() => {
     fetchSeancesByDCNFSUMQuery.refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(initialiseRefreshSeanceList());
+  }, [refreshSeanceListLocal]);
+
   // Variables useState
   const [seanceId, setSeanceId] = useState(0);
   const [seanceUuid, setSeanceUuid] = useState("");
@@ -93,11 +106,12 @@ export default function SeanceDataTableByDCNFSUM({
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
   const fetchSeancesByDCNFSUMQueryData = fetchSeancesByDCNFSUMQuery.data?.data;
-  const data = Array.isArray(fetchSeancesByDCNFSUMQueryData)
+  const seances = Array.isArray(fetchSeancesByDCNFSUMQueryData)
     ? fetchSeancesByDCNFSUMQueryData
     : [];
   const isLoading = fetchSeancesByDCNFSUMQuery.isLoading;
   const error = fetchSeancesByDCNFSUMQuery.error;
+
   //*******************Déclaration de fonctions
   // Fonction pour l'ouverture de la boite de dialogue de suppression
   const onDeleteClick = (seanceId: number) => {
@@ -259,7 +273,7 @@ export default function SeanceDataTableByDCNFSUM({
           />
         </div>
       ) : (
-        <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
+        <p>{strings.TEXTS.NO_SEANCES}</p>
       )}
       <DeletionSeanceDialog seanceId={seanceId} />
       <UpdateSeanceDialog seanceUuid={seanceUuid} />

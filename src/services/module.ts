@@ -1,5 +1,6 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import {
+  AssigneModel,
   DCNFSUMShowModel,
   DCNFSUMShowResponse,
   DCNF_SUMCreationModel,
@@ -22,6 +23,7 @@ const MODULE_BY_DCNF_ROUTE = "tenant/dcnf_sum/dc_nf/";
 const DCNF_SUM_ROUTE = "tenant/dcnf_sum/";
 const SUM_ROUTE = "tenant/su_m/";
 const DCNFSUM_ROUTE = "tenant/dcnf_sum/";
+const DCNFSUMT_ROUTE = "tenant/dcnfsum_t/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -98,6 +100,16 @@ export const modulesApi = createApi({
         },
       }),
     }),
+    createDCNFSUMT: builder.mutation<GeneriqueResponse, Partial<AssigneModel>>({
+      query: (assigneModel) => ({
+        url: DCNFSUMT_ROUTE,
+        method: "POST",
+        body: assigneModel.newAssigne,
+        headers: {
+          Authorization: `Bearer ${assigneModel.access_token}`,
+        },
+      }),
+    }),
     deleteModule: builder.mutation<
       GeneriqueResponse,
       Partial<ModuleDeletionModel>
@@ -149,4 +161,5 @@ export const {
   useDeleteDCNF_SUMMutation,
   useFetchSUMsQuery,
   useCreateDCNF_SUMMutation,
+  useCreateDCNFSUMTMutation,
 } = modulesApi;

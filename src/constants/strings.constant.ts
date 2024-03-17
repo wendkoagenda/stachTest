@@ -143,6 +143,8 @@ const strings = {
     MODULE_INFO: "Information sur l'module",
     VH: "Voumes horaires",
     HEURES: "heures",
+    NOT_YET_ASSIGNED: "Le module n'est pas encor assigner.",
+    ASSIGNE_TO_PROF: "Assignation de module",
     /// DCNFSUM
     ADD_DCNFSUM: "Ajouter un module a cette classe",
     // Specifique
@@ -150,6 +152,8 @@ const strings = {
     GENERAL_INFO: "Informations générales",
     PLUS: "Plus",
     VALIDATIONS: "Validations",
+    // Seances
+    NO_SEANCES: "Aucune seance pour le moment",
   },
   TH: {
     CONTENU: "Contenu",
@@ -202,6 +206,7 @@ const strings = {
       "Votre session a expiré. Vous devez vous reconnecter. Mesure de sécurité.",
   },
   BUTTONS: {
+    ASSIGNE_TO_PROF: "Assigner",
     WITHDRAW: "Retirer",
     SING_IN: "Me connecter",
     SINGING_IN: "Connexion ...",

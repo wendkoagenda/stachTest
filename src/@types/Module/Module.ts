@@ -129,3 +129,12 @@ export interface DCNF_SUMCreationModel {
     su_m_id: number;
   };
 }
+export interface AssigneModel {
+  access_token: string;
+  newAssigne: {
+    dcnfsum_id?: number | undefined;
+    t_id: number;
+    camp_year_id: number;
+    allow_student_entry: boolean;
+  };
+}

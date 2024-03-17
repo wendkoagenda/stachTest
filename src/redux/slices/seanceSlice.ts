@@ -5,6 +5,7 @@ export interface SeanceState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showSeanceDialogOpen: boolean;
+  refreshSeanceList: boolean;
 }
 
 // Créer un slice pour gérer l'état des seances
@@ -15,6 +16,7 @@ const seanceSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showSeanceDialogOpen: false,
+    refreshSeanceList: false,
   },
   reducers: {
     openSeanceCreateDialog: (state) => {
@@ -41,6 +43,12 @@ const seanceSlice = createSlice({
     closeSeanceShowDialog: (state) => {
       state.showSeanceDialogOpen = false;
     },
+    refreshSeanceList: (state) => {
+      state.refreshSeanceList = true;
+    },
+    initialiseRefreshSeanceList: (state) => {
+      state.refreshSeanceList = false;
+    },
   },
 });
 
@@ -53,6 +61,8 @@ export const {
   closeSeanceUpdateDialog,
   openSeanceShowDialog,
   closeSeanceShowDialog,
+  refreshSeanceList,
+  initialiseRefreshSeanceList,
 } = seanceSlice.actions;
 
 export default seanceSlice.reducer;

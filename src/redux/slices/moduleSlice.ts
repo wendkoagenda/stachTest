@@ -5,6 +5,7 @@ export interface ModuleState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showModuleDialogOpen: boolean;
+  assigneDialogOpen: boolean;
   refreshModuleList: boolean;
   initialiseRefreshModuleList: boolean;
 }
@@ -17,6 +18,7 @@ const moduleSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showModuleDialogOpen: false,
+    assigneDialogOpen: false,
     refreshModuleList: false,
     initialiseRefreshModuleList: true,
   },
@@ -45,6 +47,12 @@ const moduleSlice = createSlice({
     closeModuleShowDialog: (state) => {
       state.showModuleDialogOpen = false;
     },
+    openAssigneDialog: (state) => {
+      state.assigneDialogOpen = true;
+    },
+    closeAssigneDialog: (state) => {
+      state.assigneDialogOpen = false;
+    },
     refreshModuleList: (state) => {
       state.refreshModuleList = true;
     },
@@ -63,6 +71,8 @@ export const {
   closeModuleUpdateDialog,
   openModuleShowDialog,
   closeModuleShowDialog,
+  openAssigneDialog,
+  closeAssigneDialog,
   refreshModuleList,
   initialiseRefreshModuleList,
 } = moduleSlice.actions;
