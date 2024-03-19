@@ -158,6 +158,10 @@ const strings = {
     SETTINGS: "Parametre du systheme",
     // Seances
     NO_SEANCES: "Aucune seance pour le moment",
+    // visa
+    VISA_STUDENT: "Visa Délégué",
+    VISA_AGENT: "Visa Administration",
+    VISA_TEACHER: "Visa Enseignant",
   },
   TH: {
     DEPARTEMENT: "Departements",

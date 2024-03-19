@@ -64,7 +64,6 @@ export interface SeancesShowByDCNFSUMResponse {
   message: string;
   data: SeanceDaum;
 }
-
 // Update Types
 export interface SeanceUpdateModel {
   updateSeance: {
@@ -77,5 +76,19 @@ export interface SeanceUpdateModel {
     camp_year_id: number;
   };
   seanceUuid: string;
+  access_token: string;
+}
+
+export interface GetQrSVGDataProps {
+  width: number;
+  height: number;
+  viewBox: string;
+  children: React.ReactNode; // Optional for potential child elements within the SVG
+}
+export interface GetQrSVGResponse {
+  svgData: string; // Assuming the API response has an 'svgData' property containing the SVG string
+}
+export interface GetQrSVGModel {
+  fileName: string | undefined;
   access_token: string;
 }

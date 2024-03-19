@@ -407,7 +407,7 @@ const ShowDCNF_SUMDialog = ({
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
-                      <AccordionTrigger>Is it animated?</AccordionTrigger>
+                      <AccordionTrigger>sdsdsd</AccordionTrigger>
                       <AccordionContent>
                         Yes. It&apos;s animated by default, but you can disable
                         it if you prefer.

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { SeanceShowModel } from "@/@types/Seance/Seance";
+import { GetQrSVGModel, SeanceShowModel } from "@/@types/Seance/Seance";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +12,16 @@ import {
 } from "@/components/ui/dialog";
 import strings from "@/constants/strings.constant";
 import { closeSeanceShowDialog } from "@/redux/slices/seanceSlice";
-import { useFetchSeanceByIdQuery } from "@/services/seance";
+import {
+  useFetchAgentQrSVGQuery,
+  useFetchSeanceByIdQuery,
+} from "@/services/seance";
+import { dateFormater } from "@/utils/functions/dateFormater";
+import { svgParcer } from "@/utils/functions/svgParcer";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import usePermissions from "@/utils/hooks/usePermissions";
-import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
+import { CircleUser, Loader2, QrCode, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 
 const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
@@ -78,6 +83,16 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
     }
   };
   //*******************Fin
+  // Agent qr
+  const getQrSVGModel: GetQrSVGModel = {
+    fileName: data?.data?.agent_qr,
+    access_token: access_token,
+  };
+
+  const fetchAgentQrSVGQuery = useFetchAgentQrSVGQuery(getQrSVGModel);
+  const agentQr = fetchAgentQrSVGQuery;
+  console.log("lll", agentQr);
+  const isAgentQrLoading = fetchAgentQrSVGQuery.isFetching;
 
   return (
     <Dialog open={showSeanceDialogOpen} onOpenChange={onCloseClick}>
@@ -152,9 +167,52 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                     {strings.TEXTS.VALIDATIONS}
                   </Button>
                 </div>
-                <table className="border-collapse border border-slate-400 ">
-                  ici les Qr codes
-                </table>{" "}
+                <table className="border-collapse border border-slate-300  ">
+                  <div className="grid grid-cols-3 gap-4 justify-items-center  text-center ">
+                    {data?.data?.agent_qr === null ? (
+                      <div>
+                        <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
+                          <Button variant="ghost">
+                            <QrCode />
+                          </Button>
+                        </div>
+                        <div>{strings.TEXTS.VISA_AGENT}</div>
+                      </div>
+                    ) : (
+                      <>
+                        {/* {svgParcer(agentQr?.data?.svgData)} */}
+                        {/* <div
+                          className="flex items-center justify-center"
+                          dangerouslySetInnerHTML={{
+                            __html: svgParcer(agentQr?.data?.svgData),
+                          }}
+                        /> */}
+                        {/* {agentQr} */}
+                        {/* <div className="flex items-center justify-center">
+                          {data?.data?.agent_qr_created_at
+                            ? dateFormater(data?.data?.agent_qr_created_at)
+                            : "Date non disponible"}
+                        </div> */}
+                      </>
+                    )}
+                    <div>
+                      <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
+                        <Button variant="ghost">
+                          <QrCode />
+                        </Button>
+                      </div>
+                      <div>{strings.TEXTS.VISA_TEACHER}</div>
+                    </div>
+                    <div>
+                      <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
+                        <Button variant="ghost">
+                          <QrCode />
+                        </Button>
+                      </div>
+                      <div>{strings.TEXTS.VISA_STUDENT}</div>
+                    </div>
+                  </div>
+                </table>
               </>
             )}
           </>

@@ -1,18 +1,15 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import { UserDeletionModel } from "@/@types/Global/User";
 import {
-  SeanceByDCNFSUMShowModel,
-  SeanceByDCNFSUMShowResponse,
+  GetQrSVGModel,
+  GetQrSVGResponse,
   SeanceCreationModel,
   SeanceRoot,
   SeanceShowModel,
   SeanceShowResponse,
   SeanceUpdateModel,
-  SeancesByDCNFSUMShowModel,
-  SeancesByDCNFSUMShowResponse,
   SeancesShowByDCNFSUMModel,
   SeancesShowByDCNFSUMResponse,
-  SeancesShowByDCNFSUMTResponse,
 } from "@/@types/Seance/Seance";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -39,6 +36,15 @@ export const seancesApi = createApi({
         url: `${SEANCE_ROUTE}${seanceShowModel.seanceUuid}`,
         headers: {
           Authorization: `Bearer ${seanceShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchAgentQrSVG: builder.query<GetQrSVGResponse, GetQrSVGModel>({
+      query: (getQrSVGModel) => ({
+        url: `${SEANCE_ROUTE}${getQrSVGModel.fileName}`,
+        headers: {
+          Authorization: `Bearer ${getQrSVGModel.access_token}`,
+          "Content-Type": "image/svg+xml",
         },
       }),
     }),
@@ -101,4 +107,5 @@ export const {
   useFetchSeanceByIdQuery,
   useUpdateSeanceMutation,
   useFetchSeancesByDCNFSUMQuery,
+  useFetchAgentQrSVGQuery,
 } = seancesApi;
