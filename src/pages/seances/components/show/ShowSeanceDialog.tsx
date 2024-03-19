@@ -30,6 +30,13 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
+  const t_id =
+    localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
+  const s_id =
+    localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
+  const a_id =
+    localStorage.getItem("__albvs26dfbvnuhwf87915515kbcckqacanMM") ?? "0";
+
   //*******************Fin
 
   //*******************Politique de gestion des permissons
@@ -93,7 +100,10 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   const agentQr = fetchAgentQrSVGQuery;
   console.log("lll", agentQr);
   const isAgentQrLoading = fetchAgentQrSVGQuery.isFetching;
-
+  // Agent approuve
+  const handleAgentApprove = () => {
+    alert("o");
+  };
   return (
     <Dialog open={showSeanceDialogOpen} onOpenChange={onCloseClick}>
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow-hidden">
@@ -172,14 +182,24 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                     {data?.data?.agent_qr === null ? (
                       <div>
                         <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
-                          <Button variant="ghost">
-                            <QrCode />
-                          </Button>
+                          {parseInt(a_id) != 0 ? (
+                            <Button
+                              variant="ghost"
+                              onClick={handleAgentApprove}
+                            >
+                              <QrCode />
+                            </Button>
+                          ) : (
+                            <Button variant="ghost" disabled>
+                              <QrCode />
+                            </Button>
+                          )}
                         </div>
                         <div>{strings.TEXTS.VISA_AGENT}</div>
                       </div>
                     ) : (
                       <>
+                        "The Qr"
                         {/* {svgParcer(agentQr?.data?.svgData)} */}
                         {/* <div
                           className="flex items-center justify-center"

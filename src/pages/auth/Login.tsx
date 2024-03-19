@@ -105,7 +105,6 @@ export default function Login() {
         "__albvs26dfbvnuhwf87915515kbcckqacanMM",
         response.data.a_id
       );
-
       dispatch(login(response.data.access_token));
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : getConfig().authenticatedEntryPath);
