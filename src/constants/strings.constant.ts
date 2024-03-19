@@ -156,6 +156,7 @@ const strings = {
     NO_SEANCES: "Aucune seance pour le moment",
   },
   TH: {
+    PROGRESS: "Progression",
     CONTENU: "Contenu",
     CREATED_AT: "Créer le",
     VHT: "VHT",

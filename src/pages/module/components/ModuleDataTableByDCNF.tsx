@@ -253,8 +253,9 @@ export default function ModuleDataTableByDCNF() {
   // };
 
   // Fonction pour l'ouverture de la boite de dialogue des détails
-  const onShowClick = (dcnfsum_uuid: string) => {
+  const onShowClick = (dcnfsum_uuid: string, dcnfsum_id: number) => {
     setDcnfsumUuid(dcnfsum_uuid);
+    setDCNF_SUMId(dcnfsum_id);
     dispatch(openModuleShowDialog());
   };
   //*******************Fin
@@ -298,7 +299,7 @@ export default function ModuleDataTableByDCNF() {
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
-                onShowClick(row.original.uuid);
+                onShowClick(row.original.uuid, row.original.id);
                 closeMenu();
               }}
               table={table}
@@ -333,7 +334,10 @@ export default function ModuleDataTableByDCNF() {
       />
       <DeletionDCNF_SUMDialog dcnf_sum_id={dcnf_sum_id} />
       <UpdateModuleDialog moduleUuid={moduleUuid} />
-      <ShowDCNF_SUMDialog dcnfsum_uuid={dcnfsum_uuid} />
+      <ShowDCNF_SUMDialog
+        dcnfsum_uuid={dcnfsum_uuid}
+        dcnf_sum_id={dcnf_sum_id}
+      />
       {/* moduleUuid = mudule uuid */}
     </>
   );

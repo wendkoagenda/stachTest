@@ -31,8 +31,17 @@ import SeanceDataTable from "@/pages/seances/components/SeanceDataTable";
 import { useFetchDCNFSUMByIdQuery } from "@/services/module";
 import SeanceDataTableByDCNFSUM from "@/pages/seances/components/SeanceDataTableByDCNFSUM";
 import AssigneDialog from "../creation/DCNFSUM/AssigneDialog";
+import { SeanceDaum, SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
+import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
+import { Progress } from "@/components/ui/progress";
 
-const ShowDCNF_SUMDialog = ({ dcnfsum_uuid }: { dcnfsum_uuid: string }) => {
+const ShowDCNF_SUMDialog = ({
+  dcnfsum_uuid,
+  dcnf_sum_id,
+}: {
+  dcnfsum_uuid: string;
+  dcnf_sum_id: number;
+}) => {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -72,13 +81,21 @@ const ShowDCNF_SUMDialog = ({ dcnfsum_uuid }: { dcnfsum_uuid: string }) => {
     dcnfsum_uuid: dcnfsum_uuid,
     access_token: access_token,
   };
-
+  // Préparation du paramettre du hook de recuperation des détails d'un modules
+  const seancesShowByDCNFSUMModel: SeancesShowByDCNFSUMModel = {
+    dcnfsum_id: dcnf_sum_id,
+    access_token: access_token,
+  };
   // Hook de récupération des détails d'un module (RTK)
   const fetchDCNFSUMByIdQuery = useFetchDCNFSUMByIdQuery(DCNFSUMShowModel);
-
+  //Hook de récupération de la liste des seances (Redux store)
+  const fetchSeancesByDCNFSUMQuery = useFetchSeancesByDCNFSUMQuery(
+    seancesShowByDCNFSUMModel
+  );
   // Récupération des détails de l'module au montage du composant
   useEffect(() => {
     fetchDCNFSUMByIdQuery.refetch();
+    fetchSeancesByDCNFSUMQuery.refetch();
     dispatch(initialiseRefreshModuleList());
   }, [showModuleDialogOpen, refreshModuleListLocal]);
   //*******************Fin
@@ -87,6 +104,31 @@ const ShowDCNF_SUMDialog = ({ dcnfsum_uuid }: { dcnfsum_uuid: string }) => {
   const data = fetchDCNFSUMByIdQuery.data;
   const isLoading = fetchDCNFSUMByIdQuery.isFetching;
 
+  // Varibles issue du fectch
+  const fetchSeancesByDCNFSUMQueryData = fetchSeancesByDCNFSUMQuery.data?.data;
+
+  const seances = Array.isArray(fetchSeancesByDCNFSUMQueryData)
+    ? fetchSeancesByDCNFSUMQueryData
+    : [];
+  const isSeancesLoading = fetchSeancesByDCNFSUMQuery.isLoading;
+  const errorSeances = fetchSeancesByDCNFSUMQuery.error;
+
+  const moduleVhTotalDirect =
+    data?.data?.su_m?.module?.vh_cm +
+    data?.data?.su_m?.module?.vh_td +
+    data?.data?.su_m?.module?.vh_tp;
+
+  const moduleVhTotalEffDirect = seances.reduce((acc: SeanceDaum, seance) => {
+    acc += seance.vh_cm_eff + seance.vh_td_eff + seance.vh_tp_eff;
+    return acc;
+  }, 0);
+
+  // Calcul pourcentage
+  const getPercentageOf = (moduleVhTotal: number, moduleVhTotalEff: number) => {
+    const pourcent = (moduleVhTotalEff * 100) / moduleVhTotal;
+    const pourcentFormate = parseFloat(pourcent.toFixed(2));
+    return pourcentFormate;
+  };
   //*******************Fin
 
   //*******************Déclaration de fonctions
@@ -122,6 +164,25 @@ const ShowDCNF_SUMDialog = ({ dcnfsum_uuid }: { dcnfsum_uuid: string }) => {
             <>
               {moduleShow && (
                 <>
+                  {isSeancesLoading ? (
+                    "...."
+                  ) : (
+                    <>
+                      {strings.TH.PROGRESS} :{" "}
+                      {getPercentageOf(
+                        moduleVhTotalDirect,
+                        moduleVhTotalEffDirect
+                      )}{" "}
+                      % ({moduleVhTotalEffDirect} sur {moduleVhTotalDirect}{" "}
+                      heures)
+                      <Progress
+                        value={getPercentageOf(
+                          moduleVhTotalDirect,
+                          moduleVhTotalEffDirect
+                        )}
+                      />
+                    </>
+                  )}
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="details">
                       <AccordionTrigger>Détails sur le module</AccordionTrigger>
