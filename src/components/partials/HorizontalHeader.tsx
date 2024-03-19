@@ -4,15 +4,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import strings from "@/constants/strings.constant";
 import { logout } from "@/redux/slices/authSlice";
 import {
-  CircleUser,
+  Bolt,
   Home,
   Key,
   LogOut,
   Menu,
   Option,
-  SquareUser,
+  Settings2,
   User,
   User2,
 } from "lucide-react";
@@ -70,53 +71,48 @@ export default function HorizontalHeader() {
   const [homeVariant, setHomeVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
-  const [agentVariant, setAgentVariant] = useState<ButtonVariant>(
+  const [userVariant, setUserVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
-  const [studentVariant, setStudentVariant] = useState<ButtonVariant>(
+  const [paramVariant, setParamVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
-  const [teacherVariant, setTeacherVariant] = useState<ButtonVariant>(
+  const [departementVariant, setDepartementVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
 
   useEffect(() => {
     if (currentURL === "/") {
       setHomeVariant(ButtonVariant.Default);
-    } else if (currentURL === "/agents") {
-      setAgentVariant(ButtonVariant.Default);
-    } else if (currentURL === "/students") {
-      setStudentVariant(ButtonVariant.Default);
-    } else if (currentURL === "/teachers") {
-      setTeacherVariant(ButtonVariant.Default);
+    } else if (currentURL === "/users") {
+      setUserVariant(ButtonVariant.Default);
+    } else if (currentURL === "/settings") {
+      setParamVariant(ButtonVariant.Default);
+    } else if (
+      currentURL === "/departements" ||
+      currentURL.startsWith("/departement/") ||
+      currentURL.startsWith("/classe/")
+    ) {
+      setDepartementVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
   const handleGoToHomePage = () => {
-    setAgentVariant(ButtonVariant.Outline);
+    setParamVariant(ButtonVariant.Outline);
     navigate("/");
   };
   const handleGoToUsersPage = () => {
     setHomeVariant(ButtonVariant.Outline);
-    navigate("/agents");
-  };
-  const handleGoToStudentsPage = () => {
-    setHomeVariant(ButtonVariant.Outline);
-    navigate("/students");
-  };
-  const handleGoToTeachersPage = () => {
-    setHomeVariant(ButtonVariant.Outline);
-    navigate("/teachers");
+    navigate("/users");
   };
   const handleGoToDepartementsPage = () => {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/departements");
   };
-  const handleGoToModulesPage = () => {
+  const handleGoToParamsPage = () => {
     setHomeVariant(ButtonVariant.Outline);
-    navigate("/modules");
+    navigate("/settings");
   };
-
   return (
     <>
       <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter z-50">
@@ -140,12 +136,16 @@ export default function HorizontalHeader() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant={agentVariant} onClick={handleGoToUsersPage}>
-                    <User2 className="mr-2 h-4 w-4" /> Agents
+                  <Button
+                    variant={userVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToUsersPage}
+                  >
+                    <User2 className="mr-2 h-4 w-4" /> {strings.TEXTS.USERS}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Liste des Agents</p>
+                  <p>{strings.TOOLTIPS.USERS_LIST}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -153,14 +153,15 @@ export default function HorizontalHeader() {
               <Tooltip>
                 <TooltipTrigger>
                   <Button
-                    variant={studentVariant}
-                    onClick={handleGoToStudentsPage}
+                    variant={paramVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToParamsPage}
                   >
-                    <SquareUser className="mr-2 h-4 w-4" /> Etudiants
+                    <Settings2 className="mr-2 h-4 w-4" /> {strings.TH.PARAMS}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Liste des Etudiants</p>
+                  <p>{strings.TOOLTIPS.PARMS_LIST}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -168,20 +169,23 @@ export default function HorizontalHeader() {
               <Tooltip>
                 <TooltipTrigger>
                   <Button
-                    variant={teacherVariant}
-                    onClick={handleGoToTeachersPage}
+                    variant={departementVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToDepartementsPage}
                   >
-                    <CircleUser className="mr-2 h-4 w-4" /> Enseignants
+                    <Bolt className="mr-2 h-4 w-4" /> {strings.TH.DEPARTEMENT}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Liste des Enseignants</p>
+                  <p>{strings.TOOLTIPS.PARMS_LIST}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-
-            <div>
-              <Dropdown title="Kioque" icon={<Key className="mr-2 h-4 w-4" />}>
+            {/* <div>
+              <Dropdown
+                title={strings.TH.PARAMS}
+                icon={<Settings2 className="mr-2 h-4 w-4" />}
+              >
                 <Button
                   className="w-full rounded-md mb-2 border border-none justify-start"
                   variant="outline"
@@ -195,7 +199,7 @@ export default function HorizontalHeader() {
                   Module
                 </Button>
               </Dropdown>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="flex items-center">

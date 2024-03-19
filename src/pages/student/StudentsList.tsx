@@ -62,8 +62,9 @@ export default function StudentsList() {
 
   return (
     <>
-      <HorizontalHeader />
-      <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300">
+      {/* <HorizontalHeader /> */}
+      <div className="w-full mx-auto ">
+        {/* <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300"> */}
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="col-6">
             <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">

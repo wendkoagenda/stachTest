@@ -1,4 +1,3 @@
-import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -10,11 +9,11 @@ import strings from "@/constants/strings.constant";
 import { openAgentCreateDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
 import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
-import usePermissions from "@/utils/hooks/usePermissions";
 
 export default function AgentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -62,8 +61,9 @@ export default function AgentsList() {
 
   return (
     <>
-      <HorizontalHeader />
-      <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300">
+      {/* <HorizontalHeader /> */}
+      {/* <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300"> */}
+      <div className="w-full mx-auto">
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="col-6">
             <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">

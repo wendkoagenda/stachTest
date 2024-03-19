@@ -12,6 +12,8 @@ import DepartementShow from "./pages/departement/components/show/DepartementShow
 import ClasseShowMore from "./pages/classe/components/show/ClasseShowMore";
 import ModulesList from "./pages/module";
 import SeancesList from "./pages/seances";
+import UsersList from "./pages/user";
+import SettingsList from "./pages/setting";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Routes>
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" />
+            <Route element={<UsersList />} path="/users" />
+            <Route element={<SettingsList />} path="/settings" />
             <Route element={<AgentsList />} path="/agents" />
             <Route element={<StudentsList />} path="/students" />
             <Route element={<TeachersList />} path="/teachers" />

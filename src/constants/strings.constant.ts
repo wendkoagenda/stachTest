@@ -76,6 +76,8 @@ const strings = {
       "Vous retrouverez ici toutes les formation lie a cette module. Bous pouvers copier les information dans votre presse papier en clickant sur la dite information.",
   },
   TOOLTIPS: {
+    PARMS_LIST: "Liste paramettres",
+    USERS_LIST: "Liste des membres de l'administration",
     ADD_AGENT: "Ajouter un nouveau membre de l'administration",
     ADD_SEANCE: "Ajouter un nouveau seance",
     ADD_STUDENT: "Ajouter un nouveau etudiant",
@@ -152,10 +154,17 @@ const strings = {
     GENERAL_INFO: "Informations générales",
     PLUS: "Plus",
     VALIDATIONS: "Validations",
+    USERS: "Utilisateurs",
+    SETTINGS: "Parametre du systheme",
     // Seances
     NO_SEANCES: "Aucune seance pour le moment",
   },
   TH: {
+    DEPARTEMENT: "Departements",
+    PARAMS: "Parametres",
+    AGENT: "Agents",
+    TEACHER: "Ensignants",
+    STUDENT: "Etudiants",
     PROGRESS: "Progression",
     CONTENU: "Contenu",
     CREATED_AT: "Créer le",
