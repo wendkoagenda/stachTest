@@ -14,10 +14,14 @@ import strings from "@/constants/strings.constant";
 import {
   closeSeanceShowDialog,
   openAgentApprouveDialog,
+  openStudentApprouveDialog,
+  openTeacherApprouveDialog,
 } from "@/redux/slices/seanceSlice";
 import {
   useFetchAgentQrSVGQuery,
   useFetchSeanceByIdQuery,
+  useFetchStudentQrSVGQuery,
+  useFetchTeacherQrSVGQuery,
 } from "@/services/seance";
 import { dateFormater } from "@/utils/functions/dateFormater";
 import { svgParcer } from "@/utils/functions/svgParcer";
@@ -27,6 +31,8 @@ import usePermissions from "@/utils/hooks/usePermissions";
 import { CircleUser, Loader2, QrCode, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 import AgentApprouveDialog from "../approuvement/agent/AgentApprouveDialog";
+import StudentApprouveDialog from "../approuvement/student/StudentApprouveDialog";
+import TeacherApprouveDialog from "../approuvement/teacher/TeacherApprouveDialog";
 
 const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -95,18 +101,40 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   };
   //*******************Fin
   // Agent qr
-  const getQrSVGModel: GetQrSVGModel = {
+  const getAgentQrSVGModel: GetQrSVGModel = {
     fileName: data?.data?.agent_qr,
     access_token: access_token,
   };
+  const getTeacherQrSVGModel: GetQrSVGModel = {
+    fileName: data?.data?.teacher_qr,
+    access_token: access_token,
+  };
+  const getStudentQrSVGModel: GetQrSVGModel = {
+    fileName: data?.data?.student_qr,
+    access_token: access_token,
+  };
 
-  const fetchAgentQrSVGQuery = useFetchAgentQrSVGQuery(getQrSVGModel);
+  const fetchAgentQrSVGQuery = useFetchAgentQrSVGQuery(getAgentQrSVGModel);
   const agentQr = fetchAgentQrSVGQuery;
-  console.log("lll", agentQr);
+  const fetchTeacherQrSVGQuery =
+    useFetchTeacherQrSVGQuery(getTeacherQrSVGModel);
+  const teacherQr = fetchTeacherQrSVGQuery;
+  const fetchStudentQrSVGQuery =
+    useFetchStudentQrSVGQuery(getStudentQrSVGModel);
+  const studentQr = fetchStudentQrSVGQuery;
+
   const isAgentQrLoading = fetchAgentQrSVGQuery.isFetching;
+  const isTeacherQrLoading = fetchTeacherQrSVGQuery.isFetching;
+  const isStudentQrLoading = fetchStudentQrSVGQuery.isFetching;
   // Agent approuve
   const handleAgentApprove = () => {
     dispatch(openAgentApprouveDialog());
+  };
+  const handleTeacherApprove = () => {
+    dispatch(openTeacherApprouveDialog());
+  };
+  const handleStudentApprove = () => {
+    dispatch(openStudentApprouveDialog());
   };
   return (
     <>
@@ -184,7 +212,9 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                   </div>
                   <table className="border-collapse border border-slate-300  ">
                     <div className="grid grid-cols-3 gap-4 justify-items-center  text-center ">
-                      {data?.data?.agent_qr === null ? (
+                      {isAgentQrLoading ? (
+                        "Chargement ..."
+                      ) : data?.data?.agent_qr === null ? (
                         <div>
                           <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
                             {parseInt(a_id) != 0 ? (
@@ -203,39 +233,87 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                           <div>{strings.TEXTS.VISA_AGENT}</div>
                         </div>
                       ) : (
-                        <>
-                          "The Qr"
-                          {/* {svgParcer(agentQr?.data?.svgData)} */}
-                          {/* <div
-                          className="flex items-center justify-center"
-                          dangerouslySetInnerHTML={{
-                            __html: svgParcer(agentQr?.data?.svgData),
-                          }}
-                        /> */}
-                          {/* {agentQr} */}
-                          {/* <div className="flex items-center justify-center">
-                          {data?.data?.agent_qr_created_at
-                            ? dateFormater(data?.data?.agent_qr_created_at)
-                            : "Date non disponible"}
-                        </div> */}
-                        </>
+                        <div>
+                          <div className="flex items-center justify-center ">
+                            {svgParcer(agentQr?.data?.svgData)}
+                          </div>
+                          <div>
+                            {data?.data?.agent_qr_created_at
+                              ? dateFormater(data?.data?.agent_qr_created_at)
+                              : "Date non disponible"}{" "}
+                            <br />
+                            {strings.TEXTS.VISA_AGENT}
+                          </div>
+                        </div>
                       )}
-                      <div>
-                        <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
-                          <Button variant="ghost">
-                            <QrCode />
-                          </Button>
+                      {isTeacherQrLoading ? (
+                        "Chargement ..."
+                      ) : data?.data?.teacher_qr === null ? (
+                        <div>
+                          <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
+                            {parseInt(t_id) != 0 ? (
+                              <Button
+                                variant="ghost"
+                                onClick={handleTeacherApprove}
+                              >
+                                <QrCode />
+                              </Button>
+                            ) : (
+                              <Button variant="ghost" disabled>
+                                <QrCode />
+                              </Button>
+                            )}
+                          </div>
+                          <div>{strings.TEXTS.VISA_TEACHER}</div>
                         </div>
-                        <div>{strings.TEXTS.VISA_TEACHER}</div>
-                      </div>
-                      <div>
-                        <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
-                          <Button variant="ghost">
-                            <QrCode />
-                          </Button>
+                      ) : (
+                        <div>
+                          <div className="flex items-center justify-center ">
+                            {svgParcer(teacherQr?.data?.svgData)}
+                          </div>
+                          <div>
+                            {data?.data?.teacher_qr_created_at
+                              ? dateFormater(data?.data?.agent_qr_created_at)
+                              : "Date non disponible"}{" "}
+                            <br />
+                            {strings.TEXTS.VISA_TEACHER}
+                          </div>
                         </div>
-                        <div>{strings.TEXTS.VISA_STUDENT}</div>
-                      </div>
+                      )}
+                      {isStudentQrLoading ? (
+                        "Chargement ..."
+                      ) : data?.data?.student_qr === null ? (
+                        <div>
+                          <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
+                            {parseInt(s_id) != 0 ? (
+                              <Button
+                                variant="ghost"
+                                onClick={handleStudentApprove}
+                              >
+                                <QrCode />
+                              </Button>
+                            ) : (
+                              <Button variant="ghost" disabled>
+                                <QrCode />
+                              </Button>
+                            )}
+                          </div>
+                          <div>{strings.TEXTS.VISA_STUDENT}</div>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="flex items-center justify-center ">
+                            {svgParcer(studentQr?.data?.svgData)}
+                          </div>
+                          <div>
+                            {data?.data?.student_qr_created_at
+                              ? dateFormater(data?.data?.student_qr_created_at)
+                              : "Date non disponible"}{" "}
+                            <br />
+                            {strings.TEXTS.VISA_STUDENT}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </table>
                 </>
@@ -258,6 +336,8 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
         </DialogContent>
       </Dialog>
       <AgentApprouveDialog seanceId={data?.data?.id} />
+      <StudentApprouveDialog seanceId={data?.data?.id} />
+      <TeacherApprouveDialog seanceId={data?.data?.id} />
     </>
   );
 };

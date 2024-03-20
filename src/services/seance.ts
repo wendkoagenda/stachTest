@@ -19,6 +19,8 @@ const SEANCE_ROUTE = "tenant/seances/";
 const SEANCE_BY_DCNFSUM_ROUTE = "tenant/seances/dcnfsum/";
 const SEANCE_BY_T_ID_ROUTE = "tenant/seances/storeWithTId";
 const AGENT_APPROUVE_MODEL = "tenant/agentApprouves/";
+const TEACHER_APPROUVE_MODEL = "tenant/teacherApprouves/";
+const STUDENT_APPROUVE_MODEL = "tenant/studentApprouves/";
 
 // Crée une nouvelle API Get all seances
 export const seancesApi = createApi({
@@ -42,6 +44,24 @@ export const seancesApi = createApi({
       }),
     }),
     fetchAgentQrSVG: builder.query<GetQrSVGResponse, GetQrSVGModel>({
+      query: (getQrSVGModel) => ({
+        url: `${SEANCE_ROUTE}${getQrSVGModel.fileName}`,
+        headers: {
+          Authorization: `Bearer ${getQrSVGModel.access_token}`,
+          "Content-Type": "image/svg+xml",
+        },
+      }),
+    }),
+    fetchStudentQrSVG: builder.query<GetQrSVGResponse, GetQrSVGModel>({
+      query: (getQrSVGModel) => ({
+        url: `${SEANCE_ROUTE}${getQrSVGModel.fileName}`,
+        headers: {
+          Authorization: `Bearer ${getQrSVGModel.access_token}`,
+          "Content-Type": "image/svg+xml",
+        },
+      }),
+    }),
+    fetchTeacherQrSVG: builder.query<GetQrSVGResponse, GetQrSVGModel>({
       query: (getQrSVGModel) => ({
         url: `${SEANCE_ROUTE}${getQrSVGModel.fileName}`,
         headers: {
@@ -78,6 +98,32 @@ export const seancesApi = createApi({
     agentApprouve: builder.mutation<GeneriqueResponse, Partial<ApprouveModel>>({
       query: (approuveModel) => ({
         url: AGENT_APPROUVE_MODEL,
+        method: "POST",
+        body: approuveModel.approuveModel,
+        headers: {
+          Authorization: `Bearer ${approuveModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
+    teacherApprouve: builder.mutation<
+      GeneriqueResponse,
+      Partial<ApprouveModel>
+    >({
+      query: (approuveModel) => ({
+        url: TEACHER_APPROUVE_MODEL,
+        method: "POST",
+        body: approuveModel.approuveModel,
+        headers: {
+          Authorization: `Bearer ${approuveModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
+    studentApprouve: builder.mutation<
+      GeneriqueResponse,
+      Partial<ApprouveModel>
+    >({
+      query: (approuveModel) => ({
+        url: STUDENT_APPROUVE_MODEL,
         method: "POST",
         body: approuveModel.approuveModel,
         headers: {
@@ -122,4 +168,8 @@ export const {
   useFetchSeancesByDCNFSUMQuery,
   useFetchAgentQrSVGQuery,
   useAgentApprouveMutation,
+  useStudentApprouveMutation,
+  useTeacherApprouveMutation,
+  useFetchStudentQrSVGQuery,
+  useFetchTeacherQrSVGQuery,
 } = seancesApi;

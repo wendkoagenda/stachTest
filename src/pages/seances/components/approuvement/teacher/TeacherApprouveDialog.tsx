@@ -6,11 +6,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import strings from "@/constants/strings.constant";
-import { closeAgentApprouveDialog } from "@/redux/slices/seanceSlice";
+import { closeTeacherApprouveDialog } from "@/redux/slices/seanceSlice";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import AgentApprouveForm from "./AgentApprouveForm";
+import TeacherApprouveForm from "./TeacherApprouveForm";
 
-export default function AgentApprouveDialog({
+export default function TeacherApprouveDialog({
   seanceId,
 }: {
   seanceId: number | undefined;
@@ -19,28 +19,28 @@ export default function AgentApprouveDialog({
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
   // Hook de récupération  de l'état  de la boite de dialogue du formulaire de création(Redux Store)
-  const openAgentApprouveDialog = useAppSelector(
-    (state) => state.seances.agentApprouveDialog
+  const openTeacherApprouveDialog = useAppSelector(
+    (state) => state.seances.teacherApprouveDialog
   );
   //*******************Fin
 
   //*******************Déclaration de fonctions
   // Fonction de fermeture de la boite de dialogue du formulaire de création  (Redux store)
   const onCloseClick = () => {
-    dispatch(closeAgentApprouveDialog());
+    dispatch(closeTeacherApprouveDialog());
   };
   //*******************Fin
 
   return (
-    <Dialog open={openAgentApprouveDialog} onOpenChange={onCloseClick}>
+    <Dialog open={openTeacherApprouveDialog} onOpenChange={onCloseClick}>
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[500px] md:max-h-[500px] md:overflow-hidden">
         <DialogHeader>
-          <DialogTitle>{strings.TEXTS.APPROUVE_SEANCE} Agent</DialogTitle>
+          <DialogTitle>{strings.TEXTS.APPROUVE_SEANCE} Teacher</DialogTitle>
           <DialogDescription>
             {strings.INSTRUCTIONS.APPROUVE_SEANCE}
           </DialogDescription>
         </DialogHeader>
-        <AgentApprouveForm seanceId={seanceId} />
+        <TeacherApprouveForm seanceId={seanceId} />
       </DialogContent>
     </Dialog>
   );
