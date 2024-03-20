@@ -92,3 +92,11 @@ export interface GetQrSVGModel {
   fileName: string | undefined;
   access_token: string;
 }
+export interface ApprouveModel {
+  approuveModel: {
+    seance_id: number;
+    registration_number: string;
+    camp_year_id: number;
+  };
+  access_token: string;
+}

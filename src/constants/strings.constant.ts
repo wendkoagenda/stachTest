@@ -4,6 +4,7 @@ const strings = {
   ACTORS: {},
   ROLES: {},
   PLACEHOLDERS: {
+    REGISTRATION_NO: "Numéro matricule",
     PHONE1: "Numéro de téléphone Whatsapp ici",
     PHONE2: "Numéro téléphone de secours ici ",
     EMAIL: "Adresse email ici",
@@ -24,6 +25,9 @@ const strings = {
   },
 
   INSTRUCTIONS: {
+    //seances
+    APPROUVE_SEANCE: "Entrer votre matricule pour valider",
+    // s
     SELECT_MODULE: "Le module appartiendra a cette classe egalement?",
     STATUS: "L'tilisateur sera-t-il actif ou inactif ?",
     UPDATED_AGENT:
@@ -158,6 +162,7 @@ const strings = {
     SETTINGS: "Parametre du systheme",
     // Seances
     NO_SEANCES: "Aucune seance pour le moment",
+    APPROUVE_SEANCE: "Viser la seance",
     // visa
     VISA_STUDENT: "Visa Délégué",
     VISA_AGENT: "Visa Administration",

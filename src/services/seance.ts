@@ -1,6 +1,7 @@
 import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
 import { UserDeletionModel } from "@/@types/Global/User";
 import {
+  ApprouveModel,
   GetQrSVGModel,
   GetQrSVGResponse,
   SeanceCreationModel,
@@ -17,6 +18,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const SEANCE_ROUTE = "tenant/seances/";
 const SEANCE_BY_DCNFSUM_ROUTE = "tenant/seances/dcnfsum/";
 const SEANCE_BY_T_ID_ROUTE = "tenant/seances/storeWithTId";
+const AGENT_APPROUVE_MODEL = "tenant/agentApprouves/";
 
 // Crée une nouvelle API Get all seances
 export const seancesApi = createApi({
@@ -48,6 +50,7 @@ export const seancesApi = createApi({
         },
       }),
     }),
+
     fetchSeancesByDCNFSUM: builder.query<
       SeancesShowByDCNFSUMResponse,
       SeancesShowByDCNFSUMModel
@@ -69,6 +72,16 @@ export const seancesApi = createApi({
         body: seanceCreationModel.newSeance,
         headers: {
           Authorization: `Bearer ${seanceCreationModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
+    agentApprouve: builder.mutation<GeneriqueResponse, Partial<ApprouveModel>>({
+      query: (approuveModel) => ({
+        url: AGENT_APPROUVE_MODEL,
+        method: "POST",
+        body: approuveModel.approuveModel,
+        headers: {
+          Authorization: `Bearer ${approuveModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
         },
       }),
     }),
@@ -108,4 +121,5 @@ export const {
   useUpdateSeanceMutation,
   useFetchSeancesByDCNFSUMQuery,
   useFetchAgentQrSVGQuery,
+  useAgentApprouveMutation,
 } = seancesApi;
