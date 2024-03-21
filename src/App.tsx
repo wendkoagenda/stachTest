@@ -14,6 +14,7 @@ import ModulesList from "./pages/module";
 import SeancesList from "./pages/seances";
 import UsersList from "./pages/user";
 import SettingsList from "./pages/setting";
+import AllfinalclassesList from "./pages/allfinalclasse/AllfinalclassesList";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route element={<UsersList />} path="/users" />
             <Route element={<SettingsList />} path="/settings" />
             <Route element={<AgentsList />} path="/agents" />
+            <Route element={<AllfinalclassesList />} path="/allfinalclasses" />
             <Route element={<StudentsList />} path="/students" />
             <Route element={<TeachersList />} path="/teachers" />
             <Route element={<DepartementsList />} path="/departements" />

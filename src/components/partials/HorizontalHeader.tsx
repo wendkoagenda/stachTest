@@ -8,6 +8,7 @@ import strings from "@/constants/strings.constant";
 import { logout } from "@/redux/slices/authSlice";
 import {
   Bolt,
+  Diamond,
   Home,
   Key,
   LogOut,
@@ -80,6 +81,8 @@ export default function HorizontalHeader() {
   const [departementVariant, setDepartementVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
+  const [allfinalclassesVariant, setAllfinalclassesVariant] =
+    useState<ButtonVariant>(ButtonVariant.Outline);
 
   useEffect(() => {
     if (currentURL === "/") {
@@ -90,10 +93,14 @@ export default function HorizontalHeader() {
       setParamVariant(ButtonVariant.Default);
     } else if (
       currentURL === "/departements" ||
-      currentURL.startsWith("/departement/") ||
-      currentURL.startsWith("/classe/")
+      currentURL.startsWith("/departement/")
     ) {
       setDepartementVariant(ButtonVariant.Default);
+    } else if (
+      currentURL === "/allfinalclasses" ||
+      currentURL.startsWith("/classe/")
+    ) {
+      setAllfinalclassesVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
@@ -113,6 +120,11 @@ export default function HorizontalHeader() {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/settings");
   };
+  const handleGoToAllfinalclassesPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/allfinalclasses");
+  };
+
   return (
     <>
       <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter z-50">
@@ -178,6 +190,22 @@ export default function HorizontalHeader() {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{strings.TOOLTIPS.PARMS_LIST}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant={allfinalclassesVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToAllfinalclassesPage}
+                  >
+                    <Diamond className="mr-2 h-4 w-4" /> {strings.TH.CLASSES}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

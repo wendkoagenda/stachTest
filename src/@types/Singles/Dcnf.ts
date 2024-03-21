@@ -12,3 +12,9 @@ export interface Dcnf {
   dc: Dc;
   nf: Nf;
 }
+
+export interface DCNFRoot {
+  success: boolean;
+  message: string;
+  data: Dcnf[];
+}

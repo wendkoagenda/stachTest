@@ -12,6 +12,7 @@ import {
   UserDeletionModel,
   UserUpdateModel,
 } from "@/@types/Global/User";
+import { DCNFRoot } from "@/@types/Singles/Dcnf";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -19,6 +20,7 @@ const CLASSE_ROUTE = "tenant/n_f/";
 const CLASSE_DCNFROUTE = "tenant/dc_nf/";
 const CLASSE_BY_DC_ROUTE = "tenant/dc_nf/showByDC/";
 const CLASSE_DCNFS_ROUTE = "tenant/dcnf_s/dc_nf/";
+const DCNF_ROUTE = "tenant/dc_nf/";
 
 // Crée une nouvelle API Get all classes
 export const classesApi = createApi({
@@ -26,8 +28,18 @@ export const classesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: getConfig().apiBaseUrl }), // Utilise fetchBaseQuery avec l'URL de base
   endpoints: (builder) => ({
     fetchClasses: builder.query<ClasseRoot, string>({
+      // les classes simples nf
       query: (access_token: string | null) => ({
         url: CLASSE_ROUTE,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }),
+    }),
+    // pour allfinalclasses (les classes finales)
+    fetchDCNFs: builder.query<DCNFRoot, string>({
+      query: (access_token: string | null) => ({
+        url: DCNF_ROUTE,
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -41,6 +53,7 @@ export const classesApi = createApi({
         },
       }),
     }),
+    // la liste des etudiants d ela classe
     fetchClassesByDCNF: builder.query<
       ClasseShowByDCNFResponse,
       ClasseShowModel
@@ -111,4 +124,5 @@ export const {
   useFetchClassesByDCNFQuery,
   useUpdateClasseMutation,
   useFetchClassesByDCUuIdQuery,
+  useFetchDCNFsQuery,
 } = classesApi;

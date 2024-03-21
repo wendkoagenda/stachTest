@@ -88,6 +88,7 @@ const strings = {
     ADD_TEACHER: "Ajouter un nouveau enseignants",
     ADD_MODULE: "Ajouter un nouveau module",
     NOT_YET_DISPONIBLE: "Pas encor disponible",
+    CLASSE_LIST: "Aller a la liste de toutes les classes",
   },
   ERRORS: {
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
@@ -139,6 +140,7 @@ const strings = {
     SHOW_CLASSE: "Détails de cette classes",
     UPDATE_CLASSE: "Mise a jour d'une classe",
     CLASSE_INFO: "Information sur la classe",
+    CLASSE_EMPTY: "Aucune classes",
     // Module
     MODIFY_MODULE: "Modification des infos de ce module",
     ADD_MODULE: "Ajout s'un nouveau module",
