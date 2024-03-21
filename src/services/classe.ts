@@ -89,6 +89,18 @@ export const classesApi = createApi({
         },
       }),
     }),
+    createDCNF: builder.mutation<GeneriqueResponse, Partial<UserCreationModel>>(
+      {
+        query: (userCreationModel) => ({
+          url: DCNF_ROUTE,
+          method: "POST",
+          body: userCreationModel.newUser,
+          headers: {
+            Authorization: `Bearer ${userCreationModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+          },
+        }),
+      }
+    ),
     deleteClasse: builder.mutation<
       GeneriqueResponse,
       Partial<UserDeletionModel>
@@ -125,4 +137,5 @@ export const {
   useUpdateClasseMutation,
   useFetchClassesByDCUuIdQuery,
   useFetchDCNFsQuery,
+  useCreateDCNFMutation,
 } = classesApi;

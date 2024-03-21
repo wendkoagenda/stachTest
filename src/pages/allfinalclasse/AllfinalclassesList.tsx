@@ -1,21 +1,20 @@
 import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
-import strings from "@/constants/strings.constant";
-import { useFetchDepartementsQuery } from "@/services/departement";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
-import { Loader2, Plus } from "lucide-react";
-import React from "react";
-import DepartementDataTable from "../departement/components/DepartementDataTable";
-import { useFetchDCNFsQuery } from "@/services/classe";
-import AllfinalclassesDataTable from "./components/AllfinalclassesDataTable";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import strings from "@/constants/strings.constant";
+import { openDCNFCreateDialog } from "@/redux/slices/classeSlice";
+import { useFetchDCNFsQuery } from "@/services/classe";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import usePermissions from "@/utils/hooks/usePermissions";
+import { Loader2, Plus } from "lucide-react";
+import AllfinalclassesDataTable from "./components/AllfinalclassesDataTable";
+import CreationDCNFDialog from "./components/creation/CreationDCNFDialog";
 
 export default function AllfinalclassesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -53,7 +52,9 @@ export default function AllfinalclassesList() {
     ? fetchDCNFsQueryData
     : [];
   //*******************Fin
-  console.log("ss", allfinalclasses);
+  const handleCreateDCNF = () => {
+    dispatch(openDCNFCreateDialog());
+  };
   return (
     <>
       <HorizontalHeader />
@@ -78,7 +79,7 @@ export default function AllfinalclassesList() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Button>
+                    <Button onClick={handleCreateDCNF}>
                       {isLoading ? (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       ) : (
@@ -100,6 +101,7 @@ export default function AllfinalclassesList() {
           {departementList && <AllfinalclassesDataTable />}
         </div>
       </div>
+      <CreationDCNFDialog />
       <Footer />
     </>
   );
