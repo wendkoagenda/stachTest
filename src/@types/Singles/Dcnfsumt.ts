@@ -13,3 +13,9 @@ export interface Dcnfsumt {
   dcnfsum: Dcnfsum;
   t: Teacher;
 }
+
+export interface DcnfsumtResponse {
+  success: boolean;
+  message: string;
+  data: Dcnfsumt[];
+}

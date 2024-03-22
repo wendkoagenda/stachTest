@@ -41,7 +41,7 @@ export default function HorizontalHeader() {
 
   const [paramsList, setParamsList] = useState(false);
   const [paramsClasses, setParamsClasses] = useState(false);
-  const [paramsMyClasses, setParamsMyClasses] = useState(false);
+  const [paramsMyCourses, setParamsMyCourses] = useState(false);
   const [paramsDepartements, setParamsDepartements] = useState(false);
   const [paramsUsers, setParamsUsers] = useState(false);
 
@@ -58,9 +58,9 @@ export default function HorizontalHeader() {
       setParamsClasses(
         permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_CLASSES)
       );
-      setParamsMyClasses(
+      setParamsMyCourses(
         permissions.userPermissions.includes(
-          strings.PERMISSIONS.PARAMS_MY_CLASSES
+          strings.PERMISSIONS.PARAMS_MY_COURSES
         )
       );
       setParamsDepartements(
@@ -120,6 +120,9 @@ export default function HorizontalHeader() {
   );
   const [allfinalclassesVariant, setAllfinalclassesVariant] =
     useState<ButtonVariant>(ButtonVariant.Outline);
+  const [myCoursesVariant, setMyCoursesVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
 
   useEffect(() => {
     if (currentURL === "/") {
@@ -138,6 +141,8 @@ export default function HorizontalHeader() {
       currentURL.startsWith("/classe/")
     ) {
       setAllfinalclassesVariant(ButtonVariant.Default);
+    } else if (currentURL === "/mycourses") {
+      setMyCoursesVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
@@ -160,6 +165,10 @@ export default function HorizontalHeader() {
   const handleGoToAllfinalclassesPage = () => {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/allfinalclasses");
+  };
+  const handleGoToMyCoursesPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/mycourses");
   };
 
   return (
@@ -254,6 +263,24 @@ export default function HorizontalHeader() {
                 </Tooltip>
               </TooltipProvider>
             )}
+            {/* {paramsMyClasses && ( */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant={myCoursesVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToMyCoursesPage}
+                  >
+                    <Diamond className="mr-2 h-4 w-4" /> {strings.TH.MY_COURSES}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            {/* )} */}
             {/* <div>
               <Dropdown
                 title={strings.TH.PARAMS}

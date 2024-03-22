@@ -1,6 +1,6 @@
 import { Dc } from "./Dc";
 import { Nf } from "./Nf";
-import { SuM } from "./Sum";
+import { SuM } from "./SuM";
 
 export interface Dcnfsum {
   id: number;

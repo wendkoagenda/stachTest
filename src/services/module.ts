@@ -14,6 +14,7 @@ import {
   ModuleShowResponse,
   ModuleUpdateModel,
 } from "@/@types/Module/Module";
+import { DcnfsumtResponse } from "@/@types/Singles/Dcnfsumt";
 import { SuMRoot } from "@/@types/Singles/SuM";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -24,6 +25,7 @@ const DCNF_SUM_ROUTE = "tenant/dcnf_sum/";
 const SUM_ROUTE = "tenant/su_m/";
 const DCNFSUM_ROUTE = "tenant/dcnf_sum/";
 const DCNFSUMT_ROUTE = "tenant/dcnfsum_t/";
+const My_MODULE_ROUTE = "tenant/dcnfsum_t/mesModules/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -51,6 +53,15 @@ export const modulesApi = createApi({
         url: `${MODULE_ROUTE}${moduleShowModel.moduleUuid}`,
         headers: {
           Authorization: `Bearer ${moduleShowModel.access_token}`,
+        },
+      }),
+    }),
+    fetchMymodules: builder.query<DcnfsumtResponse, string>({
+      // les mosules du prof connecter
+      query: (access_token: string | null) => ({
+        url: My_MODULE_ROUTE,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
         },
       }),
     }),
@@ -162,4 +173,5 @@ export const {
   useFetchSUMsQuery,
   useCreateDCNF_SUMMutation,
   useCreateDCNFSUMTMutation,
+  useFetchMymodulesQuery,
 } = modulesApi;

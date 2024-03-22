@@ -153,6 +153,7 @@ const strings = {
     HEURES: "heures",
     NOT_YET_ASSIGNED: "Le module n'est pas encor assigner.",
     ASSIGNE_TO_PROF: "Assignation de module",
+    MY_MODULES_LIST: "Liste de mes modules",
     /// DCNFSUM
     ADD_DCNFSUM: "Ajouter un module a cette classe",
     // Specifique
@@ -169,8 +170,15 @@ const strings = {
     VISA_STUDENT: "Visa Délégué",
     VISA_AGENT: "Visa Administration",
     VISA_TEACHER: "Visa Enseignant",
+    // my classes
+    MY_CLAASES_LIST: "Liste de mes classes",
   },
   TH: {
+    MY_DOCS: "Mes documents",
+    MY_STATS: "Mes stattistiques",
+    MY_MODULES: "Mes modules",
+    MY_CLASSES: "Mes classes",
+    MY_COURSES: "Mes cours",
     DEPARTEMENT: "Departements",
     PARAMS: "Parametres",
     AGENT: "Agents",
@@ -254,7 +262,7 @@ const strings = {
     //Params
     PARAMS_LIST: "params.list",
     PARAMS_CLASSES: "params.classes",
-    PARAMS_MY_CLASSES: "params.myClasses",
+    PARAMS_MY_COURSES: "params.myCourses",
     PARAMS_DEPARTEMENTS: "params.departements",
     PARAMS_USERS: "params.users",
     AGENT_LIST: "agents.list", // Agent

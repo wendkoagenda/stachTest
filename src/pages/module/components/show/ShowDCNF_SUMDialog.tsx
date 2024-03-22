@@ -162,260 +162,245 @@ const ShowDCNF_SUMDialog = ({
             <TableSkeleton />
           ) : (
             <>
-              {moduleShow && (
-                <>
-                  {isSeancesLoading ? (
-                    "...."
-                  ) : (
-                    <>
-                      {strings.TH.PROGRESS} :{" "}
-                      {getPercentageOf(
+              <>
+                {isSeancesLoading ? (
+                  "...."
+                ) : (
+                  <>
+                    {strings.TH.PROGRESS} :{" "}
+                    {getPercentageOf(
+                      moduleVhTotalDirect,
+                      moduleVhTotalEffDirect
+                    )}{" "}
+                    % ({moduleVhTotalEffDirect} sur {moduleVhTotalDirect}{" "}
+                    heures)
+                    <Progress
+                      value={getPercentageOf(
                         moduleVhTotalDirect,
                         moduleVhTotalEffDirect
-                      )}{" "}
-                      % ({moduleVhTotalEffDirect} sur {moduleVhTotalDirect}{" "}
-                      heures)
-                      <Progress
-                        value={getPercentageOf(
-                          moduleVhTotalDirect,
-                          moduleVhTotalEffDirect
-                        )}
-                      />
-                    </>
-                  )}
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="details">
-                      <AccordionTrigger>Détails sur le module</AccordionTrigger>
-                      <AccordionContent>
-                        <div className="flex flex-row mb-2 mt-2">
-                          <Button
-                            size="title"
-                            style={{ pointerEvents: "none" }}
+                      )}
+                    />
+                  </>
+                )}
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="details">
+                    <AccordionTrigger>Détails sur le module</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-row mb-2 mt-2">
+                        <Button size="title" style={{ pointerEvents: "none" }}>
+                          <Info className="mr-2 h-4 w-4" />
+                          {strings.TEXTS.GENERAL_INFO}
+                        </Button>
+                      </div>
+                      <table className="border-collapse border border-slate-400 w-full">
+                        <tr>
+                          <td className="border border-slate-300 ">
+                            <b>{strings.TH.TITLE}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.title)
+                            }
+                            style={{ cursor: "pointer" }}
                           >
-                            <Info className="mr-2 h-4 w-4" />
-                            {strings.TEXTS.GENERAL_INFO}
-                          </Button>
-                        </div>
-                        <table className="border-collapse border border-slate-400 w-full">
-                          <tr>
-                            <td className="border border-slate-300 ">
-                              <b>{strings.TH.TITLE}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(data?.data?.su_m?.module?.title)
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.title}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.ACRONYM}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.acronym
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.acronym}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.CODE}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(data?.data?.su_m?.module?.code)
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.code}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.CREDIT}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.credits.toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.credits}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.COEF}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.coef.toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.coef}
-                            </td>
-                          </tr>
-                        </table>
-                        <div className="flex flex-row mb-2 mt-2">
-                          <Button
-                            size="title"
-                            style={{ pointerEvents: "none" }}
+                            {data?.data?.su_m?.module?.title}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.ACRONYM}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.acronym)
+                            }
+                            style={{ cursor: "pointer" }}
                           >
-                            <Clock className="mr-2 h-4 w-4" />
-                            {strings.TEXTS.VH}
-                          </Button>
-                        </div>
-                        <table className="border-collapse border border-slate-400 w-full">
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.VH_CM}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.vh_cm.toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.vh_cm}{" "}
-                              {strings.TEXTS.HEURES}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.VH_TD}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.vh_td.toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.vh_td}{" "}
-                              {strings.TEXTS.HEURES}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.VH_TP}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.vh_tp.toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.vh_tp}{" "}
-                              {strings.TEXTS.HEURES}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.VHT}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  (
-                                    (data?.data?.su_m?.module?.vh_tp ?? 0) +
-                                    (data?.data?.su_m?.module?.vh_td ?? 0) +
-                                    (data?.data?.su_m?.module?.vh_cm ?? 0)
-                                  ).toString()
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {(data?.data?.su_m?.module?.vh_tp ?? 0) +
-                                (data?.data?.su_m?.module?.vh_td ?? 0) +
-                                (data?.data?.su_m?.module?.vh_cm ?? 0)}{" "}
-                              {strings.TEXTS.HEURES}
-                            </td>
-                          </tr>
-                        </table>
-                        <div className="flex flex-row mb-2 mt-2">
-                          <Button
-                            size="title"
-                            style={{ pointerEvents: "none" }}
+                            {data?.data?.su_m?.module?.acronym}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.CODE}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(data?.data?.su_m?.module?.code)
+                            }
+                            style={{ cursor: "pointer" }}
                           >
-                            <Plus className="mr-2 h-4 w-4" />
-                            {strings.TEXTS.PLUS}
+                            {data?.data?.su_m?.module?.code}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.CREDIT}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.credits.toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.credits}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.COEF}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.coef.toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.coef}
+                          </td>
+                        </tr>
+                      </table>
+                      <div className="flex flex-row mb-2 mt-2">
+                        <Button size="title" style={{ pointerEvents: "none" }}>
+                          <Clock className="mr-2 h-4 w-4" />
+                          {strings.TEXTS.VH}
+                        </Button>
+                      </div>
+                      <table className="border-collapse border border-slate-400 w-full">
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.VH_CM}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_cm.toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.vh_cm}{" "}
+                            {strings.TEXTS.HEURES}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.VH_TD}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_td.toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.vh_td}{" "}
+                            {strings.TEXTS.HEURES}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.VH_TP}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.vh_tp.toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.vh_tp}{" "}
+                            {strings.TEXTS.HEURES}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.VHT}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                (
+                                  (data?.data?.su_m?.module?.vh_tp ?? 0) +
+                                  (data?.data?.su_m?.module?.vh_td ?? 0) +
+                                  (data?.data?.su_m?.module?.vh_cm ?? 0)
+                                ).toString()
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {(data?.data?.su_m?.module?.vh_tp ?? 0) +
+                              (data?.data?.su_m?.module?.vh_td ?? 0) +
+                              (data?.data?.su_m?.module?.vh_cm ?? 0)}{" "}
+                            {strings.TEXTS.HEURES}
+                          </td>
+                        </tr>
+                      </table>
+                      <div className="flex flex-row mb-2 mt-2">
+                        <Button size="title" style={{ pointerEvents: "none" }}>
+                          <Plus className="mr-2 h-4 w-4" />
+                          {strings.TEXTS.PLUS}
+                        </Button>
+                      </div>
+                      <table className="border-collapse border border-slate-400 w-full ">
+                        <tr>
+                          <td className="border border-slate-300">
+                            <b>{strings.TH.DESCRIPTION}</b>
+                          </td>
+                          <td
+                            className="border border-slate-300 "
+                            onClick={() =>
+                              copyToClipboard(
+                                data?.data?.su_m?.module?.description
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {data?.data?.su_m?.module?.description}
+                          </td>
+                        </tr>
+                      </table>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="seances">
+                    <AccordionTrigger> Séances</AccordionTrigger>
+                    <AccordionContent>
+                      {data?.data?.statut === "notAssigned" ? (
+                        <>
+                          {strings.TEXTS.NOT_YET_ASSIGNED}
+                          <Button type="submit" onClick={onAssigne}>
+                            <Cable className="mr-2 h-4 w-4" />
+                            {strings.BUTTONS.ASSIGNE_TO_PROF}
                           </Button>
-                        </div>
-                        <table className="border-collapse border border-slate-400 w-full ">
-                          <tr>
-                            <td className="border border-slate-300">
-                              <b>{strings.TH.DESCRIPTION}</b>
-                            </td>
-                            <td
-                              className="border border-slate-300 "
-                              onClick={() =>
-                                copyToClipboard(
-                                  data?.data?.su_m?.module?.description
-                                )
-                              }
-                              style={{ cursor: "pointer" }}
-                            >
-                              {data?.data?.su_m?.module?.description}
-                            </td>
-                          </tr>
-                        </table>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="seances">
-                      <AccordionTrigger> Séances</AccordionTrigger>
-                      <AccordionContent>
-                        {data?.data?.statut === "notAssigned" ? (
-                          <>
-                            {strings.TEXTS.NOT_YET_ASSIGNED}
-                            <Button type="submit" onClick={onAssigne}>
-                              <Cable className="mr-2 h-4 w-4" />
-                              {strings.BUTTONS.ASSIGNE_TO_PROF}
-                            </Button>
-                          </>
-                        ) : (
-                          <SeanceDataTableByDCNFSUM
-                            dcnfsum_id={data?.data?.id}
-                          />
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                      <AccordionTrigger>sdsdsd</AccordionTrigger>
-                      <AccordionContent>
-                        Yes. It&apos;s animated by default, but you can disable
-                        it if you prefer.
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </>
-              )}
+                        </>
+                      ) : (
+                        <SeanceDataTableByDCNFSUM dcnfsum_id={data?.data?.id} />
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger>sdsdsd</AccordionTrigger>
+                    <AccordionContent>
+                      Yes. It&apos;s animated by default, but you can disable it
+                      if you prefer.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </>
             </>
           )}
           <DialogFooter className="flex flex-row justify-end">
