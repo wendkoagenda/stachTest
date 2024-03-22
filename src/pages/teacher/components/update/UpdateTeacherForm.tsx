@@ -28,7 +28,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -72,9 +72,9 @@ export default function UpdateTeacherForm({
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const teacherUpdate = decodedToken.userPermissions.includes(
+  const teacherUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_UPDATE
   );
   //*******************Fin

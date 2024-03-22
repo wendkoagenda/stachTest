@@ -251,6 +251,12 @@ const strings = {
   },
 
   PERMISSIONS: {
+    //Params
+    PARAMS_LIST: "params.list",
+    PARAMS_CLASSES: "params.classes",
+    PARAMS_MY_CLASSES: "params.myClasses",
+    PARAMS_DEPARTEMENTS: "params.departements",
+    PARAMS_USERS: "params.users",
     AGNET_LIST: "agents.list", // Agent
     AGNET_SHOW: "agents.show",
     AGNET_UPDATE: "agents.update",

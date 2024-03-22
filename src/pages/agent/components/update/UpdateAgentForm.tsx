@@ -29,7 +29,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -69,9 +69,9 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentUpdate = decodedToken.userPermissions.includes(
+  const agentUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_UPDATE
   );
   //*******************Fin

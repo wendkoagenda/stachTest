@@ -14,7 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import ModuleDataTable from "./components/ModuleDataTable";
 import CreationModuleDialog from "./components/creation";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function ModulesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -26,12 +26,12 @@ export default function ModulesList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleStore = decodedToken.userPermissions.includes(
+  const moduleStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.MODULE_STORE
   );
-  const moduleList = decodedToken.userPermissions.includes(
+  const moduleList = permissions.userPermissions.includes(
     strings.PERMISSIONS.MODULE_LIST
   );
   //*******************Fin

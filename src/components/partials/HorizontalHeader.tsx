@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import strings from "@/constants/strings.constant";
 import { logout } from "@/redux/slices/authSlice";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import {
   Bolt,
   Diamond,
@@ -36,6 +37,42 @@ export default function HorizontalHeader() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  //Liste des permissions requises
+
+  const [paramsList, setParamsList] = useState(false);
+  const [paramsClasses, setParamsClasses] = useState(false);
+  const [paramsMyClasses, setParamsMyClasses] = useState(false);
+  const [paramsDepartements, setParamsDepartements] = useState(false);
+  const [paramsUsers, setParamsUsers] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setParamsList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_LIST)
+      );
+      setParamsClasses(
+        permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_CLASSES)
+      );
+      setParamsMyClasses(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.PARAMS_MY_CLASSES
+        )
+      );
+      setParamsDepartements(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.PARAMS_DEPARTEMENTS
+        )
+      );
+      setParamsUsers(
+        permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_USERS)
+      );
+    }
+  }, []);
   const handleClickOutside = (event: MouseEvent) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (menuRef.current && !(menuRef.current as any).contains(event.target)) {
@@ -145,70 +182,78 @@ export default function HorizontalHeader() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={userVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToUsersPage}
-                  >
-                    <User2 className="mr-2 h-4 w-4" /> {strings.TEXTS.USERS}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.USERS_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={paramVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToParamsPage}
-                  >
-                    <Settings2 className="mr-2 h-4 w-4" /> {strings.TH.PARAMS}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.PARMS_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={departementVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToDepartementsPage}
-                  >
-                    <Bolt className="mr-2 h-4 w-4" /> {strings.TH.DEPARTEMENT}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.PARMS_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={allfinalclassesVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToAllfinalclassesPage}
-                  >
-                    <Diamond className="mr-2 h-4 w-4" /> {strings.TH.CLASSES}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {paramsUsers && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={userVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToUsersPage}
+                    >
+                      <User2 className="mr-2 h-4 w-4" /> {strings.TEXTS.USERS}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.USERS_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+            {paramsList && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={paramVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToParamsPage}
+                    >
+                      <Settings2 className="mr-2 h-4 w-4" /> {strings.TH.PARAMS}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.PARMS_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+            {paramsDepartements && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={departementVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToDepartementsPage}
+                    >
+                      <Bolt className="mr-2 h-4 w-4" /> {strings.TH.DEPARTEMENT}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.PARMS_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+            {paramsClasses && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={allfinalclassesVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToAllfinalclassesPage}
+                    >
+                      <Diamond className="mr-2 h-4 w-4" /> {strings.TH.CLASSES}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             {/* <div>
               <Dropdown
                 title={strings.TH.PARAMS}

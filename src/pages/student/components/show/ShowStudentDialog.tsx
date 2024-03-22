@@ -16,7 +16,7 @@ import { closeStudentShowDialog } from "@/redux/slices/studentSlice";
 import { useFetchStudentByIdQuery } from "@/services/student";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -30,9 +30,9 @@ const ShowStudentDialog = ({ studentUuid }: { studentUuid: string }) => {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentShow = decodedToken.userPermissions.includes(
+  const studentShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_SHOW
   );
   //*******************Fin

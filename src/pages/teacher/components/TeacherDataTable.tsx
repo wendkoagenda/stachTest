@@ -25,7 +25,7 @@ import { useEffect, useMemo, useState } from "react";
 import DeletionTeacherDialog from "./deletion";
 import ShowTeacherDialog from "./show";
 import UpdateTeacherDialog from "./update";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function TeacherDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -37,15 +37,15 @@ export default function TeacherDataTable() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const teacherShow = decodedToken.userPermissions.includes(
+  const teacherShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_SHOW
   );
-  const teacherUpdate = decodedToken.userPermissions.includes(
+  const teacherUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_UPDATE
   );
-  const teacherDestroy = decodedToken.userPermissions.includes(
+  const teacherDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_DESTROY
   );
   //*******************Fin

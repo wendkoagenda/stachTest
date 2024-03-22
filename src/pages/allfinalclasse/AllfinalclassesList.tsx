@@ -11,7 +11,7 @@ import strings from "@/constants/strings.constant";
 import { openDCNFCreateDialog } from "@/redux/slices/classeSlice";
 import { useFetchDCNFsQuery } from "@/services/classe";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import AllfinalclassesDataTable from "./components/AllfinalclassesDataTable";
 import CreationDCNFDialog from "./components/creation/CreationDCNFDialog";
@@ -26,12 +26,12 @@ export default function AllfinalclassesList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementStore = decodedToken.userPermissions.includes(
+  const departementStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_STORE
   );
-  const departementList = decodedToken.userPermissions.includes(
+  const departementList = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_LIST
   );
   //*******************Fin

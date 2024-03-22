@@ -15,7 +15,7 @@ import { closeClasseShowDialog } from "@/redux/slices/classeSlice";
 import { useFetchClasseByIdQuery } from "@/services/classe";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { ArrowUpRightFromSquare, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,9 +36,9 @@ const ShowClasseDialog = ({
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const classeShow = decodedToken.userPermissions.includes(
+  const classeShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_SHOW
   );
   //*******************Fin

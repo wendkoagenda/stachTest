@@ -21,7 +21,7 @@ import { useEffect, useMemo, useState } from "react";
 import DeletionStudentDialog from "./deletion";
 import ShowStudentDialog from "./show";
 import UpdateStudentDialog from "./update";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import {
   MRT_ActionMenuItem,
   MRT_ColumnDef,
@@ -38,15 +38,15 @@ export default function StudentDataTable() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentShow = decodedToken.userPermissions.includes(
+  const studentShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_SHOW
   );
-  const studentUpdate = decodedToken.userPermissions.includes(
+  const studentUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_UPDATE
   );
-  const studentDestroy = decodedToken.userPermissions.includes(
+  const studentDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_DESTROY
   );
   //*******************Fin

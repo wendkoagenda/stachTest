@@ -16,7 +16,7 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, EyeIcon, Trash2 } from "lucide-react";
@@ -42,15 +42,15 @@ export default function StudentDataTableByDCNF() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentShow = decodedToken.userPermissions.includes(
+  const studentShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_SHOW
   );
-  const studentUpdate = decodedToken.userPermissions.includes(
+  const studentUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_UPDATE
   );
-  const studentDestroy = decodedToken.userPermissions.includes(
+  const studentDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_DESTROY
   );
   //*******************Fin

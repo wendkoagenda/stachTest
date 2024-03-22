@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import strings from "@/constants/strings.constant";
 import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2 } from "lucide-react";
 import React from "react";
 import DepartementDataTable from "./components/DepartementDataTable";
@@ -19,12 +19,12 @@ export default function DepartementsList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementStore = decodedToken.userPermissions.includes(
+  const departementStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_STORE
   );
-  const departementList = decodedToken.userPermissions.includes(
+  const departementList = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_LIST
   );
   //*******************Fin

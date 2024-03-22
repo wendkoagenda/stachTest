@@ -24,7 +24,7 @@ import { useEffect, useMemo, useState } from "react";
 // import DeletionClasseDialog from "./deletion";
 // import ShowClasseDialog from "./show";
 // import UpdateClasseDialog from "./update";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import ShowClasseDialog from "../show";
 
 export default function ClasseDataTableByDepartement({
@@ -41,15 +41,15 @@ export default function ClasseDataTableByDepartement({
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const classeShow = decodedToken.userPermissions.includes(
+  const classeShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_SHOW
   );
-  const classeUpdate = decodedToken.userPermissions.includes(
+  const classeUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_UPDATE
   );
-  const classeDestroy = decodedToken.userPermissions.includes(
+  const classeDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_DESTROY
   );
   //*******************Fin

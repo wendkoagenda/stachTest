@@ -10,7 +10,7 @@ import strings from "@/constants/strings.constant";
 import { openStudentCreateDialog } from "@/redux/slices/studentSlice";
 import { useFetchClassesByDCNFQuery } from "@/services/classe";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 import Footer from "../../components/partials/Footer";
@@ -27,12 +27,12 @@ export default function StudentsListByDCNF() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentStore = decodedToken.userPermissions.includes(
+  const studentStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_STORE
   );
-  const studentList = decodedToken.userPermissions.includes(
+  const studentList = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_LIST
   );
   //*******************Fin

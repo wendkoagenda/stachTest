@@ -16,7 +16,7 @@ import { closeAgentShowDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentByIdQuery } from "@/services/agent";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -30,9 +30,9 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentShow = decodedToken.userPermissions.includes(
+  const agentShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_SHOW
   );
   //*******************Fin

@@ -14,7 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import SeanceDataTable from "./components/SeanceDataTable";
 import CreationSeanceDialog from "./components/creation";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function SeancesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -26,12 +26,12 @@ export default function SeancesList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const seanceStore = decodedToken.userPermissions.includes(
+  const seanceStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_STORE
   );
-  const seanceList = decodedToken.userPermissions.includes(
+  const seanceList = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_LIST
   );
   //*******************Fin

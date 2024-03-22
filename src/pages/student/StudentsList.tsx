@@ -14,7 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import StudentDataTable from "./components/StudentDataTable";
 import CreationStudentDialog from "./components/creation";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function StudentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -26,12 +26,12 @@ export default function StudentsList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentStore = decodedToken.userPermissions.includes(
+  const studentStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_STORE
   );
-  const studentList = decodedToken.userPermissions.includes(
+  const studentList = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_LIST
   );
   //*******************Fin

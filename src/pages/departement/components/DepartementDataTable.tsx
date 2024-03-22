@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Eye, X } from "lucide-react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -27,9 +27,9 @@ export default function DepartementDataTable() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementShow = decodedToken.userPermissions.includes(
+  const departementShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.DEPARTEMENT_SHOW
   );
   //*******************Fin

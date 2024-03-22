@@ -9,7 +9,7 @@ import strings from "@/constants/strings.constant";
 import { openAgentCreateDialog } from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
@@ -25,12 +25,12 @@ export default function AgentsList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentStore = decodedToken.userPermissions.includes(
+  const agentStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_STORE
   );
-  const agentList = decodedToken.userPermissions.includes(
+  const agentList = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_LIST
   );
   //*******************Fin

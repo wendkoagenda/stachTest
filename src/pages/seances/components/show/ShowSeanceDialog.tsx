@@ -27,7 +27,7 @@ import { dateFormater } from "@/utils/functions/dateFormater";
 import { svgParcer } from "@/utils/functions/svgParcer";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { CircleUser, Loader2, QrCode, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
 import AgentApprouveDialog from "../approuvement/agent/AgentApprouveDialog";
@@ -51,9 +51,9 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const seanceShow = decodedToken.userPermissions.includes(
+  const seanceShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_SHOW
   );
   //*******************Fin

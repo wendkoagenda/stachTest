@@ -24,7 +24,7 @@ import {
 } from "@/redux/slices/moduleSlice";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Cable, Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import SeanceDataTable from "@/pages/seances/components/SeanceDataTable";
@@ -51,9 +51,9 @@ const ShowDCNF_SUMDialog = ({
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleShow = decodedToken.userPermissions.includes(
+  const moduleShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.MODULE_SHOW
   );
   //*******************Fin

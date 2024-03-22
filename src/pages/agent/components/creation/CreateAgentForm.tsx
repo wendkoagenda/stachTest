@@ -22,7 +22,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -61,11 +61,9 @@ export default function CreateAgentForm() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const userPermissions = loadPermissions();
   //Liste des permissions requises
-  const agentStore = decodedToken.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_STORE
-  );
+  const agentStore = userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
   //*******************Fin
 
   //*******************Déclaration des Hooks

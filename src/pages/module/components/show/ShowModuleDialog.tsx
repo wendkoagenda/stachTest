@@ -15,7 +15,7 @@ import { closeModuleShowDialog } from "@/redux/slices/moduleSlice";
 import { useFetchModuleByIdQuery } from "@/services/module";
 
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -29,9 +29,9 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleShow = decodedToken.userPermissions.includes(
+  const moduleShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.MODULE_SHOW
   );
   //*******************Fin

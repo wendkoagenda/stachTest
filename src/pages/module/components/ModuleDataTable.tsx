@@ -11,7 +11,7 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, EyeIcon, Trash2 } from "lucide-react";
@@ -36,15 +36,15 @@ export default function ModuleDataTable() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleShow = decodedToken.userPermissions.includes(
+  const moduleShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_SHOW
   );
-  const moduleUpdate = decodedToken.userPermissions.includes(
+  const moduleUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_UPDATE
   );
-  const moduleDestroy = decodedToken.userPermissions.includes(
+  const moduleDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_DESTROY
   );
   //*******************Fin

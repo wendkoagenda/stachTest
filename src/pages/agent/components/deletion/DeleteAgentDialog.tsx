@@ -17,7 +17,7 @@ import {
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
@@ -48,9 +48,9 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentDestroy = decodedToken.userPermissions.includes(
+  const agentDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_DESTROY
   );
   //*******************Fin

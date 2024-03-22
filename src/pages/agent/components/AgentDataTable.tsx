@@ -25,7 +25,7 @@ import { useEffect, useMemo, useState } from "react";
 import DeletionAgentDialog from "./deletion";
 import ShowAgentDialog from "./show";
 import UpdateAgentDialog from "./update";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function AgentDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -37,15 +37,15 @@ export default function AgentDataTable() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentShow = decodedToken.userPermissions.includes(
+  const agentShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_SHOW
   );
-  const agentUpdate = decodedToken.userPermissions.includes(
+  const agentUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_UPDATE
   );
-  const agentDestroy = decodedToken.userPermissions.includes(
+  const agentDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.AGNET_DESTROY
   );
   //*******************Fin

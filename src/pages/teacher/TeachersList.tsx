@@ -9,7 +9,7 @@ import strings from "@/constants/strings.constant";
 import { openTeacherCreateDialog } from "@/redux/slices/teacherSlice";
 import { useFetchTeachersQuery } from "@/services/teacher";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import TeacherDataTable from "./components/TeacherDataTable";
@@ -25,12 +25,12 @@ export default function TeachersList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const teacherStore = decodedToken.userPermissions.includes(
+  const teacherStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_STORE
   );
-  const teacherList = decodedToken.userPermissions.includes(
+  const teacherList = permissions.userPermissions.includes(
     strings.PERMISSIONS.TEACHER_LIST
   );
   //*******************Fin

@@ -1,3 +1,4 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import getConfig from "@/config";
@@ -66,46 +66,7 @@ export default function Login() {
     try {
       setSubmitting(true);
       const response = await LoginService.postLogin(values);
-      const heureActuelle = new Date().getTime();
-      const heureFuture = new Date(heureActuelle + 3600).getTime();
-
-      localStorage.setItem(
-        "__kgfwe29__97efiyfcljbf68EF79WEFAD",
-        response.data.access_token
-      );
-      localStorage.setItem(
-        "__OJGBXGHFKH94s__6fb99EFNvkjbv4vsv",
-        response.data.expires_in
-      );
-      localStorage.setItem(
-        "__Ojygiuh94s__6fbkygsdiefkjbv48867",
-        heureFuture.toString()
-      );
-      localStorage.setItem(
-        "__lybbg995__g629r49659664sfkybiyfc",
-        response.data.user_id
-      );
-      localStorage.setItem(
-        "__ubvfiwbvs6827fjyfufavc__nv24fjvk",
-        response.data.user_uuid
-      );
-      localStorage.setItem(
-        "__ppohwr4bvkyjfiv298fjyfufavc__nv2",
-        response.data.camp_year_id
-      );
-      localStorage.setItem(
-        "__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d",
-        response.data.t_id
-      );
-      localStorage.setItem(
-        "__spiecjwvjvQGIWUIEB598156bckeoygqoddq",
-        response.data.s_id
-      );
-      localStorage.setItem(
-        "__albvs26dfbvnuhwf87915515kbcckqacanMM",
-        response.data.a_id
-      );
-      dispatch(login(response.data.access_token));
+      dispatch(login(response.data));
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : getConfig().authenticatedEntryPath);
     } catch (error) {

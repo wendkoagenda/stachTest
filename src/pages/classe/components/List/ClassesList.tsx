@@ -9,7 +9,7 @@ import strings from "@/constants/strings.constant";
 import { openClasseCreateDialog } from "@/redux/slices/classeSlice";
 import { useFetchClassesQuery } from "@/services/classe";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import ClasseDataTable from "../dataTable/ClasseDataTable";
 
@@ -23,12 +23,12 @@ export default function ClassesList() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const classeStore = decodedToken.userPermissions.includes(
+  const classeStore = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_STORE
   );
-  const classeList = decodedToken.userPermissions.includes(
+  const classeList = permissions.userPermissions.includes(
     strings.PERMISSIONS.STUDENT_LIST
   );
   //*******************Fin

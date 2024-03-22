@@ -11,7 +11,7 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import usePermissions from "@/utils/hooks/usePermissions";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, EyeIcon, Trash2 } from "lucide-react";
@@ -36,15 +36,15 @@ export default function SeanceDataTable2() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const decodedToken = usePermissions();
+  const permissions = loadPermissions();
   //Liste des permissions requises
-  const seanceShow = decodedToken.userPermissions.includes(
+  const seanceShow = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_SHOW
   );
-  const seanceUpdate = decodedToken.userPermissions.includes(
+  const seanceUpdate = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_UPDATE
   );
-  const seanceDestroy = decodedToken.userPermissions.includes(
+  const seanceDestroy = permissions.userPermissions.includes(
     strings.PERMISSIONS.SEANCE_DESTROY
   );
   //*******************Fin
