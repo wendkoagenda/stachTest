@@ -14,7 +14,10 @@ import {
   ModuleShowResponse,
   ModuleUpdateModel,
 } from "@/@types/Module/Module";
-import { DcnfsumtResponse } from "@/@types/Singles/Dcnfsumt";
+import {
+  DcnfsumtResponse,
+  MyClassesShowByDCNFModel,
+} from "@/@types/Singles/Dcnfsumt";
 import { SuMRoot } from "@/@types/Singles/SuM";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -26,6 +29,7 @@ const SUM_ROUTE = "tenant/su_m/";
 const DCNFSUM_ROUTE = "tenant/dcnf_sum/";
 const DCNFSUMT_ROUTE = "tenant/dcnfsum_t/";
 const My_MODULE_ROUTE = "tenant/dcnfsum_t/mesModules/";
+const MY_MODULE_BY_DCNF_ROUTE = "tenant/dcnfsum_t/getModulesByDCNF/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -82,6 +86,17 @@ export const modulesApi = createApi({
         url: `${MODULE_BY_DCNF_ROUTE}${moduleShowByDCNFModel.dcnf_uuid}`,
         headers: {
           Authorization: `Bearer ${moduleShowByDCNFModel.access_token}`,
+        },
+      }),
+    }),
+    fetchMyClasseDetails: builder.query<
+      DcnfsumtResponse,
+      MyClassesShowByDCNFModel
+    >({
+      query: (myClassesShowByDCNFModel) => ({
+        url: `${MY_MODULE_BY_DCNF_ROUTE}${myClassesShowByDCNFModel.dcnf_id}`,
+        headers: {
+          Authorization: `Bearer ${myClassesShowByDCNFModel.access_token}`,
         },
       }),
     }),
@@ -174,4 +189,5 @@ export const {
   useCreateDCNF_SUMMutation,
   useCreateDCNFSUMTMutation,
   useFetchMymodulesQuery,
+  useFetchMyClasseDetailsQuery,
 } = modulesApi;

@@ -1,12 +1,24 @@
+import Footer from "@/components/partials/Footer";
+import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import strings from "@/constants/strings.constant";
-import { useFetchMymodulesQuery } from "@/services/module";
-import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2 } from "lucide-react";
+import React from "react";
+import DepartementDataTable from "./components/DepartementDataTable";
+import MyclasseDataTable from "../dataTable/MyclasseDataTable";
 import MymoduleDataTable from "./components/MymoduleDataTable";
+import { useFetchMycoursesQuery } from "@/services/classe";
+import {
+  useFetchMyClasseDetailsQuery,
+  useFetchMymodulesQuery,
+} from "@/services/module";
+import { MyClassesShowByDCNFModel } from "@/@types/Singles/Dcnfsumt";
+import MymoduleDataTableByDCNF from "./components/MymoduleDataTableByDCNF";
 
-export default function MymodulesList() {
+export default function MymodulesListByDCNF({ dcnf_id }: { dcnf_id: number }) {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -29,15 +41,22 @@ export default function MymodulesList() {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  const fetchMymodulesQuery = useFetchMymodulesQuery(access_token);
-  //*******************Fin
+
+  const myclasseShowModel: MyClassesShowByDCNFModel = {
+    dcnf_id: dcnf_id,
+    access_token: access_token,
+  };
+
+  // Hook de récupération des détails d'un classe (RTK)
+  const fetchMyClasseByDCNFQuery =
+    useFetchMyClasseDetailsQuery(myclasseShowModel);
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchMymodulesQueryData = fetchMymodulesQuery.data?.data;
-  const isLoading = fetchMymodulesQuery.isLoading;
-  const mymodules = Array.isArray(fetchMymodulesQueryData)
-    ? fetchMymodulesQueryData
+  const fetchMyClasseByDCNFQueryData = fetchMyClasseByDCNFQuery.data?.data;
+  const isLoading = fetchMyClasseByDCNFQuery.isLoading;
+  const mymodulesbyDCNFs = Array.isArray(fetchMyClasseByDCNFQueryData)
+    ? fetchMyClasseByDCNFQueryData
     : [];
   //*******************Fin
 
@@ -53,8 +72,8 @@ export default function MymodulesList() {
               <Button className="ml-2" style={{ pointerEvents: "none" }}>
                 {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : Array.isArray(mymodules) ? (
-                  mymodules.length
+                ) : Array.isArray(mymodulesbyDCNFs) ? (
+                  mymodulesbyDCNFs.length
                 ) : (
                   0
                 )}
@@ -86,7 +105,7 @@ export default function MymodulesList() {
         </div>
         <div className="mt-2">
           {" "}
-          <MymoduleDataTable />
+          <MymoduleDataTableByDCNF dcnf_id={dcnf_id} />
         </div>
       </div>
     </>

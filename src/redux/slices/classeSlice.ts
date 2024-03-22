@@ -6,6 +6,7 @@ export interface ClasseState {
   updatingDialogOpen: boolean;
   showClasseDialogOpen: boolean;
   dcnfCreationDialogOpen: boolean;
+  showMyclasseDialogOpen: boolean;
 }
 
 // Créer un slice pour gérer l'état des classes
@@ -17,6 +18,7 @@ const classeSlice = createSlice({
     updatingDialogOpen: false,
     showClasseDialogOpen: false,
     dcnfCreationDialogOpen: false,
+    showMyclasseDialogOpen: false,
   },
   reducers: {
     openClasseCreateDialog: (state) => {
@@ -49,6 +51,12 @@ const classeSlice = createSlice({
     closeDCNFCreateDialog: (state) => {
       state.dcnfCreationDialogOpen = false;
     },
+    openMyclasseShowDialog: (state) => {
+      state.showMyclasseDialogOpen = true;
+    },
+    closeMyclasseShowDialog: (state) => {
+      state.showMyclasseDialogOpen = false;
+    },
   },
 });
 
@@ -63,6 +71,8 @@ export const {
   closeClasseShowDialog,
   openDCNFCreateDialog,
   closeDCNFCreateDialog,
+  openMyclasseShowDialog,
+  closeMyclasseShowDialog,
 } = classeSlice.actions;
 
 export default classeSlice.reducer;

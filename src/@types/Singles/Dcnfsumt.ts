@@ -19,3 +19,7 @@ export interface DcnfsumtResponse {
   message: string;
   data: Dcnfsumt[];
 }
+export interface MyClassesShowByDCNFModel {
+  dcnf_id: number;
+  access_token: string;
+}
