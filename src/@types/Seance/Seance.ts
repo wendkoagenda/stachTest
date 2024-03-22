@@ -1,3 +1,4 @@
+import { Dcnfsum } from "../Singles/Dcnfsum";
 import { Dcnfsumt } from "../Singles/Dcnfsumt";
 
 // Root Types
@@ -62,7 +63,7 @@ export interface SeancesShowByDCNFSUMModel {
 export interface SeancesShowByDCNFSUMResponse {
   success: boolean;
   message: string;
-  data: SeanceDaum;
+  data: Dcnfsumt;
 }
 // Update Types
 export interface SeanceUpdateModel {

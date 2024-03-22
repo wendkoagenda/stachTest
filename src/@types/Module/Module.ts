@@ -138,3 +138,8 @@ export interface AssigneModel {
     allow_student_entry: boolean;
   };
 }
+
+export interface StudentAllowUpdateModel {
+  dcnfsum_id: number | undefined;
+  access_token: string;
+}

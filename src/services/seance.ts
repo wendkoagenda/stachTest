@@ -71,17 +71,16 @@ export const seancesApi = createApi({
       }),
     }),
 
-    fetchSeancesByDCNFSUM: builder.query<
-      SeancesShowByDCNFSUMResponse,
-      SeancesShowByDCNFSUMModel
-    >({
-      query: (seancesByDCNFSUMShowModel) => ({
-        url: `${SEANCE_BY_DCNFSUM_ROUTE}${seancesByDCNFSUMShowModel.dcnfsum_id}`,
-        headers: {
-          Authorization: `Bearer ${seancesByDCNFSUMShowModel.access_token}`,
-        },
-      }),
-    }),
+    fetchSeancesByDCNFSUM: builder.query<SeanceRoot, SeancesShowByDCNFSUMModel>(
+      {
+        query: (seancesByDCNFSUMShowModel) => ({
+          url: `${SEANCE_BY_DCNFSUM_ROUTE}${seancesByDCNFSUMShowModel.dcnfsum_id}`,
+          headers: {
+            Authorization: `Bearer ${seancesByDCNFSUMShowModel.access_token}`,
+          },
+        }),
+      }
+    ),
     createSeance: builder.mutation<
       GeneriqueResponse,
       Partial<SeanceCreationModel>

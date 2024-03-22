@@ -13,6 +13,7 @@ import {
   ModuleShowModel,
   ModuleShowResponse,
   ModuleUpdateModel,
+  StudentAllowUpdateModel,
 } from "@/@types/Module/Module";
 import {
   DcnfsumtResponse,
@@ -30,6 +31,7 @@ const DCNFSUM_ROUTE = "tenant/dcnf_sum/";
 const DCNFSUMT_ROUTE = "tenant/dcnfsum_t/";
 const My_MODULE_ROUTE = "tenant/dcnfsum_t/mesModules/";
 const MY_MODULE_BY_DCNF_ROUTE = "tenant/dcnfsum_t/getModulesByDCNF/";
+const UPDATE_STUDNET_ALLOW_ROUTE = "tenant/dcnfsum_t/changeStudentAllowEntry/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -173,6 +175,19 @@ export const modulesApi = createApi({
         },
       }),
     }),
+    updateStudentAllow: builder.mutation<
+      GeneriqueResponse,
+      Partial<StudentAllowUpdateModel>
+    >({
+      query: (studentAllowUpdateModel) => ({
+        url: `${UPDATE_STUDNET_ALLOW_ROUTE}${studentAllowUpdateModel.dcnfsum_id}`,
+        method: "PUT", // Utilisez PUT pour mettre à jour les données
+        body: {}, // Les données mises à jour à envoyer dans le corps de la requête
+        headers: {
+          Authorization: `Bearer ${studentAllowUpdateModel.access_token}`,
+        },
+      }),
+    }),
   }),
 });
 // Exporte les hooks générés automatiquement
@@ -190,4 +205,5 @@ export const {
   useCreateDCNFSUMTMutation,
   useFetchMymodulesQuery,
   useFetchMyClasseDetailsQuery,
+  useUpdateStudentAllowMutation,
 } = modulesApi;

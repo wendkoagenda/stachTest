@@ -27,6 +27,8 @@ const strings = {
   INSTRUCTIONS: {
     //seances
     APPROUVE_SEANCE: "Entrer votre matricule pour valider",
+    STUDENT_ALLOW:
+      "Donner modifier les droits dajout et de modification de seances par les delegue et sous delegue de la classe",
     // s
     SELECT_MODULE: "Le module appartiendra a cette classe egalement?",
     STATUS: "L'tilisateur sera-t-il actif ou inactif ?",
@@ -128,6 +130,9 @@ const strings = {
     SHOW_SEANCE: "Détails sur un seance",
     UPDATE_SEANCE: "Mise a jour d'un seance",
     SEANCE_INFO: "Information sur l'seance",
+    STUDENT_ALLOW: "Droit d'ajout par delegué",
+    STUDENT_ALLOW_NON: "Accès en écriture délégués : Non",
+    STUDENT_ALLOW_YES: "Accès en écriture délégués : Oui",
     // Departements
     LIST_DEPARTEMENT: "Liste des departements",
     DEPARTEMENT_EMPTY: "Aucun departement trouvé",
@@ -174,6 +179,7 @@ const strings = {
     MY_CLAASES_LIST: "Liste de mes classes",
   },
   TH: {
+    SEANCES: "Séances",
     MY_DOCS: "Mes documents",
     MY_STATS: "Mes stattistiques",
     MY_MODULES: "Mes modules",
@@ -235,6 +241,7 @@ const strings = {
       "Votre session a expiré. Vous devez vous reconnecter. Mesure de sécurité.",
   },
   BUTTONS: {
+    YES_CHANGE: "Oui,changer",
     ASSIGNE_TO_PROF: "Assigner",
     WITHDRAW: "Retirer",
     SING_IN: "Me connecter",

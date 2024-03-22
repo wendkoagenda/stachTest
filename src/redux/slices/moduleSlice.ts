@@ -8,6 +8,7 @@ export interface ModuleState {
   assigneDialogOpen: boolean;
   refreshModuleList: boolean;
   initialiseRefreshModuleList: boolean;
+  studentAllowUpdatingDialogOpen: boolean;
 }
 
 // Créer un slice pour gérer l'état des modules
@@ -21,6 +22,7 @@ const moduleSlice = createSlice({
     assigneDialogOpen: false,
     refreshModuleList: false,
     initialiseRefreshModuleList: true,
+    studentAllowUpdatingDialogOpen: false,
   },
   reducers: {
     openModuleCreateDialog: (state) => {
@@ -59,6 +61,12 @@ const moduleSlice = createSlice({
     initialiseRefreshModuleList: (state) => {
       state.refreshModuleList = false;
     },
+    openStudentAllowUpdateDialog: (state) => {
+      state.studentAllowUpdatingDialogOpen = true;
+    },
+    closeStudentAllowUpdateDialog: (state) => {
+      state.studentAllowUpdatingDialogOpen = false;
+    },
   },
 });
 
@@ -75,6 +83,8 @@ export const {
   closeAssigneDialog,
   refreshModuleList,
   initialiseRefreshModuleList,
+  openStudentAllowUpdateDialog,
+  closeStudentAllowUpdateDialog,
 } = moduleSlice.actions;
 
 export default moduleSlice.reducer;

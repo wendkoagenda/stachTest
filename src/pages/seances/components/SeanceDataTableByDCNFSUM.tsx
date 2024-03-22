@@ -1,3 +1,4 @@
+import { SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
 import CardSkeleton from "@/components/custom/skeleton/CardSkeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
+import { openStudentAllowUpdateDialog } from "@/redux/slices/moduleSlice";
 import {
   initialiseRefreshSeanceList,
   openSeanceCreateDialog,
@@ -16,29 +18,25 @@ import {
   openSeanceShowDialog,
   openSeanceUpdateDialog,
 } from "@/redux/slices/seanceSlice";
-import {
-  useFetchSeancesByDCNFSUMQuery,
-  useFetchSeancesQuery,
-} from "@/services/seance";
+import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
 import { dateFormater } from "@/utils/functions/dateFormater";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { truncateTitle } from "@/utils/functions/truncateTitle";
-import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, Eye, Plus, Trash2, X } from "lucide-react";
+import { Edit2, Eye, FileLock, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useNavigate, useParams } from "react-router-dom";
-import DeletionSeanceDialog from "./deletion";
-import UpdateSeanceDialog from "./update";
-import ShowSeanceDialog from "./show";
-import { SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
+import { useNavigate } from "react-router-dom";
 import CreationSeanceDialog from "./creation";
+import DeletionSeanceDialog from "./deletion";
+import ShowSeanceDialog from "./show";
+import UpdateSeanceDialog from "./update";
 
 export default function SeanceDataTableByDCNFSUM({
   dcnfsum_id,
@@ -117,7 +115,7 @@ export default function SeanceDataTableByDCNFSUM({
     : [];
   const isLoading = fetchSeancesByDCNFSUMQuery.isLoading;
   const error = fetchSeancesByDCNFSUMQuery.error;
-
+  const allow_access = seances[0];
   //*******************Déclaration de fonctions
   // Fonction pour l'ouverture de la boite de dialogue de suppression
   const onDeleteClick = (seanceId: number) => {
@@ -139,6 +137,9 @@ export default function SeanceDataTableByDCNFSUM({
   const onShowClick = (seanceUuid: string) => {
     setSeanceUuid(seanceUuid);
     dispatch(openSeanceShowDialog());
+  };
+  const onStudentAllowClick = () => {
+    dispatch(openStudentAllowUpdateDialog());
   };
   // Systheme de recherche et de pagination
   const pageSize = 8;
@@ -197,9 +198,14 @@ export default function SeanceDataTableByDCNFSUM({
           <X />
         </Button>
         {parseInt(t_id) != 0 || parseInt(s_id) != 0 ? (
-          <Button size="icon" variant="default" onClick={onCreateClick}>
-            <Plus />
-          </Button>
+          <>
+            <Button size="icon" variant="default" onClick={onCreateClick}>
+              <Plus />
+            </Button>
+            <Button size="icon" variant="default" onClick={onStudentAllowClick}>
+              <FileLock />
+            </Button>
+          </>
         ) : (
           " "
         )}

@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DCNFSUMShowModel, ModuleShowModel } from "@/@types/Module/Module";
+import { DCNFSUMShowModel } from "@/@types/Module/Module";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,12 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import strings from "@/constants/strings.constant";
 import {
   closeModuleShowDialog,
@@ -23,17 +23,18 @@ import {
   openAssigneDialog,
 } from "@/redux/slices/moduleSlice";
 
-import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import { SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import SeanceDataTableByDCNFSUM from "@/pages/seances/components/SeanceDataTableByDCNFSUM";
+import { useFetchDCNFSUMByIdQuery } from "@/services/module";
+import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { Cable, Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import SeanceDataTable from "@/pages/seances/components/SeanceDataTable";
-import { useFetchDCNFSUMByIdQuery } from "@/services/module";
-import SeanceDataTableByDCNFSUM from "@/pages/seances/components/SeanceDataTableByDCNFSUM";
 import AssigneDialog from "../creation/DCNFSUM/AssigneDialog";
-import { SeanceDaum, SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
-import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
-import { Progress } from "@/components/ui/progress";
+import UpdateStudentAllowDialog from "../update/UpdateStudentAllowDialog";
 
 const ShowDCNF_SUMDialog = ({
   dcnfsum_uuid,
@@ -118,7 +119,7 @@ const ShowDCNF_SUMDialog = ({
     data?.data?.su_m?.module?.vh_td +
     data?.data?.su_m?.module?.vh_tp;
 
-  const moduleVhTotalEffDirect = seances.reduce((acc: SeanceDaum, seance) => {
+  const moduleVhTotalEffDirect = seances.reduce((acc, seance) => {
     acc += seance.vh_cm_eff + seance.vh_td_eff + seance.vh_tp_eff;
     return acc;
   }, 0);
@@ -130,7 +131,6 @@ const ShowDCNF_SUMDialog = ({
     return pourcentFormate;
   };
   //*******************Fin
-
   //*******************Déclaration de fonctions
   // Fonction de fermeture de la boite de dialogue du tableau de détails  (Redux store)
   const onCloseClick = () => {
@@ -184,7 +184,9 @@ const ShowDCNF_SUMDialog = ({
                 )}
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="details">
-                    <AccordionTrigger>Détails sur le module</AccordionTrigger>
+                    <AccordionTrigger>
+                      {strings.TEXTS.SHOW_MODULE}
+                    </AccordionTrigger>
                     <AccordionContent>
                       <div className="flex flex-row mb-2 mt-2">
                         <Button size="title" style={{ pointerEvents: "none" }}>
@@ -377,7 +379,20 @@ const ShowDCNF_SUMDialog = ({
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="seances">
-                    <AccordionTrigger> Séances</AccordionTrigger>
+                    <AccordionTrigger>
+                      {strings.TH.SEANCES}
+                      {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
+                        <Badge variant="outline" className=" text-red-600">
+                          {strings.TEXTS.STUDENT_ALLOW_YES}
+                        </Badge>
+                      ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (
+                        <Badge variant="outline" className=" text-green-600">
+                          {strings.TEXTS.STUDENT_ALLOW_NON}
+                        </Badge>
+                      ) : (
+                        " "
+                      )}
+                    </AccordionTrigger>
                     <AccordionContent>
                       {data?.data?.statut === "notAssigned" ? (
                         <>
@@ -419,6 +434,7 @@ const ShowDCNF_SUMDialog = ({
         </DialogContent>
       </Dialog>
       <AssigneDialog dcnfsum_id={data?.data.id} />
+      <UpdateStudentAllowDialog dcnfsum_id={data?.data.id} />
     </>
   );
 };
