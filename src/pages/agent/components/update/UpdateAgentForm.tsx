@@ -72,7 +72,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
   const permissions = loadPermissions();
   //Liste des permissions requises
   const agentUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_UPDATE
+    strings.PERMISSIONS.AGENT_UPDATE
   );
   //*******************Fin
 

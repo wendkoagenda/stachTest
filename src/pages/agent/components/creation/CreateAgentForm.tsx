@@ -61,9 +61,11 @@ export default function CreateAgentForm() {
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
-  const userPermissions = loadPermissions();
+  const psermisisons = loadPermissions();
   //Liste des permissions requises
-  const agentStore = userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentStore = psermisisons.userPermissions.includes(
+    strings.PERMISSIONS.AGENT_STORE
+  );
   //*******************Fin
 
   //*******************Déclaration des Hooks

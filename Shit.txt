@@ -24,11 +24,11 @@ npm run dev -- -- host
   // Recuperation des permissions
   const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentList = permissions.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
-  const agentShow = permissions.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
-  const agentStore = permissions.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
-  const agentUpdate = permissions.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
-  const agentDestroy = permissions.userPermissions.includes(strings.PERMISSIONS.AGNET_STORE);
+  const agentList = permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE);
+  const agentShow = permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE);
+  const agentStore = permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE);
+  const agentUpdate = permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE);
+  const agentDestroy = permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE);
   //*******************Fin
   ----
 

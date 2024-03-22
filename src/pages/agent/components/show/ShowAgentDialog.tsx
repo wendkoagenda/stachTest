@@ -33,7 +33,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
   const permissions = loadPermissions();
   //Liste des permissions requises
   const agentShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_SHOW
+    strings.PERMISSIONS.AGENT_SHOW
   );
   //*******************Fin
 

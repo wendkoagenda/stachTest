@@ -40,13 +40,13 @@ export default function AgentDataTable() {
   const permissions = loadPermissions();
   //Liste des permissions requises
   const agentShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_SHOW
+    strings.PERMISSIONS.AGENT_SHOW
   );
   const agentUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_UPDATE
+    strings.PERMISSIONS.AGENT_UPDATE
   );
   const agentDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_DESTROY
+    strings.PERMISSIONS.AGENT_DESTROY
   );
   //*******************Fin
 

@@ -28,10 +28,10 @@ export default function AgentsList() {
   const permissions = loadPermissions();
   //Liste des permissions requises
   const agentStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_STORE
+    strings.PERMISSIONS.AGENT_STORE
   );
   const agentList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_LIST
+    strings.PERMISSIONS.AGENT_LIST
   );
   //*******************Fin
 

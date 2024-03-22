@@ -257,11 +257,11 @@ const strings = {
     PARAMS_MY_CLASSES: "params.myClasses",
     PARAMS_DEPARTEMENTS: "params.departements",
     PARAMS_USERS: "params.users",
-    AGNET_LIST: "agents.list", // Agent
-    AGNET_SHOW: "agents.show",
-    AGNET_UPDATE: "agents.update",
-    AGNET_STORE: "agents.store",
-    AGNET_DESTROY: "agents.destroy",
+    AGENT_LIST: "agents.list", // Agent
+    AGENT_SHOW: "agents.show",
+    AGENT_UPDATE: "agents.update",
+    AGENT_STORE: "agents.store",
+    AGENT_DESTROY: "agents.destroy",
     STUDENT_LIST: "students.list", // Students
     STUDENT_SHOW: "students.show",
     STUDENT_UPDATE: "students.update",

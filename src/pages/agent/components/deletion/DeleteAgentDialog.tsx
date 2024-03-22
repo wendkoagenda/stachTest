@@ -51,7 +51,7 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
   const permissions = loadPermissions();
   //Liste des permissions requises
   const agentDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGNET_DESTROY
+    strings.PERMISSIONS.AGENT_DESTROY
   );
   //*******************Fin
 
