@@ -16,7 +16,10 @@ import { Eye, X } from "lucide-react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-import { useFetchMycoursesQuery } from "@/services/classe";
+import {
+  useFetchMyclassesQuery,
+  useFetchMycoursesQuery,
+} from "@/services/classe";
 
 export default function MyclasseDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -41,12 +44,12 @@ export default function MyclasseDataTable() {
   // Hook de navigation
   const navigate = useNavigate();
   //Hook de récupération de la liste des departements (Redux store)
-  const fetchMyclassesQuery = useFetchMycoursesQuery(access_token);
+  const fetchMyclassesQuery = useFetchMyclassesQuery(access_token);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchMyclassesQueryData = fetchMyclassesQuery.data?.data?.[5];
+  const fetchMyclassesQueryData = fetchMyclassesQuery.data?.data;
   const isLoading = fetchMyclassesQuery.isLoading;
   const myclasses = Array.isArray(fetchMyclassesQueryData)
     ? fetchMyclassesQueryData
@@ -66,7 +69,7 @@ export default function MyclasseDataTable() {
 
   const myclassesToShow = myclasses
     .filter((myclasse) =>
-      myclasse.dcnfsum.dcnf.nf.filiere.title
+      myclasse.dcnf.nf.filiere.title
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     )
@@ -74,7 +77,7 @@ export default function MyclasseDataTable() {
 
   const pageCount = Math.ceil(
     myclasses.filter((myclasse) =>
-      myclasse.dcnfsum.dcnf.nf.niveau.title
+      myclasse.dcnf.nf.niveau.title
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     ).length / pageSize
@@ -115,13 +118,17 @@ export default function MyclasseDataTable() {
                   <CardTitle>
                     <div className="mb-4">
                       <p className="mb-2">
-                        {myclasse.dcnfsum.dcnf.nf.filiere.title}{" "}
-                        {myclasse.dcnfsum.dcnf.nf.filiere.title}
+                        {myclasse.dcnf.nf.filiere.title}{" "}
+                        {myclasse.dcnf.nf.niveau.title} (
+                        {myclasse.dcnf.nf.filiere.acronym}{" "}
+                        {myclasse.dcnf.nf.niveau.acronym})
                       </p>
                       <hr className="my-2" />
-                      <p className="mt-2">
-                        {myclasse.dcnfsum.dcnf.nf.filiere.title}
-                        {myclasse.dcnfsum.dcnf.nf.filiere.title}
+                      <p className="mt-2 text-base">
+                        {myclasse.dcnf.dc.departement.title}
+                        {myclasse.dcnf.dc.cycle.title} (
+                        {myclasse.dcnf.dc.departement.acronym}{" "}
+                        {myclasse.dcnf.dc.cycle.acronym})
                       </p>
                     </div>
                   </CardTitle>
@@ -130,16 +137,14 @@ export default function MyclasseDataTable() {
                   <p>Card Content</p>
                 </CardContent>
                 <CardFooter className="flex flex-row justify-end">
-                  {departementShow && (
-                    <Button
-                      onClick={() => {
-                        handleGoToDepartementShow(myclasse.uuid);
-                      }}
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      {strings.BUTTONS.SHOW}
-                    </Button>
-                  )}
+                  <Button
+                    onClick={() => {
+                      handleGoToDepartementShow(myclasse.dcnf.dc.uuid);
+                    }}
+                  >
+                    <Eye className="mr-2 h-4 w-4" />
+                    {strings.BUTTONS.SHOW}
+                  </Button>
                 </CardFooter>
               </Card>
             </div>

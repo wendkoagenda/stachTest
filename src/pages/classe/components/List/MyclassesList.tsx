@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import React from "react";
 import DepartementDataTable from "./components/DepartementDataTable";
 import MyclasseDataTable from "../dataTable/MyclasseDataTable";
+import { useFetchMyclassesQuery } from "@/services/classe";
 
 export default function MyclassesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -35,19 +36,18 @@ export default function MyclassesList() {
   const dispatch = useAppDispatch();
 
   //Hook de récupération de la liste des departements (Redux store)
-  const fetchDepartementsQuery = useFetchDepartementsQuery(access_token);
+  const fetchMyclassesQuery = useFetchMyclassesQuery(access_token);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
   // Varibles issue du fectch
-  const fetchDepartementsQueryData = fetchDepartementsQuery.data?.data;
-  const isLoading = fetchDepartementsQuery.isLoading;
-  const departements = Array.isArray(fetchDepartementsQueryData)
-    ? fetchDepartementsQueryData
+  const fetchMyclassesQueryData = fetchMyclassesQuery.data?.data;
+  const isLoading = fetchMyclassesQuery.isLoading;
+  const myclasses = Array.isArray(fetchMyclassesQueryData)
+    ? fetchMyclassesQueryData
     : [];
   //*******************Fin
 
-  console.log("Liste des dep : ", departements);
   return (
     <>
       {/* <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12 border border-gray-300"> */}
@@ -59,8 +59,8 @@ export default function MyclassesList() {
               <Button className="ml-2" style={{ pointerEvents: "none" }}>
                 {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : Array.isArray(departements) ? (
-                  departements.length
+                ) : Array.isArray(myclasses) ? (
+                  myclasses.length
                 ) : (
                   0
                 )}

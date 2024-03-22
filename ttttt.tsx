@@ -1,5 +1,3 @@
-SEANCE_LIST: "seances.list", // seances
-SEANCE_SHOW: "seances.show",
-SEANCE_UPDATE: "seances.update",
-SEANCE_STORE: "seances.store",
-SEANCE_DESTROY: "seances.destroy",
+ // Routes dcnf_t--------------
+ Route::get('/dcnf_t', [DCNFSController::class, 'index'])->middleware('check.permissions:dcnf_t.list');
+
