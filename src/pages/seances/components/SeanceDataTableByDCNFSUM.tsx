@@ -52,6 +52,8 @@ export default function SeanceDataTableByDCNFSUM({
     localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
   const s_id =
     localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
+  const a_id =
+    localStorage.getItem("__albvs26dfbvnuhwf87915515kbcckqacanMM") ?? "0";
   //*******************Fin
   // Hook de récupération  de l'état  de rafraichissement
   const refreshSeanceList = useAppSelector(
@@ -82,7 +84,6 @@ export default function SeanceDataTableByDCNFSUM({
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   // Préparation du paramettre du hook de recuperation des détails d'un modules
   const seancesShowByDCNFSUMModel: SeancesShowByDCNFSUMModel = {
@@ -115,7 +116,6 @@ export default function SeanceDataTableByDCNFSUM({
     : [];
   const isLoading = fetchSeancesByDCNFSUMQuery.isLoading;
   const error = fetchSeancesByDCNFSUMQuery.error;
-  const allow_access = seances[0];
   //*******************Déclaration de fonctions
   // Fonction pour l'ouverture de la boite de dialogue de suppression
   const onDeleteClick = (seanceId: number) => {
@@ -197,7 +197,7 @@ export default function SeanceDataTableByDCNFSUM({
         <Button size="icon" variant="outline" onClick={onResetSearchTermClick}>
           <X />
         </Button>
-        {parseInt(t_id) != 0 || parseInt(s_id) != 0 ? (
+        {parseInt(t_id) != 0 ? (
           <>
             <Button size="icon" variant="default" onClick={onCreateClick}>
               <Plus />
@@ -209,6 +209,31 @@ export default function SeanceDataTableByDCNFSUM({
         ) : (
           " "
         )}
+        {parseInt(s_id) !== 0 &&
+          seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
+            <>
+              <Button size="icon" variant="default" onClick={onCreateClick}>
+                <Plus />
+              </Button>
+              <Button
+                size="icon"
+                variant="default"
+                onClick={onStudentAllowClick}
+              >
+                <FileLock />
+              </Button>
+            </>
+          )}
+
+        {/* // {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
+        //   <Button size="icon" variant="default" onClick={onCreateClick}>
+        //     <Plus />
+        //   </Button>
+        // ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (
+        //   "ss"
+        // ) : (
+        //   " "
+        // )} */}
       </div>
       {isLoading ? (
         <CardSkeleton />
@@ -246,6 +271,16 @@ export default function SeanceDataTableByDCNFSUM({
                 </CardContent>
                 <CardFooter className="flex flex-row justify-end">
                   {seanceShow && (
+                    <Button
+                      size="icon"
+                      onClick={() => {
+                        onShowClick(seance.uuid);
+                      }}
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  )}
+                  {parseInt(t_id) !== 0 && seanceShow && (
                     <>
                       <Button
                         size="icon"
@@ -273,6 +308,27 @@ export default function SeanceDataTableByDCNFSUM({
                       </Button>
                     </>
                   )}
+                  {parseInt(s_id) !== 0 &&
+                    seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
+                      <>
+                        <Button
+                          size="icon"
+                          onClick={() => {
+                            onEditClick(seance.uuid);
+                          }}
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          onClick={() => {
+                            onDeleteClick(seance.id);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
                 </CardFooter>
               </Card>
             </div>

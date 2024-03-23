@@ -13,6 +13,7 @@ import {
   UserUpdateModel,
 } from "@/@types/Global/User";
 import { DCNFRoot } from "@/@types/Singles/Dcnf";
+import { DcnfsResponse } from "@/@types/Singles/Dcnfs";
 import { DcnftResponse } from "@/@types/Singles/Dcnft";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -23,6 +24,7 @@ const CLASSE_BY_DC_ROUTE = "tenant/dc_nf/showByDC/";
 const CLASSE_DCNFS_ROUTE = "tenant/dcnf_s/dc_nf/";
 const DCNF_ROUTE = "tenant/dc_nf/";
 const My_CLASSES_ROUTE = "tenant/dcnf_t/";
+const MY_CLASSE_ROUTE = "tenant/dcnf_s/myClasse";
 
 // Crée une nouvelle API Get all classes
 export const classesApi = createApi({
@@ -42,6 +44,15 @@ export const classesApi = createApi({
       // les mosules du prof connecter
       query: (access_token: string | null) => ({
         url: My_CLASSES_ROUTE,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }),
+    }),
+    fetchMyclasse: builder.query<DcnfsResponse, string>({
+      // la classe de letudiant connecter
+      query: (access_token: string | null) => ({
+        url: MY_CLASSE_ROUTE,
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -150,4 +161,5 @@ export const {
   useFetchDCNFsQuery,
   useCreateDCNFMutation,
   useFetchMyclassesQuery,
+  useFetchMyclasseQuery,
 } = classesApi;

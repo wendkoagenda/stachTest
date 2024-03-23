@@ -15,5 +15,6 @@ reauete a gemini : comment fixer le Header ?
 -Etudier l'obtion d'ajouter show senances by dcnfdsum coter back 
 -Mettre le boutton djout de seance dans les modules dune classe 
 -Ajouter le modale de validation d'une seance dans  ShowSeanceDialog handleAgentApprouve
-- vue pour aller directement aux claases
+- vue pour aller directement aux clases
 -creer un token par defaut minimaliste avec une permission fictives
+- Connexion en tant que Etudiants

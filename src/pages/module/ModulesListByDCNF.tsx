@@ -17,7 +17,11 @@ import Footer from "../../components/partials/Footer";
 import ModuleDataTableByDCNF from "./components/ModuleDataTableByDCNF";
 import CreationDCNFSUMDialog from "./components/creation/DCNFSUM/CreationDCNFSUMDialog";
 
-export default function ModulesListByDCNF() {
+export default function ModulesListByDCNF({
+  props_dcnf_uuid,
+}: {
+  props_dcnf_uuid?: string;
+}) {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -41,9 +45,10 @@ export default function ModulesListByDCNF() {
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
   const { dcnf_uuid } = useParams();
+  const dcnf_uuid_value = dcnf_uuid !== undefined ? dcnf_uuid : props_dcnf_uuid;
   // Préparation du paramettre du hook de recuperation des détails d'un modules
   const moduleShowByDCNFModel: ModuleShowByDCNFModel = {
-    dcnf_uuid: dcnf_uuid,
+    dcnf_uuid: dcnf_uuid_value,
     access_token: access_token,
   };
   //Hook de récupération de la liste des modules (Redux store)
@@ -86,29 +91,29 @@ export default function ModulesListByDCNF() {
           </h4>
         </div>
         <div className="col-6 text-end">
-          {moduleStore && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_MODULE}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button onClick={onCreateClick}>
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                    </>
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{strings.TOOLTIPS.ADD_MODULE}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
-      <div className="mt-2">{moduleList && <ModuleDataTableByDCNF />}</div>
+      <div className="mt-2">
+        <ModuleDataTableByDCNF props_dcnf_uuid={dcnf_uuid_value} />
+      </div>
       <CreationDCNFSUMDialog />
       <Footer />
     </>

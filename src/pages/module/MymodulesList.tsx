@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 import MymoduleDataTable from "./components/MymoduleDataTable";
 
 export default function MymodulesList() {
-  //*******************Déclaration de variables de fonctionnement primitives
+  //*******************Déclaration de variables de fonctionnement primitivesniveau
   // Récupération du token d'accès
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??

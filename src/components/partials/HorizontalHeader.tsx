@@ -8,6 +8,7 @@ import strings from "@/constants/strings.constant";
 import { logout } from "@/redux/slices/authSlice";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import {
+  Album,
   Bolt,
   Diamond,
   Home,
@@ -120,7 +121,11 @@ export default function HorizontalHeader() {
   );
   const [allfinalclassesVariant, setAllfinalclassesVariant] =
     useState<ButtonVariant>(ButtonVariant.Outline);
+
   const [myCoursesVariant, setMyCoursesVariant] = useState<ButtonVariant>(
+    ButtonVariant.Outline
+  );
+  const [myYearVariant, setMyYearVariant] = useState<ButtonVariant>(
     ButtonVariant.Outline
   );
 
@@ -143,6 +148,8 @@ export default function HorizontalHeader() {
       setAllfinalclassesVariant(ButtonVariant.Default);
     } else if (currentURL === "/mycourses") {
       setMyCoursesVariant(ButtonVariant.Default);
+    } else if (currentURL === "/myyear") {
+      setMyYearVariant(ButtonVariant.Default);
     }
   }, [currentURL, ButtonVariant.Default]);
 
@@ -169,6 +176,10 @@ export default function HorizontalHeader() {
   const handleGoToMyCoursesPage = () => {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/mycourses");
+  };
+  const handleGoToMyYearPage = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/myyear");
   };
 
   return (
@@ -281,6 +292,22 @@ export default function HorizontalHeader() {
               </Tooltip>
             </TooltipProvider>
             {/* )} */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant={myYearVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToMyYearPage}
+                  >
+                    <Album className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             {/* <div>
               <Dropdown
                 title={strings.TH.PARAMS}

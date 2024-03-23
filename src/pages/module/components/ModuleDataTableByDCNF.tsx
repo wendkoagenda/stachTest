@@ -7,18 +7,18 @@ import {
   initialiseRefreshModuleList,
   openModuleDeleteDialog,
   openModuleShowDialog,
-  openModuleUpdateDialog,
 } from "@/redux/slices/moduleSlice";
 import { useFetchModuleByDCNFQuery } from "@/services/module";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
+import { genererBadgeStatut } from "@/utils/functions/generateDCNFSUMStateBadge";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
+import { EyeIcon, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -30,10 +30,12 @@ import { useParams } from "react-router-dom";
 import DeletionDCNF_SUMDialog from "./deletion/DeleteDCNF_SUMDialog";
 import ShowDCNF_SUMDialog from "./show/ShowDCNF_SUMDialog";
 import UpdateModuleDialog from "./update";
-import { Badge } from "@/components/ui/badge";
-import { genererBadgeStatut } from "@/utils/functions/generateDCNFSUMStateBadge";
 
-export default function ModuleDataTableByDCNF() {
+export default function ModuleDataTableByDCNF({
+  props_dcnf_uuid,
+}: {
+  props_dcnf_uuid?: string;
+}) {
   //*******************Déclaration de variables de fonctionnement primitives
   // Récupération du token d'accès
   const access_token =
@@ -73,9 +75,10 @@ export default function ModuleDataTableByDCNF() {
   }, [refreshModuleList]);
 
   const { dcnf_uuid } = useParams();
+  const dcnf_uuid_value = dcnf_uuid !== undefined ? dcnf_uuid : props_dcnf_uuid;
   // Préparation du paramettre du hook de recuperation des détails d'un modules
   const moduleShowByDCNFModel: ModuleShowByDCNFModel = {
-    dcnf_uuid: dcnf_uuid,
+    dcnf_uuid: dcnf_uuid_value,
     access_token: access_token,
   };
 
@@ -293,7 +296,7 @@ export default function ModuleDataTableByDCNF() {
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          moduleShow && (
+          <>
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
               key="show"
@@ -304,8 +307,8 @@ export default function ModuleDataTableByDCNF() {
               }}
               table={table}
             />
-          ),
-          // moduleUpdate && (
+
+            {/* // moduleUpdate && (
           //   <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
           //     icon={<Edit2 className="mr-2 h-4 w-4" />}
           //     key="edit"
@@ -317,8 +320,8 @@ export default function ModuleDataTableByDCNF() {
           //     }}
           //     table={table}
           //   />
-          // ),
-          moduleDestroy && (
+          // ), */}
+
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
               key="delete"
@@ -329,7 +332,7 @@ export default function ModuleDataTableByDCNF() {
               }}
               table={table}
             />
-          ),
+          </>,
         ]}
       />
       <DeletionDCNF_SUMDialog dcnf_sum_id={dcnf_sum_id} />

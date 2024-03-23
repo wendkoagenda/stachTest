@@ -16,6 +16,7 @@ import UsersList from "./pages/user";
 import SettingsList from "./pages/setting";
 import AllfinalclassesList from "./pages/allfinalclasse/AllfinalclassesList";
 import MycoursesList from "./pages/mycourses";
+import MyyearList from "./pages/myyear";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route element={<ModulesList />} path="/modules" />
             <Route element={<SeancesList />} path="/seances" />
             <Route element={<MycoursesList />} path="/mycourses" />
+            <Route element={<MyyearList />} path="/myyear" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>
