@@ -35,6 +35,7 @@ import { Cable, Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import AssigneDialog from "../creation/DCNFSUM/AssigneDialog";
 import UpdateStudentAllowDialog from "../update/UpdateStudentAllowDialog";
+import { initialiseRefreshSeanceList } from "@/redux/slices/seanceSlice";
 
 const ShowDCNF_SUMDialog = ({
   dcnfsum_uuid,
@@ -182,6 +183,33 @@ const ShowDCNF_SUMDialog = ({
                     />
                   </>
                 )}
+                <b>
+                  {strings.TH.SEANCES}
+                  {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
+                    <Badge variant="outline" className=" text-red-600">
+                      {strings.TEXTS.STUDENT_ALLOW_YES}
+                    </Badge>
+                  ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (
+                    <Badge variant="outline" className=" text-green-600 ml-2">
+                      {strings.TEXTS.STUDENT_ALLOW_NON}
+                    </Badge>
+                  ) : (
+                    " "
+                  )}
+                </b>
+                <p>
+                  {data?.data?.statut === "notAssigned" ? (
+                    <>
+                      {strings.TEXTS.NOT_YET_ASSIGNED}
+                      <Button type="submit" onClick={onAssigne}>
+                        <Cable className="mr-2 h-4 w-4" />
+                        {strings.BUTTONS.ASSIGNE_TO_PROF}
+                      </Button>
+                    </>
+                  ) : (
+                    <SeanceDataTableByDCNFSUM dcnfsum_id={data?.data?.id} />
+                  )}
+                </p>
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="details">
                     <AccordionTrigger>
@@ -376,35 +404,6 @@ const ShowDCNF_SUMDialog = ({
                           </td>
                         </tr>
                       </table>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="seances">
-                    <AccordionTrigger>
-                      {strings.TH.SEANCES}
-                      {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
-                        <Badge variant="outline" className=" text-red-600">
-                          {strings.TEXTS.STUDENT_ALLOW_YES}
-                        </Badge>
-                      ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (
-                        <Badge variant="outline" className=" text-green-600">
-                          {strings.TEXTS.STUDENT_ALLOW_NON}
-                        </Badge>
-                      ) : (
-                        " "
-                      )}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      {data?.data?.statut === "notAssigned" ? (
-                        <>
-                          {strings.TEXTS.NOT_YET_ASSIGNED}
-                          <Button type="submit" onClick={onAssigne}>
-                            <Cable className="mr-2 h-4 w-4" />
-                            {strings.BUTTONS.ASSIGNE_TO_PROF}
-                          </Button>
-                        </>
-                      ) : (
-                        <SeanceDataTableByDCNFSUM dcnfsum_id={data?.data?.id} />
-                      )}
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">

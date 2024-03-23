@@ -15,6 +15,7 @@ import { refreshModuleList } from "@/redux/slices/moduleSlice";
 import {
   closeTeacherApprouveDialog,
   closeSeanceCreateDialog,
+  refreshSeanceList,
 } from "@/redux/slices/seanceSlice";
 import {
   useTeacherApprouveMutation,
@@ -101,11 +102,10 @@ export default function TeacherApprouveForm({
       approuveModel: values,
       access_token: access_token,
     };
-    console.log("values", values);
     await teacherApprouve(approuveModel).unwrap();
-    dispatch(closeSeanceCreateDialog());
+    dispatch(closeTeacherApprouveDialog());
+    dispatch(refreshSeanceList());
     dispatch(refreshModuleList());
-    fetchSeancesQuery.refetch();
     openNotification(
       undefined,
       <div className="flex flex-row text-green-600">

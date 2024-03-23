@@ -52,7 +52,7 @@ export interface SeanceCreationModel {
 export interface SeanceDeletionModel {}
 // Show Types
 export interface SeanceShowModel {
-  seanceUuid: string;
+  seanceUuid: string | null;
   access_token: string;
 }
 export interface SeancesShowByDCNFSUMModel {

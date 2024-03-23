@@ -16,6 +16,7 @@ import {
   openAgentApprouveDialog,
   openStudentApprouveDialog,
   openTeacherApprouveDialog,
+  setTempSeanceUuid,
 } from "@/redux/slices/seanceSlice";
 import {
   useFetchAgentQrSVGQuery,
@@ -61,6 +62,12 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
+  // const tempSeanceUuid = useAppSelector(
+  //   (state) => state.seances.tempSeanceUuid
+  // ); // Utiliser pour seanceUuid soit disponible meme quand ya rafraichissement du composant
+  const tempSeanceUuid =
+    localStorage.getItem("__tempjodsyfogfwtr7celygfeeckhb87d") ?? "";
+  // const seanceUuidValue = seanceUuid !== null ? seanceUuid : tempSeanceUuid;
 
   // Hook de récupération  de l'état  de la boite de dialogue du tableau des détails (Redux Store)
   const showSeanceDialogOpen = useAppSelector(
@@ -68,7 +75,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   );
   // Préparation du paramettre du hook de recuperation des détails d'un seances
   const seanceShowModel: SeanceShowModel = {
-    seanceUuid: seanceUuid,
+    seanceUuid: tempSeanceUuid,
     access_token: access_token,
   };
 
@@ -119,6 +126,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   const fetchTeacherQrSVGQuery =
     useFetchTeacherQrSVGQuery(getTeacherQrSVGModel);
   const teacherQr = fetchTeacherQrSVGQuery;
+
   const fetchStudentQrSVGQuery =
     useFetchStudentQrSVGQuery(getStudentQrSVGModel);
   const studentQr = fetchStudentQrSVGQuery;
@@ -134,8 +142,10 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
     dispatch(openTeacherApprouveDialog());
   };
   const handleStudentApprove = () => {
+    dispatch(setTempSeanceUuid(seanceUuid));
     dispatch(openStudentApprouveDialog());
   };
+
   return (
     <>
       <Dialog open={showSeanceDialogOpen} onOpenChange={onCloseClick}>
@@ -280,6 +290,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                           </div>
                         </div>
                       )}
+
                       {isStudentQrLoading ? (
                         "Chargement ..."
                       ) : data?.data?.student_qr === null ? (

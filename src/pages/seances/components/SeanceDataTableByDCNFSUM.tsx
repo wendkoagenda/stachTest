@@ -17,6 +17,7 @@ import {
   openSeanceDeleteDialog,
   openSeanceShowDialog,
   openSeanceUpdateDialog,
+  setTempSeanceUuid,
 } from "@/redux/slices/seanceSlice";
 import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
 import { dateFormater } from "@/utils/functions/dateFormater";
@@ -136,6 +137,7 @@ export default function SeanceDataTableByDCNFSUM({
   // Fonction pour l'ouverture de la boite de dialogue des détails
   const onShowClick = (seanceUuid: string) => {
     setSeanceUuid(seanceUuid);
+    dispatch(setTempSeanceUuid(seanceUuid));
     dispatch(openSeanceShowDialog());
   };
   const onStudentAllowClick = () => {

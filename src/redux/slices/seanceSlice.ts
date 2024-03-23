@@ -9,6 +9,7 @@ export interface SeanceState {
   agentApprouveDialog: boolean;
   studentApprouveDialog: boolean;
   teacherApprouveDialog: boolean;
+  tempSeanceUuid: string | null;
 }
 
 // Créer un slice pour gérer l'état des seances
@@ -23,6 +24,7 @@ const seanceSlice = createSlice({
     agentApprouveDialog: false,
     studentApprouveDialog: false,
     teacherApprouveDialog: false,
+    tempSeanceUuid: null,
   },
   reducers: {
     openSeanceCreateDialog: (state) => {
@@ -73,6 +75,12 @@ const seanceSlice = createSlice({
     closeTeacherApprouveDialog: (state) => {
       state.teacherApprouveDialog = false;
     },
+    setTempSeanceUuid: (state, action) => {
+      localStorage.setItem(
+        "__tempjodsyfogfwtr7celygfeeckhb87d",
+        (state.tempSeanceUuid = action.payload)
+      );
+    },
   },
 });
 
@@ -93,6 +101,7 @@ export const {
   closeStudentApprouveDialog,
   openTeacherApprouveDialog,
   closeTeacherApprouveDialog,
+  setTempSeanceUuid,
 } = seanceSlice.actions;
 
 export default seanceSlice.reducer;

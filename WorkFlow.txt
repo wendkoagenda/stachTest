@@ -18,3 +18,4 @@ reauete a gemini : comment fixer le Header ?
 - vue pour aller directement aux clases
 -creer un token par defaut minimaliste avec une permission fictives
 - Connexion en tant que Etudiants
+-Probleme de validation student

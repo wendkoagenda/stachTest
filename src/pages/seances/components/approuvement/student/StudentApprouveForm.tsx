@@ -14,11 +14,14 @@ import strings from "@/constants/strings.constant";
 import { refreshModuleList } from "@/redux/slices/moduleSlice";
 import {
   closeSeanceCreateDialog,
+  closeSeanceShowDialog,
   closeStudentApprouveDialog,
+  refreshSeanceList,
 } from "@/redux/slices/seanceSlice";
 import {
   useAgentApprouveMutation,
   useFetchSeancesQuery,
+  useStudentApprouveMutation,
 } from "@/services/seance";
 import {
   renderFetchBaseQueryError,
@@ -77,7 +80,7 @@ export default function StudentApprouveForm({
   // Hook pour récupérer la liste des Seances (RTK)
   const fetchSeancesQuery = useFetchSeancesQuery(access_token);
   // Hook pour creation d'un Seance (RTK)
-  const [agentApprouve, { isLoading, error }] = useAgentApprouveMutation();
+  const [studentApprouve, { isLoading, error }] = useStudentApprouveMutation();
   //*******************Fin
 
   //*******************Déclaration d'autres variables
@@ -101,11 +104,11 @@ export default function StudentApprouveForm({
       approuveModel: values,
       access_token: access_token,
     };
-    console.log("values", values);
-    await agentApprouve(approuveModel).unwrap();
-    dispatch(closeSeanceCreateDialog());
+    console.log("error", error);
+    await studentApprouve(approuveModel).unwrap();
+    dispatch(closeStudentApprouveDialog());
+    dispatch(refreshSeanceList());
     dispatch(refreshModuleList());
-    fetchSeancesQuery.refetch();
     openNotification(
       undefined,
       <div className="flex flex-row text-green-600">

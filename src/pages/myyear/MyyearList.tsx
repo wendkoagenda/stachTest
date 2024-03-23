@@ -50,7 +50,7 @@ export default function MyyearList() {
           )}
         </div>
         <div className="">
-          <Tabs defaultValue="modules" className="w-full">
+          <Tabs defaultValue="modules" className="w-full mt-2">
             <TabsList>
               <TabsTrigger value="modules">{strings.TH.MODULES}</TabsTrigger>
               <TabsTrigger value="mymodules">

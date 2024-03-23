@@ -14,7 +14,7 @@ import strings from "@/constants/strings.constant";
 import { refreshModuleList } from "@/redux/slices/moduleSlice";
 import {
   closeAgentApprouveDialog,
-  closeSeanceCreateDialog,
+  refreshSeanceList,
 } from "@/redux/slices/seanceSlice";
 import {
   useAgentApprouveMutation,
@@ -25,8 +25,8 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -101,11 +101,10 @@ export default function AgentApprouveForm({
       approuveModel: values,
       access_token: access_token,
     };
-    console.log("values", values);
     await agentApprouve(approuveModel).unwrap();
-    dispatch(closeSeanceCreateDialog());
+    dispatch(closeAgentApprouveDialog());
+    dispatch(refreshSeanceList());
     dispatch(refreshModuleList());
-    fetchSeancesQuery.refetch();
     openNotification(
       undefined,
       <div className="flex flex-row text-green-600">
