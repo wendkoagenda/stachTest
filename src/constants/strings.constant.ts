@@ -26,6 +26,7 @@ const strings = {
 
   INSTRUCTIONS: {
     //seances
+    CHANGE_STATUS: "Vous pouvez inverser le status de la personne concerner",
     APPROUVE_SEANCE: "Entrer votre matricule pour valider",
     STUDENT_ALLOW:
       "Donner modifier les droits dajout et de modification de seances par les delegue et sous delegue de la classe",
@@ -179,6 +180,7 @@ const strings = {
     VISA_TEACHER: "Visa Enseignant",
     // my classes
     MY_CLAASES_LIST: "Liste de mes classes",
+    CHANGE_STATUS: "Changer le statut",
   },
   TH: {
     EDT: "Emploie du temps",
@@ -246,6 +248,7 @@ const strings = {
       "Votre session a expiré. Vous devez vous reconnecter. Mesure de sécurité.",
   },
   BUTTONS: {
+    STATUS: "Status",
     YES_CHANGE: "Oui,changer",
     ASSIGNE_TO_PROF: "Assigner",
     WITHDRAW: "Retirer",

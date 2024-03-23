@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Key, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -31,6 +31,8 @@ import { useParams } from "react-router-dom";
 import DeletionStudentDialog from "./deletion";
 import ShowStudentDialog from "./show";
 import UpdateStudentDialog from "./update";
+import { openStatusDialog } from "@/redux/slices/agentSlice";
+import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
 
 export default function StudentDataTableByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -92,6 +94,8 @@ export default function StudentDataTableByDCNF() {
 
   const [studentId, setStudentId] = useState(0);
   const [studentUuid, setStudentUuid] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [isActive, setIsActive] = useState(0);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
@@ -271,7 +275,11 @@ export default function StudentDataTableByDCNF() {
     dispatch(openStudentShowDialog());
   };
   //*******************Fin
-
+  const onStatusClick = (userId: number, isActive: number) => {
+    setUserId(userId);
+    setIsActive(isActive);
+    dispatch(openStatusDialog());
+  };
   //*******************Gestion des erreurs de récupération
   if (error) {
     if ("status" in error) {
@@ -329,6 +337,21 @@ export default function StudentDataTableByDCNF() {
               table={table}
             />
           ),
+          studentUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Key className="mr-2 h-4 w-4" />}
+              key="status"
+              label={strings.BUTTONS.STATUS}
+              onClick={() => {
+                onStatusClick(
+                  row.original.s.user.id,
+                  row.original.s.user.is_active
+                );
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
           studentDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -347,6 +370,7 @@ export default function StudentDataTableByDCNF() {
       <DeletionStudentDialog studentId={studentId} />
       <UpdateStudentDialog studentUuid={studentUuid} />
       <ShowStudentDialog studentUuid={studentUuid} />
+      <UpdateUserStatusDialog user_id={userId} is_active={isActive} />
     </>
   );
 }

@@ -5,6 +5,8 @@ import { ActorShowModel } from "@/@types/Agent/ActorShowModel";
 import { ActorShowResponse } from "@/@types/Agent/ActorShowResponse";
 import { ActorUpdateModel } from "@/@types/Agent/ActorUpdateModel";
 import { AgentRoot } from "@/@types/Agent/Agent";
+import { GeneriqueResponse } from "@/@types/Global/GeneriqueResponse";
+import { UpdateUserSatatusModel } from "@/@types/Global/User";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -13,6 +15,7 @@ const AGENT_CREATE_ROUTE = "tenant/agents/";
 const AGENT_DELETE_ROUTE = "tenant/agents/";
 const AGENT_UPDATE_ROUTE = "tenant/agents/";
 const AGENT_ROUTE_SHOW = "tenant/agentUser/";
+const ACTIVE_DESACTIVE_ROUTE = "tenant/users/activeDesactive/";
 // Crée une nouvelle API Get all agents
 export const agentsApi = createApi({
   reducerPath: "agentsApi",
@@ -44,6 +47,19 @@ export const agentsApi = createApi({
         body: actorCreationModel.newActor,
         headers: {
           Authorization: `Bearer ${actorCreationModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
+        },
+      }),
+    }),
+    updateUserStatus: builder.mutation<
+      GeneriqueResponse,
+      Partial<UpdateUserSatatusModel>
+    >({
+      query: (updateUserSatatusModel) => ({
+        url: ACTIVE_DESACTIVE_ROUTE,
+        method: "POST",
+        body: updateUserSatatusModel.updateStatus,
+        headers: {
+          Authorization: `Bearer ${updateUserSatatusModel.access_token}`, // Ajoutez le token d'accès dans les en-têtes de la requête
         },
       }),
     }),
@@ -81,4 +97,5 @@ export const {
   useDeleteAgentMutation,
   useFetchAgentByIdQuery,
   useUpdateAgentMutation,
+  useUpdateUserStatusMutation,
 } = agentsApi;

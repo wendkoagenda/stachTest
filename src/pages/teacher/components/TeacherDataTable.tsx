@@ -2,6 +2,7 @@ import { TeacherDaum } from "@/@types/Teacher/Teacher";
 import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshTeacherList,
   openTeacherDeleteDialog,
   openTeacherShowDialog,
   openTeacherUpdateDialog,
@@ -11,10 +12,10 @@ import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Key, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -26,6 +27,8 @@ import DeletionTeacherDialog from "./deletion";
 import ShowTeacherDialog from "./show";
 import UpdateTeacherDialog from "./update";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { openStatusDialog } from "@/redux/slices/agentSlice";
+import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
 
 export default function TeacherDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -35,6 +38,17 @@ export default function TeacherDataTable() {
     "access_token";
   //*******************Fin
 
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshTeacherList = useAppSelector(
+    (state) => state.teachers.refreshTeacherList
+  );
+
+  const [refreshTeacherListLocal, setRefreshTeacherListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshTeacherListLocal(refreshTeacherList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshTeacherList]);
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
   const permissions = loadPermissions();
@@ -60,11 +74,14 @@ export default function TeacherDataTable() {
   // Récupération de la liste des teachers au montage du composant
   useEffect(() => {
     fetchTeachersQuery.refetch();
+    dispatch(initialiseRefreshTeacherList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshTeacherListLocal]);
   // Variables useState
   const [teacherId, setTeacherId] = useState(0);
   const [teacherUuid, setTeacherUuid] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [isActive, setIsActive] = useState(0);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
@@ -242,7 +259,11 @@ export default function TeacherDataTable() {
     dispatch(openTeacherShowDialog());
   };
   //*******************Fin
-
+  const onStatusClick = (userId: number, isActive: number) => {
+    setUserId(userId);
+    setIsActive(isActive);
+    dispatch(openStatusDialog());
+  };
   //*******************Gestion des erreurs de récupération
   if (error) {
     if ("status" in error) {
@@ -300,6 +321,21 @@ export default function TeacherDataTable() {
               table={table}
             />
           ),
+          teacherUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Key className="mr-2 h-4 w-4" />}
+              key="status"
+              label={strings.BUTTONS.STATUS}
+              onClick={() => {
+                onStatusClick(
+                  row.original.user.id,
+                  row.original.user.is_active
+                );
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
           teacherDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -317,6 +353,7 @@ export default function TeacherDataTable() {
       <DeletionTeacherDialog teacherId={teacherId} />
       <UpdateTeacherDialog teacherUuid={teacherUuid} />
       <ShowTeacherDialog teacherUuid={teacherUuid} />
+      <UpdateUserStatusDialog user_id={userId} is_active={isActive} />
     </>
   );
 }

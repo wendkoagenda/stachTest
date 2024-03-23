@@ -2,6 +2,7 @@ import { StudentDaum } from "@/@types/Student/Student";
 import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshStudentList,
   openStudentDeleteDialog,
   openStudentShowDialog,
   openStudentUpdateDialog,
@@ -11,10 +12,10 @@ import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Key, Trash2 } from "lucide-react";
 
 import { MRT_Localization_FR } from "material-react-table/locales/fr";
 import { useEffect, useMemo, useState } from "react";
@@ -27,6 +28,8 @@ import {
   MRT_ColumnDef,
   MaterialReactTable,
 } from "material-react-table";
+import { openStatusDialog } from "@/redux/slices/agentSlice";
+import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
 
 export default function StudentDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -35,7 +38,17 @@ export default function StudentDataTable() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshStudentList = useAppSelector(
+    (state) => state.students.refreshStudentList
+  );
 
+  const [refreshStudentListLocal, setRefreshStudentListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshStudentListLocal(refreshStudentList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshStudentList]);
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
   const permissions = loadPermissions();
@@ -61,11 +74,14 @@ export default function StudentDataTable() {
   // Récupération de la liste des students au montage du composant
   useEffect(() => {
     fetchStudentsQuery.refetch();
+    dispatch(initialiseRefreshStudentList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshStudentListLocal]);
   // Variables useState
   const [studentId, setStudentId] = useState(0);
   const [studentUuid, setStudentUuid] = useState("");
+  const [userId, setUserId] = useState(0);
+  const [isActive, setIsActive] = useState(0);
   //*******************Fin
 
   //*******************Déclaration d'autres variables
@@ -243,6 +259,11 @@ export default function StudentDataTable() {
     dispatch(openStudentShowDialog());
   };
   //*******************Fin
+  const onStatusClick = (userId: number, isActive: number) => {
+    setUserId(userId);
+    setIsActive(isActive);
+    dispatch(openStatusDialog());
+  };
 
   //*******************Gestion des erreurs de récupération
   if (error) {
@@ -301,6 +322,21 @@ export default function StudentDataTable() {
               table={table}
             />
           ),
+          studentUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Key className="mr-2 h-4 w-4" />}
+              key="status"
+              label={strings.BUTTONS.STATUS}
+              onClick={() => {
+                onStatusClick(
+                  row.original.user.id,
+                  row.original.user.is_active
+                );
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
           studentDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -318,6 +354,7 @@ export default function StudentDataTable() {
       <DeletionStudentDialog studentId={studentId} />
       <UpdateStudentDialog studentUuid={studentUuid} />
       <ShowStudentDialog studentUuid={studentUuid} />
+      <UpdateUserStatusDialog user_id={userId} is_active={isActive} />
     </>
   );
 }

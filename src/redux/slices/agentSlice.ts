@@ -5,6 +5,8 @@ export interface AgentState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showAgentDialogOpen: boolean;
+  statusDialogOpen: boolean;
+  refreshAgentList: boolean;
 }
 
 // Créer un slice pour gérer l'état des agents
@@ -15,6 +17,8 @@ const agentSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showAgentDialogOpen: false,
+    statusDialogOpen: false,
+    refreshAgentList: false,
   },
   reducers: {
     openAgentCreateDialog: (state) => {
@@ -41,6 +45,18 @@ const agentSlice = createSlice({
     closeAgentShowDialog: (state) => {
       state.showAgentDialogOpen = false;
     },
+    openStatusDialog: (state) => {
+      state.statusDialogOpen = true;
+    },
+    closeStatusDialog: (state) => {
+      state.statusDialogOpen = false;
+    },
+    refreshAgentList: (state) => {
+      state.refreshAgentList = true;
+    },
+    initialiseRefreshAgentList: (state) => {
+      state.refreshAgentList = false;
+    },
   },
 });
 
@@ -53,6 +69,10 @@ export const {
   closeAgentUpdateDialog,
   openAgentShowDialog,
   closeAgentShowDialog,
+  openStatusDialog,
+  closeStatusDialog,
+  refreshAgentList,
+  initialiseRefreshAgentList,
 } = agentSlice.actions;
 
 export default agentSlice.reducer;

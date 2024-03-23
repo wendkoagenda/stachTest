@@ -1,3 +1,11 @@
- // Routes dcnf_t--------------
- Route::get('/dcnf_t', [DCNFSController::class, 'index'])->middleware('check.permissions:dcnf_t.list');
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshStudentList = useAppSelector(
+    (state) => state.teachers.refreshStudentList
+  );
 
+  const [refreshStudentListLocal, setRefreshStudentListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshStudentListLocal(refreshStudentList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [refreshStudentList]);

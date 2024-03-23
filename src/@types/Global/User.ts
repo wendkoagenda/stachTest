@@ -58,3 +58,12 @@ export interface UserShowModel {
 }
 
 type Gender = "male" | "female";
+
+export interface UpdateUserSatatusModel {
+  updateStatus: {
+    user_id: number | undefined;
+    action: string | undefined;
+    motif: string | undefined;
+  };
+  access_token: string;
+}

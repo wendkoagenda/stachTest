@@ -5,6 +5,7 @@ export interface TeacherState {
   deletionDialogOpen: boolean;
   updatingDialogOpen: boolean;
   showTeacherDialogOpen: boolean;
+  refreshTeacherList: boolean;
 }
 
 // Créer un slice pour gérer l'état des teachers
@@ -15,6 +16,7 @@ const teacherSlice = createSlice({
     deletionDialogOpen: false,
     updatingDialogOpen: false,
     showTeacherDialogOpen: false,
+    refreshTeacherList: false,
   },
   reducers: {
     openTeacherCreateDialog: (state) => {
@@ -41,6 +43,12 @@ const teacherSlice = createSlice({
     closeTeacherShowDialog: (state) => {
       state.showTeacherDialogOpen = false;
     },
+    refreshTeacherList: (state) => {
+      state.refreshTeacherList = true;
+    },
+    initialiseRefreshTeacherList: (state) => {
+      state.refreshTeacherList = false;
+    },
   },
 });
 
@@ -53,6 +61,8 @@ export const {
   closeTeacherUpdateDialog,
   openTeacherShowDialog,
   closeTeacherShowDialog,
+  refreshTeacherList,
+  initialiseRefreshTeacherList,
 } = teacherSlice.actions;
 
 export default teacherSlice.reducer;

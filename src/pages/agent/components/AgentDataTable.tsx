@@ -2,19 +2,21 @@ import { AgentDaum } from "@/@types/Agent/Agent";
 import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
+  initialiseRefreshAgentList,
   openAgentDeleteDialog,
   openAgentShowDialog,
   openAgentUpdateDialog,
+  openStatusDialog,
 } from "@/redux/slices/agentSlice";
 import { useFetchAgentsQuery } from "@/services/agent";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Key, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -26,6 +28,7 @@ import DeletionAgentDialog from "./deletion";
 import ShowAgentDialog from "./show";
 import UpdateAgentDialog from "./update";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
 
 export default function AgentDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -34,6 +37,18 @@ export default function AgentDataTable() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+
+  // Hook de récupération  de l'état  de rafraichissement
+  const refreshAgentList = useAppSelector(
+    (state) => state.agents.refreshAgentList
+  );
+
+  const [refreshAgentListLocal, setRefreshAgentListLocal] = useState(false);
+
+  useEffect(() => {
+    setRefreshAgentListLocal(refreshAgentList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshAgentList]);
 
   //*******************Politique de gestion des permissons
   // Recuperation des permissions
@@ -60,10 +75,14 @@ export default function AgentDataTable() {
   // Récupération de la liste des agents au montage du composant
   useEffect(() => {
     fetchAgentsQuery.refetch();
+    dispatch(initialiseRefreshAgentList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshAgentListLocal]);
+
   // Variables useState
   const [agentId, setAgentId] = useState(0);
+  const [userId, setUserId] = useState(0);
+  const [isActive, setIsActive] = useState(0);
   const [agentUuid, setAgentUuid] = useState("");
   //*******************Fin
 
@@ -240,7 +259,11 @@ export default function AgentDataTable() {
     dispatch(openAgentShowDialog());
   };
   //*******************Fin
-
+  const onStatusClick = (userId: number, isActive: number) => {
+    setUserId(userId);
+    setIsActive(isActive);
+    dispatch(openStatusDialog());
+  };
   //*******************Gestion des erreurs de récupération
   if (error) {
     if ("status" in error) {
@@ -298,6 +321,21 @@ export default function AgentDataTable() {
               table={table}
             />
           ),
+          agentUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Key className="mr-2 h-4 w-4" />}
+              key="status"
+              label={strings.BUTTONS.STATUS}
+              onClick={() => {
+                onStatusClick(
+                  row.original.user.id,
+                  row.original.user.is_active
+                );
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
           agentDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -315,6 +353,7 @@ export default function AgentDataTable() {
       <DeletionAgentDialog agentId={agentId} />
       <UpdateAgentDialog agentUuid={agentUuid} />
       <ShowAgentDialog agentUuid={agentUuid} />
+      <UpdateUserStatusDialog user_id={userId} is_active={isActive} />
     </>
   );
 }
