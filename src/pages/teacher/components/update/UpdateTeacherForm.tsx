@@ -338,25 +338,6 @@ export default function UpdateTeacherForm({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="is_active"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel> {strings.TH.STATUS}</FormLabel>
-                    <FormControl>
-                      <Switch
-                        checked={isActive}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {strings.INSTRUCTIONS.STATUS}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
             {teacherUpdate && (
               <DialogFooter className="flex flex-row justify-end">
