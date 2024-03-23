@@ -93,6 +93,8 @@ const strings = {
     CLASSE_LIST: "Aller a la liste de toutes les classes",
   },
   ERRORS: {
+    INACTIVE_USER:
+      "Votre compte est actuellement inactif.Contacter un administrateur",
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
     NETWORK: "Erreur réseau, vérifiez votre connexion Internet et réessayez",
     UNFORESEEN:

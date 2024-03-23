@@ -70,6 +70,7 @@ export default function Login() {
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : getConfig().authenticatedEntryPath);
     } catch (error) {
+      console.log(error);
       if (axios.isAxiosError(error)) {
         const axiosError: AxiosError<ErrorResponse> = error;
         if (axiosError.response) {
@@ -78,9 +79,11 @@ export default function Login() {
             const errorMessage: string = responseData.error;
             // Traitement des erreurs spécifiques
             if (errorMessage === "Unauthorized") {
-              console.log(error);
               setSubmissionError(true);
               setErrorMessage(strings.ERRORS.BAD_CREDENTIALS);
+            } else if (errorMessage === "InactiveUser") {
+              setSubmissionError(true);
+              setErrorMessage(strings.ERRORS.INACTIVE_USER);
             }
           }
         } else if (axiosError.request) {

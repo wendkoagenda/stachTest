@@ -19,3 +19,4 @@ reauete a gemini : comment fixer le Header ?
 -creer un token par defaut minimaliste avec une permission fictives
 - Connexion en tant que Etudiants
 -Probleme de validation student
+-gestion des roles et permissions , uner permission pour le deleguer et le sou deleguer + le autority dans la table students
