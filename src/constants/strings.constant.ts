@@ -179,6 +179,7 @@ const strings = {
     MY_CLAASES_LIST: "Liste de mes classes",
   },
   TH: {
+    EDT: "Emploie du temps",
     MODULES: "Modules",
     MY_YEAR: "Mon année",
     SEANCES: "Séances",

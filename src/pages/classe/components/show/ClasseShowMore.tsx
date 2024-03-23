@@ -1,4 +1,5 @@
 import { ClasseShowModel } from "@/@types/Classe/Classe";
+import InConstuction from "@/components/custom/InConstuction";
 import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
 import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
@@ -102,7 +103,9 @@ export default function ClasseShowMore() {
             <TabsContent value="modules">
               <ModulesListByDCNF />
             </TabsContent>
-            <TabsContent value="statistiques">Stats</TabsContent>
+            <TabsContent value="statistiques">
+              <InConstuction />
+            </TabsContent>
           </Tabs>
         </div>
       </div>

@@ -217,25 +217,8 @@ export default function SeanceDataTableByDCNFSUM({
               <Button size="icon" variant="default" onClick={onCreateClick}>
                 <Plus />
               </Button>
-              <Button
-                size="icon"
-                variant="default"
-                onClick={onStudentAllowClick}
-              >
-                <FileLock />
-              </Button>
             </>
           )}
-
-        {/* // {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
-        //   <Button size="icon" variant="default" onClick={onCreateClick}>
-        //     <Plus />
-        //   </Button>
-        // ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (
-        //   "ss"
-        // ) : (
-        //   " "
-        // )} */}
       </div>
       {isLoading ? (
         <CardSkeleton />
@@ -284,14 +267,6 @@ export default function SeanceDataTableByDCNFSUM({
                   )}
                   {parseInt(t_id) !== 0 && seanceShow && (
                     <>
-                      <Button
-                        size="icon"
-                        onClick={() => {
-                          onShowClick(seance.uuid);
-                        }}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
                       <Button
                         size="icon"
                         onClick={() => {

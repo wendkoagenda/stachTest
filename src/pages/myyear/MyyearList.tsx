@@ -1,12 +1,10 @@
 import InConstuction from "@/components/custom/InConstuction";
+import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
-import Footer from "../../components/partials/Footer";
-import MyclassesList from "../classe/components/List/MyclassesList";
-import MymodulesList from "../module/MymodulesList";
 import { useFetchMyclasseQuery } from "@/services/classe";
-import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
+import Footer from "../../components/partials/Footer";
 import ModulesListByDCNF from "../module/ModulesListByDCNF";
 
 export default function MyyearList() {
@@ -53,22 +51,12 @@ export default function MyyearList() {
           <Tabs defaultValue="modules" className="w-full mt-2">
             <TabsList>
               <TabsTrigger value="modules">{strings.TH.MODULES}</TabsTrigger>
-              <TabsTrigger value="mymodules">
-                {strings.TH.MY_MODULES}
-              </TabsTrigger>
-              <TabsTrigger value="mydocs">{strings.TH.MY_DOCS}</TabsTrigger>
-              <TabsTrigger value="mystats">{strings.TH.MY_STATS}</TabsTrigger>
+              <TabsTrigger value="edt">{strings.TH.EDT}</TabsTrigger>
             </TabsList>
             <TabsContent value="modules">
               <ModulesListByDCNF props_dcnf_uuid={myclasse?.dcnf?.uuid} />
             </TabsContent>
-            <TabsContent value="mymodules">
-              <MymodulesList />
-            </TabsContent>
-            <TabsContent value="mydocs">
-              <InConstuction />
-            </TabsContent>
-            <TabsContent value="mystats">
+            <TabsContent value="edt">
               <InConstuction />
             </TabsContent>
           </Tabs>

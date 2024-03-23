@@ -186,7 +186,7 @@ const ShowDCNF_SUMDialog = ({
                 <b>
                   {strings.TH.SEANCES}
                   {seances[0]?.dcnfsumt?.allow_student_entry === 1 ? (
-                    <Badge variant="outline" className=" text-red-600">
+                    <Badge variant="outline" className=" text-red-600  ml-2">
                       {strings.TEXTS.STUDENT_ALLOW_YES}
                     </Badge>
                   ) : seances[0]?.dcnfsumt?.allow_student_entry === 0 ? (

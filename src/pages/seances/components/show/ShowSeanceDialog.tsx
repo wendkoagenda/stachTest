@@ -283,7 +283,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                           </div>
                           <div>
                             {data?.data?.teacher_qr_created_at
-                              ? dateFormater(data?.data?.agent_qr_created_at)
+                              ? dateFormater(data?.data?.teacher_qr_created_at)
                               : "Date non disponible"}{" "}
                             <br />
                             {strings.TEXTS.VISA_TEACHER}
