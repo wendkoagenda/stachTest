@@ -102,6 +102,7 @@ const strings = {
       "Oops! Une erreur inattendue est apparue. Si cela persiste, contactez le support informatique",
   },
   TEXTS: {
+    LIST_PERMISSIONS: "Liste des permissions",
     MODIFY_AGENT: "Modification des infos de cet agent",
     ADD_AGENT: "Ajout s'un nouveau membre de l'administration",
     LIST_AGENT: "Liste des menbres de l'administration",
@@ -139,6 +140,7 @@ const strings = {
     // Departements
     LIST_DEPARTEMENT: "Liste des departements",
     DEPARTEMENT_EMPTY: "Aucun departement trouvé",
+    PERMISSIONS_EMPTY: "Aucune permission trouvé",
     // classes
     LIST_CLASSE_OF_DEPARTEMENT: "Liste des classes du departements",
     MODIFY_CLASSE: "Modification des infos de cette classe",
@@ -181,8 +183,11 @@ const strings = {
     // my classes
     MY_CLAASES_LIST: "Liste de mes classes",
     CHANGE_STATUS: "Changer le statut",
+    // Role et permissions
+    ROLE_LIST: "Liste des roles",
   },
   TH: {
+    ROLE_PERMISSIONS: "Roles et permissions",
     EDT: "Emploie du temps",
     MODULES: "Modules",
     MY_YEAR: "Mon année",

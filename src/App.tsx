@@ -17,6 +17,7 @@ import SettingsList from "./pages/setting";
 import AllfinalclassesList from "./pages/allfinalclasse/AllfinalclassesList";
 import MycoursesList from "./pages/mycourses";
 import MyyearList from "./pages/myyear";
+import RoleShowMore from "./pages/rolepermission/components/show/RoleShowMore";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route element={<SeancesList />} path="/seances" />
             <Route element={<MycoursesList />} path="/mycourses" />
             <Route element={<MyyearList />} path="/myyear" />
+            <Route element={<RoleShowMore />} path="/role/:role_uuid" />
           </Route>
           <Route element={<Login />} path="/login" />
         </Routes>

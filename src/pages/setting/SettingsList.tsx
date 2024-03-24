@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
 import Footer from "../../components/partials/Footer";
 import ModulesList from "../module";
+import RolepermissionsList from "../rolepermission";
 
 export default function SettingsList() {
   return (
@@ -18,9 +19,16 @@ export default function SettingsList() {
           <Tabs defaultValue="modules" className="w-full">
             <TabsList>
               <TabsTrigger value="modules"> {strings.TH.MODULE}</TabsTrigger>
+              <TabsTrigger value="rolePermissions">
+                {" "}
+                {strings.TH.ROLE_PERMISSIONS}
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="modules">
               <ModulesList />
+            </TabsContent>
+            <TabsContent value="rolePermissions">
+              <RolepermissionsList />
             </TabsContent>
           </Tabs>
         </div>
