@@ -187,6 +187,8 @@ const strings = {
     ROLE_LIST: "Liste des roles",
   },
   TH: {
+    RESPONSABILITY: "Responsabilité",
+
     ROLE_PERMISSIONS: "Roles et permissions",
     EDT: "Emploie du temps",
     MODULES: "Modules",

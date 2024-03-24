@@ -225,6 +225,43 @@ export default function StudentDataTableByDCNF() {
         },
       },
       {
+        accessorKey: "s.student.responsibility",
+        header: strings.TH.RESPONSABILITY,
+        enableClickToCopy: false,
+        enableColumnActions: true,
+        enableColumnDragging: true,
+        enableColumnFilter: true,
+        enableColumnOrdering: true,
+        enableEditing: true,
+        enableGlobalFilter: true,
+        enableGrouping: true,
+        enableHiding: true,
+        enableResizing: true,
+        enableSorting: true,
+        size: 100,
+        Cell: ({ cell }) => {
+          const responsibility = cell.getValue<string>(); // Supposons que cell.value contienne la valeur booléenne du statut
+          return (
+            <Badge
+              variant={
+                responsibility === "none"
+                  ? "default"
+                  : responsibility === "delegue"
+                  ? "destructive"
+                  : "destructive"
+              }
+              className="text-xs"
+            >
+              {responsibility === "none"
+                ? "Aucune"
+                : responsibility === "delegue"
+                ? "Délégué"
+                : "Délégué Adj"}
+            </Badge>
+          );
+        },
+      },
+      {
         accessorKey: "s.user.gender",
         header: strings.TH.GENDER,
         enableClickToCopy: false,
