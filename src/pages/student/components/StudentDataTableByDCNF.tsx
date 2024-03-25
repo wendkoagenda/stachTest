@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import strings from "@/constants/strings.constant";
 import {
   initialiseRefreshStudentList,
+  openReponsabilityDialog,
   openStudentDeleteDialog,
   openStudentShowDialog,
   openStudentUpdateDialog,
@@ -19,7 +20,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { Edit2, EyeIcon, Key, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Key, Star, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -33,6 +34,7 @@ import ShowStudentDialog from "./show";
 import UpdateStudentDialog from "./update";
 import { openStatusDialog } from "@/redux/slices/agentSlice";
 import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
+import UpdateReponsabilityDialog from "./update/responsability/UpdateReponsabilityDialog";
 
 export default function StudentDataTableByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -317,6 +319,12 @@ export default function StudentDataTableByDCNF() {
     setIsActive(isActive);
     dispatch(openStatusDialog());
   };
+  const onResponsabilityClick = (studentId: number, studentUuid: string) => {
+    setStudentId(studentId);
+    setStudentUuid(studentUuid);
+    dispatch(openReponsabilityDialog());
+  };
+
   //*******************Gestion des erreurs de récupération
   if (error) {
     if ("status" in error) {
@@ -389,6 +397,21 @@ export default function StudentDataTableByDCNF() {
               table={table}
             />
           ),
+          studentUpdate && (
+            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+              icon={<Star className="mr-2 h-4 w-4" />}
+              key="responsibility"
+              label={strings.BUTTONS.RESPONSABILITE}
+              onClick={() => {
+                onResponsabilityClick(
+                  row.original.s.student.id,
+                  row.original.s.uuid
+                );
+                closeMenu();
+              }}
+              table={table}
+            />
+          ),
           studentDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
@@ -408,6 +431,11 @@ export default function StudentDataTableByDCNF() {
       <UpdateStudentDialog studentUuid={studentUuid} />
       <ShowStudentDialog studentUuid={studentUuid} />
       <UpdateUserStatusDialog user_id={userId} is_active={isActive} />
+      {/* Le stuentId de UpdateResponsabilty est dans s.student  */}
+      <UpdateReponsabilityDialog
+        studentId={studentId}
+        studentUuid={studentUuid}
+      />
     </>
   );
 }

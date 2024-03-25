@@ -1,37 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { UserShowModel, UserUpdateModel } from "@/@types/Global/User";
+import { UserShowModel } from "@/@types/Global/User";
+import { UpdateResponsibilityModel } from "@/@types/Student/Student";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
 import strings from "@/constants/strings.constant";
 import {
+  closeReponsabilityDialog,
   closeStudentUpdateDialog,
   refreshStudentList,
 } from "@/redux/slices/studentSlice";
 import {
   useFetchStudentByIdQuery,
   useFetchStudentsQuery,
-  useUpdateStudentMutation,
+  useUpdateResponsibilityMutation,
 } from "@/services/student";
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -42,25 +41,26 @@ import { z } from "zod";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
-  title: z.string().default("Non définie"),
-  email: z.string().email({ message: "Mail invalide !" }),
-  banner: z.string().default("Non définie"),
-  first_name: z.string().min(1, { message: "Le prénom est obligatoire" }),
-  last_name: z
-    .string()
-    .min(2, { message: "Le nom de famille est obligatoire" }),
-  gender: z.enum(["male", "female"], {
-    required_error: "Vous devez sélectionner un genre.",
-  }),
-  phone1: z.string().min(1, { message: "Le phone 1 est obligatoire" }),
-  phone2: z.string().default("Non définie"),
-  camp_year_id: z.number(),
-  is_active: z.boolean().default(true),
+  responsibility: z.enum(
+    [
+      "delegue",
+      "sub_delegue",
+      "delegue_inter",
+      "delegue",
+      "sub_delegue_inter",
+      "none",
+    ],
+    {
+      required_error: "Vous devez sélectionner un genre.",
+    }
+  ),
 });
 
-export default function UpdateStudentForm({
+export default function UpdateResponsabilityForm({
+  studentId,
   studentUuid,
 }: {
+  studentId: number;
   studentUuid: string;
 }) {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -102,10 +102,11 @@ export default function UpdateStudentForm({
   }, []);
 
   // Hook pour la mise à jour  d'un Student (RTK)
-  const [updateStudent, { error, isLoading }] = useUpdateStudentMutation();
+  const [updateResponsability, { error, isLoading }] =
+    useUpdateResponsibilityMutation();
 
   // Variables useStates
-  const [gender, setGender] = useState("male");
+  const [responsibility, setResponsibility] = useState("none");
   const [isActive, setIsActive] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   //*******************Fin
@@ -123,28 +124,14 @@ export default function UpdateStudentForm({
   useEffect(() => {
     if (data && !dataLoaded) {
       setDataLoaded(true);
-      setGender(data?.data.user.gender);
-      if (data?.data.user.is_active === 1) {
-        setIsActive(true);
-      } else {
-        setIsActive(false);
-      }
+      setResponsibility(data?.data.student.responsibility);
     }
   }, [data]);
 
   useEffect(() => {
     if (data) {
       form.reset({
-        title: data?.data.student.title,
-        banner: data?.data.student.banner,
-        first_name: data?.data.user.first_name,
-        last_name: data?.data.user.last_name,
-        gender: data?.data.user.gender,
-        email: data?.data.user.email,
-        phone1: data?.data.user.phone1,
-        phone2: data?.data.user.phone1,
-        camp_year_id: parseInt(camp_year_id),
-        is_active: isActive,
+        responsibility: data?.data.student.responsibility,
       });
     }
   }, [data]);
@@ -155,14 +142,14 @@ export default function UpdateStudentForm({
   //*******************Déclaration de fonctions
   // Fonction de soumission du formulaire de mise à jour
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const actorUpdateModel: UserUpdateModel = {
-      updateUser: values,
+    const updateResponsibilityModel: UpdateResponsibilityModel = {
+      updateResponsibility: values,
       access_token: access_token,
-      userUuid: studentUuid,
+      student_id: studentId,
     };
-    await updateStudent(actorUpdateModel).unwrap();
+    await updateResponsability(updateResponsibilityModel).unwrap();
     dispatch(refreshStudentList());
-    dispatch(closeStudentUpdateDialog());
+    dispatch(closeReponsabilityDialog());
     fetchStudentsQuery.refetch();
     openNotification(
       undefined,
@@ -174,7 +161,7 @@ export default function UpdateStudentForm({
   };
   // Fonction de fermeture de la boite de dialogue du formulaire de mise à jour  (Redux store)
   const onCloseClick = () => {
-    dispatch(closeStudentUpdateDialog());
+    dispatch(closeReponsabilityDialog());
   };
   //*******************Fin
 
@@ -193,148 +180,54 @@ export default function UpdateStudentForm({
             <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
               <FormField
                 control={form.control}
-                name="title"
+                name="responsibility"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.TITLE}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.TITLE}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="banner"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.BANNER}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.BANNER}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
-              <FormField
-                control={form.control}
-                name="last_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.LAST_NAME}*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.LAST_NAME}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="first_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.FIRST_NAME}*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.FIRST_NAME}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.EMAIL}*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.EMAIL}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-              <FormField
-                control={form.control}
-                name="phone1"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.PHONE1}*</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.PHONE1}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone2"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.PHONE2}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.PHONE2}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-              <FormField
-                control={form.control}
-                name="gender"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{strings.TH.GENDER}</FormLabel>
+                    <FormLabel>{strings.TH.RESPONSABILITY}</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={gender}
+                        defaultValue={responsibility}
                         className="flex flex-col space-y-1"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="male" />
+                            <RadioGroupItem value="delegue" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            {strings.TH.MASCULIN}
+                            {strings.TH.DELEGUE}
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="female" />
+                            <RadioGroupItem value="sub_delegue" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            {strings.TH.FEMININ}
+                            {strings.TH.SUB_DELEGUE}
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="delegue_inter" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            {strings.TH.DELEGUE_INTER}
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="sub_delegue_inter" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            {strings.TH.SUB_DELEGUE_INTER}
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="none" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            {strings.TH.NONE}
                           </FormLabel>
                         </FormItem>
                       </RadioGroup>

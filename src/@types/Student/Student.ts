@@ -45,8 +45,24 @@ export interface Student {
   title: string;
   registration_number: string;
   banner: string;
-  responsibility: string;
+  responsibility: Responsibility;
   created_at: string;
   updated_at: string;
   camp_year_id: number;
+}
+
+type Responsibility =
+  | "delegue"
+  | "sub_delegue"
+  | "delegue_inter"
+  | "delegue"
+  | "sub_delegue_inter"
+  | "none";
+
+export interface UpdateResponsibilityModel {
+  updateResponsibility: {
+    responsibility: string;
+  };
+  access_token: string;
+  student_id: number;
 }

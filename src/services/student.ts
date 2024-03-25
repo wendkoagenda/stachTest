@@ -5,12 +5,17 @@ import {
   UserShowModel,
   UserUpdateModel,
 } from "@/@types/Global/User";
-import { StudentRoot, StudentShowResponse } from "@/@types/Student/Student";
+import {
+  StudentRoot,
+  StudentShowResponse,
+  UpdateResponsibilityModel,
+} from "@/@types/Student/Student";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const STUDENT_USER_ROUTE = "tenant/studentUser/";
 const STUDENT_ROUTE = "tenant/students/";
+const STUDENT_REPONSIBILITY_ROUTE = "tenant/students/changeAutority/";
 
 // Crée une nouvelle API Get all students
 export const studentsApi = createApi({
@@ -71,6 +76,19 @@ export const studentsApi = createApi({
         },
       }),
     }),
+    updateResponsibility: builder.mutation<
+      GeneriqueResponse,
+      Partial<UpdateResponsibilityModel>
+    >({
+      query: (updateResponsibilityModel) => ({
+        url: `${STUDENT_REPONSIBILITY_ROUTE}${updateResponsibilityModel.student_id}`,
+        method: "PUT", // Utilisez PUT pour mettre à jour les données
+        body: updateResponsibilityModel.updateResponsibility, // Les données mises à jour à envoyer dans le corps de la requête
+        headers: {
+          Authorization: `Bearer ${updateResponsibilityModel.access_token}`,
+        },
+      }),
+    }),
   }),
 });
 // Export les hooks générés automatiquement
@@ -80,4 +98,5 @@ export const {
   useDeleteStudentMutation,
   useFetchStudentByIdQuery,
   useUpdateStudentMutation,
+  useUpdateResponsibilityMutation,
 } = studentsApi;

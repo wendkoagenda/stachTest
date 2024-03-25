@@ -118,6 +118,7 @@ const strings = {
     SHOW_STUDENT: "Détails sur un metudiant",
     UPDATE_STUDENT: "Mise a jour d'un etudiant",
     STUDENT_INFO: "Information sur l'etudiant",
+    RESPONSABILITY: "Changer les responabilité de l'etudiant",
     // Teacher
     MODIFY_TEACHER: "Modification des infos de cet enseignant",
     ADD_TEACHER: "Ajout s'un nouveau enseignant",
@@ -187,8 +188,12 @@ const strings = {
     ROLE_LIST: "Liste des roles",
   },
   TH: {
+    NONE: "Aucune",
     RESPONSABILITY: "Responsabilité",
-
+    DELEGUE: "Délégué",
+    SUB_DELEGUE: "Délégué Adj",
+    DELEGUE_INTER: "Délégué par intérime",
+    SUB_DELEGUE_INTER: "Délégué Adj par intérime",
     ROLE_PERMISSIONS: "Roles et permissions",
     EDT: "Emploie du temps",
     MODULES: "Modules",
@@ -255,6 +260,7 @@ const strings = {
       "Votre session a expiré. Vous devez vous reconnecter. Mesure de sécurité.",
   },
   BUTTONS: {
+    RESPONSABILITE: "Responsabilité",
     STATUS: "Status",
     YES_CHANGE: "Oui,changer",
     ASSIGNE_TO_PROF: "Assigner",
