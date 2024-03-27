@@ -290,9 +290,10 @@ const strings = {
     //Params
     PARAMS_LIST: "params.list",
     PARAMS_CLASSES: "params.classes",
-    PARAMS_MY_COURSES: "params.myCourses",
+    MY_COURSES: "my.courses",
     PARAMS_DEPARTEMENTS: "params.departements",
     PARAMS_USERS: "params.users",
+    MY_YEAR: "my.year",
     AGENT_LIST: "agents.list", // Agent
     AGENT_SHOW: "agents.show",
     AGENT_UPDATE: "agents.update",

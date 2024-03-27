@@ -42,9 +42,10 @@ export default function HorizontalHeader() {
 
   const [paramsList, setParamsList] = useState(false);
   const [paramsClasses, setParamsClasses] = useState(false);
-  const [paramsMyCourses, setParamsMyCourses] = useState(false);
+  const [myCourses, setMyCourses] = useState(false);
   const [paramsDepartements, setParamsDepartements] = useState(false);
   const [paramsUsers, setParamsUsers] = useState(false);
+  const [myYear, setMyYear] = useState(false);
 
   // Utilisez le crochet "loadPermissions" directement dans le corps du composant
   useEffect(() => {
@@ -59,10 +60,8 @@ export default function HorizontalHeader() {
       setParamsClasses(
         permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_CLASSES)
       );
-      setParamsMyCourses(
-        permissions.userPermissions.includes(
-          strings.PERMISSIONS.PARAMS_MY_COURSES
-        )
+      setMyCourses(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MY_COURSES)
       );
       setParamsDepartements(
         permissions.userPermissions.includes(
@@ -71,6 +70,9 @@ export default function HorizontalHeader() {
       );
       setParamsUsers(
         permissions.userPermissions.includes(strings.PERMISSIONS.PARAMS_USERS)
+      );
+      setMyYear(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MY_YEAR)
       );
     }
   }, []);
@@ -274,40 +276,43 @@ export default function HorizontalHeader() {
                 </Tooltip>
               </TooltipProvider>
             )}
-            {/* {paramsMyClasses && ( */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={myCoursesVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToMyCoursesPage}
-                  >
-                    <Diamond className="mr-2 h-4 w-4" /> {strings.TH.MY_COURSES}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            {/* )} */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button
-                    variant={myYearVariant}
-                    className="hover:font-bold"
-                    onClick={handleGoToMyYearPage}
-                  >
-                    <Album className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {myCourses && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={myCoursesVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToMyCoursesPage}
+                    >
+                      <Diamond className="mr-2 h-4 w-4" />{" "}
+                      {strings.TH.MY_COURSES}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+            {myYear && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant={myYearVariant}
+                      className="hover:font-bold"
+                      onClick={handleGoToMyYearPage}
+                    >
+                      <Album className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             {/* <div>
               <Dropdown
                 title={strings.TH.PARAMS}

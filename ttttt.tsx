@@ -1,11 +1,20 @@
-  // Hook de récupération  de l'état  de rafraichissement
-  const refreshStudentList = useAppSelector(
-    (state) => state.teachers.refreshStudentList
-  );
-
-  const [refreshStudentListLocal, setRefreshStudentListLocal] = useState(false);
-
-  useEffect(() => {
-    setRefreshStudentListLocal(refreshStudentList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [refreshStudentList]);
+  // students
+  ->orWhere('progTitle','students.list')
+  ->orWhere('progTitle','students.show')
+  ->orWhere('progTitle','students.store')
+  ->orWhere('progTitle','students.update')
+  ->orWhere('progTitle','students.destroy')
+  ->orWhere('progTitle','students.restore')
+  ->orWhere('progTitle','students.trashed')
+  ->orWhere('progTitle','students.destroyTrashed')
+  ->orWhere('progTitle','students.showTrashed')
+  // studentUsers
+  ->orWhere('progTitle','studentUser.list')
+  ->orWhere('progTitle','studentUser.show')
+  ->orWhere('progTitle','studentUser.store')
+  ->orWhere('progTitle','studentUser.update')
+  ->orWhere('progTitle','studentUser.destroy')
+  ->orWhere('progTitle','studentUser.restore')
+  ->orWhere('progTitle','studentUser.trashed')
+  ->orWhere('progTitle','studentUser.destroyTrashed')
+  ->orWhere('progTitle','studentUser.showTrashed')
