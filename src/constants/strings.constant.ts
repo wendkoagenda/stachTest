@@ -26,7 +26,7 @@ const strings = {
 
   INSTRUCTIONS: {
     // Seances
-    CHANGE_STATUS: "Vous pouvez changer le statut de la personne concernée.",
+    CHANGE_STATUS: "Vous pouvez changer le statut de l'utilisateur concernée.",
     APPROUVE_SEANCE: "Entrez votre matricule pour valider.",
     STUDENT_ALLOW:
       "Permettre la modification des droits d'ajout et de modification des séances par les délégués et sous-délégués de la classe.",
@@ -34,27 +34,29 @@ const strings = {
     SELECT_MODULE: "Le module appartiendra-t-il à cette classe également ?",
     STATUS: "L'utilisateur sera-t-il actif ou inactif ?",
     UPDATED_AGENT:
-      "Effectuez des modifications d'agent ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+      "Effectuez des modifications d'agent ici. Cliquez sur << Enregistrer >> lorsque vous avez terminé.",
     ADD_AGENT:
       "Ajouter un nouveau membre de l'administration ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     DELETE_AGENT:
-      "Veuillez confirmer la suppression d'un membre de l'administration.",
+      "Veuillez confirmer la suppression ce membre de l'administration en cliquant sur << Supprimer >>.",
     SHOW_AGENT:
       "Vous trouverez ici toutes les formations liées à ce membre de l'administration. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Etudiants
     UPDATED_STUDENT:
-      "Effectuez des modifications d'étudiant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+      "Effectuez des modifications d'étudiant ici. Cliquez sur << Enregistrer >> lorsque vous avez terminé.",
     ADD_STUDENT:
       "Ajouter un nouvel étudiant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-    DELETE_STUDENT: "Veuillez confirmer la suppression d'un étudiant.",
+    DELETE_STUDENT:
+      "Veuillez confirmer la suppression d'un étudiant  en cliquant sur << Supprimer >>.",
     SHOW_STUDENT:
       "Vous trouverez ici toutes les formations liées à cet étudiant. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Enseignants
     UPDATED_TEACHER:
-      "Effectuez des modifications d'enseignant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+      "Effectuez des modifications d'enseignant ici. Cliquez sur << Enregistrer >> lorsque vous avez terminé.",
     ADD_TEACHER:
       "Ajouter un nouvel enseignant ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-    DELETE_TEACHER: "Veuillez confirmer la suppression d'un enseignant.",
+    DELETE_TEACHER:
+      "Veuillez confirmer la suppression cet enseignant en cliquant sur << Supprimer >>.",
     SHOW_TEACHER:
       "Vous trouverez ici toutes les formations liées à cet enseignant. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Classes
@@ -62,7 +64,8 @@ const strings = {
       "Effectuez des modifications d'une classe ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_CLASSE:
       "Ajouter une nouvelle classe ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-    DELETE_CLASSE: "Veuillez confirmer la suppression d'une classe.",
+    DELETE_CLASSE:
+      "Veuillez confirmer la suppression d'une classe  en cliquant sur << Supprimer >>",
     SHOW_CLASSE:
       "Vous trouverez ici toutes les formations liées à cette classe. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Séances
@@ -70,7 +73,8 @@ const strings = {
       "Effectuez des modifications de séance ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_SEANCE:
       "Ajouter une nouvelle séance ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-    DELETE_SEANCE: "Veuillez confirmer la suppression d'une séance.",
+    DELETE_SEANCE:
+      "Veuillez confirmer la suppression d'une séance en cliquant sur << Supprimer >>",
     SHOW_SEANCE:
       "Vous trouverez ici toutes les formations liées à cette séance. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Modules
@@ -78,7 +82,8 @@ const strings = {
       "Effectuez des modifications d'un module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
     ADD_MODULE:
       "Ajouter un nouveau module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
-    DELETE_MODULE: "Veuillez confirmer la suppression d'un module.",
+    DELETE_MODULE:
+      "Veuillez confirmer la suppression d'un module  en cliquant sur << Supprimer >>.",
     SHOW_MODULE:
       "Vous trouverez ici toutes les formations liées à ce module. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
   },

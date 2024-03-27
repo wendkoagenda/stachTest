@@ -34,7 +34,7 @@ const UpdateTeacherDialog = ({ teacherUuid }: { teacherUuid: string }) => {
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.UPDATE_TEACHER}</DialogTitle>
           <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_TEACHER}
+            {strings.INSTRUCTIONS.UPDATED_STUDENT}
           </DialogDescription>
         </DialogHeader>
         <UpdateTeacherForm teacherUuid={teacherUuid} />

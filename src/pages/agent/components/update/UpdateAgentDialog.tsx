@@ -34,7 +34,7 @@ const UpdateAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.UPDATE_AGENT}</DialogTitle>
           <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_AGENT}
+            {strings.INSTRUCTIONS.UPDATED_AGENT}
           </DialogDescription>
         </DialogHeader>
         <UpdateAgentForm agentUuid={agentUuid} />

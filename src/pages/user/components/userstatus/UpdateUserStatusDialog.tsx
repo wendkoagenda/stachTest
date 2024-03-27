@@ -1,5 +1,4 @@
 import { UpdateUserSatatusModel } from "@/@types/Global/User";
-import { StudentAllowUpdateModel } from "@/@types/Module/Module";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,15 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import strings from "@/constants/strings.constant";
 import { closeStatusDialog, refreshAgentList } from "@/redux/slices/agentSlice";
-import {
-  closeStudentAllowUpdateDialog,
-  refreshModuleList,
-} from "@/redux/slices/moduleSlice";
-import { refreshSeanceList } from "@/redux/slices/seanceSlice";
 import { refreshStudentList } from "@/redux/slices/studentSlice";
 import { refreshTeacherList } from "@/redux/slices/teacherSlice";
 import { useUpdateUserStatusMutation } from "@/services/agent";
-import { useUpdateStudentAllowMutation } from "@/services/module";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
