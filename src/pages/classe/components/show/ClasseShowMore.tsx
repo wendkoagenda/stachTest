@@ -8,7 +8,8 @@ import strings from "@/constants/strings.constant";
 import ModulesListByDCNF from "@/pages/module/ModulesListByDCNF";
 import StudentsListByDCNF from "@/pages/student/StudentsListByDCNF";
 import { useFetchClasseByIdQuery } from "@/services/classe";
-import { useEffect } from "react";
+import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function ClasseShowMore() {
@@ -18,6 +19,29 @@ export default function ClasseShowMore() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+  //Liste des permissions requises
+  const [studentUserList, setStudentUserList] = useState(false);
+  const [dcnfsumList, setDCNFSUMList] = useState(false);
+  const [stats, setStats] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setStudentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_USER_LIST
+        )
+      );
+      setDCNFSUMList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNFSUM_LIST)
+      );
+      setStats(permissions.userPermissions.includes(strings.PERMISSIONS.STATS));
+    }
+  }, []);
+
   // Declaration des hooks
   // Recuperation du url params
   const { dcnf_uuid } = useParams();
@@ -91,11 +115,19 @@ export default function ClasseShowMore() {
         <div className="mt-2">
           <Tabs defaultValue="students" className="w-full">
             <TabsList>
-              <TabsTrigger value="students">{strings.TH.STUDENTS}</TabsTrigger>
-              <TabsTrigger value="modules">Modules</TabsTrigger>
-              <TabsTrigger value="statistiques">
-                {strings.TH.STATISTIQUES}
-              </TabsTrigger>
+              {studentUserList && (
+                <TabsTrigger value="students">
+                  {strings.TH.STUDENTS}
+                </TabsTrigger>
+              )}
+              {dcnfsumList && (
+                <TabsTrigger value="modules">Modules</TabsTrigger>
+              )}
+              {stats && (
+                <TabsTrigger value="statistiques">
+                  {strings.TH.STATISTIQUES}
+                </TabsTrigger>
+              )}
             </TabsList>
             <TabsContent value="students">
               <StudentsListByDCNF />

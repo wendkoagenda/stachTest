@@ -7,6 +7,7 @@ import {
   initialiseRefreshModuleList,
   openModuleDeleteDialog,
   openModuleShowDialog,
+  openModuleUpdateDialog,
 } from "@/redux/slices/moduleSlice";
 import { useFetchModuleByDCNFQuery } from "@/services/module";
 import {
@@ -18,7 +19,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { EyeIcon, Trash2 } from "lucide-react";
+import { Edit2, EyeIcon, Trash2 } from "lucide-react";
 import {
   MRT_ActionMenuItem,
   MaterialReactTable,
@@ -42,20 +43,34 @@ export default function ModuleDataTableByDCNF({
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_SHOW
-  );
-  const moduleUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_UPDATE
-  );
-  const moduleDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_DESTROY
-  );
+  const [dcnfsumDestroy, setDCNFSUMDestroy] = useState(false);
+  const [seanceShow, setSeanceShow] = useState(false);
+  const [dcnfsumShow, setDCNFSUMShow] = useState(false);
+  const [dcnfsumUpdate, setDCNFSUMUpdate] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFSUMDestroy(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.DCNFSUM_DESTROY
+        )
+      );
+      setSeanceShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SEANCE_SHOW)
+      );
+      setDCNFSUMShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNFSUM_SHOW)
+      );
+      setDCNFSUMUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNFSUM_UPDATE)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -96,6 +111,7 @@ export default function ModuleDataTableByDCNF({
   // Variables useState
   const [dcnf_sum_id, setDCNF_SUMId] = useState(0);
   const [dcnfsum_uuid, setDcnfsumUuid] = useState("");
+
   const [moduleUuid, setModuleUuid] = useState("");
   //*******************Fin
 
@@ -250,10 +266,10 @@ export default function ModuleDataTableByDCNF({
   };
 
   // Fonction pour l'ouverture de la boite de dialogue de mise à jour
-  // const onEditClick = (moduleUuid: string) => {
-  //   setModuleUuid(moduleUuid);
-  //   dispatch(openModuleUpdateDialog());
-  // };
+  const onEditClick = (moduleUuid: string) => {
+    setModuleUuid(moduleUuid);
+    dispatch(openModuleUpdateDialog());
+  };
 
   // Fonction pour l'ouverture de la boite de dialogue des détails
   const onShowClick = (dcnfsum_uuid: string, dcnfsum_id: number) => {
@@ -297,41 +313,43 @@ export default function ModuleDataTableByDCNF({
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           <>
-            <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
-              key="show"
-              label={strings.BUTTONS.SHOW}
-              onClick={() => {
-                onShowClick(row.original.uuid, row.original.id);
-                closeMenu();
-              }}
-              table={table}
-            />
-
-            {/* // moduleUpdate && (
-          //   <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-          //     icon={<Edit2 className="mr-2 h-4 w-4" />}
-          //     key="edit"
-          //     disabled
-          //     label={strings.BUTTONS.EDIT}
-          //     onClick={() => {
-          //       onEditClick(row.original.uuid);
-          //       closeMenu();
-          //     }}
-          //     table={table}
-          //   />
-          // ), */}
-
-            <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
-              key="delete"
-              label={strings.BUTTONS.WITHDRAW}
-              onClick={() => {
-                onDeleteClick(row.original.id);
-                closeMenu();
-              }}
-              table={table}
-            />
+            {seanceShow && dcnfsumShow && (
+              <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+                icon={<EyeIcon className="mr-2 h-4 w-4" />}
+                key="show"
+                label={strings.BUTTONS.SHOW}
+                onClick={() => {
+                  onShowClick(row.original.uuid, row.original.id);
+                  closeMenu();
+                }}
+                table={table}
+              />
+            )}
+            {dcnfsumUpdate && (
+              <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
+                icon={<Edit2 className="mr-2 h-4 w-4" />}
+                key="edit"
+                disabled
+                label={strings.BUTTONS.EDIT}
+                onClick={() => {
+                  onEditClick(row.original.uuid);
+                  closeMenu();
+                }}
+                table={table}
+              />
+            )}
+            {dcnfsumDestroy && (
+              <MRT_ActionMenuItem
+                icon={<Trash2 className="mr-2 h-4 w-4" />}
+                key="delete"
+                label={strings.BUTTONS.WITHDRAW}
+                onClick={() => {
+                  onDeleteClick(row.original.id);
+                  closeMenu();
+                }}
+                table={table}
+              />
+            )}
           </>,
         ]}
       />

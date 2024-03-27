@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import Footer from "../../components/partials/Footer";
 import ModuleDataTableByDCNF from "./components/ModuleDataTableByDCNF";
 import CreationDCNFSUMDialog from "./components/creation/DCNFSUM/CreationDCNFSUMDialog";
+import { useEffect, useState } from "react";
 
 export default function ModulesListByDCNF({
   props_dcnf_uuid,
@@ -29,17 +30,26 @@ export default function ModulesListByDCNF({
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_STORE
-  );
-  const moduleList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_LIST
-  );
-  //*******************Fin
+  const [dcnfsumStore, setDCNFSUStore] = useState(false);
+  const [dcnfsumList, setDCNFSUMList] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFSUStore(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_USER_LIST
+        )
+      );
+      setDCNFSUMList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNFSUM_LIST)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -91,28 +101,32 @@ export default function ModulesListByDCNF({
           </h4>
         </div>
         <div className="col-6 text-end">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button onClick={onCreateClick}>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                    </>
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{strings.TOOLTIPS.ADD_MODULE}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          {dcnfsumStore && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button onClick={onCreateClick}>
+                    {isLoading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <>
+                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                      </>
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{strings.TOOLTIPS.ADD_MODULE}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
       </div>
       <div className="mt-2">
-        <ModuleDataTableByDCNF props_dcnf_uuid={dcnf_uuid_value} />
+        {dcnfsumList && (
+          <ModuleDataTableByDCNF props_dcnf_uuid={dcnf_uuid_value} />
+        )}
       </div>
       <CreationDCNFSUMDialog />
       <Footer />

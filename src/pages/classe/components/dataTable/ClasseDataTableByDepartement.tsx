@@ -38,20 +38,28 @@ export default function ClasseDataTableByDepartement({
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const classeShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_SHOW
-  );
-  const classeUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_UPDATE
-  );
-  const classeDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_DESTROY
-  );
+  const [dcnfDestroy, setDCNFDestroy] = useState(false);
+  const [dcnfShow, setDCNFShow] = useState(false);
+  const [dcnfUpdate, setDCNFUpdate] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_UPDATE)
+      );
+      setDCNFShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_SHOW)
+      );
+      setDCNFDestroy(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_DESTROY)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -202,7 +210,7 @@ export default function ClasseDataTableByDepartement({
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          classeShow && (
+          dcnfShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
               key="show"
@@ -214,7 +222,7 @@ export default function ClasseDataTableByDepartement({
               table={table}
             />
           ),
-          classeUpdate && (
+          dcnfUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
@@ -227,7 +235,7 @@ export default function ClasseDataTableByDepartement({
               table={table}
             />
           ),
-          classeDestroy && (
+          dcnfDestroy && (
             <MRT_ActionMenuItem
               icon={<Trash2 className="mr-2 h-4 w-4" />}
               key="delete"

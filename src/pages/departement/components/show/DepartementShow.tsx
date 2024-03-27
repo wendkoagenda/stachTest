@@ -1,17 +1,14 @@
-import { ClasseShowModel } from "@/@types/Classe/Classe";
 import { DepartementShowModel } from "@/@types/Departement/Departement";
+import InConstuction from "@/components/custom/InConstuction";
 import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
 import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
-import ClassesList from "@/pages/classe/components/List/ClassesList";
 import ClassesListByDepartement from "@/pages/classe/components/List/ClassesListByDepartement";
-import ClasseDataTable from "@/pages/classe/components/dataTable/ClasseDataTableByDepartement";
 import { useFetchDepartementByIdQuery } from "@/services/departement";
-import { useAppSelector } from "@/utils/hooks/reduxHooks";
-import { Loader2 } from "lucide-react";
-import { useEffect } from "react";
+import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function DepartementShow() {
@@ -21,6 +18,23 @@ export default function DepartementShow() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+  //Liste des permissions requises
+  const [dcList, setDCList] = useState(false);
+  const [stats, setStats] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DC_SHOW)
+      );
+      setStats(permissions.userPermissions.includes(strings.PERMISSIONS.STATS));
+    }
+  }, []);
+
   //*******************Déclaration des Hooks
   //Hook de recuperation du param dans l'url
   const { dc_uuid } = useParams();
@@ -87,15 +101,21 @@ export default function DepartementShow() {
         <div className="mt-2">
           <Tabs defaultValue="classes" className="w-full">
             <TabsList>
-              <TabsTrigger value="classes">{strings.TH.CLASSES}</TabsTrigger>
-              <TabsTrigger value="password">
-                {strings.TH.STATISTIQUES}
-              </TabsTrigger>
+              {dcList && (
+                <TabsTrigger value="classes">{strings.TH.CLASSES}</TabsTrigger>
+              )}
+              {stats && (
+                <TabsTrigger value="stats">
+                  {strings.TH.STATISTIQUES}
+                </TabsTrigger>
+              )}
             </TabsList>
             <TabsContent value="classes">
               <ClassesListByDepartement dc_uuid={dc_uuid} />
             </TabsContent>
-            <TabsContent value="password">Stats</TabsContent>
+            <TabsContent value="stats">
+              <InConstuction />
+            </TabsContent>
           </Tabs>
         </div>
       </div>

@@ -43,20 +43,42 @@ export default function StudentDataTableByDCNF() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_SHOW
-  );
-  const studentUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_UPDATE
-  );
-  const studentDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_DESTROY
-  );
+  const [studentDestroy, setAgentDestroy] = useState(false);
+  const [studentUserShow, setAgentUserShow] = useState(false);
+  const [studentUpdate, setAgentUpdate] = useState(false);
+  const [studentChangeAutority, setStudentChangeAutority] = useState(false);
+  const [userActiveDesactive, setUserActiveDesactive] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentDestroy(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_DESTROY
+        )
+      );
+      setAgentUserShow(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_USER_SHOW
+        )
+      );
+      setAgentUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.STUDENT_UPDATE)
+      );
+      setUserActiveDesactive(
+        permissions.userPermissions.includes(strings.PERMISSIONS.USER_ACTIVE)
+      );
+      setStudentChangeAutority(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_CHANGE_AUTORITY
+        )
+      );
+    }
+  }, []);
   //*******************Fin
 
   // Declaration des hooks
@@ -358,7 +380,7 @@ export default function StudentDataTableByDCNF() {
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          studentShow && (
+          studentUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
               key="show"
@@ -370,7 +392,7 @@ export default function StudentDataTableByDCNF() {
               table={table}
             />
           ),
-          studentUpdate && (
+          studentUpdate && studentUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
@@ -382,7 +404,7 @@ export default function StudentDataTableByDCNF() {
               table={table}
             />
           ),
-          studentUpdate && (
+          userActiveDesactive && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Key className="mr-2 h-4 w-4" />}
               key="status"
@@ -397,7 +419,7 @@ export default function StudentDataTableByDCNF() {
               table={table}
             />
           ),
-          studentUpdate && (
+          studentChangeAutority && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Star className="mr-2 h-4 w-4" />}
               key="responsibility"

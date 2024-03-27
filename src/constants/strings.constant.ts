@@ -287,6 +287,8 @@ const strings = {
   },
 
   PERMISSIONS: {
+    // Stats
+    STATS: "stats",
     // User
     USER_ACTIVE: "users.active",
     //Params
@@ -347,6 +349,7 @@ const strings = {
     STUDENT_TRASHED: "students.trashed",
     STUDENT_DESTROY_TRASHED: "students.destroyTrashed",
     STUDENT_SHOW_TRASHED: "students.showTrashed",
+    STUDENT_CHANGE_AUTORITY: "students.changeAutority",
     // StudentUser
     STUDENT_USER_LIST: "studentUser.list",
     STUDENT_USER_SHOW: "studentUser.show",

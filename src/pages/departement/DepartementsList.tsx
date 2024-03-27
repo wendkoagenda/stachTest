@@ -6,7 +6,7 @@ import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DepartementDataTable from "./components/DepartementDataTable";
 
 export default function DepartementsList() {
@@ -16,22 +16,22 @@ export default function DepartementsList() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const departementList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
-  //*******************Fin
+  const [dcList, setDCList] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DC_SHOW)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
-  //Hook de dispatching (Redux store)
-  const dispatch = useAppDispatch();
 
   //Hook de récupération de la liste des departements (Redux store)
   const fetchDepartementsQuery = useFetchDepartementsQuery(access_token);
@@ -89,9 +89,7 @@ export default function DepartementsList() {
             )} */}
           </div>
         </div>
-        <div className="mt-2">
-          {departementList && <DepartementDataTable />}
-        </div>
+        <div className="mt-2">{dcList && <DepartementDataTable />}</div>
       </div>
       <Footer />
     </>

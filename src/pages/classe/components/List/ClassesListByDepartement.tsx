@@ -12,7 +12,7 @@ import { useFetchClassesByDCUuIdQuery } from "@/services/classe";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ClasseDataTableByDepartement from "../dataTable/ClasseDataTableByDepartement";
 
 export default function ClassesListByDepartement({
@@ -27,17 +27,20 @@ export default function ClassesListByDepartement({
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const classeStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const classeList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
-  //*******************Fin
+  const [dcnfShow, setDCNFShow] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_SHOW)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -91,30 +94,28 @@ export default function ClassesListByDepartement({
           </h4>
         </div>
         <div className="col-6 text-end">
-          {classeStore && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button onClick={onCreateClick} disabled>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.NOT_YET_DISPONIBLE}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button onClick={onCreateClick} disabled>
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                    </>
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{strings.TOOLTIPS.NOT_YET_DISPONIBLE}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
       <div className="mt-2">
-        {classeList && <ClasseDataTableByDepartement dc_uuid={dc_uuid} />}
+        {dcnfShow && <ClasseDataTableByDepartement dc_uuid={dc_uuid} />}
       </div>
       {/* <CreationClasseDialog /> */}
     </>

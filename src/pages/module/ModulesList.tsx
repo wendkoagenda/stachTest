@@ -1,4 +1,3 @@
-import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -9,13 +8,13 @@ import {
 import strings from "@/constants/strings.constant";
 import { openModuleCreateDialog } from "@/redux/slices/moduleSlice";
 import { useFetchModulesQuery } from "@/services/module";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { Loader2, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/partials/Footer";
 import ModuleDataTable from "./components/ModuleDataTable";
 import CreationModuleDialog from "./components/creation";
-import loadPermissions from "@/utils/hooks/loadPermissions";
-import { useEffect, useState } from "react";
 
 export default function ModulesList() {
   //*******************Déclaration de variables de fonctionnement primitives

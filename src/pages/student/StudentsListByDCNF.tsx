@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import Footer from "../../components/partials/Footer";
 import StudentDataTableByDCNF from "./components/StudentDataTableByDCNF";
 import CreationStudentDialog from "./components/creation";
+import { useEffect, useState } from "react";
 
 export default function StudentsListByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -25,16 +26,24 @@ export default function StudentsListByDCNF() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const studentStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const studentList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
+  const [studentStore, setStudentStore] = useState(false);
+  const [studentList, setStudentList] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setStudentList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.STUDENT_LIST)
+      );
+      setStudentStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.STUDENT_STORE)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
