@@ -49,19 +49,36 @@ export default function TeacherDataTable() {
     setRefreshTeacherListLocal(refreshTeacherList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshTeacherList]);
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const teacherShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_SHOW
-  );
-  const teacherUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_UPDATE
-  );
-  const teacherDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_DESTROY
-  );
+  const [teacherDestroy, setAgentDestroy] = useState(false);
+  const [teacherUserShow, setAgentUserShow] = useState(false);
+  const [teacherUpdate, setAgentUpdate] = useState(false);
+  const [userActiveDesactive, setUserActiveDesactive] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentDestroy(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.TEACHER_DESTROY
+        )
+      );
+      setAgentUserShow(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.TEACHER_USER_SHOW
+        )
+      );
+      setAgentUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.TEACHER_UPDATE)
+      );
+      setUserActiveDesactive(
+        permissions.userPermissions.includes(strings.PERMISSIONS.USER_ACTIVE)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -297,7 +314,7 @@ export default function TeacherDataTable() {
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          teacherShow && (
+          teacherUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
               key="show"
@@ -309,7 +326,7 @@ export default function TeacherDataTable() {
               table={table}
             />
           ),
-          teacherUpdate && (
+          teacherUserShow && teacherUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
@@ -321,7 +338,7 @@ export default function TeacherDataTable() {
               table={table}
             />
           ),
-          teacherUpdate && (
+          userActiveDesactive && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Key className="mr-2 h-4 w-4" />}
               key="status"

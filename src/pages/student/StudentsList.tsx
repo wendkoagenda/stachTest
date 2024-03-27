@@ -15,6 +15,7 @@ import Footer from "../../components/partials/Footer";
 import StudentDataTable from "./components/StudentDataTable";
 import CreationStudentDialog from "./components/creation";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useEffect, useState } from "react";
 
 export default function StudentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -23,18 +24,25 @@ export default function StudentsList() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
+  const [studentUserList, setAgentUserList] = useState(false);
+  const [studentStore, setAgentStore] = useState(false);
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const studentStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const studentList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
-  //*******************Fin
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.STUDENT_USER_LIST
+        )
+      );
+      setAgentStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.STUDENT_STORE)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -103,7 +111,7 @@ export default function StudentsList() {
             )}
           </div>
         </div>
-        <div className="mt-2">{studentList && <StudentDataTable />}</div>
+        <div className="mt-2">{studentUserList && <StudentDataTable />}</div>
       </div>
       <CreationStudentDialog />
       <Footer />

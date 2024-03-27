@@ -14,6 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import TeacherDataTable from "./components/TeacherDataTable";
 import CreationTeacherDialog from "./components/creation";
+import { useEffect, useState } from "react";
 
 export default function TeachersList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -23,17 +24,25 @@ export default function TeachersList() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const teacherStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_STORE
-  );
-  const teacherList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_LIST
-  );
-  //*******************Fin
+  const [teacherUserList, setAgentUserList] = useState(false);
+  const [teacherStore, setAgentStore] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.TEACHER_USER_LIST
+        )
+      );
+      setAgentStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.TEACHER_STORE)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -102,7 +111,7 @@ export default function TeachersList() {
             )}
           </div>
         </div>
-        <div className="mt-2">{teacherList && <TeacherDataTable />}</div>
+        <div className="mt-2">{teacherUserList && <TeacherDataTable />}</div>
       </div>
       <CreationTeacherDialog />
       <Footer />
