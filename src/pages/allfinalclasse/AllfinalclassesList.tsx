@@ -15,6 +15,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Loader2, Plus } from "lucide-react";
 import AllfinalclassesDataTable from "./components/AllfinalclassesDataTable";
 import CreationDCNFDialog from "./components/creation/CreationDCNFDialog";
+import { useEffect, useState } from "react";
 
 export default function AllfinalclassesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -24,17 +25,24 @@ export default function AllfinalclassesList() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const departementList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
-  //*******************Fin
+  const [dcnfList, setDCNFList] = useState(false);
+  const [dcnfStore, setDCNFStore] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_LIST)
+      );
+      setDCNFStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNF_STORE)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -75,7 +83,7 @@ export default function AllfinalclassesList() {
             </h4>
           </div>
           <div className="col-6 text-end">
-            {departementStore && (
+            {dcnfStore && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -97,9 +105,7 @@ export default function AllfinalclassesList() {
             )}
           </div>
         </div>
-        <div className="mt-2">
-          {departementList && <AllfinalclassesDataTable />}
-        </div>
+        <div className="mt-2">{dcnfList && <AllfinalclassesDataTable />}</div>
       </div>
       <CreationDCNFDialog />
       <Footer />

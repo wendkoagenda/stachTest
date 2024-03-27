@@ -14,7 +14,7 @@ import { useFetchDepartementsQuery } from "@/services/departement";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Eye, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 
@@ -26,18 +26,22 @@ export default function AllfinalclassesDataTable() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const departementShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.DEPARTEMENT_SHOW
-  );
-  //*******************Fin
+  const [dcnfsShow, setDCNFSShow] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDCNFSShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DCNFS_SHOW)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
-  //Hook de dispatching (Redux store)
-  const dispatch = useAppDispatch();
   // Hook de navigation
   const navigate = useNavigate();
   //Hook de récupération de la liste des departements (Redux store)
@@ -132,7 +136,7 @@ export default function AllfinalclassesDataTable() {
                   <p>Card Content</p>
                 </CardContent>
                 <CardFooter className="flex flex-row justify-end">
-                  {departementShow && (
+                  {dcnfsShow && (
                     <Button
                       onClick={() => {
                         handleGoToMoreDetailsShow(

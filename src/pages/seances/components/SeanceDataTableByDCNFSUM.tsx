@@ -68,19 +68,38 @@ export default function SeanceDataTableByDCNFSUM({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshSeanceList]);
   //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const seanceShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_SHOW
-  );
-  const seanceUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_UPDATE
-  );
-  const seanceDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_DESTROY
-  );
-  //*******************Fin
+  const [delegue, setDelegue] = useState(false);
+  const [sub_delegue, setSubDelegue] = useState(false);
+  const [delegueInter, setDelegueInter] = useState(false);
+  const [sub_delegueInter, setSubDelegueInter] = useState(false);
+  const [seanceShow, setSeanceShow] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDelegue(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DELEGUE)
+      );
+      setSubDelegue(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SUB_DELEGUE)
+      );
+      setDelegueInter(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DELEGUE_INTER)
+      );
+      setSubDelegueInter(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.SUB_DELEGUE_INTER
+        )
+      );
+      setSeanceShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SEANCE_SHOW)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -212,6 +231,7 @@ export default function SeanceDataTableByDCNFSUM({
           " "
         )}
         {parseInt(s_id) !== 0 &&
+          (delegue || sub_delegue || sub_delegueInter || delegueInter) &&
           seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
             <>
               <Button size="icon" variant="default" onClick={onCreateClick}>
@@ -286,6 +306,10 @@ export default function SeanceDataTableByDCNFSUM({
                     </>
                   )}
                   {parseInt(s_id) !== 0 &&
+                    (delegue ||
+                      sub_delegue ||
+                      sub_delegueInter ||
+                      delegueInter) &&
                     seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
                       <>
                         <Button

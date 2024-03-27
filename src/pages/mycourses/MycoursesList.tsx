@@ -3,13 +3,10 @@ import HorizontalHeader from "@/components/partials/HorizontalHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
 import Footer from "../../components/partials/Footer";
-import AgentsList from "../agent";
-import TeachersList from "../teacher";
 import MyclassesList from "../classe/components/List/MyclassesList";
 import MymodulesList from "../module/MymodulesList";
 
 export default function UsersList() {
-  5;
   return (
     <>
       <HorizontalHeader />
