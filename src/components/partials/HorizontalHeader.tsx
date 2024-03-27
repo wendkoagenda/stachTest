@@ -235,7 +235,7 @@ export default function HorizontalHeader() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{strings.TOOLTIPS.PARMS_LIST}</p>
+                    <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -253,7 +253,7 @@ export default function HorizontalHeader() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{strings.TOOLTIPS.PARMS_LIST}</p>
+                    <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

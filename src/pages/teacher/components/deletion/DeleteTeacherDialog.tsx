@@ -110,7 +110,7 @@ const DeleteTeacherDialog = ({ teacherId }: { teacherId: number }) => {
             {isLoading ? (
               <Button disabled variant="destructive">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {strings.BUTTONS.DELETEING}
+                {strings.BUTTONS.DELETING}
               </Button>
             ) : (
               <Button type="submit" onClick={onDelete} variant="destructive">

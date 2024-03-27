@@ -38,7 +38,7 @@ const UpdateReponsabilityDialog = ({
     <Dialog open={updateReponsabilityDialogOpen} onOpenChange={onCloseClick}>
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow-hidden">
         <DialogHeader>
-          <DialogTitle>{strings.TEXTS.RESPONSABILITY}</DialogTitle>
+          <DialogTitle>{strings.TEXTS.RESPONSIBILITY}</DialogTitle>
           <DialogDescription>
             {strings.INSTRUCTIONS.ADD_STUDENT}
           </DialogDescription>

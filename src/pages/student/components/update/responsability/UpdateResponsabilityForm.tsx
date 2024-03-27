@@ -183,7 +183,7 @@ export default function UpdateResponsabilityForm({
                 name="responsibility"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.RESPONSABILITY}</FormLabel>
+                    <FormLabel>{strings.TH.RESPONSIBILITY}</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}

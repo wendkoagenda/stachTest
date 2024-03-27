@@ -55,7 +55,7 @@ export default function MyclassesList() {
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="col-6">
             <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-              {strings.TEXTS.MY_CLAASES_LIST}
+              {strings.TEXTS.MY_CLASSES_LIST}
               <Button className="ml-2" style={{ pointerEvents: "none" }}>
                 {isLoading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

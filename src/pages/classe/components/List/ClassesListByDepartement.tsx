@@ -108,7 +108,7 @@ export default function ClassesListByDepartement({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>{strings.TOOLTIPS.NOT_YET_DISPONIBLE}</p>
+                <p>{strings.TOOLTIPS.NOT_YET_AVAILABLE}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

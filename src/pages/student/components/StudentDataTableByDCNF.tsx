@@ -250,7 +250,7 @@ export default function StudentDataTableByDCNF() {
       },
       {
         accessorKey: "s.student.responsibility",
-        header: strings.TH.RESPONSABILITY,
+        header: strings.TH.RESPONSIBILITY,
         enableClickToCopy: false,
         enableColumnActions: true,
         enableColumnDragging: true,
