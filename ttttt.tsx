@@ -1,20 +1,10 @@
-  // students
-  ->orWhere('progTitle','students.list')
-  ->orWhere('progTitle','students.show')
-  ->orWhere('progTitle','students.store')
-  ->orWhere('progTitle','students.update')
-  ->orWhere('progTitle','students.destroy')
-  ->orWhere('progTitle','students.restore')
-  ->orWhere('progTitle','students.trashed')
-  ->orWhere('progTitle','students.destroyTrashed')
-  ->orWhere('progTitle','students.showTrashed')
-  // studentUsers
-  ->orWhere('progTitle','studentUser.list')
-  ->orWhere('progTitle','studentUser.show')
-  ->orWhere('progTitle','studentUser.store')
-  ->orWhere('progTitle','studentUser.update')
-  ->orWhere('progTitle','studentUser.destroy')
-  ->orWhere('progTitle','studentUser.restore')
-  ->orWhere('progTitle','studentUser.trashed')
-  ->orWhere('progTitle','studentUser.destroyTrashed')
-  ->orWhere('progTitle','studentUser.showTrashed')
+    // TeacherUser
+    STUDENT_USER_LIST: "studentUser.list",
+    STUDENT_USER_SHOW: "studentUser.show",
+    STUDENT_USER_UPDATE: "studentUser.update",
+    STUDENT_USER_STORE: "studentUser.store",
+    STUDENT_USER_DESTROY: "studentUser.destroy",
+    STUDENT_USER_RESTORE: "studentUser.restore",
+    STUDENT_USER_TRASHED: "studentUser.trashed",
+    STUDENT_USER_DESTROY_TRASHED: "studentUser.destroyTrashed",
+    STUDENT_USER_SHOW_TRASHED: "studentUser.showTrashed",

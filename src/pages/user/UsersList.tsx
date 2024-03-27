@@ -5,9 +5,39 @@ import Footer from "../../components/partials/Footer";
 import AgentsList from "../agent";
 import StudentsList from "../student";
 import TeachersList from "../teacher";
+import { useEffect, useState } from "react";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function UsersList() {
-  5;
+  //Liste des permissions requises
+  const [agentUserList, setAgentUserList] = useState(false);
+  const [teacherUserList, setTeacherUserList] = useState(false);
+  const [studentUserList, setStudentUserList] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.AGENT_USER_LIST
+        )
+      );
+      setTeacherUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.AGENT_USER_LIST
+        )
+      );
+      setStudentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.AGENT_USER_LIST
+        )
+      );
+    }
+  }, []);
+
   return (
     <>
       <HorizontalHeader />
@@ -20,9 +50,15 @@ export default function UsersList() {
         <div className="">
           <Tabs defaultValue="agent" className="w-full">
             <TabsList>
-              <TabsTrigger value="agent"> {strings.TH.AGENT}</TabsTrigger>
-              <TabsTrigger value="teacher"> {strings.TH.TEACHER}</TabsTrigger>
-              <TabsTrigger value="student">{strings.TH.STUDENT}</TabsTrigger>
+              {agentUserList && (
+                <TabsTrigger value="agent"> {strings.TH.AGENT}</TabsTrigger>
+              )}
+              {teacherUserList && (
+                <TabsTrigger value="teacher"> {strings.TH.TEACHER}</TabsTrigger>
+              )}
+              {studentUserList && (
+                <TabsTrigger value="student">{strings.TH.STUDENT}</TabsTrigger>
+              )}
             </TabsList>
             <TabsContent value="agent">
               <AgentsList />

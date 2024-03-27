@@ -51,7 +51,6 @@ export default function HorizontalHeader() {
   useEffect(() => {
     // Utilisez la fonction loadPermissions pour récupérer les autorisations
     const permissions = loadPermissions();
-
     // Mettre à jour les états des autorisations
     if (permissions) {
       setParamsList(
@@ -76,6 +75,7 @@ export default function HorizontalHeader() {
       );
     }
   }, []);
+
   const handleClickOutside = (event: MouseEvent) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (menuRef.current && !(menuRef.current as any).contains(event.target)) {

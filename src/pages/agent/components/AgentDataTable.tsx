@@ -50,19 +50,34 @@ export default function AgentDataTable() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshAgentList]);
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGENT_SHOW
-  );
-  const agentUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGENT_UPDATE
-  );
-  const agentDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGENT_DESTROY
-  );
+  const [agentDestroy, setAgentDestroy] = useState(false);
+  const [agentUserShow, setAgentUserShow] = useState(false);
+  const [agentUpdate, setAgentUpdate] = useState(false);
+  const [userActiveDesactive, setUserActiveDesactive] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentDestroy(
+        permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_DESTROY)
+      );
+      setAgentUserShow(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.AGENT_USER_SHOW
+        )
+      );
+      setAgentUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_UPDATE)
+      );
+      setUserActiveDesactive(
+        permissions.userPermissions.includes(strings.PERMISSIONS.USER_ACTIVE)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -297,7 +312,7 @@ export default function AgentDataTable() {
         enableRowActions // Enable row actions
         positionActionsColumn="last"
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
-          agentShow && (
+          agentUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<EyeIcon className="mr-2 h-4 w-4" />}
               key="show"
@@ -309,7 +324,7 @@ export default function AgentDataTable() {
               table={table}
             />
           ),
-          agentUpdate && (
+          agentUserShow && agentUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
@@ -321,7 +336,7 @@ export default function AgentDataTable() {
               table={table}
             />
           ),
-          agentUpdate && (
+          userActiveDesactive && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Key className="mr-2 h-4 w-4" />}
               key="status"

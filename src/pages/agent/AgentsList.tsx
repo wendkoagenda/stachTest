@@ -14,6 +14,7 @@ import { Loader2, Plus } from "lucide-react";
 import Footer from "../../components/partials/Footer";
 import AgentDataTable from "./components/AgentDataTable";
 import CreationAgentDialog from "./components/creation";
+import { useEffect, useState } from "react";
 
 export default function AgentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -22,18 +23,26 @@ export default function AgentsList() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const agentStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGENT_STORE
-  );
-  const agentList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.AGENT_LIST
-  );
-  //*******************Fin
+  const [agentUserList, setAgentUserList] = useState(false);
+  const [agentStore, setAgentStore] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setAgentUserList(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.AGENT_USER_LIST
+        )
+      );
+      setAgentStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.AGENT_STORE)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
@@ -102,7 +111,7 @@ export default function AgentsList() {
             )}
           </div>
         </div>
-        <div className="mt-2">{agentList && <AgentDataTable />}</div>
+        <div className="mt-2">{agentUserList && <AgentDataTable />}</div>
       </div>
       <CreationAgentDialog />
       <Footer />
