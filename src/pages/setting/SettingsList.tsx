@@ -4,8 +4,29 @@ import strings from "@/constants/strings.constant";
 import Footer from "../../components/partials/Footer";
 import ModulesList from "../module";
 import RolepermissionsList from "../rolepermission";
+import { useEffect, useState } from "react";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 
 export default function SettingsList() {
+  //Liste des permissions requises
+  const [modulesList, setModuleList] = useState(false);
+  const [rolesList, setRoleList] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setModuleList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MODULES_LIST)
+      );
+      setRoleList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.ROLE_LIST)
+      );
+    }
+  }, []);
+
   return (
     <>
       <HorizontalHeader />
@@ -18,11 +39,14 @@ export default function SettingsList() {
         <div className="">
           <Tabs defaultValue="modules" className="w-full">
             <TabsList>
-              <TabsTrigger value="modules"> {strings.TH.MODULE}</TabsTrigger>
-              <TabsTrigger value="rolePermissions">
-                {" "}
-                {strings.TH.ROLE_PERMISSIONS}
-              </TabsTrigger>
+              {modulesList && (
+                <TabsTrigger value="modules"> {strings.TH.MODULE}</TabsTrigger>
+              )}
+              {rolesList && (
+                <TabsTrigger value="rolePermissions">
+                  {strings.TH.ROLE_PERMISSIONS}
+                </TabsTrigger>
+              )}
             </TabsList>
             <TabsContent value="modules">
               <ModulesList />

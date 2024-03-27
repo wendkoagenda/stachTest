@@ -15,6 +15,7 @@ import Footer from "../../components/partials/Footer";
 import ModuleDataTable from "./components/ModuleDataTable";
 import CreationModuleDialog from "./components/creation";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useEffect, useState } from "react";
 
 export default function ModulesList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -24,17 +25,24 @@ export default function ModulesList() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_STORE
-  );
-  const moduleList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_LIST
-  );
-  //*******************Fin
+  const [moduleList, setModuleList] = useState(false);
+  const [moduleStore, setModuleStore] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setModuleList(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MODULES_LIST)
+      );
+      setModuleStore(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MODULES_STORE)
+      );
+    }
+  }, []);
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)

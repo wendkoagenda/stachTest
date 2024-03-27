@@ -33,20 +33,30 @@ export default function ModuleDataTable() {
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
   //*******************Fin
-
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const moduleShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_SHOW
-  );
-  const moduleUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_UPDATE
-  );
-  const moduleDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.TEACHER_DESTROY
-  );
+  const [moduleDestroy, setModuleDestroy] = useState(false);
+  const [moduleShow, setModuleShow] = useState(false);
+  const [moduleUpdate, setModuleUpdate] = useState(false);
+
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setModuleDestroy(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.MODULES_DESTROY
+        )
+      );
+      setModuleShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MODULES_SHOW)
+      );
+      setModuleUpdate(
+        permissions.userPermissions.includes(strings.PERMISSIONS.MODULES_UPDATE)
+      );
+    }
+  }, []);
   //*******************Fin
 
   //*******************Déclaration des Hooks
@@ -255,7 +265,7 @@ export default function ModuleDataTable() {
               table={table}
             />
           ),
-          moduleUpdate && (
+          moduleShow && moduleUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
               icon={<Edit2 className="mr-2 h-4 w-4" />}
               key="edit"
