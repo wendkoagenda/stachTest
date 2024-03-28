@@ -108,6 +108,7 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    MY_ACCOUNT: "Mon compte",
     LIST_PERMISSIONS: "Liste des permissions",
     MODIFY_AGENT: "Modification des informations de cet agent",
     ADD_AGENT: "Ajout d'un nouveau membre de l'administration",
@@ -194,6 +195,10 @@ const strings = {
     ROLE_LIST: "Liste des rôles",
   },
   TH: {
+    DOSSIER_AGENT: "Mon dossier membre de l'adminitration",
+    DOSSIER_TEACHER: "Mon dossier enseignant",
+    DOSSIER_STUDENT: "Mon dossier étudiant",
+    PERSONAL_INFO: "Informations personnelles",
     MY_EDT: "Mon emploi du temps",
     EXAMS: "Evaluations",
     NONE: "Aucun",
@@ -295,6 +300,11 @@ const strings = {
   },
 
   PERMISSIONS: {
+    // myInformations
+    MY_STUDENT_INFORMATION: "myInformations.student",
+    MY_TEACHER_INFORMATION: "myInformations.teacher",
+    MY_AGENT_INFORMATION: "myInformations.agent",
+    MY_USER_INFORMATION: "myInformations.user",
     //delegue
     DELEGUE: "delegue",
     SUB_DELEGUE: "sub_delegue",

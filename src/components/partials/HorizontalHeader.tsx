@@ -185,6 +185,10 @@ export default function HorizontalHeader() {
     setHomeVariant(ButtonVariant.Outline);
     navigate("/myyear");
   };
+  const handleGoToMyAccount = () => {
+    setHomeVariant(ButtonVariant.Outline);
+    navigate("/myaccount");
+  };
 
   return (
     <>
@@ -345,6 +349,7 @@ export default function HorizontalHeader() {
                     <Button
                       className="w-full rounded-md mb-2 border border-none justify-start"
                       variant="outline"
+                      onClick={handleGoToMyAccount}
                     >
                       <User className="mr-2 h-4 w-4" /> Mon compte
                     </Button>

@@ -9,6 +9,7 @@ import teacherReducer from "./slices/teacherSlice";
 import seanceReducer from "./slices/seanceSlice";
 import departemntReducer from "./slices/departementSlice";
 import roleReducer from "./slices/roleSlice";
+import myinformationReducer from "./slices/myinformationSlice";
 import authReducer from "./slices/authSlice";
 import { studentsApi } from "@/services/student";
 import { teachersApi } from "@/services/teacher";
@@ -17,6 +18,7 @@ import { classesApi } from "@/services/classe";
 import { modulesApi } from "@/services/module";
 import { seancesApi } from "@/services/seance";
 import { rolesApi } from "@/services/role";
+import { myinformationsApi } from "@/services/myinformation";
 
 const store = configureStore({
   reducer: {
@@ -37,6 +39,8 @@ const store = configureStore({
     [seancesApi.reducerPath]: seancesApi.reducer,
     roles: roleReducer,
     [rolesApi.reducerPath]: rolesApi.reducer,
+    myinformations: myinformationReducer,
+    [myinformationsApi.reducerPath]: myinformationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -47,7 +51,8 @@ const store = configureStore({
       classesApi.middleware,
       modulesApi.middleware,
       seancesApi.middleware,
-      rolesApi.middleware
+      rolesApi.middleware,
+      myinformationsApi.middleware
     ),
 });
 
