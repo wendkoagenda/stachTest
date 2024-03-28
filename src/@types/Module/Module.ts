@@ -1,5 +1,6 @@
 import { Dcnf } from "../Singles/Dcnf";
 import { SuM } from "../Singles/SuM";
+import { TeacherRoot } from "../Teacher/Teacher";
 
 // Root Types
 export interface ModuleRoot {
@@ -140,6 +141,10 @@ export interface AssigneModel {
 }
 
 export interface StudentAllowUpdateModel {
+  dcnfsum_id: number | undefined;
+  access_token: string;
+}
+export interface ModuleTeacherModel {
   dcnfsum_id: number | undefined;
   access_token: string;
 }

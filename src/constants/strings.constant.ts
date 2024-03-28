@@ -108,6 +108,7 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    MODULE_DIPENSED_BY: "Module dispensé par :",
     MY_ACCOUNT: "Mon compte",
     LIST_PERMISSIONS: "Liste des permissions",
     MODIFY_AGENT: "Modification des informations de cet agent",

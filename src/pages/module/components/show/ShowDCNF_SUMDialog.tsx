@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { DCNFSUMShowModel } from "@/@types/Module/Module";
+import { DCNFSUMShowModel, ModuleTeacherModel } from "@/@types/Module/Module";
 import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import {
   Accordion,
@@ -27,7 +27,12 @@ import { SeancesShowByDCNFSUMModel } from "@/@types/Seance/Seance";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import SeanceDataTableByDCNFSUM from "@/pages/seances/components/SeanceDataTableByDCNFSUM";
-import { useFetchDCNFSUMByIdQuery } from "@/services/module";
+import ShowTeacherDialog from "@/pages/teacher/components/show";
+import { openTeacherShowDialog } from "@/redux/slices/teacherSlice";
+import {
+  useFetchDCNFSUMByIdQuery,
+  useFetchModuleTeacherQuery,
+} from "@/services/module";
 import { useFetchSeancesByDCNFSUMQuery } from "@/services/seance";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
@@ -35,7 +40,6 @@ import { Cable, Clock, Info, Loader2, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import AssigneDialog from "../creation/DCNFSUM/AssigneDialog";
 import UpdateStudentAllowDialog from "../update/UpdateStudentAllowDialog";
-import { initialiseRefreshSeanceList } from "@/redux/slices/seanceSlice";
 
 const ShowDCNF_SUMDialog = ({
   dcnfsum_uuid,
@@ -88,8 +92,15 @@ const ShowDCNF_SUMDialog = ({
     dcnfsum_id: dcnf_sum_id,
     access_token: access_token,
   };
+  const moduleTeacherModel: ModuleTeacherModel = {
+    dcnfsum_id: dcnf_sum_id,
+    access_token: access_token,
+  };
   // Hook de récupération des détails d'un module (RTK)
   const fetchDCNFSUMByIdQuery = useFetchDCNFSUMByIdQuery(DCNFSUMShowModel);
+
+  const fetchModuleTeacherQuery =
+    useFetchModuleTeacherQuery(moduleTeacherModel);
   //Hook de récupération de la liste des seances (Redux store)
   const fetchSeancesByDCNFSUMQuery = useFetchSeancesByDCNFSUMQuery(
     seancesShowByDCNFSUMModel
@@ -125,6 +136,9 @@ const ShowDCNF_SUMDialog = ({
     return acc;
   }, 0);
 
+  const moduleTeacher = fetchModuleTeacherQuery.data?.data;
+  const isTeacherLoading = fetchModuleTeacherQuery.isLoading;
+
   // Calcul pourcentage
   const getPercentageOf = (moduleVhTotal: number, moduleVhTotalEff: number) => {
     const pourcent = (moduleVhTotalEff * 100) / moduleVhTotal;
@@ -139,6 +153,14 @@ const ShowDCNF_SUMDialog = ({
   };
   const onAssigne = () => {
     dispatch(openAssigneDialog());
+  };
+  const [teacherUuid, setTeacherUuid] = useState("");
+
+  const onShowModuleTeacher = () => {
+    if (moduleTeacher) {
+      setTeacherUuid(moduleTeacher.uuid);
+      dispatch(openTeacherShowDialog());
+    }
   };
 
   // Fonction de copie des données dans les cellules du tableau des détails dans le presse papier
@@ -159,6 +181,26 @@ const ShowDCNF_SUMDialog = ({
               {strings.INSTRUCTIONS.SHOW_MODULE}
             </DialogDescription>
           </DialogHeader>
+          {isTeacherLoading ? (
+            <TableSkeleton />
+          ) : (
+            <div>
+              <p>
+                {strings.TEXTS.MODULE_DIPENSED_BY}{" "}
+                <Button
+                  type="submit"
+                  variant="link"
+                  onClick={onShowModuleTeacher}
+                >
+                  <b className="text text-xl">
+                    {moduleTeacher?.user?.last_name +
+                      " " +
+                      moduleTeacher?.user?.first_name}
+                  </b>{" "}
+                </Button>
+              </p>
+            </div>
+          )}
           {isLoading ? (
             <TableSkeleton />
           ) : (
@@ -427,6 +469,7 @@ const ShowDCNF_SUMDialog = ({
       </Dialog>
       <AssigneDialog dcnfsum_id={data?.data.id} />
       <UpdateStudentAllowDialog dcnfsum_id={data?.data.id} />
+      <ShowTeacherDialog teacherUuid={teacherUuid} />
     </>
   );
 };

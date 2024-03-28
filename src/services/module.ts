@@ -12,6 +12,7 @@ import {
   ModuleShowByDCNFResponse,
   ModuleShowModel,
   ModuleShowResponse,
+  ModuleTeacherModel,
   ModuleUpdateModel,
   StudentAllowUpdateModel,
 } from "@/@types/Module/Module";
@@ -20,6 +21,7 @@ import {
   MyClassesShowByDCNFModel,
 } from "@/@types/Singles/Dcnfsumt";
 import { SuMRoot } from "@/@types/Singles/SuM";
+import { TeacherShowResponse } from "@/@types/Teacher/Teacher";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -32,6 +34,7 @@ const DCNFSUMT_ROUTE = "tenant/dcnfsum_t/";
 const My_MODULE_ROUTE = "tenant/dcnfsum_t/mesModules/";
 const MY_MODULE_BY_DCNF_ROUTE = "tenant/dcnfsum_t/getModulesByDCNF/";
 const UPDATE_STUDNET_ALLOW_ROUTE = "tenant/dcnfsum_t/changeStudentAllowEntry/";
+const GET_MODULE_TEACHER_ROUTE = "tenant/dcnf_sum/getTeacher/";
 
 // Crée une nouvelle API Get all modules
 export const modulesApi = createApi({
@@ -99,6 +102,14 @@ export const modulesApi = createApi({
         url: `${MY_MODULE_BY_DCNF_ROUTE}${myClassesShowByDCNFModel.dcnf_id}`,
         headers: {
           Authorization: `Bearer ${myClassesShowByDCNFModel.access_token}`,
+        },
+      }),
+    }),
+    fetchModuleTeacher: builder.query<TeacherShowResponse, ModuleTeacherModel>({
+      query: (moduleTeacherModel) => ({
+        url: `${GET_MODULE_TEACHER_ROUTE}${moduleTeacherModel.dcnfsum_id}`,
+        headers: {
+          Authorization: `Bearer ${moduleTeacherModel.access_token}`,
         },
       }),
     }),
@@ -206,4 +217,5 @@ export const {
   useFetchMymodulesQuery,
   useFetchMyClasseDetailsQuery,
   useUpdateStudentAllowMutation,
+  useFetchModuleTeacherQuery,
 } = modulesApi;
