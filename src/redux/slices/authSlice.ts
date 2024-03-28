@@ -57,6 +57,8 @@ const authSlice = createSlice({
         "__albvs26dfbvnuhwf87915515kbcckqacanMM",
         action.payload.a_id.toString()
       );
+      localStorage.setItem("last_name", action.payload.last_name.toString());
+      localStorage.setItem("first_name", action.payload.first_name.toString());
     },
     logout(state) {
       state.isAuthenticated = "no";

@@ -29,6 +29,8 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
 
 export default function HorizontalHeader() {
+  const firstName = localStorage.getItem("first_name") ?? "Opps";
+  const lastName = localStorage.getItem("last_name") ?? "Opps";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
@@ -338,7 +340,7 @@ export default function HorizontalHeader() {
           <div className="hidden  sm:block">
             <div className="flex flex-row ">
               <div>
-                <UserDropdown title="OUEDRAOGO">
+                <UserDropdown title={lastName + " " + firstName}>
                   <>
                     <Button
                       className="w-full rounded-md mb-2 border border-none justify-start"
