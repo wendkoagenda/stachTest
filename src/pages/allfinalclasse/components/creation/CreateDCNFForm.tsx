@@ -42,29 +42,29 @@ import { z } from "zod";
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
   title: z.string({
-    required_error: "Titre obligatoire",
+    required_error: "Le Titre est obligatoire",
   }),
   acronym: z.string({
-    required_error: "Acronym obligatoire",
+    required_error: "L'Acronym est obligatoire",
   }),
   code: z.string({
-    required_error: "Code required",
+    required_error: "Le Code est obligatoire",
   }),
   vh_cm: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "CM est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_td: z.number({
-    required_error: "TD required",
+    required_error: "TD est obligatoire",
   }),
   vh_tp: z.number({
-    required_error: "TP required",
+    required_error: "TP est obligatoire",
   }),
   credits: z.number({
-    required_error: "Credits required",
+    required_error: "Credits est obligatoire",
   }),
   coef: z.number({
-    required_error: "Coef required",
+    required_error: "Le coefficient est obligatoire",
   }),
   description: z.string().default("Non définie"),
   camp_year_id: z.number(),

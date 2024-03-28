@@ -47,23 +47,23 @@ const formSchema = z.object({
     required_error: "Acronym obligatoire",
   }),
   code: z.string({
-    required_error: "Code required",
+    required_error: "Code est obligatoire",
   }),
   vh_cm: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_td: z.number({
-    required_error: "TD required",
+    required_error: "TD est obligatoire",
   }),
   vh_tp: z.number({
-    required_error: "TP required",
+    required_error: "TP est obligatoire",
   }),
   credits: z.number({
-    required_error: "Credits required",
+    required_error: "Credits est obligatoire",
   }),
   coef: z.number({
-    required_error: "Coef required",
+    required_error: "Coef est obligatoire",
   }),
   description: z.string().default("Non définie"),
   camp_year_id: z.number(),

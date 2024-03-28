@@ -38,24 +38,24 @@ import { z } from "zod";
 const formSchema = z.object({
   title: z.string().default("Non définie"),
   dcnf_sum_id: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   t_id: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_cm_eff: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_td_eff: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_tp_eff: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   contenu: z.string().default("Non définie"),
   camp_year_id: z.number(),

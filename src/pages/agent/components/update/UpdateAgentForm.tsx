@@ -7,7 +7,6 @@ import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +14,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
 import strings from "@/constants/strings.constant";
 import { closeAgentUpdateDialog } from "@/redux/slices/agentSlice";
 import {
@@ -28,8 +26,8 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -50,7 +48,7 @@ const formSchema = z.object({
   gender: z.enum(["male", "female"], {
     required_error: "Vous devez sélectionner un genre.",
   }),
-  phone1: z.string().min(1, { message: "Le phone 1 est obligatoire" }),
+  phone1: z.string().min(1, { message: "Le téléphone 1 est obligatoire" }),
   phone2: z.string().default("Non définie"),
   camp_year_id: z.number(),
   is_active: z.boolean().default(true),

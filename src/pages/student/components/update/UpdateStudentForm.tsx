@@ -52,7 +52,7 @@ const formSchema = z.object({
   gender: z.enum(["male", "female"], {
     required_error: "Vous devez sélectionner un genre.",
   }),
-  phone1: z.string().min(1, { message: "Le phone 1 est obligatoire" }),
+  phone1: z.string().min(1, { message: "Le téléphone 1 est obligatoire" }),
   phone2: z.string().default("Non définie"),
   camp_year_id: z.number(),
   is_active: z.boolean().default(true),

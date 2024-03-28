@@ -37,12 +37,12 @@ import { z } from "zod";
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
   seance_id: z.number({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   registration_number: z.string({
-    required_error: "Age is required",
-    invalid_type_error: "Age must be a number",
+    required_error: "Ce champ est obligatoire",
+    invalid_type_error: "Ce champ doit etre un nombre",
   }),
   camp_year_id: z.number(),
 });
