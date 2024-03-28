@@ -105,9 +105,7 @@ export default function DepartementShow() {
                 <TabsTrigger value="classes">{strings.TH.CLASSES}</TabsTrigger>
               )}
               {stats && (
-                <TabsTrigger value="stats">
-                  {strings.TH.STATISTIQUES}
-                </TabsTrigger>
+                <TabsTrigger value="stats">{strings.TH.STATISTICS}</TabsTrigger>
               )}
             </TabsList>
             <TabsContent value="classes">

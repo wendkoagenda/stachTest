@@ -30,11 +30,11 @@ const UpdateModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
 
   return (
     <Dialog open={updatingModuleDialogOpen} onOpenChange={onCloseClick}>
-      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow-hidden">
+      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.UPDATE_MODULE}</DialogTitle>
           <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_MODULE}
+            {strings.INSTRUCTIONS.UPDATED_MODULE}
           </DialogDescription>
         </DialogHeader>
         <UpdateModuleForm moduleUuid={moduleUuid} />

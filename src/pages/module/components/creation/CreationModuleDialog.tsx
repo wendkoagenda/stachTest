@@ -29,7 +29,7 @@ export default function CreationModuleDialog() {
 
   return (
     <Dialog open={creationModuleDialogOpen} onOpenChange={onCloseClick}>
-      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow-hidden">
+      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.ADD_MODULE}</DialogTitle>
           <DialogDescription>

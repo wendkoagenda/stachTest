@@ -51,10 +51,14 @@ export default function MyyearList() {
           <Tabs defaultValue="modules" className="w-full mt-2">
             <TabsList>
               <TabsTrigger value="modules">{strings.TH.MODULES}</TabsTrigger>
+              <TabsTrigger value="exams">{strings.TH.EXAMS}</TabsTrigger>
               <TabsTrigger value="edt">{strings.TH.EDT}</TabsTrigger>
             </TabsList>
             <TabsContent value="modules">
               <ModulesListByDCNF props_dcnf_uuid={myclasse?.dcnf?.uuid} />
+            </TabsContent>
+            <TabsContent value="exams">
+              <InConstuction />
             </TabsContent>
             <TabsContent value="edt">
               <InConstuction />

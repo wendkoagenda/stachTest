@@ -27,15 +27,6 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const moduleShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_SHOW
-  );
-  //*******************Fin
-
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
@@ -81,7 +72,7 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
 
   return (
     <Dialog open={showModuleDialogOpen} onOpenChange={onCloseClick}>
-      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow-hidden">
+      <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflows">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.SHOW_MODULE}</DialogTitle>
           <DialogDescription>
@@ -92,175 +83,171 @@ const ShowModuleDialog = ({ moduleUuid }: { moduleUuid: string }) => {
           <TableSkeleton />
         ) : (
           <>
-            {moduleShow && (
-              <>
-                <div className="flex flex-row mb-2 mt-2">
-                  <Button size="title" style={{ pointerEvents: "none" }}>
-                    <Info className="mr-2 h-4 w-4" />
-                    {strings.TEXTS.GENERAL_INFO}
-                  </Button>
-                </div>
-                <table className="border-collapse border border-slate-400 w-full">
-                  <tr>
-                    <td className="border border-slate-300 ">
-                      <b>{strings.TH.TITLE}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.title)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.title}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.ACRONYM}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.acronym)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.acronym}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.CODE}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.code)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.code}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.CREDIT}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.credits.toString())
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.credits}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.COEF}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.coef.toString())
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.coef}
-                    </td>
-                  </tr>
-                </table>
-                <div className="flex flex-row mb-2 mt-2">
-                  <Button size="title" style={{ pointerEvents: "none" }}>
-                    <Clock className="mr-2 h-4 w-4" />
-                    {strings.TEXTS.VH}
-                  </Button>
-                </div>
-                <table className="border-collapse border border-slate-400 w-full">
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.VH_CM}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.vh_cm.toString())
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.vh_cm} {strings.TEXTS.HEURES}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.VH_TD}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.vh_td.toString())
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.vh_td} {strings.TEXTS.HEURES}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.VH_TP}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(data?.data?.vh_tp.toString())
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.vh_tp} {strings.TEXTS.HEURES}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.VHT}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() =>
-                        copyToClipboard(
-                          (
-                            (data?.data?.vh_tp ?? 0) +
-                            (data?.data?.vh_td ?? 0) +
-                            (data?.data?.vh_cm ?? 0)
-                          ).toString()
-                        )
-                      }
-                      style={{ cursor: "pointer" }}
-                    >
-                      {(data?.data?.vh_tp ?? 0) +
-                        (data?.data?.vh_td ?? 0) +
-                        (data?.data?.vh_cm ?? 0)}{" "}
-                      {strings.TEXTS.HEURES}
-                    </td>
-                  </tr>
-                </table>
-                <div className="flex flex-row mb-2 mt-2">
-                  <Button size="title" style={{ pointerEvents: "none" }}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    {strings.TEXTS.PLUS}
-                  </Button>
-                </div>
-                <table className="border-collapse border border-slate-400 w-full ">
-                  <tr>
-                    <td className="border border-slate-300">
-                      <b>{strings.TH.DESCRIPTION}</b>
-                    </td>
-                    <td
-                      className="border border-slate-300 "
-                      onClick={() => copyToClipboard(data?.data?.description)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {data?.data?.description}
-                    </td>
-                  </tr>
-                </table>
-              </>
-            )}
+            <>
+              <div className="flex flex-row mb-2 mt-2">
+                <Button size="title" style={{ pointerEvents: "none" }}>
+                  <Info className="mr-2 h-4 w-4" />
+                  {strings.TEXTS.GENERAL_INFO}
+                </Button>
+              </div>
+              <table className="border-collapse border border-slate-400 w-full">
+                <tr>
+                  <td className="border border-slate-300 ">
+                    <b>{strings.TH.TITLE}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() => copyToClipboard(data?.data?.title)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.title}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.ACRONYM}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() => copyToClipboard(data?.data?.acronym)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.acronym}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.CODE}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() => copyToClipboard(data?.data?.code)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.code}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.CREDIT}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() =>
+                      copyToClipboard(data?.data?.credits.toString())
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.credits}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.COEF}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() => copyToClipboard(data?.data?.coef.toString())}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.coef}
+                  </td>
+                </tr>
+              </table>
+              <div className="flex flex-row mb-2 mt-2">
+                <Button size="title" style={{ pointerEvents: "none" }}>
+                  <Clock className="mr-2 h-4 w-4" />
+                  {strings.TEXTS.VH}
+                </Button>
+              </div>
+              <table className="border-collapse border border-slate-400 w-full">
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.VH_CM}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() =>
+                      copyToClipboard(data?.data?.vh_cm.toString())
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.vh_cm} {strings.TEXTS.HEURES}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.VH_TD}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() =>
+                      copyToClipboard(data?.data?.vh_td.toString())
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.vh_td} {strings.TEXTS.HEURES}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.VH_TP}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() =>
+                      copyToClipboard(data?.data?.vh_tp.toString())
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.vh_tp} {strings.TEXTS.HEURES}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.VHT}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() =>
+                      copyToClipboard(
+                        (
+                          (data?.data?.vh_tp ?? 0) +
+                          (data?.data?.vh_td ?? 0) +
+                          (data?.data?.vh_cm ?? 0)
+                        ).toString()
+                      )
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {(data?.data?.vh_tp ?? 0) +
+                      (data?.data?.vh_td ?? 0) +
+                      (data?.data?.vh_cm ?? 0)}{" "}
+                    {strings.TEXTS.HEURES}
+                  </td>
+                </tr>
+              </table>
+              <div className="flex flex-row mb-2 mt-2">
+                <Button size="title" style={{ pointerEvents: "none" }}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  {strings.TEXTS.PLUS}
+                </Button>
+              </div>
+              <table className="border-collapse border border-slate-400 w-full ">
+                <tr>
+                  <td className="border border-slate-300">
+                    <b>{strings.TH.DESCRIPTION}</b>
+                  </td>
+                  <td
+                    className="border border-slate-300 "
+                    onClick={() => copyToClipboard(data?.data?.description)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {data?.data?.description}
+                  </td>
+                </tr>
+              </table>
+            </>
           </>
         )}
         <DialogFooter className="flex flex-row justify-end">

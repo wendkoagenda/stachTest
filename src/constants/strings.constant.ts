@@ -79,11 +79,11 @@ const strings = {
       "Vous trouverez ici toutes les formations liées à cette séance. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
     // Modules
     UPDATED_MODULE:
-      "Effectuez des modifications d'un module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+      "Effectuez des modifications d'un module ici. Cliquez sur << Enregistrer >> lorsque vous avez terminé.",
     ADD_MODULE:
-      "Ajouter un nouveau module ici. Cliquez sur Enregistrer lorsque vous avez terminé.",
+      "Ajouter un nouveau module ici. Cliquez sur << Enregistrer >> lorsque vous avez terminé.",
     DELETE_MODULE:
-      "Veuillez confirmer la suppression d'un module  en cliquant sur << Supprimer >>.",
+      "Veuillez confirmer la suppression du module  en cliquant sur << Supprimer >>.",
     SHOW_MODULE:
       "Vous trouverez ici toutes les formations liées à ce module. Vous pouvez copier les informations dans votre presse-papiers en cliquant sur la donnée correspondante.",
   },
@@ -100,7 +100,7 @@ const strings = {
   },
   ERRORS: {
     INACTIVE_USER:
-      "Votre compte est actuellement inactif. Contactez un administrateur.",
+      "Votre compte est actuellement inactif, ou n'existe pas.Contactez un administrateur.",
     BAD_CREDENTIALS: "Vos informations d'identification semblent incorrectes.",
     NETWORK:
       "Erreur réseau. Veuillez vérifier votre connexion Internet et réessayer.",
@@ -194,6 +194,7 @@ const strings = {
     ROLE_LIST: "Liste des rôles",
   },
   TH: {
+    EXAMS: "Evaluations",
     NONE: "Aucun",
     RESPONSIBILITY: "Responsabilité",
     DELEGUE: "Délégué",

@@ -123,9 +123,11 @@ export default function ClasseShowMore() {
               {dcnfsumList && (
                 <TabsTrigger value="modules">Modules</TabsTrigger>
               )}
+              <TabsTrigger value="exams">{strings.TH.EXAMS}</TabsTrigger>
+              <TabsTrigger value="edt">{strings.TH.EDT}</TabsTrigger>
               {stats && (
                 <TabsTrigger value="statistiques">
-                  {strings.TH.STATISTIQUES}
+                  {strings.TH.STATISTICS}
                 </TabsTrigger>
               )}
             </TabsList>
@@ -134,6 +136,12 @@ export default function ClasseShowMore() {
             </TabsContent>
             <TabsContent value="modules">
               <ModulesListByDCNF />
+            </TabsContent>
+            <TabsContent value="exams">
+              <InConstuction />
+            </TabsContent>
+            <TabsContent value="edt">
+              <InConstuction />
             </TabsContent>
             <TabsContent value="statistiques">
               <InConstuction />
