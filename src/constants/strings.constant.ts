@@ -194,6 +194,7 @@ const strings = {
     ROLE_LIST: "Liste des rôles",
   },
   TH: {
+    MY_EDT: "Mon emploi du temps",
     EXAMS: "Evaluations",
     NONE: "Aucun",
     RESPONSIBILITY: "Responsabilité",
