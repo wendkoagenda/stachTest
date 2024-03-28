@@ -22,3 +22,4 @@ reauete a gemini : comment fixer le Header ?
 -gestion des roles et permissions , uner permission pour le deleguer et le sou deleguer + le autority dans la table students
 -creer un endpoint pour promoir en deleguer et sous deleguer en verifiant si il ny en a pas
 - Ajuster les permission des utilsaterus par defaut 
+- Continuer la conception de la page de mon profile

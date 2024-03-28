@@ -1,4 +1,9 @@
-import { MyUserInformationRoot } from "@/@types/Myinformation/Myinformation";
+import {
+  MyAgentInformationRoot,
+  MyStudentInformationRoot,
+  MyTeacherInformationRoot,
+  MyUserInformationRoot,
+} from "@/@types/Myinformation/Myinformation";
 import getConfig from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -20,7 +25,40 @@ export const myinformationsApi = createApi({
         },
       }),
     }),
+    fetchMyAgentInformations: builder.query<MyAgentInformationRoot, string>({
+      query: (access_token: string | null) => ({
+        url: MY_AGENT_INFORMATIONS__ROUTE,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }),
+    }),
+    fetchMyTeacherInformations: builder.query<MyTeacherInformationRoot, string>(
+      {
+        query: (access_token: string | null) => ({
+          url: MY_TEACHER_INFORMATIONS__ROUTE,
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }),
+      }
+    ),
+    fetchMyStudentInformations: builder.query<MyStudentInformationRoot, string>(
+      {
+        query: (access_token: string | null) => ({
+          url: MY_STUDENT_INFORMATIONS__ROUTE,
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }),
+      }
+    ),
   }),
 });
 // Exporte les hooks générés automatiquement
-export const { useFetchMyUserInformationsQuery } = myinformationsApi;
+export const {
+  useFetchMyUserInformationsQuery,
+  useFetchMyAgentInformationsQuery,
+  useFetchMyStudentInformationsQuery,
+  useFetchMyTeacherInformationsQuery,
+} = myinformationsApi;

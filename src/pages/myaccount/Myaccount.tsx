@@ -5,6 +5,9 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useEffect, useState } from "react";
 import Footer from "../../components/partials/Footer";
 import Personals from "./components/Personals";
+import AgentInformations from "./components/AgentInformations";
+import TeacherInformations from "./components/TeacherInformations";
+import StudentInformations from "./components/StudnetInformations";
 
 export default function MyyearList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -80,9 +83,15 @@ export default function MyyearList() {
             <TabsContent value="personals">
               <Personals />
             </TabsContent>
-            <TabsContent value="dossier_agent">Agent</TabsContent>
-            <TabsContent value="dossier_teacher">Teacher</TabsContent>
-            <TabsContent value="dossier_student">Student</TabsContent>
+            <TabsContent value="dossier_agent">
+              <AgentInformations />
+            </TabsContent>
+            <TabsContent value="dossier_teacher">
+              <TeacherInformations />
+            </TabsContent>
+            <TabsContent value="dossier_student">
+              <StudentInformations />
+            </TabsContent>
           </Tabs>
         </div>
       </div>
