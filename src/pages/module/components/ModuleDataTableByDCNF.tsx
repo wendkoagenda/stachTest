@@ -121,7 +121,7 @@ export default function ModuleDataTableByDCNF({
   const data = Array.isArray(fetchModuleByDCNFQueryData)
     ? fetchModuleByDCNFQueryData
     : [];
-  const isLoading = fetchModuleByDCNFQuery.isLoading;
+  const isLoading = fetchModuleByDCNFQuery.isFetching;
   const error = fetchModuleByDCNFQuery.error;
 
   const columns = useMemo<MRT_ColumnDef<ModuleShowByDCNFResponseDaum>[]>(
