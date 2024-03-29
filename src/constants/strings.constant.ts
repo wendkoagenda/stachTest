@@ -309,7 +309,7 @@ const strings = {
     //delegue
     DELEGUE: "delegue",
     SUB_DELEGUE: "sub_delegue",
-    DELEGUE_INTER_: "delegue_inter",
+    DELEGUE_INTER: "delegue_inter",
     SUB_DELEGUE_INTER: "sub_delegue_inter",
     // Stats
     STATS: "stats",

@@ -33,6 +33,9 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ModuleTeacherModel } from "@/@types/Module/Module";
+import { useFetchModuleTeacherQuery } from "@/services/module";
+import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -88,7 +91,15 @@ export default function CreateSeanceForm({
     strings.PERMISSIONS.SEANCE_STORE
   );
   //*******************Fin
-
+  // Recuperation tu t_id a envoyer pour la creation de ls seance
+  const moduleTeacherModel: ModuleTeacherModel = {
+    dcnfsum_id: dcnfsum_id,
+    access_token: access_token,
+  };
+  const fetchModuleTeacherQuery =
+    useFetchModuleTeacherQuery(moduleTeacherModel);
+  const moduleTeacher = fetchModuleTeacherQuery.data?.data;
+  const teacherIdLoading = fetchModuleTeacherQuery.isFetching;
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
@@ -104,7 +115,7 @@ export default function CreateSeanceForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      t_id: parseInt(t_id),
+      t_id: moduleTeacher?.teacher_id,
       dcnf_sum_id: dcnfsum_id,
       vh_cm_eff: 0,
       vh_td_eff: 0,
@@ -145,142 +156,149 @@ export default function CreateSeanceForm({
 
   return (
     <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {error
-            ? "status" in error
-              ? renderFetchBaseQueryError(error as FetchBaseQueryError)
-              : renderSerializedError(error as SerializedError)
-            : " "}
-          <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.TITLE}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={strings.PLACEHOLDERS.TITLE}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="vh_cm_eff"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.VH_CM}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder={strings.PLACEHOLDERS.CREDIT}
-                      onChange={(e) => {
-                        const value = parseFloat(e.target.value);
-                        if (!isNaN(value)) {
-                          field.onChange(value);
-                        }
-                      }}
-                      value={field.value}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
-            <FormField
-              control={form.control}
-              name="vh_td_eff"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.VH_TD}*</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder={strings.PLACEHOLDERS.CREDIT}
-                      onChange={(e) => {
-                        const value = parseFloat(e.target.value);
-                        if (!isNaN(value)) {
-                          field.onChange(value);
-                        }
-                      }}
-                      value={field.value}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="vh_tp_eff"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.VH_TP}*</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder={strings.PLACEHOLDERS.CREDIT}
-                      onChange={(e) => {
-                        const value = parseFloat(e.target.value);
-                        if (!isNaN(value)) {
-                          field.onChange(value);
-                        }
-                      }}
-                      value={field.value}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-            <FormField
-              control={form.control}
-              name="contenu"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.CONTENU}*</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={strings.PLACEHOLDERS.CONTENU}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          {seanceStore && (
-            <DialogFooter className="flex flex-row justify-end">
-              {isLoading ? (
-                <Button disabled>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {strings.BUTTONS.SAVING}
+      {teacherIdLoading ? (
+        <TableSkeleton />
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            {error
+              ? "status" in error
+                ? renderFetchBaseQueryError(error as FetchBaseQueryError)
+                : renderSerializedError(error as SerializedError)
+              : " "}
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.TITLE}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.TITLE}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="vh_cm_eff"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.VH_CM}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
+              <FormField
+                control={form.control}
+                name="vh_td_eff"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.VH_TD}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="vh_tp_eff"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.VH_TP}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value);
+                          if (!isNaN(value)) {
+                            field.onChange(value);
+                          }
+                        }}
+                        value={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+              <FormField
+                control={form.control}
+                name="contenu"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{strings.TH.CONTENT}*</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={strings.PLACEHOLDERS.CONTENU}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            {seanceStore && (
+              <DialogFooter className="flex flex-row justify-end">
+                {isLoading ? (
+                  <Button disabled>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {strings.BUTTONS.SAVING}
+                  </Button>
+                ) : (
+                  <Button type="submit">
+                    <SaveIcon className="mr-2 h-4 w-4" />
+                    {strings.BUTTONS.SAVE}
+                  </Button>
+                )}
+                <Button
+                  onClick={onCloseClick}
+                  type="button"
+                  variant="secondary"
+                >
+                  <X className="mr-2 h-4 w-4" />
+                  {strings.BUTTONS.CANCEL}
                 </Button>
-              ) : (
-                <Button type="submit">
-                  <SaveIcon className="mr-2 h-4 w-4" />
-                  {strings.BUTTONS.SAVE}
-                </Button>
-              )}
-              <Button onClick={onCloseClick} type="button" variant="secondary">
-                <X className="mr-2 h-4 w-4" />
-                {strings.BUTTONS.CANCEL}
-              </Button>
-            </DialogFooter>
-          )}
-        </form>
-      </Form>
+              </DialogFooter>
+            )}
+          </form>
+        </Form>
+      )}
     </>
   );
 }

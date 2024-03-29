@@ -72,6 +72,8 @@ const authSlice = createSlice({
       localStorage.removeItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d");
       localStorage.removeItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq");
       localStorage.removeItem("__albvs26dfbvnuhwf87915515kbcckqacanMM");
+      localStorage.removeItem("last_name");
+      localStorage.removeItem("first_name");
     },
   },
 });

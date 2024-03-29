@@ -30,7 +30,7 @@ import { svgParcer } from "@/utils/functions/svgParcer";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { CircleUser, Loader2, QrCode, SquareUser, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AgentApprouveDialog from "../approuvement/agent/AgentApprouveDialog";
 import StudentApprouveDialog from "../approuvement/student/StudentApprouveDialog";
 import TeacherApprouveDialog from "../approuvement/teacher/TeacherApprouveDialog";
@@ -50,21 +50,42 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
 
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
   //Liste des permissions requises
-  const seanceShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_SHOW
-  );
-  //*******************Fin
+  const [delegue, setDelegue] = useState(false);
+  const [sub_delegue, setSubDelegue] = useState(false);
+  const [delegueInter, setDelegueInter] = useState(false);
+  const [sub_delegueInter, setSubDelegueInter] = useState(false);
+  const [seanceShow, setSeanceShow] = useState(false);
 
+  // Utilisez le crochet "loadPermissions" directement dans le corps du composant
+  useEffect(() => {
+    // Utilisez la fonction loadPermissions pour récupérer les autorisations
+    const permissions = loadPermissions();
+    // Mettre à jour les états des autorisations
+    if (permissions) {
+      setDelegue(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DELEGUE)
+      );
+      setSubDelegue(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SUB_DELEGUE)
+      );
+      setDelegueInter(
+        permissions.userPermissions.includes(strings.PERMISSIONS.DELEGUE_INTER)
+      );
+      setSubDelegueInter(
+        permissions.userPermissions.includes(
+          strings.PERMISSIONS.SUB_DELEGUE_INTER
+        )
+      );
+      setSeanceShow(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SEANCE_SHOW)
+      );
+    }
+  }, []);
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  // const tempSeanceUuid = useAppSelector(
-  //   (state) => state.seances.tempSeanceUuid
-  // ); // Utiliser pour seanceUuid soit disponible meme quand ya rafraichissement du composant
+  // Utiliser pour seanceUuid soit disponible meme quand ya rafraichissement du composant
   const tempSeanceUuid =
     localStorage.getItem("__tempjodsyfogfwtr7celygfeeckhb87d") ?? "";
   // const seanceUuidValue = seanceUuid !== null ? seanceUuid : tempSeanceUuid;
@@ -296,7 +317,11 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                       ) : data?.data?.student_qr === null ? (
                         <div>
                           <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
-                            {parseInt(s_id) != 0 ? (
+                            {parseInt(s_id) != 0 &&
+                            (delegue ||
+                              sub_delegue ||
+                              sub_delegueInter ||
+                              delegueInter) ? (
                               <Button
                                 variant="ghost"
                                 onClick={handleStudentApprove}
