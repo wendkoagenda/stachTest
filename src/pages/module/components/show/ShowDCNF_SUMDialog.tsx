@@ -55,13 +55,6 @@ const ShowDCNF_SUMDialog = ({
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const moduleShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.MODULE_SHOW
-  );
   //*******************Fin
   const refreshModuleList = useAppSelector(
     (state) => state.modules.refreshModuleList
@@ -109,6 +102,8 @@ const ShowDCNF_SUMDialog = ({
   useEffect(() => {
     fetchDCNFSUMByIdQuery.refetch();
     fetchSeancesByDCNFSUMQuery.refetch();
+    fetchModuleTeacherQuery.refetch();
+    moduleTeacher;
     dispatch(initialiseRefreshModuleList());
   }, [showModuleDialogOpen, refreshModuleListLocal]);
   //*******************Fin
@@ -192,11 +187,11 @@ const ShowDCNF_SUMDialog = ({
                   variant="link"
                   onClick={onShowModuleTeacher}
                 >
-                  <b className="text text-xl">
-                    {moduleTeacher?.user?.last_name +
-                      " " +
-                      moduleTeacher?.user?.first_name}
-                  </b>{" "}
+                  <b>
+                    {moduleTeacher?.user
+                      ? `${moduleTeacher.user.last_name} ${moduleTeacher.user.first_name}`
+                      : strings.TEXTS.NOT_YET_ASSIGNED}
+                  </b>
                 </Button>
               </p>
             </div>
