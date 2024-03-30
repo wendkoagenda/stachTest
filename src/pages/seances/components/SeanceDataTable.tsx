@@ -22,16 +22,14 @@ import {
 } from "@/utils/functions/errorRenders";
 import { truncateTitle } from "@/utils/functions/truncateTitle";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, Eye, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
 import DeletionSeanceDialog from "./deletion";
-import UpdateSeanceDialog from "./update";
 import ShowSeanceDialog from "./show";
+import UpdateSeanceDialog from "./update";
 
 export default function SeanceDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -41,25 +39,9 @@ export default function SeanceDataTable() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const seanceShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_SHOW
-  );
-  const seanceUpdate = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_UPDATE
-  );
-  const seanceDestroy = permissions.userPermissions.includes(
-    strings.PERMISSIONS.SEANCE_DESTROY
-  );
-  //*******************Fin
-
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   //Hook de récupération de la liste des seances (Redux store)
   const fetchSeancesQuery = useFetchSeancesQuery(access_token);
 
@@ -160,88 +142,96 @@ export default function SeanceDataTable() {
       {isLoading ? (
         <CardSkeleton />
       ) : seancesToShow.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4">
-          {seancesToShow.map((seance, index) => (
-            <div key={index} className="max-w-[150] max-h-[150] ">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    <div className="mb-4">
-                      <p className="mb-2">{truncateTitle(seance.title, 20)}</p>
-                      <hr className="my-2" />
-                      <p className="mt-2">{dateFormater(seance.created_at)}</p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <table className="table-fixed border-collapse w-full">
-                    <thead>
-                      <tr>
-                        <td className="w-1/2 ">
-                          <p>CM : {seance.vh_cm_eff} h</p>
-                          <p>TD: {seance.vh_td_eff} h </p>
-                          <p>TP : {seance.vh_tp_eff} h</p>
-                        </td>
-                        <td className="w-1/2">
-                          <p>CM ex : {seance.ex_vh_cm_eff} h</p>
-                          <p>TD ex : {seance.ex_vh_td_eff} h </p>
-                          <p>TP ex : {seance.ex_vh_tp_eff} h</p>
-                        </td>
-                      </tr>
-                    </thead>
-                  </table>
-                </CardContent>
-                <CardFooter className="flex flex-row justify-end">
-                  {seanceShow && (
-                    <>
-                      <Button
-                        size="icon"
-                        onClick={() => {
-                          onShowClick(seance.uuid);
-                        }}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        onClick={() => {
-                          onEditClick(seance.uuid);
-                        }}
-                      >
-                        <Edit2 className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        onClick={() => {
-                          onDeleteClick(seance.id);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Passer >"
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            previousLabel="< Revenir"
-            containerClassName="pagination flex mt-4"
-            activeClassName="bg-blue-500 text-white"
-            pageClassName="mr-2"
-            previousClassName="mr-2"
-            nextClassName="mr-2"
-            pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            onPageChange={handlePageClick}
-          />
-        </div>
+        <>
+          <div className="grid grid-cols-4 gap-4">
+            {seancesToShow.map((seance, index) => (
+              <div key={index} className="max-w-[150] max-h-[150] ">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <div className="mb-4">
+                        <p className="mb-2">
+                          {truncateTitle(seance.title, 20)}
+                        </p>
+                        <hr className="my-2" />
+                        <p className="mt-2">
+                          {dateFormater(seance.created_at)}
+                        </p>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <table className="table-fixed border-collapse w-full">
+                      <thead>
+                        <tr>
+                          <td className="w-1/2 ">
+                            <p>CM : {seance.vh_cm_eff} h</p>
+                            <p>TD: {seance.vh_td_eff} h </p>
+                            <p>TP : {seance.vh_tp_eff} h</p>
+                          </td>
+                          <td className="w-1/2">
+                            <p>CM ex : {seance.ex_vh_cm_eff} h</p>
+                            <p>TD ex : {seance.ex_vh_td_eff} h </p>
+                            <p>TP ex : {seance.ex_vh_tp_eff} h</p>
+                          </td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </CardContent>
+                  <CardFooter className="flex flex-row justify-end">
+                    {seanceShow && (
+                      <>
+                        <Button
+                          size="icon"
+                          onClick={() => {
+                            onShowClick(seance.uuid);
+                          }}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          onClick={() => {
+                            onEditClick(seance.uuid);
+                          }}
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          onClick={() => {
+                            onDeleteClick(seance.id);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Passer >"
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              previousLabel="< Revenir"
+              containerClassName="pagination flex mt-4"
+              activeClassName="bg-blue-500 text-white"
+              pageClassName="mr-2"
+              previousClassName="mr-2"
+              nextClassName="mr-2"
+              pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              onPageChange={handlePageClick}
+            />
+          </div>
+        </>
       ) : (
         <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
       )}

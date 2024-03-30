@@ -33,7 +33,6 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { Edit2, Eye, FileLock, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
 import CreationSeanceDialog from "./creation";
 import DeletionSeanceDialog from "./deletion";
 import ShowSeanceDialog from "./show";
@@ -53,8 +52,6 @@ export default function SeanceDataTableByDCNFSUM({
     localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
   const s_id =
     localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
-  const a_id =
-    localStorage.getItem("__albvs26dfbvnuhwf87915515kbcckqacanMM") ?? "0";
   //*******************Fin
   // Hook de récupération  de l'état  de rafraichissement
   const refreshSeanceList = useAppSelector(
@@ -243,74 +240,54 @@ export default function SeanceDataTableByDCNFSUM({
       {isLoading ? (
         <CardSkeleton />
       ) : seancesToShow.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4">
-          {seancesToShow.map((seance, index) => (
-            <div key={index} className="max-w-[150] max-h-[150] ">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    <div className="mb-4">
-                      <p className="mb-2">{truncateTitle(seance.title, 20)}</p>
-                      <hr className="my-2" />
-                      <p className="mt-2">{dateFormater(seance.created_at)}</p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <table className="table-fixed border-collapse w-full">
-                    <thead>
-                      <tr>
-                        <td className="w-1/2 ">
-                          <p>CM : {seance.vh_cm_eff} h</p>
-                          <p>TD: {seance.vh_td_eff} h </p>
-                          <p>TP : {seance.vh_tp_eff} h</p>
-                        </td>
-                        <td className="w-1/2">
-                          <p>CM ex : {seance.ex_vh_cm_eff} h</p>
-                          <p>TD ex : {seance.ex_vh_td_eff} h </p>
-                          <p>TP ex : {seance.ex_vh_tp_eff} h</p>
-                        </td>
-                      </tr>
-                    </thead>
-                  </table>
-                </CardContent>
-                <CardFooter className="flex flex-row justify-end">
-                  {seanceShow && (
-                    <Button
-                      size="icon"
-                      onClick={() => {
-                        onShowClick(seance.uuid);
-                      }}
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                  )}
-                  {parseInt(t_id) !== 0 && seanceShow && (
-                    <>
+        <>
+          <div className="grid grid-cols-4 gap-4">
+            {seancesToShow.map((seance, index) => (
+              <div key={index} className="max-w-[150] max-h-[150] ">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <div className="mb-4">
+                        <p className="mb-2">
+                          {truncateTitle(seance.title, 20)}
+                        </p>
+                        <hr className="my-2" />
+                        <p className="mt-2">
+                          {dateFormater(seance.created_at)}
+                        </p>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <table className="table-fixed border-collapse w-full">
+                      <thead>
+                        <tr>
+                          <td className="w-1/2 ">
+                            <p>CM : {seance.vh_cm_eff} h</p>
+                            <p>TD: {seance.vh_td_eff} h </p>
+                            <p>TP : {seance.vh_tp_eff} h</p>
+                          </td>
+                          <td className="w-1/2">
+                            <p>CM ex : {seance.ex_vh_cm_eff} h</p>
+                            <p>TD ex : {seance.ex_vh_td_eff} h </p>
+                            <p>TP ex : {seance.ex_vh_tp_eff} h</p>
+                          </td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </CardContent>
+                  <CardFooter className="flex flex-row justify-end">
+                    {seanceShow && (
                       <Button
                         size="icon"
                         onClick={() => {
-                          onEditClick(seance.uuid);
+                          onShowClick(seance.uuid);
                         }}
                       >
-                        <Edit2 className="h-4 w-4" />
+                        <Eye className="h-4 w-4" />
                       </Button>
-                      <Button
-                        size="icon"
-                        onClick={() => {
-                          onDeleteClick(seance.id);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
-                  {parseInt(s_id) !== 0 &&
-                    (delegue ||
-                      sub_delegue ||
-                      sub_delegueInter ||
-                      delegueInter) &&
-                    seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
+                    )}
+                    {parseInt(t_id) !== 0 && seanceShow && (
                       <>
                         <Button
                           size="icon"
@@ -330,28 +307,56 @@ export default function SeanceDataTableByDCNFSUM({
                         </Button>
                       </>
                     )}
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Passer >"
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            previousLabel="< Revenir"
-            containerClassName="pagination flex mt-4"
-            activeClassName="bg-blue-500 text-white"
-            pageClassName="mr-2"
-            previousClassName="mr-2"
-            nextClassName="mr-2"
-            pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            onPageChange={handlePageClick}
-          />
-        </div>
+                    {parseInt(s_id) !== 0 &&
+                      (delegue ||
+                        sub_delegue ||
+                        sub_delegueInter ||
+                        delegueInter) &&
+                      seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
+                        <>
+                          <Button
+                            size="icon"
+                            onClick={() => {
+                              onEditClick(seance.uuid);
+                            }}
+                          >
+                            <Edit2 className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="icon"
+                            onClick={() => {
+                              onDeleteClick(seance.id);
+                            }}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Passer >"
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              previousLabel="< Revenir"
+              containerClassName="pagination flex mt-4"
+              activeClassName="bg-blue-500 text-white"
+              pageClassName="mr-2"
+              previousClassName="mr-2"
+              nextClassName="mr-2"
+              pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              onPageChange={handlePageClick}
+            />
+          </div>
+        </>
       ) : (
         <p>{strings.TEXTS.NO_SEANCES}</p>
       )}

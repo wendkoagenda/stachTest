@@ -17,20 +17,21 @@ export default function UsersList() {
           </h4>
         </div>
         <div className="">
-          <Tabs defaultValue="myclasses" className="w-full">
+          <Tabs defaultValue="mymodules" className="w-full">
             <TabsList>
-              <TabsTrigger value="myclasses">
-                {strings.TH.MY_CLASSES}
-              </TabsTrigger>
               <TabsTrigger value="mymodules">
                 {strings.TH.MY_MODULES}
+              </TabsTrigger>
+              <TabsTrigger value="myclasses">
+                {strings.TH.MY_CLASSES}
               </TabsTrigger>
               <TabsTrigger value="myedt">{strings.TH.MY_EDT}</TabsTrigger>
               <TabsTrigger value="mydocs">{strings.TH.MY_DOCS}</TabsTrigger>
               <TabsTrigger value="mystats">{strings.TH.MY_STATS}</TabsTrigger>
             </TabsList>
             <TabsContent value="myclasses">
-              <MyclassesList />
+              {/* <MyclassesList /> */}
+              <InConstuction />
             </TabsContent>
             <TabsContent value="mymodules">
               <MymodulesList />

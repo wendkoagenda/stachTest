@@ -10,8 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import { useFetchRolesQuery } from "@/services/role";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
-import loadPermissions from "@/utils/hooks/loadPermissions";
 import { Eye, X } from "lucide-react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -25,18 +23,6 @@ export default function RoleDataTable() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const roleShow = permissions.userPermissions.includes(
-    strings.PERMISSIONS.DEPARTEMENT_SHOW
-  );
-  //*******************Fin
-
-  //*******************Déclaration des Hooks
-  //Hook de dispatching (Redux store)
-  const dispatch = useAppDispatch();
   // Hook de navigation
   const navigate = useNavigate();
   //Hook de récupération de la liste des roles (Redux store)
@@ -49,7 +35,6 @@ export default function RoleDataTable() {
   const isLoading = fetchRolesQuery.isLoading;
   const roles = Array.isArray(fetchRolesQueryData) ? fetchRolesQueryData : [];
   //*******************Fin
-  console.log("roles", roles);
   //*******************Déclaration des fonctions
   // Systheme de recherche et de pagination
   const pageSize = 8;
@@ -100,55 +85,59 @@ export default function RoleDataTable() {
       {isLoading ? (
         <CardSkeleton />
       ) : rolesToShow.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4">
-          {rolesToShow.map((role, index) => (
-            <div key={index} className="max-w-[150] max-h-[150] ">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    <div className="mb-4">
-                      <p className="mb-2">{role.title} </p>
-                      <hr className="my-2" />
-                      <p className="mt-2">{role.description}</p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Card Content</p>
-                </CardContent>
-                <CardFooter className="flex flex-row justify-end">
-                  {roleShow && (
-                    <Button
-                      onClick={() => {
-                        handleGoToRoleShow(role.uuid);
-                      }}
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      {strings.BUTTONS.SHOW}
-                    </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Passer >"
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            previousLabel="< Revenir"
-            containerClassName="pagination flex mt-4"
-            activeClassName="bg-blue-500 text-white"
-            pageClassName="mr-2"
-            previousClassName="mr-2"
-            nextClassName="mr-2"
-            pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            onPageChange={handlePageClick}
-          />
-        </div>
+        <>
+          <div className="grid grid-cols-4 gap-4">
+            {rolesToShow.map((role, index) => (
+              <div key={index} className="max-w-[150] max-h-[150] ">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <div className="mb-4">
+                        <p className="mb-2">{role.title} </p>
+                        <hr className="my-2" />
+                        <p className="mt-2">{role.description}</p>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Card Content</p>
+                  </CardContent>
+                  <CardFooter className="flex flex-row justify-end">
+                    {roleShow && (
+                      <Button
+                        onClick={() => {
+                          handleGoToRoleShow(role.uuid);
+                        }}
+                      >
+                        <Eye className="mr-2 h-4 w-4" />
+                        {strings.BUTTONS.SHOW}
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Passer >"
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              previousLabel="< Revenir"
+              containerClassName="pagination flex mt-4"
+              activeClassName="bg-blue-500 text-white"
+              pageClassName="mr-2"
+              previousClassName="mr-2"
+              nextClassName="mr-2"
+              pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              onPageChange={handlePageClick}
+            />
+          </div>
+        </>
       ) : (
         <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
       )}

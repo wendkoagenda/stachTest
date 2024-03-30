@@ -14,21 +14,6 @@ export default function MymodulesList() {
     "access_token";
   //*******************Fin
 
-  //*******************Politique de gestion des permissons
-  // Recuperation des permissions
-  const permissions = loadPermissions();
-  //Liste des permissions requises
-  const departementStore = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_STORE
-  );
-  const departementList = permissions.userPermissions.includes(
-    strings.PERMISSIONS.STUDENT_LIST
-  );
-  //*******************Fin
-
-  //*******************Déclaration des Hooks
-  //Hook de dispatching (Redux store)
-  const dispatch = useAppDispatch();
   const fetchMymodulesQuery = useFetchMymodulesQuery(access_token);
   //*******************Fin
 

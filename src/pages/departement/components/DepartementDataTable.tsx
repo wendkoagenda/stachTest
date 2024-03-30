@@ -110,61 +110,65 @@ export default function DepartementDataTable() {
       {isLoading ? (
         <CardSkeleton />
       ) : departementsToShow.length > 0 ? (
-        <div className="grid grid-cols-4 gap-4">
-          {departementsToShow.map((departement, index) => (
-            <div key={index} className="max-w-[150] max-h-[150] ">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    <div className="mb-4">
-                      <p className="mb-2">
-                        {departement.departement.title}{" "}
-                        {departement.cycle.title}
-                      </p>
-                      <hr className="my-2" />
-                      <p className="mt-2">
-                        {departement.departement.acronym}
-                        {departement.cycle.acronym}
-                      </p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Card Content</p>
-                </CardContent>
-                <CardFooter className="flex flex-row justify-end">
-                  {dcnfShow && (
-                    <Button
-                      onClick={() => {
-                        handleGoToDepartementShow(departement.uuid);
-                      }}
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      {strings.BUTTONS.SHOW}
-                    </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="Passer >"
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            previousLabel="< Revenir"
-            containerClassName="pagination flex mt-4"
-            activeClassName="bg-blue-500 text-white"
-            pageClassName="mr-2"
-            previousClassName="mr-2"
-            nextClassName="mr-2"
-            pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
-            onPageChange={handlePageClick}
-          />
-        </div>
+        <>
+          <div className="grid grid-cols-4 gap-4">
+            {departementsToShow.map((departement, index) => (
+              <div key={index} className="max-w-[150] max-h-[150] ">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <div className="mb-4">
+                        <p className="mb-2">
+                          {departement.departement.title}{" "}
+                          {departement.cycle.title}
+                        </p>
+                        <hr className="my-2" />
+                        <p className="mt-2">
+                          {departement.departement.acronym}
+                          {departement.cycle.acronym}
+                        </p>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Card Content</p>
+                  </CardContent>
+                  <CardFooter className="flex flex-row justify-end">
+                    {dcnfShow && (
+                      <Button
+                        onClick={() => {
+                          handleGoToDepartementShow(departement.uuid);
+                        }}
+                      >
+                        <Eye className="mr-2 h-4 w-4" />
+                        {strings.BUTTONS.SHOW}
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Passer >"
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              previousLabel="< Revenir"
+              containerClassName="pagination flex mt-4"
+              activeClassName="bg-blue-500 text-white"
+              pageClassName="mr-2"
+              previousClassName="mr-2"
+              nextClassName="mr-2"
+              pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
+              onPageChange={handlePageClick}
+            />
+          </div>
+        </>
       ) : (
         <p>{strings.TEXTS.DEPARTEMENT_EMPTY}</p>
       )}
