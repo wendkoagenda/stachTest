@@ -132,9 +132,7 @@ export default function MymoduleDataTableByDCNF({
                       </div>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p>Card Content</p>
-                  </CardContent>
+                  <CardContent></CardContent>
                   <CardFooter className="flex flex-row justify-end">
                     <Button
                       onClick={() => {

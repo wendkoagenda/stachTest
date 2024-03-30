@@ -344,7 +344,7 @@ export default function HorizontalHeader() {
           <div className="hidden  sm:block">
             <div className="flex flex-row ">
               <div>
-                <UserDropdown title={lastName + " " + firstName}>
+                <UserDropdown last_name={lastName} first_name={firstName}>
                   <>
                     <Button
                       className="w-full rounded-md mb-2 border border-none justify-start"
@@ -429,7 +429,7 @@ export default function HorizontalHeader() {
               </div>
               <div>
                 <div className="flex flex-row">
-                  <UserDropdown title="OUEDRAOGO">
+                  <UserDropdown last_name={lastName} first_name={firstName}>
                     <>
                       <Button
                         className="w-full rounded-md mb-2 border border-none justify-start"

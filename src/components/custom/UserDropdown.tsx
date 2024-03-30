@@ -1,13 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import ProfileImage from "@/pages/myaccount/components/ProfileImage";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { CircleUser } from "lucide-react";
 
 interface DropdownProps {
   children: React.ReactElement;
-  title: string;
+  last_name: string;
+  first_name: string;
 }
 
-const UserDropdown: React.FC<DropdownProps> = ({ children, title }) => {
+const UserDropdown: React.FC<DropdownProps> = ({
+  children,
+  last_name,
+  first_name,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +44,12 @@ const UserDropdown: React.FC<DropdownProps> = ({ children, title }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <Button onClick={toggleDropdown}>
-        <CircleUser className="mr-2 h-4 w-4" /> {title}
+        <ProfileImage
+          first_name={first_name}
+          last_name={last_name}
+          class_name="mr-2 h-6 w-6 rounded-full flex items-center justify-center bg-red-500 text-white text-xs "
+        />{" "}
+        {last_name + " " + first_name}
       </Button>
       {isOpen && (
         <div className="absolute top-0 left-0 z-10 right-0 w-56 py-2 mt-12 shadow-md bg-white rounded-md">
