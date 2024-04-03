@@ -1,16 +1,19 @@
 import { ClasseShowModel } from "@/@types/Classe/Classe";
+import GoBackButton from "@/components/custom/GoBackButton";
 import InConstuction from "@/components/custom/InConstuction";
 import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
 import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
 import ModulesListByDCNF from "@/pages/module/ModulesListByDCNF";
 import StudentsListByDCNF from "@/pages/student/StudentsListByDCNF";
 import { useFetchClasseByIdQuery } from "@/services/classe";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { CornerUpLeft } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ClasseShowMore() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -66,6 +69,7 @@ export default function ClasseShowMore() {
 
   const isLoading = fetchClasseByIdQuery.isLoading;
   const error = fetchClasseByIdQuery.error;
+
   return (
     <>
       <HorizontalHeader />
@@ -75,18 +79,22 @@ export default function ClasseShowMore() {
             {isLoading ? (
               <TitleSkeleton />
             ) : (
-              <>
-                <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-                  {data?.nf.filiere.title} {data?.nf.niveau.title} ({" "}
-                  {data?.nf.filiere.acronym}
-                  {data?.nf.niveau.acronym})
-                </h4>
-                <p className="">
-                  {data?.dc.departement.title} {data?.dc.cycle.title} ({" "}
-                  {data?.dc.departement.acronym}
-                  {data?.dc.cycle.acronym})
-                </p>
-              </>
+              <div className="flex felx-col">
+                <GoBackButton />
+                <div>
+                  <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+                    {data?.nf.filiere.title} {data?.nf.niveau.title} ({" "}
+                    {data?.nf.filiere.acronym}
+                    {data?.nf.niveau.acronym})
+                  </h4>
+                  <p className="">
+                    {data?.dc.departement.title} {data?.dc.cycle.title} ({" "}
+                    {data?.dc.departement.acronym}
+                    {data?.dc.cycle.acronym})
+                  </p>
+                </div>
+                {/*  */}
+              </div>
             )}
           </div>
           <div className="col-6 text-end">

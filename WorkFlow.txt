@@ -23,3 +23,4 @@ reauete a gemini : comment fixer le Header ?
 -creer un endpoint pour promoir en deleguer et sous deleguer en verifiant si il ny en a pas
 - Ajuster les permission des utilsaterus par defaut 
 - Continuer la conception de la page de mon profile
+-Gerer la navigation dans les pages 

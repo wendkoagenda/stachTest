@@ -7,6 +7,9 @@ import StudentsList from "../student";
 import TeachersList from "../teacher";
 import { useEffect, useState } from "react";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { Button } from "@/components/ui/button";
+import { CornerUpLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersList() {
   //Liste des permissions requises

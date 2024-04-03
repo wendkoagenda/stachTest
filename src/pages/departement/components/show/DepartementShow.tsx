@@ -1,15 +1,18 @@
 import { DepartementShowModel } from "@/@types/Departement/Departement";
+import GoBackButton from "@/components/custom/GoBackButton";
 import InConstuction from "@/components/custom/InConstuction";
 import TitleSkeleton from "@/components/custom/skeleton/TitleSkeleton";
 import Footer from "@/components/partials/Footer";
 import HorizontalHeader from "@/components/partials/HorizontalHeader";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import strings from "@/constants/strings.constant";
 import ClassesListByDepartement from "@/pages/classe/components/List/ClassesListByDepartement";
 import { useFetchDepartementByIdQuery } from "@/services/departement";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { CornerUpLeft } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function DepartementShow() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -68,11 +71,14 @@ export default function DepartementShow() {
             {isLoading ? (
               <TitleSkeleton />
             ) : (
-              <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-                {data?.data.departement.title} {data?.data.cycle.title} ({" "}
-                {data?.data.departement.acronym}
-                {data?.data.cycle.acronym})
-              </h4>
+              <div className="flex felx-col">
+                <GoBackButton />
+                <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+                  {data?.data.departement.title} {data?.data.cycle.title} ({" "}
+                  {data?.data.departement.acronym}
+                  {data?.data.cycle.acronym})
+                </h4>
+              </div>
             )}
           </div>
           <div className="col-6 text-end">
