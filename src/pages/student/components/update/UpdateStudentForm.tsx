@@ -6,6 +6,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
 import strings from "@/constants/strings.constant";
 import {
   closeStudentUpdateDialog,
@@ -28,8 +30,8 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
+import loadPermissions from "@/utils/hooks/loadPermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -103,6 +105,7 @@ export default function UpdateStudentForm({
   const [updateStudent, { error, isLoading }] = useUpdateStudentMutation();
 
   // Variables useStates
+  const [gender, setGender] = useState("male");
   const [isActive, setIsActive] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   //*******************Fin
