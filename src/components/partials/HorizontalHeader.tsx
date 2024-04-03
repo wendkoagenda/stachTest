@@ -192,7 +192,7 @@ export default function HorizontalHeader() {
 
   return (
     <>
-      <div className="flex fixed w-full h-auto p-3 justify-between border border-cyan-600 backdrop-blur-lg filter z-50">
+      <div className="flex fixed w-full h-auto p-3 justify-between border backdrop-blur-lg filter z-50">
         <div className="flex items-center">
           <a href="/" className="flex-shrink-0">
             <img className="h-8 w-8" src="logo.svg" alt="Logo" />

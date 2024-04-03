@@ -101,7 +101,7 @@ export default function RoleDataTable() {
                   </CardHeader>
                   <CardContent></CardContent>
                   <CardFooter className="flex flex-row justify-end">
-                    {roleShow && (
+                    {rolesToShow && (
                       <Button
                         onClick={() => {
                           handleGoToRoleShow(role.uuid);
