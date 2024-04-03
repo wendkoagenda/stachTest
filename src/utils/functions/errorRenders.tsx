@@ -102,3 +102,16 @@ export const renderSerializedError = (error: SerializedError) => {
     </Alert>
   );
 };
+
+export const renderSimpleError = (errorMessage: string, title: string) => {
+  let icon = <AlertCircle className="h-4 w-4" />;
+
+  icon = <StopCircle className="h-4 w-4" />;
+  return (
+    <Alert variant="destructive">
+      {icon}
+      <AlertTitle>{title}</AlertTitle>
+      <AlertDescription>{errorMessage}</AlertDescription>
+    </Alert>
+  );
+};

@@ -24,6 +24,7 @@ import {
 import {
   renderFetchBaseQueryError,
   renderSerializedError,
+  renderSimpleError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch } from "@/utils/hooks/reduxHooks";
@@ -34,6 +35,7 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -97,22 +99,27 @@ export default function TeacherApprouveForm({
 
   //*******************Déclaration de fonctions
   // Fonction de soumission du formulaire de création
+  const [simpleError, setSimpleError] = useState(false);
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const approuveModel: ApprouveModel = {
       approuveModel: values,
       access_token: access_token,
     };
-    await teacherApprouve(approuveModel).unwrap();
-    dispatch(closeTeacherApprouveDialog());
-    dispatch(refreshSeanceList());
-    dispatch(refreshModuleList());
-    openNotification(
-      undefined,
-      <div className="flex flex-row text-green-600">
-        <CheckCircle2 className="mr-2 h-4 w-4" />{" "}
-        {strings.MESSAGES.SUCCESS_ACTION}
-      </div>
-    );
+    const response = await teacherApprouve(approuveModel).unwrap();
+    if (response.message === "AUTHENTICATION_FAILED") {
+      setSimpleError(true);
+    } else if (response.success === true) {
+      dispatch(closeTeacherApprouveDialog());
+      dispatch(refreshSeanceList());
+      dispatch(refreshModuleList());
+      openNotification(
+        undefined,
+        <div className="flex flex-row text-green-600">
+          <CheckCircle2 className="mr-2 h-4 w-4" />{" "}
+          {strings.MESSAGES.SUCCESS_ACTION}
+        </div>
+      );
+    }
   };
   // Fonction de fermeture de la boite de dialogue  du formulaire de création  (Redux store)
   const onCloseClick = () => {
@@ -129,6 +136,11 @@ export default function TeacherApprouveForm({
               ? renderFetchBaseQueryError(error as FetchBaseQueryError)
               : renderSerializedError(error as SerializedError)
             : " "}
+          {simpleError &&
+            renderSimpleError(
+              strings.TEXTS.BAD_REGISTRATION_NUMBER_MESSAGE,
+              strings.TEXTS.BAD_REGISTRATION_NUMBER_TITLE
+            )}
           <div className="">
             <FormField
               control={form.control}

@@ -24,3 +24,4 @@ reauete a gemini : comment fixer le Header ?
 - Ajuster les permission des utilsaterus par defaut 
 - Continuer la conception de la page de mon profile
 -Gerer la navigation dans les pages 
+-

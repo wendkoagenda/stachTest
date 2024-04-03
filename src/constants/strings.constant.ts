@@ -108,6 +108,10 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    BAD_REGISTRATION_NUMBER_MESSAGE:
+      "Le numéro matricule que vous avez entré est incorrect ou ne vous appartient pas.",
+    BAD_REGISTRATION_NUMBER_TITLE:
+      "Oups, il y a une erreur sur votre matricule",
     MODULE_DIPENSED_BY: "Module dispensé par :",
     MY_ACCOUNT: "Mon compte",
     LIST_PERMISSIONS: "Liste des permissions",
