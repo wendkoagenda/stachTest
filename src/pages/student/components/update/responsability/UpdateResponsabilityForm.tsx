@@ -121,20 +121,20 @@ export default function UpdateResponsabilityForm({
     resolver: zodResolver(formSchema),
   });
 
-  useEffect(() => {
-    if (data && !dataLoaded) {
-      setDataLoaded(true);
-      setResponsibility(data?.data.student.responsibility);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && !dataLoaded) {
+  //     setDataLoaded(true);
+  //     setResponsibility(data?.data.student.responsibility);
+  //   }
+  // }, [data]);
 
-  useEffect(() => {
-    if (data) {
-      form.reset({
-        responsibility: data?.data.student.responsibility,
-      });
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     form.reset({
+  //       responsibility: data?.data.student.responsibility,
+  //     });
+  //   }
+  // }, [data]);
   // Variable de type fonction pour l'affichage de notification de type Toast
   const { openNotification } = NotificationToast();
   //*******************Fin
@@ -178,6 +178,7 @@ export default function UpdateResponsabilityForm({
                 : renderSerializedError(error as SerializedError)
               : " "}
             <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+              {/* <p>{data?.data.student.responsibility}</p> */}
               <FormField
                 control={form.control}
                 name="responsibility"
@@ -187,7 +188,7 @@ export default function UpdateResponsabilityForm({
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
-                        defaultValue={responsibility}
+                        defaultValue={data?.data.student.responsibility}
                         className="flex flex-col space-y-1"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
