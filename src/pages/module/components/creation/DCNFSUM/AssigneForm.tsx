@@ -195,7 +195,10 @@ export default function AssigneForm({
                 name="t_id"
                 render={({ field }) => (
                   <FormItem className="flex flex-col ">
-                    <FormLabel> {strings.TH.MODULE} </FormLabel>
+                    <FormLabel>
+                      {" "}
+                      {strings.PLACEHOLDERS.SELECT_TEACHER}{" "}
+                    </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -210,14 +213,16 @@ export default function AssigneForm({
                             {field.value
                               ? sums.find((sum) => sum.value == field.value)
                                   ?.label
-                              : strings.PLACEHOLDERS.SELECT_MODULE}
+                              : strings.PLACEHOLDERS.CLIK_TO_SELECT}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-[200px] p-0">
                         <Command>
-                          <CommandInput placeholder="Search language..." />
+                          <CommandInput
+                            placeholder={strings.PLACEHOLDERS.SEARCH_TEACHER}
+                          />
                           <CommandEmpty>
                             {strings.MESSAGES.NO_DATA}
                           </CommandEmpty>
@@ -245,9 +250,6 @@ export default function AssigneForm({
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormDescription>
-                      {strings.INSTRUCTIONS.SELECT_MODULE}
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

@@ -1,4 +1,3 @@
-import { Dcnfsum } from "../Singles/Dcnfsum";
 import { Dcnfsumt } from "../Singles/Dcnfsumt";
 
 // Root Types
@@ -29,6 +28,9 @@ export interface SeanceDaum {
   ex_vh_td_total_eff: number;
   ex_vh_tp_total_eff: number;
   contenu: string;
+  agent_qr: string;
+  student_qr: string;
+  teacher_qr: string;
   created_at: string;
   updated_at: string;
   camp_year_id: number;
@@ -87,7 +89,7 @@ export interface GetQrSVGDataProps {
   children: React.ReactNode; // Optional for potential child elements within the SVG
 }
 export interface GetQrSVGResponse {
-  svgData: string; // Assuming the API response has an 'svgData' property containing the SVG string
+  svgData: string;
 }
 export interface GetQrSVGModel {
   fileName: string | undefined;

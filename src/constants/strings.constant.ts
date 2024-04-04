@@ -4,6 +4,9 @@ const strings = {
   ACTORS: {},
   ROLES: {},
   PLACEHOLDERS: {
+    CLIK_TO_SELECT: "Cliquez pour selectionnner",
+    SEARCH_TEACHER: "Rechercher ici...",
+    SELECT_TEACHER: "Sélectionner un enseignant",
     REGISTRATION_NO: "Numéro de matricule",
     PHONE1: "Numéro de téléphone (WhatsApp) ici",
     PHONE2: "Numéro de téléphone de secours ici",

@@ -215,7 +215,7 @@ export default function SeanceDataTableByDCNFSUM({
         <Button size="icon" variant="outline" onClick={onResetSearchTermClick}>
           <X />
         </Button>
-        {parseInt(t_id) != 0 ? (
+        {parseInt(t_id) !== 0 ? (
           <>
             <Button size="icon" variant="default" onClick={onCreateClick}>
               <Plus />
@@ -277,6 +277,7 @@ export default function SeanceDataTableByDCNFSUM({
                     </table>
                   </CardContent>
                   <CardFooter className="flex flex-row justify-end">
+                    {/* //disponible pour tout le monde  */}
                     {seanceShow && (
                       <Button
                         size="icon"
@@ -287,33 +288,10 @@ export default function SeanceDataTableByDCNFSUM({
                         <Eye className="h-4 w-4" />
                       </Button>
                     )}
+                    {/* controle enseignant */}
                     {parseInt(t_id) !== 0 && seanceShow && (
                       <>
-                        <Button
-                          size="icon"
-                          onClick={() => {
-                            onEditClick(seance.uuid);
-                          }}
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="icon"
-                          onClick={() => {
-                            onDeleteClick(seance.id);
-                          }}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </>
-                    )}
-                    {parseInt(s_id) !== 0 &&
-                      (delegue ||
-                        sub_delegue ||
-                        sub_delegueInter ||
-                        delegueInter) &&
-                      seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
-                        <>
+                        {seance.agent_qr === "notYetApprouved" ? (
                           <Button
                             size="icon"
                             onClick={() => {
@@ -322,6 +300,10 @@ export default function SeanceDataTableByDCNFSUM({
                           >
                             <Edit2 className="h-4 w-4" />
                           </Button>
+                        ) : (
+                          " "
+                        )}
+                        {seance.agent_qr === "notYetApprouved" ? (
                           <Button
                             size="icon"
                             onClick={() => {
@@ -330,6 +312,43 @@ export default function SeanceDataTableByDCNFSUM({
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
+                        ) : (
+                          " "
+                        )}
+                      </>
+                    )}
+                    {/* controle etudiant */}
+                    {parseInt(s_id) !== 0 &&
+                      (delegue ||
+                        sub_delegue ||
+                        sub_delegueInter ||
+                        delegueInter) &&
+                      seances[0]?.dcnfsumt?.allow_student_entry === 1 && (
+                        <>
+                          {seance.agent_qr === "notYetApprouved" ? (
+                            <Button
+                              size="icon"
+                              onClick={() => {
+                                onEditClick(seance.uuid);
+                              }}
+                            >
+                              <Edit2 className="h-4 w-4" />
+                            </Button>
+                          ) : (
+                            " "
+                          )}
+                          {seance.agent_qr === "notYetApprouved" ? (
+                            <Button
+                              size="icon"
+                              onClick={() => {
+                                onDeleteClick(seance.id);
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          ) : (
+                            " "
+                          )}
                         </>
                       )}
                   </CardFooter>

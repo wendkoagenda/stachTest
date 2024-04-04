@@ -256,10 +256,10 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                     </Button>
                   </div>
                   <table className="border-collapse border border-slate-300  ">
-                    <div className="grid grid-cols-3 gap-4 justify-items-center  text-center ">
+                    <div className="grid grid-cols-3 gap-4 justify-items-center text-center mt-2 ">
                       {isAgentQrLoading ? (
                         "Chargement ..."
-                      ) : data?.data?.agent_qr === null ? (
+                      ) : data?.data?.agent_qr === "notYetApprouved" ? (
                         <div>
                           <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
                             {parseInt(a_id) != 0 ? (
@@ -293,7 +293,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                       )}
                       {isTeacherQrLoading ? (
                         "Chargement ..."
-                      ) : data?.data?.teacher_qr === null ? (
+                      ) : data?.data?.teacher_qr === "notYetApprouved" ? (
                         <div>
                           <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
                             {parseInt(t_id) != 0 ? (
@@ -328,7 +328,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
 
                       {isStudentQrLoading ? (
                         "Chargement ..."
-                      ) : data?.data?.student_qr === null ? (
+                      ) : data?.data?.student_qr === "notYetApprouved" ? (
                         <div>
                           <div className="w-32 h-32 bg-gray-400 flex items-center justify-center ">
                             {parseInt(s_id) != 0 &&
