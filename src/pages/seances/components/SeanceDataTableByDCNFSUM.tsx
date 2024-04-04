@@ -71,7 +71,7 @@ export default function SeanceDataTableByDCNFSUM({
   const [delegueInter, setDelegueInter] = useState(false);
   const [sub_delegueInter, setSubDelegueInter] = useState(false);
   const [seanceShow, setSeanceShow] = useState(false);
-
+  const [seanceDestroy, setSeanceDestroy] = useState(false);
   // Utilisez le crochet "loadPermissions" directement dans le corps du composant
   useEffect(() => {
     // Utilisez la fonction loadPermissions pour récupérer les autorisations
@@ -94,6 +94,9 @@ export default function SeanceDataTableByDCNFSUM({
       );
       setSeanceShow(
         permissions.userPermissions.includes(strings.PERMISSIONS.SEANCE_SHOW)
+      );
+      setSeanceDestroy(
+        permissions.userPermissions.includes(strings.PERMISSIONS.SEANCE_DESTROY)
       );
     }
   }, []);
@@ -303,7 +306,8 @@ export default function SeanceDataTableByDCNFSUM({
                         ) : (
                           " "
                         )}
-                        {seance.agent_qr === "notYetApprouved" ? (
+                        {seance.agent_qr === "notYetApprouved" &&
+                        seanceDestroy ? (
                           <Button
                             size="icon"
                             onClick={() => {
@@ -337,7 +341,8 @@ export default function SeanceDataTableByDCNFSUM({
                           ) : (
                             " "
                           )}
-                          {seance.agent_qr === "notYetApprouved" ? (
+                          {seance.agent_qr === "notYetApprouved" &&
+                          seanceDestroy ? (
                             <Button
                               size="icon"
                               onClick={() => {
