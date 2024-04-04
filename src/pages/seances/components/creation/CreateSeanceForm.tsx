@@ -1,4 +1,6 @@
+import { ModuleTeacherModel } from "@/@types/Module/Module";
 import { SeanceCreationModel } from "@/@types/Seance/Seance";
+import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import {
@@ -12,10 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import strings from "@/constants/strings.constant";
 import { refreshModuleList } from "@/redux/slices/moduleSlice";
-import {
-  closeSeanceCreateDialog,
-  refreshSeanceList,
-} from "@/redux/slices/seanceSlice";
+import { closeSeanceCreateDialog } from "@/redux/slices/seanceSlice";
+import { useFetchModuleTeacherQuery } from "@/services/module";
 import {
   useCreateSeanceMutation,
   useFetchSeancesQuery,
@@ -25,18 +25,16 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
 import { useForm } from "react-hook-form";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { z } from "zod";
-import { ModuleTeacherModel } from "@/@types/Module/Module";
-import { useFetchModuleTeacherQuery } from "@/services/module";
-import TableSkeleton from "@/components/custom/skeleton/TableSkeleton";
-
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
   title: z.string().default("Non définie"),
@@ -77,10 +75,6 @@ export default function CreateSeanceForm({
   const access_token =
     localStorage.getItem("__kgfwe29__97efiyfcljbf68EF79WEFAD") ??
     "access_token";
-  const t_id =
-    localStorage.getItem("__tpiwubfacQWDBUR929dkhayfqdjMNg529q8d") ?? "0";
-  const s_id =
-    localStorage.getItem("__spiecjwvjvQGIWUIEB598156bckeoygqoddq") ?? "0";
   //*******************Fin
 
   //*******************Politique de gestion des permissons
@@ -153,6 +147,31 @@ export default function CreateSeanceForm({
     dispatch(closeSeanceCreateDialog());
   };
   //*******************Fin
+
+  // ReacQuill options
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"], // remove formatting button
+  ];
+
+  const reacQuillmodule = {
+    toolbar: toolbarOptions,
+  };
 
   return (
     <>
@@ -255,7 +274,7 @@ export default function CreateSeanceForm({
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+            <div className="grid grid-cols-1 ">
               <FormField
                 control={form.control}
                 name="contenu"
@@ -263,9 +282,10 @@ export default function CreateSeanceForm({
                   <FormItem>
                     <FormLabel>{strings.TH.CONTENT}*</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={strings.PLACEHOLDERS.CONTENU}
+                      <ReactQuill
+                        modules={reacQuillmodule}
                         {...field}
+                        theme="snow"
                       />
                     </FormControl>
                     <FormMessage />

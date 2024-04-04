@@ -34,6 +34,12 @@ import { useEffect, useState } from "react";
 import AgentApprouveDialog from "../approuvement/agent/AgentApprouveDialog";
 import StudentApprouveDialog from "../approuvement/student/StudentApprouveDialog";
 import TeacherApprouveDialog from "../approuvement/teacher/TeacherApprouveDialog";
+import { AccordionItem } from "@radix-ui/react-accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -170,7 +176,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   return (
     <>
       <Dialog open={showSeanceDialogOpen} onOpenChange={onCloseClick}>
-        <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow-hidden">
+        <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[600px] md:overflow">
           <DialogHeader>
             <DialogTitle>{strings.TEXTS.SHOW_SEANCE}</DialogTitle>
             <DialogDescription>
@@ -189,52 +195,60 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                       {strings.TEXTS.SEANCE_INFO}
                     </Button>
                   </div>
-                  <table className="border-collapse border border-slate-400 ">
-                    <tr>
-                      <td className="border border-slate-300 ">
-                        <b>{strings.TH.TITLE}</b>
-                      </td>
-                      <td
-                        className="border border-slate-300 "
-                        onClick={() => copyToClipboard(data?.data?.title)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {data?.data?.title}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-slate-300">
-                        <b>{strings.TH.VH_CM}</b>
-                      </td>
-                      <td className="border border-slate-300 ">
-                        {data?.data?.vh_cm_eff}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-slate-300">
-                        <b>{strings.TH.VH_TD}</b>
-                      </td>
-                      <td className="border border-slate-300 ">
-                        {data?.data?.vh_td_eff}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-slate-300">
-                        <b>{strings.TH.VH_TP}</b>
-                      </td>
-                      <td className="border border-slate-300 ">
-                        {data?.data?.vh_tp_eff}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-slate-300">
-                        <b>{strings.TH.CONTENU}</b>
-                      </td>
-                      <td className="border border-slate-300 ">
-                        {data?.data?.contenu}
-                      </td>
-                    </tr>
-                  </table>
+                  <div>
+                    <table className="border-collapse border border-slate-400 w-full">
+                      <tr>
+                        <td className="border border-slate-300 ">
+                          <b>{strings.TH.TITLE}</b>
+                        </td>
+                        <td
+                          className="border border-slate-300 "
+                          onClick={() => copyToClipboard(data?.data?.title)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {data?.data?.title}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300">
+                          <b>{strings.TH.VH_CM}</b>
+                        </td>
+                        <td className="border border-slate-300 ">
+                          {data?.data?.vh_cm_eff}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300">
+                          <b>{strings.TH.VH_TD}</b>
+                        </td>
+                        <td className="border border-slate-300 ">
+                          {data?.data?.vh_td_eff}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300">
+                          <b>{strings.TH.VH_TP}</b>
+                        </td>
+                        <td className="border border-slate-300 ">
+                          {data?.data?.vh_tp_eff}
+                        </td>
+                      </tr>
+                    </table>
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="item-1">
+                        <AccordionTrigger>
+                          {strings.TH.CONTENT}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: data?.data?.contenu,
+                            }}
+                          />
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
                   <div className="flex flex-row">
                     <Button size="title" style={{ pointerEvents: "none" }}>
                       <CircleUser className="mr-2 h-4 w-4" />

@@ -33,6 +33,8 @@ import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -155,7 +157,30 @@ export default function UpdateSeanceForm({
     dispatch(closeSeanceUpdateDialog());
   };
   //*******************Fin
+  // ReacQuill options
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
 
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"], // remove formatting button
+  ];
+
+  const reacQuillmodule = {
+    toolbar: toolbarOptions,
+  };
   return (
     <>
       {isFetching ? (
@@ -257,19 +282,23 @@ export default function UpdateSeanceForm({
                 )}
               />
             </div>
-
-            <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+            <div className="grid grid-cols-1">
               <FormField
                 control={form.control}
                 name="contenu"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{strings.TH.CONTENU}*</FormLabel>
+                    <FormLabel>{strings.TH.CONTENT}*</FormLabel>
                     <FormControl>
-                      <Input
+                      <ReactQuill
+                        modules={reacQuillmodule}
+                        {...field}
+                        theme="snow"
+                      />
+                      {/* <Input
                         placeholder={strings.PLACEHOLDERS.CONTENU}
                         {...field}
-                      />
+                      /> */}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
