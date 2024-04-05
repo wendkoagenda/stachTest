@@ -8,6 +8,14 @@ import { X as Cancel } from "lucide-react";
 import { Trash2 as Delete } from "lucide-react";
 import { EyeIcon as Show } from "lucide-react";
 import { Edit2 as Edit } from "lucide-react";
+import { Star as Risponsibilite } from "lucide-react";
+import { Settings2 as Params } from "lucide-react";
+import { Home as Home } from "lucide-react";
+import { Bolt as Departement } from "lucide-react";
+import { Diamond as Classe } from "lucide-react";
+import { Album as Year } from "lucide-react";
+import { User as MyAccount } from "lucide-react";
+import { Box as MyCourses } from "lucide-react";
 
 export const Icons = {
   Agent,
@@ -20,4 +28,12 @@ export const Icons = {
   Delete,
   Show,
   Edit,
+  Risponsibilite,
+  Params,
+  Home,
+  Departement,
+  Classe,
+  Year,
+  MyAccount,
+  MyCourses,
 };

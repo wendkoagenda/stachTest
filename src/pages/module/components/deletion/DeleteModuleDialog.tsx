@@ -24,6 +24,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
+import { Icons } from "@/constants/icons.constant";
 
 const DeleteModuleDialog = ({ moduleId }: { moduleId: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives

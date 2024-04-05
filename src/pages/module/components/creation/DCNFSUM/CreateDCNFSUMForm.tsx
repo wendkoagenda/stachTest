@@ -55,6 +55,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
+import { Icons } from "@/constants/icons.constant";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({

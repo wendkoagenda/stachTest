@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import {
   closeStudentAllowUpdateDialog,

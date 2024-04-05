@@ -213,7 +213,7 @@ export default function HorizontalHeader() {
               <Tooltip>
                 <TooltipTrigger>
                   <Button variant={homeVariant} onClick={handleGoToHomePage}>
-                    <Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
+                    <Icons.Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -230,7 +230,8 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToUsersPage}
                     >
-                      <User2 className="mr-2 h-4 w-4" /> {strings.TEXTS.USERS}
+                      <Icons.User className="mr-2 h-4 w-4" />{" "}
+                      {strings.TEXTS.USERS}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -248,7 +249,8 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToParamsPage}
                     >
-                      <Settings2 className="mr-2 h-4 w-4" /> {strings.TH.PARAMS}
+                      <Icons.Params className="mr-2 h-4 w-4" />{" "}
+                      {strings.TH.PARAMS}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -266,7 +268,8 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToDepartementsPage}
                     >
-                      <Bolt className="mr-2 h-4 w-4" /> {strings.TH.DEPARTEMENT}
+                      <Icons.Departement className="mr-2 h-4 w-4" />{" "}
+                      {strings.TH.DEPARTEMENT}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -284,7 +287,8 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToAllfinalclassesPage}
                     >
-                      <Diamond className="mr-2 h-4 w-4" /> {strings.TH.CLASSES}
+                      <Icons.Classe className="mr-2 h-4 w-4" />{" "}
+                      {strings.TH.CLASSES}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -302,7 +306,7 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToMyCoursesPage}
                     >
-                      <Diamond className="mr-2 h-4 w-4" />{" "}
+                      <Icons.Classe className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.MY_COURSES}
                     </Button>
                   </TooltipTrigger>
@@ -321,7 +325,8 @@ export default function HorizontalHeader() {
                       className="hover:font-bold"
                       onClick={handleGoToMyYearPage}
                     >
-                      <Album className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
+                      <Icons.Year className="mr-2 h-4 w-4" />{" "}
+                      {strings.TH.MY_YEAR}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -333,7 +338,7 @@ export default function HorizontalHeader() {
             {/* <div>
               <Dropdown
                 title={strings.TH.PARAMS}
-                icon={<Settings2 className="mr-2 h-4 w-4" />}
+                icon={<Icons.Params className="mr-2 h-4 w-4" />}
               >
                 <Button
                   className="w-full rounded-md mb-2 border border-none justify-start"
@@ -362,7 +367,7 @@ export default function HorizontalHeader() {
                       variant="outline"
                       onClick={handleGoToMyAccount}
                     >
-                      <User className="mr-2 h-4 w-4" /> Mon compte
+                      <Icons.MyAccount className="mr-2 h-4 w-4" /> Mon compte
                     </Button>
                     <Button
                       className="w-full rounded-md mb-2 border border-none justify-start"
@@ -402,7 +407,7 @@ export default function HorizontalHeader() {
                   <Tooltip>
                     <TooltipTrigger>
                       <Button variant="outline">
-                        <Home className="mr-2 h-4 w-4" /> Home
+                        <Icons.Home className="mr-2 h-4 w-4" /> Home
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -416,7 +421,7 @@ export default function HorizontalHeader() {
                   <Tooltip>
                     <TooltipTrigger>
                       <Button variant="outline">
-                        <User2 className="mr-2 h-4 w-4" /> Utilisateurs
+                        <Icons.User className="mr-2 h-4 w-4" /> Utilisateurs
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -446,7 +451,7 @@ export default function HorizontalHeader() {
                         className="w-full rounded-md mb-2 border border-none justify-start"
                         variant="outline"
                       >
-                        <User className="mr-2 h-4 w-4" /> Mon compte
+                        <Icons.MyAccount className="mr-2 h-4 w-4" /> Mon compte
                       </Button>
                       <Button
                         className="w-full rounded-md mb-2 border border-none justify-start"

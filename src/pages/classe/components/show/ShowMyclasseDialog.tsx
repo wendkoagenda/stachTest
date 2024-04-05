@@ -27,6 +27,7 @@ import { MyClassesShowByDCNFModel } from "@/@types/Singles/Dcnfsumt";
 import { useFetchMyClasseDetailsQuery } from "@/services/module";
 import MymodulesListxByDCNF from "@/pages/module/MymodulesListByDCNF";
 import MymodulesListByDCNF from "@/pages/module/MymodulesListByDCNF";
+import { Icons } from "@/constants/icons.constant";
 
 const ShowMyclasseDialog = ({ dcnf_id }: { dcnf_id: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives

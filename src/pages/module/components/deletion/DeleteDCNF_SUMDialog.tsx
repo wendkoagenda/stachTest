@@ -27,6 +27,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
+import { Icons } from "@/constants/icons.constant";
 
 const DeletionDCNF_SUMDialog = ({ dcnf_sum_id }: { dcnf_sum_id: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives

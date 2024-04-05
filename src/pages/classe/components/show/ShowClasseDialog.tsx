@@ -19,6 +19,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { ArrowUpRightFromSquare, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/constants/icons.constant";
 
 const ShowClasseDialog = ({
   classeUuid,

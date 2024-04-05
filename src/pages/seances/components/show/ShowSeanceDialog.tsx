@@ -40,6 +40,7 @@ import {
   AccordionContent,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Icons } from "@/constants/icons.constant";
 
 const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives

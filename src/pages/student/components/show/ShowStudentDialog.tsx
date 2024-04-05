@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { CircleUser, Loader2, SquareUser, X } from "lucide-react";
 import { useEffect } from "react";
+import { Icons } from "@/constants/icons.constant";
 
 const ShowStudentDialog = ({ studentUuid }: { studentUuid: string }) => {
   //*******************Déclaration de variables de fonctionnement primitives
