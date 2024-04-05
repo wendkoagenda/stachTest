@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { closeAgentUpdateDialog } from "@/redux/slices/agentSlice";
 import {
@@ -343,7 +344,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   </Button>
                 ) : (
                   <Button type="submit">
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <Icons.Save className="mr-2 h-4 w-4" />
                     {strings.BUTTONS.SAVE}
                   </Button>
                 )}
@@ -352,7 +353,7 @@ export default function UpdateAgentForm({ agentUuid }: { agentUuid: string }) {
                   type="button"
                   variant="secondary"
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <Icons.Cancel className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.CANCEL}
                 </Button>
               </DialogFooter>

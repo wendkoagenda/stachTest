@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import {
   closeReponsabilityDialog,
@@ -247,7 +248,7 @@ export default function UpdateResponsabilityForm({
                   </Button>
                 ) : (
                   <Button type="submit">
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <Icons.Save className="mr-2 h-4 w-4" />
                     {strings.BUTTONS.SAVE}
                   </Button>
                 )}
@@ -256,7 +257,7 @@ export default function UpdateResponsabilityForm({
                   type="button"
                   variant="secondary"
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <Icons.Cancel className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.CANCEL}
                 </Button>
               </DialogFooter>

@@ -59,6 +59,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
+import { Icons } from "@/constants/icons.constant";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -264,7 +265,7 @@ export default function AssigneForm({
                   </Button>
                 ) : (
                   <Button type="submit">
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <Icons.Save className="mr-2 h-4 w-4" />
                     {strings.BUTTONS.SAVE}
                   </Button>
                 )}
@@ -273,7 +274,7 @@ export default function AssigneForm({
                   type="button"
                   variant="secondary"
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <Icons.Cancel className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.CANCEL}
                 </Button>
               </DialogFooter>

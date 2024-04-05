@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { closeSeanceUpdateDialog } from "@/redux/slices/seanceSlice";
 import {
@@ -24,17 +25,17 @@ import {
   renderSerializedError,
 } from "@/utils/functions/errorRenders";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
-import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import loadPermissions from "@/utils/hooks/loadPermissions";
+import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
+import { CheckCircle2, Loader2, X } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { z } from "zod";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -314,7 +315,7 @@ export default function UpdateSeanceForm({
                   </Button>
                 ) : (
                   <Button type="submit">
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <Icons.Save className="mr-2 h-4 w-4" />
                     {strings.BUTTONS.SAVE}
                   </Button>
                 )}
@@ -323,7 +324,7 @@ export default function UpdateSeanceForm({
                   type="button"
                   variant="secondary"
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <Icons.Cancel className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.CANCEL}
                 </Button>
               </DialogFooter>

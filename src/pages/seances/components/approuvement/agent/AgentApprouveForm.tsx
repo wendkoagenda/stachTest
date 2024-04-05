@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { refreshModuleList } from "@/redux/slices/moduleSlice";
 import {
@@ -168,12 +169,12 @@ export default function AgentApprouveForm({
                 </Button>
               ) : (
                 <Button type="submit">
-                  <SaveIcon className="mr-2 h-4 w-4" />
+                  <Icons.Save className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.SAVE}
                 </Button>
               )}
               <Button onClick={onCloseClick} type="button" variant="secondary">
-                <X className="mr-2 h-4 w-4" />
+                <Icons.Cancel className="mr-2 h-4 w-4" />
                 {strings.BUTTONS.CANCEL}
               </Button>
             </DialogFooter>

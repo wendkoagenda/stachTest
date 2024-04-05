@@ -24,6 +24,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
+import { Icons } from "@/constants/icons.constant";
 
 const DeleteTeacherDialog = ({ teacherId }: { teacherId: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -119,7 +120,7 @@ const DeleteTeacherDialog = ({ teacherId }: { teacherId: number }) => {
               </Button>
             )}
             <Button onClick={onCloseClick} type="button" variant="secondary">
-              <X className="mr-2 h-4 w-4" />
+              <Icons.Cancel className="mr-2 h-4 w-4" />
               {strings.BUTTONS.CANCEL}
             </Button>
           </DialogFooter>

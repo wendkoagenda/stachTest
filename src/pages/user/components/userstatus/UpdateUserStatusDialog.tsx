@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { closeStatusDialog, refreshAgentList } from "@/redux/slices/agentSlice";
 import { refreshStudentList } from "@/redux/slices/studentSlice";
@@ -14,7 +15,7 @@ import { refreshTeacherList } from "@/redux/slices/teacherSlice";
 import { useUpdateUserStatusMutation } from "@/services/agent";
 import { NotificationToast } from "@/utils/functions/openNotificationToast";
 import { useAppDispatch, useAppSelector } from "@/utils/hooks/reduxHooks";
-import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
+import { CheckCircle2, Loader2, X } from "lucide-react";
 
 const UpdateUserStatusDialog = ({
   user_id,
@@ -89,12 +90,12 @@ const UpdateUserStatusDialog = ({
             </Button>
           ) : (
             <Button onClick={handleUpdateStatus}>
-              <SaveIcon className="mr-2 h-4 w-4" />
+              <Icons.Save className="mr-2 h-4 w-4" />
               {strings.BUTTONS.YES_CHANGE}
             </Button>
           )}
           <Button onClick={onCloseClick} type="button" variant="secondary">
-            <X className="mr-2 h-4 w-4" />
+            <Icons.Cancel className="mr-2 h-4 w-4" />
             {strings.BUTTONS.CANCEL}
           </Button>
         </div>

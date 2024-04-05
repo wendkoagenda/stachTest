@@ -263,7 +263,7 @@ const ShowAgentDialog = ({ agentUuid }: { agentUuid: string }) => {
             </Button>
           ) : (
             <Button type="submit" onClick={onCloseClick}>
-              <X className="mr-2 h-4 w-4" />
+              <Icons.Cancel className="mr-2 h-4 w-4" />
               {strings.BUTTONS.OK_CLOSE}
             </Button>
           )}

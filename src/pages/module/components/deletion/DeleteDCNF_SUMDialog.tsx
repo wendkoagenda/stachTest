@@ -123,7 +123,7 @@ const DeletionDCNF_SUMDialog = ({ dcnf_sum_id }: { dcnf_sum_id: number }) => {
               </Button>
             )}
             <Button onClick={onCloseClick} type="button" variant="secondary">
-              <X className="mr-2 h-4 w-4" />
+              <Icons.Cancel className="mr-2 h-4 w-4" />
               {strings.BUTTONS.CANCEL}
             </Button>
           </DialogFooter>

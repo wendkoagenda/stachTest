@@ -248,7 +248,7 @@ export default function CreateDCNFSUMForm() {
                   </Button>
                 ) : (
                   <Button type="submit">
-                    <SaveIcon className="mr-2 h-4 w-4" />
+                    <Icons.Save className="mr-2 h-4 w-4" />
                     {strings.BUTTONS.SAVE}
                   </Button>
                 )}
@@ -257,7 +257,7 @@ export default function CreateDCNFSUMForm() {
                   type="button"
                   variant="secondary"
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <Icons.Cancel className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.CANCEL}
                 </Button>
               </DialogFooter>

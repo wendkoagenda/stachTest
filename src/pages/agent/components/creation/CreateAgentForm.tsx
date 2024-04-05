@@ -26,9 +26,17 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { CheckCircle2, Loader2, SaveIcon, X } from "lucide-react";
+import {
+  CheckCircle2,
+  CircleUser,
+  Loader2,
+  SaveIcon,
+  SquareUser,
+  X,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Icons } from "@/constants/icons.constant";
 
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
@@ -124,6 +132,12 @@ export default function CreateAgentForm() {
 
   return (
     <>
+      <div>
+        <Button size="title" style={{ pointerEvents: "none" }}>
+          <Icons.User className="mr-2 h-4 w-4" />
+          {strings.TEXTS.PERSONNE_INFO}
+        </Button>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {error
@@ -131,40 +145,6 @@ export default function CreateAgentForm() {
               ? renderFetchBaseQueryError(error as FetchBaseQueryError)
               : renderSerializedError(error as SerializedError)
             : " "}
-          <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.TITLE}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={strings.PLACEHOLDERS.TITLE}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="banner"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{strings.TH.BANNER}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={strings.PLACEHOLDERS.BANNER}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-3 md:gap-4">
             <FormField
               control={form.control}
@@ -304,6 +284,47 @@ export default function CreateAgentForm() {
               )}
             />
           </div>
+          <div>
+            <Button size="title" style={{ pointerEvents: "none" }}>
+              <Icons.Agent className="mr-2 h-4 w-4" />
+              {strings.TEXTS.AGENT_INFO}
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 gap-1 md:grid md:grid-cols-2 md:gap-4">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{strings.TH.TITLE}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.TITLE}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="banner"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{strings.TH.BANNER}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={strings.PLACEHOLDERS.BANNER}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           {agentStore && (
             <DialogFooter className="flex flex-row justify-end">
               {isLoading ? (
@@ -313,12 +334,12 @@ export default function CreateAgentForm() {
                 </Button>
               ) : (
                 <Button type="submit">
-                  <SaveIcon className="mr-2 h-4 w-4" />
+                  <Icons.Save className="mr-2 h-4 w-4" />
                   {strings.BUTTONS.SAVE}
                 </Button>
               )}
               <Button onClick={onCloseClick} type="button" variant="secondary">
-                <X className="mr-2 h-4 w-4" />
+                <Icons.Cancel className="mr-2 h-4 w-4" />
                 {strings.BUTTONS.CANCEL}
               </Button>
             </DialogFooter>

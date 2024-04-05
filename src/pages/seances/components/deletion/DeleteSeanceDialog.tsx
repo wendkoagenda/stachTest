@@ -26,6 +26,7 @@ import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Icons } from "@/constants/icons.constant";
 
 const DeleteSeanceDialog = ({ seanceId }: { seanceId: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -112,7 +113,7 @@ const DeleteSeanceDialog = ({ seanceId }: { seanceId: number }) => {
             </Button>
           )}
           <Button onClick={onCloseClick} type="button" variant="secondary">
-            <X className="mr-2 h-4 w-4" />
+            <Icons.Cancel className="mr-2 h-4 w-4" />
             {strings.BUTTONS.CANCEL}
           </Button>
         </DialogFooter>

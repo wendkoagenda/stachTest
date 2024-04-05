@@ -16,6 +16,7 @@ import StudentDataTable from "./components/StudentDataTable";
 import CreationStudentDialog from "./components/creation";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { useEffect, useState } from "react";
+import { Icons } from "@/constants/icons.constant";
 
 export default function StudentsList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -98,7 +99,7 @@ export default function StudentsList() {
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       ) : (
                         <>
-                          <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                          <Icons.AddNew /> <span>{strings.BUTTONS.ADD}</span>
                         </>
                       )}
                     </Button>

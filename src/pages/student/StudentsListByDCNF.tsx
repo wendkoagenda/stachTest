@@ -17,6 +17,7 @@ import Footer from "../../components/partials/Footer";
 import StudentDataTableByDCNF from "./components/StudentDataTableByDCNF";
 import CreationStudentDialog from "./components/creation";
 import { useEffect, useState } from "react";
+import { Icons } from "@/constants/icons.constant";
 
 export default function StudentsListByDCNF() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -103,7 +104,7 @@ export default function StudentsListByDCNF() {
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
                       <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                        <Icons.AddNew /> <span>{strings.BUTTONS.ADD}</span>
                       </>
                     )}
                   </Button>
