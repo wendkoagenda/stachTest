@@ -37,7 +37,10 @@ import "react-quill/dist/quill.snow.css";
 import { z } from "zod";
 // Définition du schéma de validation du formulaire
 const formSchema = z.object({
-  title: z.string().default("Non définie"),
+  title: z.string({
+    required_error: "Le titre est obligatoire",
+    invalid_type_error: "Name must be a string",
+  }),
   dcnf_sum_id: z.number({
     required_error: "Ce champ est obligatoire",
     invalid_type_error: "Ce champ doit etre un nombre",
@@ -47,18 +50,23 @@ const formSchema = z.object({
     invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_cm_eff: z.number({
-    required_error: "Ce champ est obligatoire",
+    required_error:
+      'CM est obligatoire. Si vous n\'avez pas fait de CM, entrez "0".',
     invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_td_eff: z.number({
-    required_error: "Ce champ est obligatoire",
+    required_error:
+      'TD est obligatoire. Si vous n\'avez pas fait de CM, entrez "0"',
     invalid_type_error: "Ce champ doit etre un nombre",
   }),
   vh_tp_eff: z.number({
-    required_error: "Ce champ est obligatoire",
+    required_error:
+      'TP est obligatoire. Si vous n\'avez pas fait de CM, entrez "0"',
     invalid_type_error: "Ce champ doit etre un nombre",
   }),
-  contenu: z.string().default("Non définie"),
+  contenu: z.string({
+    required_error: "Le contenu est obligatoire",
+  }),
   camp_year_id: z.number(),
 });
 
@@ -108,13 +116,8 @@ export default function CreateSeanceForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
       t_id: moduleTeacher?.teacher_id,
       dcnf_sum_id: dcnfsum_id,
-      vh_cm_eff: 0,
-      vh_td_eff: 0,
-      vh_tp_eff: 0,
-      contenu: "",
       camp_year_id: parseInt(camp_year_id),
     },
   });
@@ -211,7 +214,7 @@ export default function CreateSeanceForm({
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        placeholder={strings.PLACEHOLDERS.VH_CM}
                         onChange={(e) => {
                           const value = parseFloat(e.target.value);
                           if (!isNaN(value)) {
@@ -236,7 +239,7 @@ export default function CreateSeanceForm({
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        placeholder={strings.PLACEHOLDERS.VH_TD}
                         onChange={(e) => {
                           const value = parseFloat(e.target.value);
                           if (!isNaN(value)) {
@@ -259,7 +262,7 @@ export default function CreateSeanceForm({
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder={strings.PLACEHOLDERS.CREDIT}
+                        placeholder={strings.PLACEHOLDERS.VH_TP}
                         onChange={(e) => {
                           const value = parseFloat(e.target.value);
                           if (!isNaN(value)) {
