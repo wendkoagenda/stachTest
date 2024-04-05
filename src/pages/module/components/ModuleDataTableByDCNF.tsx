@@ -31,6 +31,7 @@ import { useParams } from "react-router-dom";
 import DeletionDCNF_SUMDialog from "./deletion/DeleteDCNF_SUMDialog";
 import ShowDCNF_SUMDialog from "./show/ShowDCNF_SUMDialog";
 import UpdateModuleDialog from "./update";
+import { Icons } from "@/constants/icons.constant";
 
 export default function ModuleDataTableByDCNF({
   props_dcnf_uuid,
@@ -315,7 +316,7 @@ export default function ModuleDataTableByDCNF({
           <>
             {seanceShow && dcnfsumShow && (
               <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-                icon={<EyeIcon className="mr-2 h-4 w-4" />}
+                icon={<Icons.Show className="mr-2 h-4 w-4" />}
                 key="show"
                 label={strings.BUTTONS.SHOW}
                 onClick={() => {
@@ -327,7 +328,7 @@ export default function ModuleDataTableByDCNF({
             )}
             {dcnfsumUpdate && (
               <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-                icon={<Edit2 className="mr-2 h-4 w-4" />}
+                icon={<Icons.Edit className="mr-2 h-4 w-4" />}
                 key="edit"
                 disabled
                 label={strings.BUTTONS.EDIT}
@@ -340,7 +341,7 @@ export default function ModuleDataTableByDCNF({
             )}
             {dcnfsumDestroy && (
               <MRT_ActionMenuItem
-                icon={<Trash2 className="mr-2 h-4 w-4" />}
+                icon={<Icons.Delete className="mr-2 h-4 w-4" />}
                 key="delete"
                 label={strings.BUTTONS.WITHDRAW}
                 onClick={() => {

@@ -29,6 +29,7 @@ import ShowAgentDialog from "./show";
 import UpdateAgentDialog from "./update";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
+import { Icons } from "@/constants/icons.constant";
 
 export default function AgentDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -314,7 +315,7 @@ export default function AgentDataTable() {
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           agentUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
+              icon={<Icons.Show className="mr-2 h-4 w-4" />}
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
@@ -326,7 +327,7 @@ export default function AgentDataTable() {
           ),
           agentUserShow && agentUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Edit className="mr-2 h-4 w-4" />}
               key="edit"
               label={strings.BUTTONS.EDIT}
               onClick={() => {
@@ -353,7 +354,7 @@ export default function AgentDataTable() {
           ),
           agentDestroy && (
             <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Delete className="mr-2 h-4 w-4" />}
               key="delete"
               label={strings.BUTTONS.DELETE}
               onClick={() => {

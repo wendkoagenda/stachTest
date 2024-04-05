@@ -21,6 +21,7 @@ import loadPermissions from "@/utils/hooks/loadPermissions";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { CheckCircle2, Loader2, Trash2, X } from "lucide-react";
+import { Icons } from "@/constants/icons.constant";
 
 const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -111,7 +112,7 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
               </Button>
             ) : (
               <Button type="submit" onClick={onDelete} variant="destructive">
-                <Trash2 className="mr-2 h-4 w-4" />
+                <Icons.Delete className="mr-2 h-4 w-4" />
                 {strings.BUTTONS.DELETE}
               </Button>
             )}

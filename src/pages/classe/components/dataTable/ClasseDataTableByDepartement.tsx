@@ -26,6 +26,7 @@ import { useEffect, useMemo, useState } from "react";
 // import UpdateClasseDialog from "./update";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import ShowClasseDialog from "../show";
+import { Icons } from "@/constants/icons.constant";
 
 export default function ClasseDataTableByDepartement({
   dc_uuid,
@@ -212,7 +213,7 @@ export default function ClasseDataTableByDepartement({
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           dcnfShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
+              icon={<Icons.Show className="mr-2 h-4 w-4" />}
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
@@ -224,7 +225,7 @@ export default function ClasseDataTableByDepartement({
           ),
           dcnfUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Edit className="mr-2 h-4 w-4" />}
               key="edit"
               disabled
               label={strings.BUTTONS.EDIT}
@@ -237,7 +238,7 @@ export default function ClasseDataTableByDepartement({
           ),
           dcnfDestroy && (
             <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Delete className="mr-2 h-4 w-4" />}
               key="delete"
               disabled
               label={strings.BUTTONS.DELETE}

@@ -29,6 +29,7 @@ import UpdateTeacherDialog from "./update";
 import loadPermissions from "@/utils/hooks/loadPermissions";
 import { openStatusDialog } from "@/redux/slices/agentSlice";
 import UpdateUserStatusDialog from "@/pages/user/components/userstatus/UpdateUserStatusDialog";
+import { Icons } from "@/constants/icons.constant";
 
 export default function TeacherDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -316,7 +317,7 @@ export default function TeacherDataTable() {
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           teacherUserShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
+              icon={<Icons.Show className="mr-2 h-4 w-4" />}
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
@@ -328,7 +329,7 @@ export default function TeacherDataTable() {
           ),
           teacherUserShow && teacherUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Edit className="mr-2 h-4 w-4" />}
               key="edit"
               label={strings.BUTTONS.EDIT}
               onClick={() => {
@@ -355,7 +356,7 @@ export default function TeacherDataTable() {
           ),
           teacherDestroy && (
             <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Delete className="mr-2 h-4 w-4" />}
               key="delete"
               label={strings.BUTTONS.DELETE}
               onClick={() => {

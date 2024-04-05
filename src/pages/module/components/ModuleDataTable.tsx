@@ -25,6 +25,7 @@ import { useEffect, useMemo, useState } from "react";
 import DeletionModuleDialog from "./deletion";
 import ShowModuleDialog from "./show";
 import UpdateModuleDialog from "./update";
+import { Icons } from "@/constants/icons.constant";
 
 export default function ModuleDataTable() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -255,7 +256,7 @@ export default function ModuleDataTable() {
         renderRowActionMenuItems={({ closeMenu, row, table }) => [
           moduleShow && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<EyeIcon className="mr-2 h-4 w-4" />}
+              icon={<Icons.Show className="mr-2 h-4 w-4" />}
               key="show"
               label={strings.BUTTONS.SHOW}
               onClick={() => {
@@ -267,7 +268,7 @@ export default function ModuleDataTable() {
           ),
           moduleShow && moduleUpdate && (
             <MRT_ActionMenuItem //or just use a normal MUI MenuItem component
-              icon={<Edit2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Edit className="mr-2 h-4 w-4" />}
               key="edit"
               label={strings.BUTTONS.EDIT}
               onClick={() => {
@@ -279,7 +280,7 @@ export default function ModuleDataTable() {
           ),
           moduleDestroy && (
             <MRT_ActionMenuItem
-              icon={<Trash2 className="mr-2 h-4 w-4" />}
+              icon={<Icons.Delete className="mr-2 h-4 w-4" />}
               key="delete"
               label={strings.BUTTONS.DELETE}
               onClick={() => {

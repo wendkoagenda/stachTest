@@ -114,7 +114,7 @@ const DeleteModuleDialog = ({ moduleId }: { moduleId: number }) => {
               </Button>
             ) : (
               <Button type="submit" onClick={onDelete} variant="destructive">
-                <Trash2 className="mr-2 h-4 w-4" />
+                <Icons.Delete className="mr-2 h-4 w-4" />
                 {strings.BUTTONS.DELETE}
               </Button>
             )}

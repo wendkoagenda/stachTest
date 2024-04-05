@@ -27,3 +27,5 @@ reauete a gemini : comment fixer le Header ?
 -Gerer le champ de saise du contenu de la seance avec un editeur de texte
 -gerer le formulaire de saie de seance avec les required
 -gerer le login view
+- Verifer que icons est importer dans les fichier de Icons.Cancel et continuer la creation de la bibliotheque d'icones 
+-Voir la redirection auto et la deconnexion auto 
