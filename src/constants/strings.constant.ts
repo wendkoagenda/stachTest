@@ -11,6 +11,7 @@ const strings = {
     PHONE1: "Numéro de téléphone (WhatsApp) ici",
     PHONE2: "Numéro de téléphone de secours ici",
     EMAIL: "Adresse e-mail ici",
+    PASSWORD: "Mot de passe ici",
     FIRST_NAME: "Prénom(s) ici",
     LAST_NAME: "Nom de famille ici",
     TITLE: "Saisir une phrase en guise de titre",
@@ -111,6 +112,9 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    HOME: "Page d'accueil",
+    BON_RETOUR: "Bon retour parmi nous !",
+    LOGIN_FORM: "Formulaire de connexion",
     BAD_REGISTRATION_NUMBER_MESSAGE:
       "Le numéro matricule que vous avez entré est incorrect ou ne vous appartient pas.",
     BAD_REGISTRATION_NUMBER_TITLE:
@@ -203,6 +207,7 @@ const strings = {
     ROLE_LIST: "Liste des rôles",
   },
   TH: {
+    PASSWORD: "Mot de passe",
     DOSSIER_AGENT: "Mon dossier membre de l'adminitration",
     DOSSIER_TEACHER: "Mon dossier enseignant",
     DOSSIER_STUDENT: "Mon dossier étudiant",

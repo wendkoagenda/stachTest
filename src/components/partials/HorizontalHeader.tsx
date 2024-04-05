@@ -27,8 +27,14 @@ import Dropdown from "../custom/Dropdown";
 import UserDropdown from "../custom/UserDropdown";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
+import logoLightFull from "@/assets/logo/icone_campusFlow_1024.png";
+import logoDarkFull from "@/assets/logo/icone_campusFlow_1024_dark.png";
 
 export default function HorizontalHeader() {
+  // Theme management
+  const localTheme = localStorage.getItem("vite-ui-theme");
+  const logo = localTheme === "dark" ? logoDarkFull : logoLightFull;
+
   const firstName = localStorage.getItem("first_name") ?? "Opps";
   const lastName = localStorage.getItem("last_name") ?? "Opps";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -195,18 +201,23 @@ export default function HorizontalHeader() {
       <div className="flex fixed w-full h-auto p-3 justify-between border backdrop-blur-lg filter z-50">
         <div className="flex items-center">
           <a href="/" className="flex-shrink-0">
-            <img className="h-8 w-8" src="logo.svg" alt="Logo" />
+            <img
+              src={logo}
+              width={30}
+              alt="Logo Campus Flow"
+              onClick={handleGoToHomePage}
+            />
           </a>
           <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <Button variant={homeVariant} onClick={handleGoToHomePage}>
-                    <Home className="mr-2 h-4 w-4" /> Home
+                    <Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Page d'accueil</p>
+                  <p>{strings.TEXTS.HOME}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
