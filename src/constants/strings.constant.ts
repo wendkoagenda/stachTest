@@ -112,6 +112,7 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    DISCONNECT: "Me déconnecter",
     HOME: "Page d'accueil",
     BON_RETOUR: "Bon retour parmi nous !",
     LOGIN_FORM: "Formulaire de connexion",

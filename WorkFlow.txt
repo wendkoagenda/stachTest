@@ -26,4 +26,4 @@ reauete a gemini : comment fixer le Header ?
 -Gerer la navigation dans les pages 
 -Gerer le champ de saise du contenu de la seance avec un editeur de texte
 -gerer le formulaire de saie de seance avec les required
--gerer le login
+-gerer le login view

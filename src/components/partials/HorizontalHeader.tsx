@@ -362,14 +362,16 @@ export default function HorizontalHeader() {
                       variant="outline"
                       onClick={handleGoToMyAccount}
                     >
-                      <User className="mr-2 h-4 w-4" /> Mon compte
+                      <User className="mr-2 h-4 w-4" />{" "}
+                      {strings.TEXTS.MY_ACCOUNT}
                     </Button>
                     <Button
                       className="w-full rounded-md mb-2 border border-none justify-start"
                       variant="outline"
                       onClick={handleLogout}
                     >
-                      <LogOut className="mr-2 h-4 w-4" /> Me deconnecter
+                      <LogOut className="mr-2 h-4 w-4" />{" "}
+                      {strings.TEXTS.DISCONNECT}
                     </Button>
                   </>
                 </UserDropdown>
@@ -394,49 +396,151 @@ export default function HorizontalHeader() {
             }`}
           >
             <div
-              className="flex flex-col border border-red-900 bg-slate-200 backdrop-blur-lg filter px-4 py-4"
+              className="flex flex-col bg-slate-200 backdrop-blur-lg filter px-4 py-4"
               ref={menuRef}
             >
               <div className="mb-2">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      <Button variant="outline">
-                        <Home className="mr-2 h-4 w-4" /> Home
+                      <Button
+                        variant={homeVariant}
+                        onClick={handleGoToHomePage}
+                      >
+                        <Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Page d'accueil</p>
+                      <p>{strings.TEXTS.HOME}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
               <div className="mb-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button variant="outline">
-                        <User2 className="mr-2 h-4 w-4" /> Utilisateurs
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Liste des utilisateurs</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                {paramsUsers && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={userVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToUsersPage}
+                        >
+                          <User2 className="mr-2 h-4 w-4" />{" "}
+                          {strings.TEXTS.USERS}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.USERS_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
               <div className="mb-2">
-                <Dropdown
-                  title="Kioque"
-                  icon={<Key className="mr-2 h-4 w-4" />}
-                >
-                  <Button
-                    className="w-full rounded-md mb-2 border border-none justify-start"
-                    variant="outline"
-                  >
-                    <Option className="mr-2 h-4 w-4" /> Option 1
-                  </Button>
-                </Dropdown>
+                {paramsList && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={paramVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToParamsPage}
+                        >
+                          <Settings2 className="mr-2 h-4 w-4" />{" "}
+                          {strings.TH.PARAMS}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </div>
+              <div className="mb-2">
+                {paramsDepartements && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={departementVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToDepartementsPage}
+                        >
+                          <Bolt className="mr-2 h-4 w-4" />{" "}
+                          {strings.TH.DEPARTEMENT}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </div>
+              <div className="mb-2">
+                {paramsClasses && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={allfinalclassesVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToAllfinalclassesPage}
+                        >
+                          <Diamond className="mr-2 h-4 w-4" />{" "}
+                          {strings.TH.CLASSES}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </div>
+              <div className="mb-2">
+                {myCourses && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={myCoursesVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToMyCoursesPage}
+                        >
+                          <Diamond className="mr-2 h-4 w-4" />{" "}
+                          {strings.TH.MY_COURSES}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </div>
+              <div className="mb-2">
+                {myYear && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          variant={myYearVariant}
+                          className="hover:font-bold"
+                          onClick={handleGoToMyYearPage}
+                        >
+                          <Album className="mr-2 h-4 w-4" />{" "}
+                          {strings.TH.MY_YEAR}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
               <div>
                 <div className="flex flex-row">
@@ -446,14 +550,16 @@ export default function HorizontalHeader() {
                         className="w-full rounded-md mb-2 border border-none justify-start"
                         variant="outline"
                       >
-                        <User className="mr-2 h-4 w-4" /> Mon compte
+                        <User className="mr-2 h-4 w-4" />{" "}
+                        {strings.TEXTS.MY_ACCOUNT}
                       </Button>
                       <Button
                         className="w-full rounded-md mb-2 border border-none justify-start"
                         variant="outline"
                         onClick={handleLogout}
                       >
-                        <LogOut className="mr-2 h-4 w-4" /> Me deconnecter
+                        <LogOut className="mr-2 h-4 w-4" />{" "}
+                        {strings.TEXTS.DISCONNECT}
                       </Button>
                     </>
                   </UserDropdown>
