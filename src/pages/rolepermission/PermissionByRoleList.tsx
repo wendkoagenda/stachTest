@@ -13,6 +13,7 @@ import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { Loader2, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
 import PermissionByRoleDataTable from "./components/PermissionByRoleDataTable";
+import GoBackButton from "@/components/custom/GoBackButton";
 
 export default function PermissionByRoleList() {
   //*******************Déclaration de variables de fonctionnement primitives
@@ -71,19 +72,25 @@ export default function PermissionByRoleList() {
     <>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="col-6">
-          <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-            {strings.TEXTS.LIST_PERMISSIONS} du role{" "}
-            {fetchPermissionsRoleByIdQueryData?.title}
-            <Button className="ml-2" style={{ pointerEvents: "none" }}>
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : Array.isArray(data) ? (
-                fetchPermissionsRoleByIdQueryData?.permissions.length
-              ) : (
-                0
-              )}
-            </Button>
-          </h4>
+          <div className="flex felx-col">
+            <GoBackButton />
+            <div>
+              <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+                {strings.TEXTS.LIST_PERMISSIONS} du role{" "}
+                {fetchPermissionsRoleByIdQueryData?.title}
+                <Button className="ml-2" style={{ pointerEvents: "none" }}>
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : Array.isArray(data) ? (
+                    fetchPermissionsRoleByIdQueryData?.permissions.length
+                  ) : (
+                    0
+                  )}
+                </Button>
+              </h4>
+            </div>
+            {/*  */}
+          </div>
         </div>
         <div className="col-6 text-end">
           {/* <TooltipProvider>

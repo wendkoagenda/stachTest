@@ -3,7 +3,7 @@ import { CardContent } from "../../ui/card";
 
 export default function CardSkeleton() {
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
       <div>
         <CardContent>
           <Skeleton className="h-4 w-full mt-2" />

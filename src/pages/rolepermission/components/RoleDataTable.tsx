@@ -86,20 +86,17 @@ export default function RoleDataTable() {
         <CardSkeleton />
       ) : rolesToShow.length > 0 ? (
         <>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
             {rolesToShow.map((role, index) => (
-              <div key={index} className="max-w-[150] max-h-[150] ">
+              <div key={index} className="max-w-[150] max-h-[150] mb-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>
                       <div className="mb-4">
                         <p className="mb-2">{role.title} </p>
-                        <hr className="my-2" />
-                        <p className="mt-2">{role.description}</p>
                       </div>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent></CardContent>
                   <CardFooter className="flex flex-row justify-end">
                     {rolesToShow && (
                       <Button

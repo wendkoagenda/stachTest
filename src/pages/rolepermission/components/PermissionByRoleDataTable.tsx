@@ -86,7 +86,7 @@ export default function PermissionByRoleDataTable() {
         <CardSkeleton />
       ) : dataShow.length > 0 ? (
         <>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
             {dataShow.map((per, index) => (
               <div key={index} className="max-w-[150] max-h-[150] ">
                 <Card>
