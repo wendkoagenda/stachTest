@@ -112,6 +112,7 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    WELCOME: "Bienvenue",
     PROGRESSION_BY_DEP: "Progression par déartement",
     YEAR_PROGRESSION: "Progression de l'année",
     DISCONNECT: "Me déconnecter",

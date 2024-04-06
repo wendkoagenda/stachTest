@@ -28,6 +28,5 @@ reauete a gemini : comment fixer le Header ?
 -gerer le formulaire de saie de seance avec les required
 -gerer le login view
 - Verifer que icons est importer dans les fichier de Icons.Cancel et continuer la creation de la bibliotheque d'icones 
--Voir la redirection auto et la deconnexion auto 
 -voir les tooltips
 -continuer la creation de la page home
