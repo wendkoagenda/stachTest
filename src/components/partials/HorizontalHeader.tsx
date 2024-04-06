@@ -1,35 +1,16 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import strings from "@/constants/strings.constant";
-import { logout } from "@/redux/slices/authSlice";
-import loadPermissions from "@/utils/hooks/loadPermissions";
-import {
-  Album,
-  Bolt,
-  Diamond,
-  Home,
-  Key,
-  LogOut,
-  Menu,
-  Option,
-  Settings2,
-  User,
-  User2,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import Dropdown from "../custom/Dropdown";
-import UserDropdown from "../custom/UserDropdown";
-import { Button } from "../ui/button";
-import { ModeToggle } from "../ui/mode-toggle";
 import logoLightFull from "@/assets/logo/icone_campusFlow_1024.png";
 import logoDarkFull from "@/assets/logo/icone_campusFlow_1024_dark.png";
 import { Icons } from "@/constants/icons.constant";
+import strings from "@/constants/strings.constant";
+import { logout } from "@/redux/slices/authSlice";
+import loadPermissions from "@/utils/hooks/loadPermissions";
+import { LogOut, Menu } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import UserDropdown from "../custom/UserDropdown";
+import { Button } from "../ui/button";
+import { ModeToggle } from "../ui/mode-toggle";
 
 export default function HorizontalHeader() {
   // Theme management
@@ -210,131 +191,65 @@ export default function HorizontalHeader() {
             />
           </a>
           <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button variant={homeVariant} onClick={handleGoToHomePage}>
-                    <Icons.Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TEXTS.HOME}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Button variant={homeVariant} onClick={handleGoToHomePage}>
+              <Icons.Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
+            </Button>
+
             {paramsUsers && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={userVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToUsersPage}
-                    >
-                      <Icons.User className="mr-2 h-4 w-4" />{" "}
-                      {strings.TEXTS.USERS}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.USERS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={userVariant}
+                className="hover:font-bold"
+                onClick={handleGoToUsersPage}
+              >
+                <Icons.User className="mr-2 h-4 w-4" /> {strings.TEXTS.USERS}
+              </Button>
             )}
             {paramsList && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={paramVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToParamsPage}
-                    >
-                      <Icons.Params className="mr-2 h-4 w-4" />{" "}
-                      {strings.TH.PARAMS}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={paramVariant}
+                className="hover:font-bold"
+                onClick={handleGoToParamsPage}
+              >
+                <Icons.Params className="mr-2 h-4 w-4" /> {strings.TH.PARAMS}
+              </Button>
             )}
             {paramsDepartements && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={departementVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToDepartementsPage}
-                    >
-                      <Icons.Departement className="mr-2 h-4 w-4" />{" "}
-                      {strings.TH.DEPARTEMENT}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={departementVariant}
+                className="hover:font-bold"
+                onClick={handleGoToDepartementsPage}
+              >
+                <Icons.Departement className="mr-2 h-4 w-4" />{" "}
+                {strings.TH.DEPARTEMENT}
+              </Button>
             )}
             {paramsClasses && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={allfinalclassesVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToAllfinalclassesPage}
-                    >
-                      <Icons.Classe className="mr-2 h-4 w-4" />{" "}
-                      {strings.TH.CLASSES}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={allfinalclassesVariant}
+                className="hover:font-bold"
+                onClick={handleGoToAllfinalclassesPage}
+              >
+                <Icons.Classe className="mr-2 h-4 w-4" /> {strings.TH.CLASSES}
+              </Button>
             )}
             {myCourses && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={myCoursesVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToMyCoursesPage}
-                    >
-                      <Icons.MyCourses className="mr-2 h-4 w-4" />{" "}
-                      {strings.TH.MY_COURSES}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={myCoursesVariant}
+                className="hover:font-bold"
+                onClick={handleGoToMyCoursesPage}
+              >
+                <Icons.MyCourses className="mr-2 h-4 w-4" />{" "}
+                {strings.TH.MY_COURSES}
+              </Button>
             )}
             {myYear && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant={myYearVariant}
-                      className="hover:font-bold"
-                      onClick={handleGoToMyYearPage}
-                    >
-                      <Icons.Year className="mr-2 h-4 w-4" />{" "}
-                      {strings.TH.MY_YEAR}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant={myYearVariant}
+                className="hover:font-bold"
+                onClick={handleGoToMyYearPage}
+              >
+                <Icons.Year className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
+              </Button>
             )}
             {/* <div>
               <Dropdown
@@ -406,147 +321,81 @@ export default function HorizontalHeader() {
               ref={menuRef}
             >
               <div className="mb-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button
-                        variant={homeVariant}
-                        onClick={handleGoToHomePage}
-                      >
-                        <Icons.Home className="mr-2 h-4 w-4" />{" "}
-                        {strings.TEXTS.HOME}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{strings.TEXTS.HOME}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Button variant={homeVariant} onClick={handleGoToHomePage}>
+                  <Icons.Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
+                </Button>
+
+                <p>{strings.TEXTS.HOME}</p>
               </div>
               <div className="mb-2">
                 {paramsUsers && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={userVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToUsersPage}
-                        >
-                          <Icons.User className="mr-2 h-4 w-4" />{" "}
-                          {strings.TEXTS.USERS}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.USERS_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={userVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToUsersPage}
+                  >
+                    <Icons.User className="mr-2 h-4 w-4" />{" "}
+                    {strings.TEXTS.USERS}
+                  </Button>
                 )}
               </div>
               <div className="mb-2">
                 {paramsList && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={paramVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToParamsPage}
-                        >
-                          <Icons.Params className="mr-2 h-4 w-4" />{" "}
-                          {strings.TH.PARAMS}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={paramVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToParamsPage}
+                  >
+                    <Icons.Params className="mr-2 h-4 w-4" />{" "}
+                    {strings.TH.PARAMS}
+                  </Button>
                 )}
               </div>
               <div className="mb-2">
                 {paramsDepartements && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={departementVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToDepartementsPage}
-                        >
-                          <Icons.Departement className="mr-2 h-4 w-4" />{" "}
-                          {strings.TH.DEPARTEMENT}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={departementVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToDepartementsPage}
+                  >
+                    <Icons.Departement className="mr-2 h-4 w-4" />{" "}
+                    {strings.TH.DEPARTEMENT}
+                  </Button>
                 )}
               </div>
               <div className="mb-2">
                 {paramsClasses && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={allfinalclassesVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToAllfinalclassesPage}
-                        >
-                          <Icons.Classe className="mr-2 h-4 w-4" />{" "}
-                          {strings.TH.CLASSES}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={allfinalclassesVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToAllfinalclassesPage}
+                  >
+                    <Icons.Classe className="mr-2 h-4 w-4" />{" "}
+                    {strings.TH.CLASSES}
+                  </Button>
                 )}
               </div>
               <div className="mb-2">
                 {myCourses && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={myCoursesVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToMyCoursesPage}
-                        >
-                          <Icons.MyCourses className="mr-2 h-4 w-4" />{" "}
-                          {strings.TH.MY_COURSES}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={myCoursesVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToMyCoursesPage}
+                  >
+                    <Icons.MyCourses className="mr-2 h-4 w-4" />{" "}
+                    {strings.TH.MY_COURSES}
+                  </Button>
                 )}
               </div>
               <div className="mb-2">
                 {myYear && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Button
-                          variant={myYearVariant}
-                          className="hover:font-bold"
-                          onClick={handleGoToMyYearPage}
-                        >
-                          <Icons.Year className="mr-2 h-4 w-4" />{" "}
-                          {strings.TH.MY_YEAR}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    variant={myYearVariant}
+                    className="hover:font-bold"
+                    onClick={handleGoToMyYearPage}
+                  >
+                    <Icons.Year className="mr-2 h-4 w-4" /> {strings.TH.MY_YEAR}
+                  </Button>
                 )}
               </div>
               <div>

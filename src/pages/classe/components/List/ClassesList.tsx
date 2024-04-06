@@ -76,24 +76,15 @@ export default function ClassesList() {
         </div>
         <div className="col-6 text-end">
           {classeStore && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Button onClick={onCreateClick}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <Plus /> <span>{strings.BUTTONS.ADD}</span>
+                </>
+              )}
+            </Button>
           )}
         </div>
       </div>

@@ -29,4 +29,4 @@ reauete a gemini : comment fixer le Header ?
 -gerer le login view
 - Verifer que icons est importer dans les fichier de Icons.Cancel et continuer la creation de la bibliotheque d'icones 
 -Voir la redirection auto et la deconnexion auto 
--for les tooltips
+-voir les tooltips

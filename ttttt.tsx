@@ -209,22 +209,22 @@ export default function HorizontalHeader() {
             />
           </a>
           <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
+            
+              
+                
                   <Button variant={homeVariant} onClick={handleGoToHomePage}>
                     <Icons.Home className="mr-2 h-4 w-4" /> {strings.TEXTS.HOME}
                   </Button>
-                </TooltipTrigger>
-                <TooltipContent>
+                
+               
                   <p>{strings.TEXTS.HOME}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+               
+              
+            
             {paramsUsers && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={userVariant}
                       className="hover:font-bold"
@@ -233,17 +233,17 @@ export default function HorizontalHeader() {
                       <Icons.User className="mr-2 h-4 w-4" />{" "}
                       {strings.TEXTS.USERS}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.USERS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                  
+                 
+                    
+                 
+                
+              
             )}
             {paramsList && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={paramVariant}
                       className="hover:font-bold"
@@ -252,17 +252,17 @@ export default function HorizontalHeader() {
                       <Icons.Params className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.PARAMS}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
+                  
+                 
                     <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                 
+                
+              
             )}
             {paramsDepartements && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={departementVariant}
                       className="hover:font-bold"
@@ -271,17 +271,17 @@ export default function HorizontalHeader() {
                       <Icons.Departement className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.DEPARTEMENT}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
+                  
+                 
                     <p>{strings.TOOLTIPS.PARAMS_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                 
+                
+              
             )}
             {paramsClasses && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={allfinalclassesVariant}
                       className="hover:font-bold"
@@ -290,17 +290,17 @@ export default function HorizontalHeader() {
                       <Icons.Classe className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.CLASSES}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                  
+                 
+                    
+                 
+                
+              
             )}
             {myCourses && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={myCoursesVariant}
                       className="hover:font-bold"
@@ -309,17 +309,17 @@ export default function HorizontalHeader() {
                       <Icons.Classe className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.MY_COURSES}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                  
+                 
+                    
+                 
+                
+              
             )}
             {myYear && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
+              
+                
+                  
                     <Button
                       variant={myYearVariant}
                       className="hover:font-bold"
@@ -328,12 +328,12 @@ export default function HorizontalHeader() {
                       <Icons.Year className="mr-2 h-4 w-4" />{" "}
                       {strings.TH.MY_YEAR}
                     </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.CLASSE_LIST}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                  
+                 
+                    
+                 
+                
+              
             )}
             {/* <div>
               <Dropdown
@@ -403,32 +403,32 @@ export default function HorizontalHeader() {
               ref={menuRef}
             >
               <div className="mb-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
+                
+                  
+                    
                       <Button variant="outline">
                         <Icons.Home className="mr-2 h-4 w-4" /> Home
                       </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
+                    
+                   
                       <p>Page d'accueil</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                   
+                  
+                
               </div>
               <div className="mb-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
+                
+                  
+                    
                       <Button variant="outline">
                         <Icons.User className="mr-2 h-4 w-4" /> Utilisateurs
                       </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
+                    
+                   
                       <p>Liste des utilisateurs</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                   
+                  
+                
               </div>
               <div className="mb-2">
                 <Dropdown

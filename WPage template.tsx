@@ -26,9 +26,9 @@ export default function DepartementShow() {
           </div>
           <div className="col-6 text-end">
             {/* {departementStore && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
+          
+            
+              
                 <Button onClick={onCreateClick}>
                   {isLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -38,12 +38,12 @@ export default function DepartementShow() {
                     </>
                   )}
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent>
+              
+             
                 <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+             
+            
+          
         )} */}
           </div>
         </div>
