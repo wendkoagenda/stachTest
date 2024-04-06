@@ -42,30 +42,32 @@ export const renderFetchBaseQueryError = (error: FetchBaseQueryError) => {
 
     icon = <Frown className="h-4 w-4" />;
   } else if (error.status === 404) {
-    errorMessage = "The requested resource was not found.";
+    errorMessage = "La ressource demandée n'a pas été trouvée.";
     icon = <Frown className="h-4 w-4" />;
   } else if (error.status === 403) {
-    errorMessage = "You have not per,ission to access this resource";
+    errorMessage = "Vous n'avez pas la permission d'accéder à cette ressource.";
     icon = <ShieldAlert className="h-4 w-4" />;
   } else if (error.status === 500) {
-    errorMessage = "An internal server error occurred. Please try again later.";
+    errorMessage =
+      "Une erreur interne du serveur s'est produite. Veuillez réessayer ultérieurement.";
   } else if (error.status === "FETCH_ERROR") {
-    errorMessage = "Erreur Reseaux";
+    errorMessage = "Erreur de réseau";
     icon = <WifiOff className="h-4 w-4" />;
   } else if (error.status === "PARSING_ERROR") {
     // souvent de type 500
-    errorMessage = "An error happened during parsing";
+    errorMessage = "Une erreur s'est produite lors de l'analyse";
   } else if (error.status === "CUSTOM_ERROR") {
-    errorMessage = "An internal server error occurred. Please try again later.";
+    errorMessage =
+      "Une erreur interne du serveur s'est produite. Veuillez réessayer ultérieurement.";
   } else if (error.status === "TIMEOUT_ERROR") {
-    errorMessage = "Le temps impartie est ecouler";
+    errorMessage = "Le délai imparti est écoulé.";
     icon = <Hourglass className="h-4 w-4" />;
   }
 
   return (
     <Alert variant="destructive">
       {icon}
-      <AlertTitle>Request Error:</AlertTitle>
+      <AlertTitle>Oupss, une erreur.</AlertTitle>
       <AlertDescription>
         {errorMessage}
         {validationErrors.length > 0 && (
