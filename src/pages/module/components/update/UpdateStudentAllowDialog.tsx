@@ -73,9 +73,6 @@ const UpdateStudentAllowDialog = ({
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[500px] md:max-h-[700px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.STUDENT_ALLOW}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.STUDENT_ALLOW}
-          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-row justify-end">
           {isLoading ? (

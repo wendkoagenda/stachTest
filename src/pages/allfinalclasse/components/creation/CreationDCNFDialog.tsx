@@ -31,9 +31,6 @@ export default function CreationDCNFDialog() {
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.ADD_MODULE}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_MODULE}
-          </DialogDescription>
         </DialogHeader>
         En suspend , il reste le formulaire d'envoie
         {/* <CreateDCNFForm /> */}

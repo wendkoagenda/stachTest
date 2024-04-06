@@ -32,9 +32,6 @@ export default function CreationDCNFSUMDialog() {
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[500px] md:max-h-[500px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.ADD_DCNFSUM}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_MODULE}
-          </DialogDescription>
         </DialogHeader>
         <CreateDCNFSUMForm />
       </DialogContent>

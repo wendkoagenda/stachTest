@@ -102,9 +102,6 @@ const DeleteStudentDialog = ({ studentId }: { studentId: number }) => {
               : renderSerializedError(error as SerializedError)
             : " "}
           <DialogTitle>{strings.TEXTS.DELETE_STUDENT}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.DELETE_STUDENT}
-          </DialogDescription>
         </DialogHeader>
         {studentDestroy && (
           <DialogFooter className="flex flex-row justify-end">

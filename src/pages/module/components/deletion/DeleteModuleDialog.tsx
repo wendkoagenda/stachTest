@@ -102,9 +102,6 @@ const DeleteModuleDialog = ({ moduleId }: { moduleId: number }) => {
               : renderSerializedError(error as SerializedError)
             : " "}
           <DialogTitle>{strings.TEXTS.DELETE_MODULE}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.DELETE_MODULE}
-          </DialogDescription>
         </DialogHeader>
         {moduleDestroy && (
           <DialogFooter className="flex flex-row justify-end">

@@ -78,9 +78,6 @@ const UpdateUserStatusDialog = ({
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[500px] md:max-h-[700px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.CHANGE_STATUS}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.CHANGE_STATUS}
-          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-row justify-end">
           {isLoading ? (

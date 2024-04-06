@@ -35,10 +35,7 @@ export default function TeacherApprouveDialog({
     <Dialog open={openTeacherApprouveDialog} onOpenChange={onCloseClick}>
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[500px] md:max-h-[500px] md:overflow-hidden">
         <DialogHeader>
-          <DialogTitle>{strings.TEXTS.APPROUVE_SEANCE} Teacher</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.APPROUVE_SEANCE}
-          </DialogDescription>
+          <DialogTitle>{strings.TEXTS.APPROUVE_SEANCE} Teacher</DialogTitle>=
         </DialogHeader>
         <TeacherApprouveForm seanceId={seanceId} />
       </DialogContent>

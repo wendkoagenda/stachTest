@@ -96,9 +96,6 @@ const DeleteSeanceDialog = ({ seanceId }: { seanceId: number }) => {
               : renderSerializedError(error as SerializedError)
             : " "}
           <DialogTitle>{strings.TEXTS.DELETE_SEANCE}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.DELETE_SEANCE}
-          </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex flex-row justify-end">
           {isLoading ? (

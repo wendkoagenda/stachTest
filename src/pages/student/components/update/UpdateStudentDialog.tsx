@@ -33,9 +33,6 @@ const UpdateStudentDialog = ({ studentUuid }: { studentUuid: string }) => {
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow-hidden">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.UPDATE_STUDENT}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.UPDATED_STUDENT}
-          </DialogDescription>
         </DialogHeader>
         <UpdateStudentForm studentUuid={studentUuid} />
       </DialogContent>

@@ -32,9 +32,6 @@ export default function CreationModuleDialog() {
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.ADD_MODULE}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_MODULE}
-          </DialogDescription>
         </DialogHeader>
         <CreateModuleForm />
       </DialogContent>

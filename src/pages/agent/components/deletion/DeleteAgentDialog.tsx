@@ -99,9 +99,6 @@ const DeleteAgentDialog = ({ agentId }: { agentId: number }) => {
               : renderSerializedError(error as SerializedError)
             : " "}
           <DialogTitle>{strings.TEXTS.DELETE_AGENT}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.DELETE_AGENT}
-          </DialogDescription>
         </DialogHeader>
         {agentDestroy && (
           <DialogFooter className="flex flex-row justify-end">

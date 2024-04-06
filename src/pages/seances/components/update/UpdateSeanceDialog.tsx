@@ -33,9 +33,6 @@ const UpdateSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
       <DialogContent className="max-w-[500px] overflow-y-auto max-h-[500px] md:max-w-[1000px] md:max-h-[700px] md:overflow">
         <DialogHeader>
           <DialogTitle>{strings.TEXTS.UPDATE_SEANCE}</DialogTitle>
-          <DialogDescription>
-            {strings.INSTRUCTIONS.ADD_SEANCE}
-          </DialogDescription>
         </DialogHeader>
         <UpdateSeanceForm seanceUuid={seanceUuid} />
       </DialogContent>
