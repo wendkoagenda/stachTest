@@ -59,18 +59,12 @@ export default function UsersList() {
               {teacherUserList && (
                 <TabsTrigger value="teacher"> {strings.TH.TEACHER}</TabsTrigger>
               )}
-              {studentUserList && (
-                <TabsTrigger value="student">{strings.TH.STUDENT}</TabsTrigger>
-              )}
             </TabsList>
             <TabsContent value="agent">
               <AgentsList />
             </TabsContent>
             <TabsContent value="teacher">
               <TeachersList />
-            </TabsContent>
-            <TabsContent value="student">
-              <StudentsList />
             </TabsContent>
           </Tabs>
         </div>

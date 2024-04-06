@@ -244,9 +244,9 @@ export default function SeanceDataTableByDCNFSUM({
         <CardSkeleton />
       ) : seancesToShow.length > 0 ? (
         <>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
             {seancesToShow.map((seance, index) => (
-              <div key={index} className="max-w-[150] max-h-[150] ">
+              <div key={index} className="max-w-[150] max-h-[150] mb-2 ">
                 <Card>
                   <CardHeader>
                     <CardTitle>
@@ -371,9 +371,9 @@ export default function SeanceDataTableByDCNFSUM({
               previousLabel="< Revenir"
               containerClassName="pagination flex mt-4"
               activeClassName="bg-blue-500 text-white"
-              pageClassName="mr-2"
-              previousClassName="mr-2"
-              nextClassName="mr-2"
+              pageClassName="md:m-2 m-2"
+              previousClassName="md:m-2 m-2"
+              nextClassName="md:m-2 m-2"
               pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"

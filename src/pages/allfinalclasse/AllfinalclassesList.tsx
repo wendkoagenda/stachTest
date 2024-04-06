@@ -60,50 +60,24 @@ export default function AllfinalclassesList() {
     ? fetchDCNFsQueryData
     : [];
   //*******************Fin
-  const handleCreateDCNF = () => {
-    dispatch(openDCNFCreateDialog());
-  };
+
   return (
     <>
       <HorizontalHeader />
       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="col-6">
-            <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-              {strings.TEXTS.LIST_CLASSE}
-              <Button className="ml-2" style={{ pointerEvents: "none" }}>
-                {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : Array.isArray(allfinalclasses) ? (
-                  allfinalclasses.length
-                ) : (
-                  0
-                )}
-              </Button>
-            </h4>
-          </div>
-          <div className="col-6 text-end">
-            {dcnfStore && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button onClick={handleCreateDCNF}>
-                      {isLoading ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : (
-                        <>
-                          <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                        </>
-                      )}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-          </div>
+        <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+          <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+            {strings.TEXTS.LIST_CLASSE}
+            <Button className="ml-2" style={{ pointerEvents: "none" }}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : Array.isArray(allfinalclasses) ? (
+                allfinalclasses.length
+              ) : (
+                0
+              )}
+            </Button>
+          </h4>
         </div>
         <div className="mt-2">{dcnfList && <AllfinalclassesDataTable />}</div>
       </div>

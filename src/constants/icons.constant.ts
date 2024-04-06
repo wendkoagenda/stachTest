@@ -16,6 +16,10 @@ import { Diamond as Classe } from "lucide-react";
 import { Album as Year } from "lucide-react";
 import { User as MyAccount } from "lucide-react";
 import { Box as MyCourses } from "lucide-react";
+import { Vault as Role } from "lucide-react";
+import { Shield as Permission } from "lucide-react";
+import { ShieldCheck as Validation } from "lucide-react";
+import { Presentation as Seance } from "lucide-react";
 
 export const Icons = {
   Agent,
@@ -36,4 +40,8 @@ export const Icons = {
   Year,
   MyAccount,
   MyCourses,
+  Role,
+  Permission,
+  Validation,
+  Seance,
 };

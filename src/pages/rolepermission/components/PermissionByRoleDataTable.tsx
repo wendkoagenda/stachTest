@@ -3,6 +3,7 @@ import CardSkeleton from "@/components/custom/skeleton/CardSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { useFetchPermissionsRoleByIdQuery } from "@/services/role";
 import { Shield, X } from "lucide-react";
@@ -41,7 +42,7 @@ export default function PermissionByRoleDataTable() {
     ? fetchPermissionsRoleByIdQueryData
     : [];
   //*******************Fin
-
+  console.log(data);
   //*******************Déclaration des fonctions
   // Systheme de recherche et de pagination
   const pageSize = 32;
@@ -93,7 +94,7 @@ export default function PermissionByRoleDataTable() {
                   <CardHeader>
                     <CardTitle>
                       <div className="mb-4">
-                        <Shield className="mb-2" color="red" />
+                        <Icons.Permission className="mb-2" color="red" />
                         <p className="mb-2">{per.title}</p>
                         <hr className="my-2" />
                         <p className="mt-2 text-base ">{per.description}</p>
@@ -125,11 +126,11 @@ export default function PermissionByRoleDataTable() {
               pageCount={pageCount}
               marginPagesDisplayed={2}
               previousLabel="< Revenir"
-              containerClassName="pagination flex mt-4"
+              containerClassName="pagination flex flex-wrap justify-center mt-4"
               activeClassName="bg-blue-500 text-white"
-              pageClassName="mr-2"
-              previousClassName="mr-2"
-              nextClassName="mr-2"
+              pageClassName="md:m-2 m-2"
+              previousClassName="md:m-2 m-2"
+              nextClassName="md:m-2 m-2"
               pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"

@@ -71,51 +71,22 @@ export default function StudentsListByDCNF() {
   //*******************Fin
 
   //*******************Déclaration de fonctions
-  // Fonction pour l'ouverture de la boite de dialogue de creation d'un student
-  const onCreateClick = () => {
-    dispatch(openStudentCreateDialog());
-  };
-  //*******************Fin
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="col-6">
-          <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-            {strings.TEXTS.LIST_STUDENT} de la classes
-            <Button className="ml-2" style={{ pointerEvents: "none" }}>
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : Array.isArray(students) ? (
-                students.length
-              ) : (
-                0
-              )}
-            </Button>
-          </h4>
-        </div>
-        <div className="col-6 text-end">
-          {studentStore && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button disabled onClick={onCreateClick}>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Icons.AddNew /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.NOT_YET_AVAILABLE}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </div>
+      <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+        <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+          {strings.TEXTS.LIST_STUDENT} de la classes
+          <Button className="ml-2" style={{ pointerEvents: "none" }}>
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : Array.isArray(students) ? (
+              students.length
+            ) : (
+              0
+            )}
+          </Button>
+        </h4>
       </div>
       <div className="mt-2">{studentList && <StudentDataTableByDCNF />}</div>
       <CreationStudentDialog />

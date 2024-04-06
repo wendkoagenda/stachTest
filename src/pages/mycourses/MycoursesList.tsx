@@ -25,9 +25,9 @@ export default function UsersList() {
               <TabsTrigger value="myclasses">
                 {strings.TH.MY_CLASSES}
               </TabsTrigger>
-              <TabsTrigger value="myedt">{strings.TH.MY_EDT}</TabsTrigger>
+              {/* <TabsTrigger value="myedt">{strings.TH.MY_EDT}</TabsTrigger>
               <TabsTrigger value="mydocs">{strings.TH.MY_DOCS}</TabsTrigger>
-              <TabsTrigger value="mystats">{strings.TH.MY_STATS}</TabsTrigger>
+              <TabsTrigger value="mystats">{strings.TH.MY_STATS}</TabsTrigger> */}
             </TabsList>
             <TabsContent value="myclasses">
               {/* <MyclassesList /> */}

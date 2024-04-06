@@ -60,57 +60,27 @@ export default function PermissionByRoleList() {
     ? fetchPermissionsRoleByIdQueryData
     : [];
   //*******************Fin
-  console.log("permissions", data);
-  //*******************Déclaration de fonctions
-  // Fonction pour l'ouverture de la boite de dialogue de creation d'un permission
-  const onCreateClick = () => {
-    // dispatch(openPermissionCreateDialog());
-  };
-  //*******************Fin
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="col-6">
-          <div className="flex felx-col">
-            <GoBackButton />
-            <div>
-              <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-                {strings.TEXTS.LIST_PERMISSIONS} du role{" "}
-                {fetchPermissionsRoleByIdQueryData?.title}
-                <Button className="ml-2" style={{ pointerEvents: "none" }}>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : Array.isArray(data) ? (
-                    fetchPermissionsRoleByIdQueryData?.permissions.length
-                  ) : (
-                    0
-                  )}
-                </Button>
-              </h4>
-            </div>
-            {/*  */}
+      <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+        <div className="flex felx-col">
+          <GoBackButton />
+          <div>
+            <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+              {strings.TEXTS.LIST_PERMISSIONS} du role{" "}
+              {fetchPermissionsRoleByIdQueryData?.title}
+              <Button className="ml-2" style={{ pointerEvents: "none" }}>
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : Array.isArray(data) ? (
+                  fetchPermissionsRoleByIdQueryData?.permissions.length
+                ) : (
+                  0
+                )}
+              </Button>
+            </h4>
           </div>
-        </div>
-        <div className="col-6 text-end">
-          {/* <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button onClick={onCreateClick}>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                    </>
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{strings.TOOLTIPS.ADD_MODULE}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider> */}
         </div>
       </div>
       <div className="mt-2">

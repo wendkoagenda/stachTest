@@ -74,51 +74,27 @@ export default function ClasseShowMore() {
     <>
       <HorizontalHeader />
       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="col-6">
-            {isLoading ? (
-              <TitleSkeleton />
-            ) : (
-              <div className="flex felx-col">
-                <GoBackButton />
-                <div>
-                  <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-                    {data?.nf.filiere.title} {data?.nf.niveau.title} ({" "}
-                    {data?.nf.filiere.acronym}
-                    {data?.nf.niveau.acronym})
-                  </h4>
-                  <p className="">
-                    {data?.dc.departement.title} {data?.dc.cycle.title} ({" "}
-                    {data?.dc.departement.acronym}
-                    {data?.dc.cycle.acronym})
-                  </p>
-                </div>
-                {/*  */}
+        <div className="flex felx-row mb-4">
+          {isLoading ? (
+            <TitleSkeleton />
+          ) : (
+            <div className="flex felx-col">
+              <GoBackButton />
+              <div>
+                <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+                  {data?.nf.filiere.title} {data?.nf.niveau.title} ({" "}
+                  {data?.nf.filiere.acronym}
+                  {data?.nf.niveau.acronym})
+                </h4>
+                <p className="">
+                  {data?.dc.departement.title} {data?.dc.cycle.title} ({" "}
+                  {data?.dc.departement.acronym}
+                  {data?.dc.cycle.acronym})
+                </p>
               </div>
-            )}
-          </div>
-          <div className="col-6 text-end">
-            {/* {departementStore && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button onClick={onCreateClick}>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                    </>
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )} */}
-          </div>
+              {/*  */}
+            </div>
+          )}
         </div>
         <div className="mt-2">
           <Tabs defaultValue="students" className="w-full">
@@ -129,15 +105,16 @@ export default function ClasseShowMore() {
                 </TabsTrigger>
               )}
               {dcnfsumList && (
-                <TabsTrigger value="modules">Modules</TabsTrigger>
+                <TabsTrigger value="modules">{strings.TH.MODULES}</TabsTrigger>
               )}
               <TabsTrigger value="exams">{strings.TH.EXAMS}</TabsTrigger>
-              <TabsTrigger value="edt">{strings.TH.EDT}</TabsTrigger>
+              {/* On verra  */}
+              {/* <TabsTrigger value="edt">{strings.TH.EDT}</TabsTrigger>
               {stats && (
                 <TabsTrigger value="statistiques">
                   {strings.TH.STATISTICS}
                 </TabsTrigger>
-              )}
+              )} */}
             </TabsList>
             <TabsContent value="students">
               <StudentsListByDCNF />
@@ -148,12 +125,13 @@ export default function ClasseShowMore() {
             <TabsContent value="exams">
               <InConstuction />
             </TabsContent>
-            <TabsContent value="edt">
+            {/* On verra  */}
+            {/* <TabsContent value="edt">
               <InConstuction />
-            </TabsContent>
-            <TabsContent value="statistiques">
+            </TabsContent> */}
+            {/* <TabsContent value="statistiques">
               <InConstuction />
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </div>

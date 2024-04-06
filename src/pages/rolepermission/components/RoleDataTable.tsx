@@ -8,9 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Icons } from "@/constants/icons.constant";
 import strings from "@/constants/strings.constant";
 import { useFetchRolesQuery } from "@/services/role";
-import { Eye, X } from "lucide-react";
+import { Eye, Shield, Vault, X } from "lucide-react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
@@ -93,7 +94,10 @@ export default function RoleDataTable() {
                   <CardHeader>
                     <CardTitle>
                       <div className="mb-4">
-                        <p className="mb-2">{role.title} </p>
+                        <Icons.Role className="mb-2" color="red" />
+                        <p className="mb-2">{role.title}</p>
+                        <hr className="my-2" />
+                        <p className="mt-2 text-base ">{role.description}</p>
                       </div>
                     </CardTitle>
                   </CardHeader>
@@ -123,9 +127,9 @@ export default function RoleDataTable() {
               previousLabel="< Revenir"
               containerClassName="pagination flex mt-4"
               activeClassName="bg-blue-500 text-white"
-              pageClassName="mr-2"
-              previousClassName="mr-2"
-              nextClassName="mr-2"
+              pageClassName="md:m-2 m-1"
+              previousClassName="md:m-2 m-1"
+              nextClassName="md:m-2 m-1"
               pageLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               previousLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"
               nextLinkClassName="py-2 px-4 bg-white text-blue-500 border border-blue-500 rounded hover:bg-blue-500 hover:text-white"

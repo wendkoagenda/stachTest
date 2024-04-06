@@ -55,3 +55,6 @@ export default function DepartementShow() {
     </>
   );
 }
+
+// Por le titre
+<div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1"></div>;

@@ -53,7 +53,7 @@ export default function ModulesListByDCNF({
 
   //*******************Déclaration des Hooks
   //Hook de dispatching (Redux store)
-  const dispatch = useAppDispatch();
+
   const { dcnf_uuid } = useParams();
   const dcnf_uuid_value = dcnf_uuid !== undefined ? dcnf_uuid : props_dcnf_uuid;
   // Préparation du paramettre du hook de recuperation des détails d'un modules
@@ -76,52 +76,21 @@ export default function ModulesListByDCNF({
     : [];
   //*******************Fin
 
-  //*******************Déclaration de fonctions
-  // Fonction pour l'ouverture de la boite de dialogue de creation d'un module
-  const onCreateClick = () => {
-    dispatch(openModuleCreateDialog());
-  };
-  //*******************Fin
-
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="col-6">
-          <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-            {strings.TEXTS.LIST_MODULE}
-            <Button className="ml-2" style={{ pointerEvents: "none" }}>
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : Array.isArray(modules) ? (
-                modules.length
-              ) : (
-                0
-              )}
-            </Button>
-          </h4>
-        </div>
-        <div className="col-6 text-end">
-          {dcnfsumStore && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button onClick={onCreateClick}>
-                    {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <>
-                        <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                      </>
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{strings.TOOLTIPS.ADD_MODULE}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </div>
+      <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+        <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+          {strings.TEXTS.LIST_MODULE}
+          <Button className="ml-2" style={{ pointerEvents: "none" }}>
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : Array.isArray(modules) ? (
+              modules.length
+            ) : (
+              0
+            )}
+          </Button>
+        </h4>
       </div>
       <div className="mt-2">
         {dcnfsumList && (

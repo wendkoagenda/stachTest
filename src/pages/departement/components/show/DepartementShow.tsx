@@ -66,8 +66,8 @@ export default function DepartementShow() {
     <>
       <HorizontalHeader />
       <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="col-6">
+        <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
+          <div>
             {isLoading ? (
               <TitleSkeleton />
             ) : (
@@ -80,28 +80,6 @@ export default function DepartementShow() {
                 </h4>
               </div>
             )}
-          </div>
-          <div className="col-6 text-end">
-            {/* {departementStore && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button onClick={onCreateClick}>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                    </>
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{strings.TOOLTIPS.ADD_STUDENT}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )} */}
           </div>
         </div>
         <div className="mt-2">

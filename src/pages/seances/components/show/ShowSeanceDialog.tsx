@@ -192,7 +192,7 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                 <>
                   <div className="flex flex-row">
                     <Button size="title" style={{ pointerEvents: "none" }}>
-                      <SquareUser className="mr-2 h-4 w-4" />
+                      <Icons.Seance className="mr-2 h-4 w-4" />
                       {strings.TEXTS.SEANCE_INFO}
                     </Button>
                   </div>
@@ -252,12 +252,12 @@ const ShowSeanceDialog = ({ seanceUuid }: { seanceUuid: string }) => {
                   </div>
                   <div className="flex flex-row">
                     <Button size="title" style={{ pointerEvents: "none" }}>
-                      <CircleUser className="mr-2 h-4 w-4" />
+                      <Icons.Validation className="mr-2 h-4 w-4" />
                       {strings.TEXTS.VALIDATIONS}
                     </Button>
                   </div>
                   <table className="border-collapse border border-slate-300  ">
-                    <div className="grid grid-cols-3 gap-4 justify-items-center text-center mt-2 ">
+                    <div className="md:grid md:grid-cols-3 md:gap-4 mld:justify-items-center md:text-center md:mt-2 grid grid-cols-1 gap-1 justify-items-center text-center mt-2 ">
                       {isAgentQrLoading ? (
                         "Chargement ..."
                       ) : data?.data?.agent_qr === "notYetApprouved" ? (

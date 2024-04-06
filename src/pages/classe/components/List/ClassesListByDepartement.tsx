@@ -69,50 +69,21 @@ export default function ClassesListByDepartement({
 
   //*******************Fin
 
-  //*******************Déclaration de fonctions
-  // Fonction pour l'ouverture de la boite de dialogue de creation d'un classe
-  const onCreateClick = () => {
-    dispatch(openClasseCreateDialog());
-  };
-  //*******************Fin
-
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="col-6">
-          <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
-            {strings.TEXTS.LIST_CLASSE_OF_DEPARTEMENT}
-            <Button className="ml-2" style={{ pointerEvents: "none" }}>
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : Array.isArray(classes) ? (
-                classes.length
-              ) : (
-                0
-              )}
-            </Button>
-          </h4>
-        </div>
-        <div className="col-6 text-end">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button onClick={onCreateClick} disabled>
-                  {isLoading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <Plus /> <span>{strings.BUTTONS.ADD}</span>
-                    </>
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{strings.TOOLTIPS.NOT_YET_AVAILABLE}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
+      <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+        <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
+          {strings.TEXTS.LIST_CLASSE_OF_DEPARTEMENT}
+          <Button className="ml-2" style={{ pointerEvents: "none" }}>
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : Array.isArray(classes) ? (
+              classes.length
+            ) : (
+              0
+            )}
+          </Button>
+        </h4>
       </div>
       <div className="mt-2">
         {dcnfShow && <ClasseDataTableByDepartement dc_uuid={dc_uuid} />}
