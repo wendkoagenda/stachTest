@@ -30,3 +30,4 @@ reauete a gemini : comment fixer le Header ?
 - Verifer que icons est importer dans les fichier de Icons.Cancel et continuer la creation de la bibliotheque d'icones 
 -Voir la redirection auto et la deconnexion auto 
 -voir les tooltips
+-continuer la creation de la page home
