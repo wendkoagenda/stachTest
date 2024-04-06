@@ -74,7 +74,7 @@ export default function TeachersList() {
       {/* <HorizontalHeader /> */}
       <div className="w-full mx-auto">
         {/* <div className="w-full mx-auto py-24 px-6 sm:py-24 sm:px-6 md:py-24 md:px-8 lg:py-24 lg:px-12 xl:py-24 xl:px-12"> */}
-        <div className="md:grid md:grid-cols-4 md:gap-4 grid grid-cols-1 gap-1">
+        <div className="md:grid md:grid-cols-1 md:gap-4 grid grid-cols-1 gap-1">
           <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
             {strings.TEXTS.LIST_TEACHER}
             <Button className="ml-2" style={{ pointerEvents: "none" }}>

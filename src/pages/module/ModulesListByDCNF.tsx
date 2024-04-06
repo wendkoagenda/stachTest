@@ -78,7 +78,7 @@ export default function ModulesListByDCNF({
 
   return (
     <>
-      <div className="md:grid md:grid-cols-2 md:gap-4 grid grid-cols-1 gap-1">
+      <div className="md:grid md:grid-cols-1 md:gap-4 grid grid-cols-1 gap-1">
         <h4 className="scroll-m-20 text-xl lg:text-2xl font-bold tracking-tight ">
           {strings.TEXTS.LIST_MODULE}
           <Button className="ml-2" style={{ pointerEvents: "none" }}>
