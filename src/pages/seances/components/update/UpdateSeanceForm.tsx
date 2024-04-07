@@ -30,7 +30,7 @@ import { useAppDispatch } from "@/utils/hooks/reduxHooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { CheckCircle2, Loader2, X } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";

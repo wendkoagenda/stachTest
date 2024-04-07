@@ -19,8 +19,10 @@ import MycoursesList from "./pages/mycourses";
 import MyyearList from "./pages/myyear";
 import RoleShowMore from "./pages/rolepermission/components/show/RoleShowMore";
 import Myaccount from "./pages/myaccount";
+import useAutoLogout from "./utils/hooks/useAutoLogout";
 
 function App() {
+  useAutoLogout();
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <BrowserRouter>

@@ -112,6 +112,8 @@ const strings = {
       "Oops ! Une erreur inattendue est survenue. Si le problème persiste, veuillez contacter le support informatique.",
   },
   TEXTS: {
+    AUTO_LOGOUT:
+      "Campus Flow : Vous allez être automatiquement déconnecté pour des raisons de sécurité. Vous pourrez vous reconnecter avec vos identifiants.",
     WELCOME: "Bienvenue",
     PROGRESSION_BY_DEP: "Progression par déartement",
     YEAR_PROGRESSION: "Progression de l'année",

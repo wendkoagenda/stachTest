@@ -20,7 +20,7 @@ const authSlice = createSlice({
       state.token = action.payload.access_token;
       localStorage.setItem("isAuthenticated", "yes");
       const heureActuelle = new Date().getTime();
-      const heureFuture = new Date(heureActuelle + 3600).getTime();
+      const heureFuture = new Date(heureActuelle + 10800 * 1000).getTime();
       localStorage.setItem(
         "__kgfwe29__97efiyfcljbf68EF79WEFAD",
         action.payload.access_token
@@ -74,6 +74,8 @@ const authSlice = createSlice({
       localStorage.removeItem("__albvs26dfbvnuhwf87915515kbcckqacanMM");
       localStorage.removeItem("last_name");
       localStorage.removeItem("first_name");
+      // temp
+      localStorage.removeItem("__tempjodsyfogfwtr7celygfeeckhb87d");
     },
   },
 });
